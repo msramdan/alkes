@@ -35,10 +35,9 @@
         <div class="container h-100 d-flex align-items-center justify-content-between d-flex rtl-flex-d-row-r">
             <!-- Logo Wrapper -->
             <div class="logo-wrapper"><a href="{{ route('home') }}">
-                    {{-- @if ($setting_web->logo != '' || $setting_web->logo != null)
-                        <img src="{{ Storage::url('public/logo/') . $setting_web->logo }}" alt=""
-                            style="width: 47%">
-                    @endif --}}
+                    {{-- @if ($setting_web->logo != '' || $setting_web->logo != null) --}}
+                    <img src="{{ asset('frontend/img/logo.png') }}" alt="" style="width: 70%">
+                    {{-- @endif --}}
                 </a></div>
             <div class="navbar-logo-container d-flex align-items-center">
                 <div class="form-check form-switch mb-0">
