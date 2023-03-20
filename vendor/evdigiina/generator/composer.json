@@ -1,0 +1,56 @@
+{
+    "name": "evdigiina/generator",
+    "description": "Laravel starter app & simple crud generator",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "package",
+        "laravel",
+        "starter-app",
+        "crud-generator"
+    ],
+    "autoload": {
+        "psr-4": {
+            "EvdigiIna\\Generator\\": "src/",
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "src/Helpers/helper.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Mohammad Zulfahmi",
+            "email": "mohammad.zulfahmi03@gmail.com",
+            "homepage": "https://github.com/Evdigi-INA/generator"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "intervention/image": "^2.7",
+        "yajra/laravel-datatables-oracle": "^10.0"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^6.3",
+        "orchestra/testbench": "^7.14"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EvdigiIna\\Generator\\Providers\\GeneratorServiceProvider",
+                "Yajra\\DataTables\\DataTablesServiceProvider",
+                "Intervention\\Image\\ImageServiceProvider"
+            ],
+            "aliases": {
+                "DataTables": "Yajra\\DataTables\\Facades\\DataTables",
+                "Image": "Intervention\\Image\\Facades\\Image"
+            }
+        }
+    }
+}

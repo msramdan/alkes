@@ -11,9 +11,11 @@
         "php": "^8.1",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/fortify": "^1.16",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "realrashid/sweet-alert": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

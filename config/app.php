@@ -166,10 +166,10 @@ return [
          * Package Service Providers...
          */
         App\Providers\FortifyServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
-        Zzzul\Generator\Providers\GeneratorServiceProvider::class,
+        // Yajra\DataTables\DataTablesServiceProvider::class,
+        // Intervention\Image\ImageServiceProvider::class,
+        // Spatie\Permission\PermissionServiceProvider::class,
+        // Zzzul\Generator\Providers\GeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -180,6 +180,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -237,7 +238,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];
