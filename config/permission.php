@@ -187,5 +187,9 @@ return [
                 'test view',
             ]
         ],
+        ['group' => 'jenis faskes', 'access' => ['jenis faske view', 'jenis faske create', 'jenis faske edit', 'jenis faske delete']], ['group' => 'banner managements', 'access' => ['banner management view', 'banner management create', 'banner management edit', 'banner management delete']], ['group' => 'provinces', 'access' => ['province view', 'province create', 'province edit', 'province delete']], ['group' => 'kabkots', 'access' => ['kabkot view', 'kabkot create', 'kabkot edit', 'kabkot delete']], ['group' => 'kecamatans', 'access' => ['kecamatan view', 'kecamatan create', 'kecamatan edit', 'kecamatan delete']], ['group' => 'kelurahans', 'access' => ['kelurahan view', 'kelurahan create', 'kelurahan edit', 'kelurahan delete']], ['group' => 'faskes', 'access' => ['faske view', 'faske create', 'faske edit', 'faske delete']],
+        ['group' => 'pelaksana teknis', 'access' => ['pelaksana teknis view', 'pelaksana teknis create', 'pelaksana teknis edit', 'pelaksana teknis delete']],
+        ['group' => 'metode kerjas', 'access' => ['metode kerja view', 'metode kerja create', 'metode kerja edit', 'metode kerja delete']],
+        ['group' => 'kontak masukans', 'access' => ['kontak masukan view', 'kontak masukan delete']],
     ],
 ];

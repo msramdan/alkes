@@ -110,53 +110,175 @@ return [
      */
     'sidebars' => [
         [
-            'header' => 'Main',
+            'header' => 'Faskes',
             'permissions' => [
-                'test view'
+                'jenis faske view',
+                'faske view'
             ],
             'menus' => [
                 [
-                    'title' => 'Main Data',
-                    'icon' => '<i class="bi bi-collection-fill"></i>',
+                    'title' => 'Data Faskes',
+                    'icon' => '<i class="bi bi-bank"></i>',
                     'route' => null,
                     'permission' => null,
                     'permissions' => [
-                        'test view'
+                        'jenis faske view',
+                        'faske view'
                     ],
                     'submenus' => [
                         [
-                            'title' => 'Tests',
-                            'route' => '/tests',
-                            'permission' => 'test view'
+                            'title' => 'List Faskes',
+                            'route' => '/faskes',
+                            'permission' => 'faske view'
+                        ],
+                        [
+                            'title' => 'Jenis Faskes',
+                            'route' => '/jenis-faskes',
+                            'permission' => 'jenis faske view'
                         ]
                     ]
                 ]
             ]
         ],
         [
-            'header' => 'Users',
+            'header' => 'Pelaksana Teknis',
+            'permissions' => [
+                'pelaksana teknis view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Pelaksana Teknis',
+                    'icon' => '<i class="bi bi-people"></i>',
+                    'route' => '/pelaksana-teknis',
+                    'permission' => 'pelaksana teknis view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
+            'header' => 'Wilayah',
+            'permissions' => [
+                'province view',
+                'kabkot view',
+                'kecamatan view',
+                'kelurahan view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Data Wilayah',
+                    'icon' => '<i class="bi bi-map"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'province view',
+                        'kabkot view',
+                        'kecamatan view',
+                        'kelurahan view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Provinsi',
+                            'route' => '/provinces',
+                            'permission' => 'province view'
+                        ],
+                        [
+                            'title' => 'Kabupaten/Kota',
+                            'route' => '/kabkots',
+                            'permission' => 'kabkot view'
+                        ],
+                        [
+                            'title' => 'Kecamatan',
+                            'route' => '/kecamatans',
+                            'permission' => 'kecamatan view'
+                        ],
+                        [
+                            'title' => 'Kelurahan',
+                            'route' => '/kelurahans',
+                            'permission' => 'kelurahan view'
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        [
+            'header' => 'Banner Managements',
+            'permissions' => [
+                'banner management view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Banner Management',
+                    'icon' => '<i class="bi bi-image"></i>',
+                    'route' => '/banner-managements',
+                    'permission' => 'banner management view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
+            'header' => 'Metode Kerjas',
+            'permissions' => [
+                'metode kerja view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Metode Kerja',
+                    'icon' => '<i class="bi bi-info-circle"></i>',
+                    'route' => '/metode-kerjas',
+                    'permission' => 'metode kerja view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
+            'header' => 'Kontak Masukans',
+            'permissions' => [
+                'kontak masukan view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Kontak Masukan',
+                    'icon' => '<i class="bi bi-envelope"></i>',
+                    'route' => '/kontak-masukans',
+                    'permission' => 'kontak masukan view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
+            'header' => 'Utilities',
             'permissions' => [
                 'user view',
                 'role & permission view'
             ],
             'menus' => [
                 [
-                    'title' => 'Users',
-                    'icon' => '<i class="bi bi-people-fill"></i>',
-                    'route' => '/users',
-                    'permission' => 'user view',
-                    'permissions' => [],
-                    'submenus' => []
-                ],
-                [
-                    'title' => 'Roles & permissions',
-                    'icon' => '<i class="bi bi-person-check-fill"></i>',
-                    'route' => '/roles',
-                    'permission' => 'role & permission view',
-                    'permissions' => [],
-                    'submenus' => []
-                ],
+                    'title' => 'Utilities',
+                    'icon' => '<i class="bi bi-gear-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'user view',
+                        'role & permission view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Users',
+                            'route' => '/users',
+                            'permission' => 'user view'
+                        ],
+                        [
+                            'title' => 'Roles & permissions',
+                            'route' => '/roles',
+                            'permission' => 'role & permission view'
+                        ]
+                    ]
+                ]
             ]
-        ],
-    ],
+        ]
+    ]
 ];
