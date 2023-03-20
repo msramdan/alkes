@@ -39,3 +39,6 @@ Route::resource('pelaksana-teknis', App\Http\Controllers\PelaksanaTeknisiControl
 
 Route::resource('metode-kerjas', App\Http\Controllers\MetodeKerjaController::class)->middleware('auth');
 Route::resource('kontak-masukans', App\Http\Controllers\KontakMasukanController::class)->middleware('auth');
+Route::resource('rooms', App\Http\Controllers\RoomController::class)->middleware('auth');
+Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
+Route::resource('types', App\Http\Controllers\TypeController::class)->middleware('auth');

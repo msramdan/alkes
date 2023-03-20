@@ -191,5 +191,5 @@ return [
         ['group' => 'pelaksana teknis', 'access' => ['pelaksana teknis view', 'pelaksana teknis create', 'pelaksana teknis edit', 'pelaksana teknis delete']],
         ['group' => 'metode kerjas', 'access' => ['metode kerja view', 'metode kerja create', 'metode kerja edit', 'metode kerja delete']],
         ['group' => 'kontak masukans', 'access' => ['kontak masukan view', 'kontak masukan delete']],
-    ],
-];
+  ['group' => 'rooms', 'access' => ['room view', 'room create', 'room edit', 'room delete']],['group' => 'brands', 'access' => ['brand view', 'brand create', 'brand edit', 'brand delete']],['group' => 'types', 'access' => ['type view', 'type create', 'type edit', 'type delete']], 
+		],];

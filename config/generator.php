@@ -141,6 +141,45 @@ return [
             ]
         ],
         [
+            'header' => 'Inventaris',
+            'permissions' => [
+                'room view',
+                'brand view',
+                'type view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Inventaris Alat',
+                    'icon' => '<i class="bi bi-tools"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'room view',
+                        'brand view',
+                        'type view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Jenis Alat',
+                            'route' => '/types',
+                            'permission' => 'type view'
+                        ],
+                        [
+                            'title' => 'Ruangan',
+                            'route' => '/rooms',
+                            'permission' => 'room view'
+                        ],
+                        [
+                            'title' => 'Merek',
+                            'route' => '/brands',
+                            'permission' => 'brand view'
+                        ]
+
+                    ]
+                ]
+            ]
+        ],
+        [
             'header' => 'Pelaksana Teknis',
             'permissions' => [
                 'pelaksana teknis view'
