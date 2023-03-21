@@ -24,9 +24,9 @@ class TypeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $types = Type::query();
-
+            $types = Type::orderBy('id', 'DESC')->get();
             return DataTables::of($types)
+                ->addIndexColumn()
                 ->addColumn('action', 'types.include.action')
                 ->toJson();
         }
@@ -52,7 +52,7 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-        
+
         Type::create($request->validated());
 
         return redirect()
@@ -91,7 +91,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        
+
         $type->update($request->validated());
 
         return redirect()

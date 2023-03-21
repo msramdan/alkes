@@ -24,9 +24,10 @@ class BrandController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $brands = Brand::query();
+            $brands = Brand::orderBy('id', 'DESC')->get();
 
             return DataTables::of($brands)
+                ->addIndexColumn()
                 ->addColumn('action', 'brands.include.action')
                 ->toJson();
         }
@@ -52,7 +53,7 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
-        
+
         Brand::create($request->validated());
 
         return redirect()
@@ -91,7 +92,7 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        
+
         $brand->update($request->validated());
 
         return redirect()

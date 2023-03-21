@@ -1,9 +1,4 @@
 <td>
-    @can('type view')
-    <a href="{{ route('types.show', $model->id) }}" class="btn btn-outline-success btn-sm">
-        <i class="fa fa-eye"></i>
-    </a>
-    @endcan
 
     @can('type edit')
         <a href="{{ route('types.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">

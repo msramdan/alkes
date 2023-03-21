@@ -1,10 +1,4 @@
 <td>
-    @can('room view')
-    <a href="{{ route('rooms.show', $model->id) }}" class="btn btn-outline-success btn-sm">
-        <i class="fa fa-eye"></i>
-    </a>
-    @endcan
-
     @can('room edit')
         <a href="{{ route('rooms.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>

@@ -16,13 +16,7 @@ class Type extends Model
      */
     protected $fillable = ['jenis_alat'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var string[]
-     */
-    protected $casts = ['jenis_alat' => 'string', 'created_at' => 'datetime:d/m/Y H:i', 'updated_at' => 'datetime:d/m/Y H:i'];
 
-    
+
 
 }

@@ -15,14 +15,4 @@ class JenisFaske extends Model
      * @var string[]
      */
     protected $fillable = ['nama_jenis_faskes'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var string[]
-     */
-    protected $casts = ['nama_jenis_faskes' => 'string', 'created_at' => 'datetime:d/m/Y H:i', 'updated_at' => 'datetime:d/m/Y H:i'];
-
-    
-
 }

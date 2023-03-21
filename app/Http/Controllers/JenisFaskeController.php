@@ -24,9 +24,10 @@ class JenisFaskeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $jenisFaskes = JenisFaske::query();
+            $jenisFaskes = JenisFaske::orderBy('id', 'DESC')->get();
 
             return DataTables::of($jenisFaskes)
+                ->addIndexColumn()
                 ->addColumn('action', 'jenis-faskes.include.action')
                 ->toJson();
         }
@@ -52,7 +53,7 @@ class JenisFaskeController extends Controller
      */
     public function store(StoreJenisFaskeRequest $request)
     {
-        
+
         JenisFaske::create($request->validated());
 
         return redirect()
@@ -91,7 +92,7 @@ class JenisFaskeController extends Controller
      */
     public function update(UpdateJenisFaskeRequest $request, JenisFaske $jenisFaske)
     {
-        
+
         $jenisFaske->update($request->validated());
 
         return redirect()

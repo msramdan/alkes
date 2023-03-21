@@ -1,10 +1,4 @@
 <td>
-    @can('brand view')
-    <a href="{{ route('brands.show', $model->id) }}" class="btn btn-outline-success btn-sm">
-        <i class="fa fa-eye"></i>
-    </a>
-    @endcan
-
     @can('brand edit')
         <a href="{{ route('brands.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>

@@ -24,7 +24,7 @@ class StoreBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_merek' => 'required|string|min:1|max:255',
+            'nama_merek' => 'required|string|min:1|max:255|unique:brands,nama_merek',
         ];
     }
 }

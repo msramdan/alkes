@@ -16,13 +16,4 @@ class Brand extends Model
      */
     protected $fillable = ['nama_merek'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var string[]
-     */
-    protected $casts = ['nama_merek' => 'string', 'created_at' => 'datetime:d/m/Y H:i', 'updated_at' => 'datetime:d/m/Y H:i'];
-
-    
-
 }

@@ -24,9 +24,10 @@ class RoomController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $rooms = Room::query();
+            $rooms = Room::orderBy('id', 'DESC')->get();
 
             return DataTables::of($rooms)
+                ->addIndexColumn()
                 ->addColumn('action', 'rooms.include.action')
                 ->toJson();
         }
@@ -52,7 +53,7 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        
+
         Room::create($request->validated());
 
         return redirect()
@@ -91,7 +92,7 @@ class RoomController extends Controller
      */
     public function update(UpdateRoomRequest $request, Room $room)
     {
-        
+
         $room->update($request->validated());
 
         return redirect()

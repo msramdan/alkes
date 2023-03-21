@@ -16,13 +16,6 @@ class Room extends Model
      */
     protected $fillable = ['nama_ruangan'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var string[]
-     */
-    protected $casts = ['nama_ruangan' => 'string', 'created_at' => 'datetime:d/m/Y H:i', 'updated_at' => 'datetime:d/m/Y H:i'];
 
-    
 
 }
