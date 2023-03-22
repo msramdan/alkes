@@ -53,49 +53,76 @@ class ViewServiceProvider extends ServiceProvider
                 \App\Models\Kecamatan::select('id', 'kecamatan')->get()
             );
         });
-  
 
-		View::composer(['faskes.create', 'faskes.edit'], function ($view) {
+
+        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
             return $view->with(
                 'jenisFaskes',
                 \App\Models\JenisFaske::select('id', 'nama_jenis_faskes')->get()
             );
         });
 
-		View::composer(['faskes.create', 'faskes.edit'], function ($view) {
+        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
             return $view->with(
                 'provinces',
                 \App\Models\Province::select('id', 'provinsi')->get()
             );
         });
 
-		View::composer(['faskes.create', 'faskes.edit'], function ($view) {
+        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
             return $view->with(
                 'kabkots',
                 \App\Models\Kabkot::select('id', 'provinsi_id')->get()
             );
         });
 
-		View::composer(['faskes.create', 'faskes.edit'], function ($view) {
+        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
             return $view->with(
                 'kecamatans',
                 \App\Models\Kecamatan::select('id', 'kabkot_id')->get()
             );
         });
 
-		View::composer(['faskes.create', 'faskes.edit'], function ($view) {
+        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
             return $view->with(
                 'kelurahans',
                 \App\Models\Kelurahan::select('id', 'kecamatan_id')->get()
             );
         });
 
-		View::composer(['kontak-masukans.create', 'kontak-masukans.edit'], function ($view) {
+        View::composer(['kontak-masukans.create', 'kontak-masukans.edit'], function ($view) {
             return $view->with(
                 'pelaksanaTeknis',
-                \App\Models\PelaksanaTekni::select('id')->get()
+                \App\Models\PelaksanaTeknisi::select('id')->get()
             );
         });
 
-	}
+        View::composer(['inventaris.create', 'inventaris.edit'], function ($view) {
+            return $view->with(
+                'rooms',
+                \App\Models\Room::select('id', 'nama_ruangan')->get()
+            );
+        });
+
+        View::composer(['inventaris.create', 'inventaris.edit'], function ($view) {
+            return $view->with(
+                'types',
+                \App\Models\Type::select('id', 'jenis_alat')->get()
+            );
+        });
+
+        View::composer(['inventaris.create', 'inventaris.edit'], function ($view) {
+            return $view->with(
+                'vendors',
+                \App\Models\Vendor::select('id', 'nama_vendor')->get()
+            );
+        });
+
+        View::composer(['inventaris.create', 'inventaris.edit'], function ($view) {
+            return $view->with(
+                'brands',
+                \App\Models\Brand::select('id', 'nama_merek')->get()
+            );
+        });
+    }
 }

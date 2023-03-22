@@ -1,26 +1,36 @@
 @extends('layouts.app')
 
-@section('title', __('Kontak Masukan'))
+@section('title', __('Inventaris'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Kontak Masukan') }}</h3>
+                    <h3>{{ __('Inventaris') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Below is a list of all kontak Masukan.') }}
+                        {{ __('Below is a list of all inventaris.') }}
                     </p>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Kontak Masukans') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Inventaris') }}</li>
                 </x-breadcrumb>
             </div>
         </div>
 
         <section class="section">
             <x-alert></x-alert>
+
+            @can('inventari create')
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('inventaris.create') }}" class="btn btn-primary mb-3">
+                        <i class="fas fa-plus"></i>
+                        {{ __('Create a new inventari') }}
+                    </a>
+                </div>
+            @endcan
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -30,10 +40,15 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{ __('Pelaksana Teknis') }}</th>
-                                            <th>{{ __('Judul') }}</th>
-                                            <th>{{ __('Deksiprsi') }}</th>
-                                            <th>{{ __('Created At') }}</th>
+                                            <th>{{ __('Kode Inventaris') }}</th>
+                                            <th>{{ __('Kode') }}</th>
+                                            <th>{{ __('Tahun Pembelian') }}</th>
+                                            <th>{{ __('Ruangan') }}</th>
+                                            <th>{{ __('Jenis Alat') }}</th>
+                                            <th>{{ __('Merek') }}</th>
+                                            <th>{{ __('Tipe') }}</th>
+                                            <th>{{ __('Serial Number') }}</th>
+                                            <th>{{ __('Vendor') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -63,27 +78,47 @@
         $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('kontak-masukans.index') }}",
+            ajax: "{{ route('inventaris.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
                 }, {
-                    data: 'pelaksana_teknis',
-                    name: 'pelaksana_teknis.id'
+                    data: 'kode_inventaris',
+                    name: 'kode_inventaris',
                 },
                 {
-                    data: 'judul',
-                    name: 'judul',
+                    data: 'kode',
+                    name: 'kode',
                 },
                 {
-                    data: 'deksiprsi',
-                    name: 'deksiprsi',
+                    data: 'tahun_pembelian',
+                    name: 'tahun_pembelian',
                 },
                 {
-                    data: 'created_at',
-                    name: 'created_at'
+                    data: 'room',
+                    name: 'room.nama_ruangan'
+                },
+                {
+                    data: 'type',
+                    name: 'type.jenis_alat'
+                },
+                {
+                    data: 'brand',
+                    name: 'brand.nama_merek'
+                },
+                {
+                    data: 'tipe',
+                    name: 'tipe',
+                },
+                {
+                    data: 'serial_number',
+                    name: 'serial_number',
+                },
+                {
+                    data: 'vendor',
+                    name: 'vendor.nama_vendor'
                 },
                 {
                     data: 'action',

@@ -45,3 +45,4 @@ Route::resource('types', App\Http\Controllers\TypeController::class)->middleware
 
 Route::resource('vendors', App\Http\Controllers\VendorController::class)->middleware('auth');
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
+Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');

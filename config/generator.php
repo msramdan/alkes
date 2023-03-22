@@ -162,7 +162,8 @@ return [
                 'room view',
                 'brand view',
                 'type view',
-                'vendor view'
+                'vendor view',
+                'inventari view'
             ],
             'menus' => [
                 [
@@ -174,11 +175,17 @@ return [
                         'room view',
                         'brand view',
                         'type view',
-                        'vendor view'
+                        'vendor view',
+                        'inventari view'
                     ],
                     'submenus' => [
                         [
-                            'title' => 'Jenis Alat',
+                            'title' => 'Daftar Inventaris Alat',
+                            'route' => '/inventaris',
+                            'permission' => 'inventari view'
+                        ],
+                        [
+                            'title' => 'Jenis Inventaris Alat',
                             'route' => '/types',
                             'permission' => 'type view'
                         ],
@@ -197,6 +204,7 @@ return [
                             'route' => '/vendors',
                             'permission' => 'vendor view'
                         ]
+
                     ]
                 ]
             ]

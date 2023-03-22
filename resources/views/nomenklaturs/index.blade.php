@@ -41,7 +41,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('Nama Nomenklatur') }}</th>
-
+                                            <th>{{ __('Metode Kerja') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -80,6 +80,10 @@
                 }, {
                     data: 'nama_nomenklatur',
                     name: 'nama_nomenklatur',
+                },
+                {
+                    data: 'metode_kerja',
+                    name: 'metode_kerja',
                 },
 
                 {

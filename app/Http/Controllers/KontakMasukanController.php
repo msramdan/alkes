@@ -25,6 +25,7 @@ class KontakMasukanController extends Controller
             $kontakMasukans = KontakMasukan::with('pelaksana_teknis:id,nama');
 
             return DataTables::of($kontakMasukans)
+                ->addIndexColumn()
                 ->addColumn('deksiprsi', function ($row) {
                     return str($row->deksiprsi)->limit(100);
                 })
