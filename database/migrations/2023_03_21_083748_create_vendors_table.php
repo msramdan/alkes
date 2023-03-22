@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('metode_kerjas', function (Blueprint $table) {
+        Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            $table->string('file', 255);
+            $table->string('nama_vendor', 255);
+			$table->string('no_telpon', 20);
+			$table->string('email', 255);
+			$table->string('alamat', 255);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metode_kerjas');
+        Schema::dropIfExists('vendors');
     }
 };

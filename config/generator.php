@@ -110,6 +110,22 @@ return [
      */
     'sidebars' => [
         [
+            'header' => 'Nomenklaturs',
+            'permissions' => [
+                'nomenklatur view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Nomenklatur',
+                    'icon' => '<i class="bi bi-list"></i>',
+                    'route' => '/nomenklaturs',
+                    'permission' => 'nomenklatur view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
             'header' => 'Faskes',
             'permissions' => [
                 'jenis faske view',
@@ -145,7 +161,8 @@ return [
             'permissions' => [
                 'room view',
                 'brand view',
-                'type view'
+                'type view',
+                'vendor view'
             ],
             'menus' => [
                 [
@@ -156,7 +173,8 @@ return [
                     'permissions' => [
                         'room view',
                         'brand view',
-                        'type view'
+                        'type view',
+                        'vendor view'
                     ],
                     'submenus' => [
                         [
@@ -173,8 +191,12 @@ return [
                             'title' => 'Merek',
                             'route' => '/brands',
                             'permission' => 'brand view'
+                        ],
+                        [
+                            'title' => 'Vendor Alat',
+                            'route' => '/vendors',
+                            'permission' => 'vendor view'
                         ]
-
                     ]
                 ]
             ]
@@ -251,22 +273,6 @@ return [
                     'icon' => '<i class="bi bi-image"></i>',
                     'route' => '/banner-managements',
                     'permission' => 'banner management view',
-                    'permissions' => [],
-                    'submenus' => []
-                ]
-            ]
-        ],
-        [
-            'header' => 'Metode Kerjas',
-            'permissions' => [
-                'metode kerja view'
-            ],
-            'menus' => [
-                [
-                    'title' => 'Metode Kerja',
-                    'icon' => '<i class="bi bi-info-circle"></i>',
-                    'route' => '/metode-kerjas',
-                    'permission' => 'metode kerja view',
                     'permissions' => [],
                     'submenus' => []
                 ]

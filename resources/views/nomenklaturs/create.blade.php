@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Create Metode Kerjas'))
+@section('title', __('Create Nomenklaturs'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Metode Kerjas') }}</h3>
+                    <h3>{{ __('Nomenklaturs') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Create a new metode kerja.') }}
+                        {{ __('Create a new nomenklatur.') }}
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@
                         <a href="/">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('metode-kerjas.index') }}">{{ __('Metode Kerjas') }}</a>
+                        <a href="{{ route('nomenklaturs.index') }}">{{ __('Nomenklaturs') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,11 +32,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('metode-kerjas.store') }}" method="POST">
+                            <form action="{{ route('nomenklaturs.store') }}" method="POST">
                                 @csrf
                                 @method('POST')
 
-                                @include('metode-kerjas.include.form')
+                                @include('nomenklaturs.include.form')
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
 

@@ -28,6 +28,7 @@ class JenisFaskeController extends Controller
 
             return DataTables::of($jenisFaskes)
                 ->addIndexColumn()
+                ->addIndexColumn()
                 ->addColumn('action', 'jenis-faskes.include.action')
                 ->toJson();
         }

@@ -42,3 +42,6 @@ Route::resource('kontak-masukans', App\Http\Controllers\KontakMasukanController:
 Route::resource('rooms', App\Http\Controllers\RoomController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
 Route::resource('types', App\Http\Controllers\TypeController::class)->middleware('auth');
+
+Route::resource('vendors', App\Http\Controllers\VendorController::class)->middleware('auth');
+Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');

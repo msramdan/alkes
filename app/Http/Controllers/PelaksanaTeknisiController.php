@@ -24,9 +24,10 @@ class PelaksanaTeknisiController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $pelaksanaTeknisis = PelaksanaTeknisi::query();
+            $pelaksanaTeknisis = PelaksanaTeknisi::orderBy('id', 'DESC')->get();
 
             return DataTables::of($pelaksanaTeknisis)
+                ->addIndexColumn()
                 ->addColumn('action', 'pelaksana-teknisis.include.action')
                 ->toJson();
         }

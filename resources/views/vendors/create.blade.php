@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Create Pelaksana Teknisis'))
+@section('title', __('Create Vendors'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Pelaksana Teknis') }}</h3>
+                    <h3>{{ __('Vendors') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Create a new pelaksana Teknis.') }}
+                        {{ __('Create a new vendor.') }}
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@
                         <a href="/">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('pelaksana-teknis.index') }}">{{ __('Pelaksana Teknis') }}</a>
+                        <a href="{{ route('vendors.index') }}">{{ __('Vendors') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,12 +32,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('pelaksana-teknis.store') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('vendors.store') }}" method="POST">
                                 @csrf
                                 @method('POST')
 
-                                @include('pelaksana-teknisis.include.form')
+                                @include('vendors.include.form')
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
 

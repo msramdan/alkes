@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd5a39f6729a2a0e94397f84f6838952",
+    "content-hash": "edfb2116db908764fbf848bed2a70aad",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6158,16 +6158,16 @@
         },
         {
             "name": "evdigiina/generator",
-            "version": "dev-dev",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Evdigi-INA/generator.git",
-                "reference": "48f9aea4089e9934138614ef548c0a3f2366b323"
+                "reference": "5bf420f99ee1433d571e486787ad1aa823bdfaa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Evdigi-INA/generator/zipball/48f9aea4089e9934138614ef548c0a3f2366b323",
-                "reference": "48f9aea4089e9934138614ef548c0a3f2366b323",
+                "url": "https://api.github.com/repos/Evdigi-INA/generator/zipball/5bf420f99ee1433d571e486787ad1aa823bdfaa4",
+                "reference": "5bf420f99ee1433d571e486787ad1aa823bdfaa4",
                 "shasum": ""
             },
             "require": {
@@ -6222,9 +6222,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Evdigi-INA/generator/issues",
-                "source": "https://github.com/Evdigi-INA/generator/tree/dev"
+                "source": "https://github.com/Evdigi-INA/generator/tree/v0.2.0"
             },
-            "time": "2023-02-19T12:25:39+00:00"
+            "time": "2023-02-19T12:29:09+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -8851,9 +8851,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "evdigiina/generator": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

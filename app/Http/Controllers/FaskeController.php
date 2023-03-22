@@ -27,10 +27,11 @@ class FaskeController extends Controller
             $faskes = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,provinsi_id', 'kecamatan:id,kabkot_id', 'kelurahan:id,kecamatan_id');
 
             return DataTables::of($faskes)
-                ->addColumn('alamat', function($row){
+                ->addIndexColumn()
+                ->addColumn('alamat', function ($row) {
                     return str($row->alamat)->limit(100);
                 })
-				->addColumn('jenis_faske', function ($row) {
+                ->addColumn('jenis_faske', function ($row) {
                     return $row->jenis_faske ? $row->jenis_faske->nama_jenis_faskes : '';
                 })->addColumn('province', function ($row) {
                     return $row->province ? $row->province->provinsi : '';
@@ -65,7 +66,7 @@ class FaskeController extends Controller
      */
     public function store(StoreFaskeRequest $request)
     {
-        
+
         Faske::create($request->validated());
 
         return redirect()
@@ -83,7 +84,7 @@ class FaskeController extends Controller
     {
         $faske->load('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,provinsi_id', 'kecamatan:id,kabkot_id', 'kelurahan:id,kecamatan_id');
 
-		return view('faskes.show', compact('faske'));
+        return view('faskes.show', compact('faske'));
     }
 
     /**
@@ -96,7 +97,7 @@ class FaskeController extends Controller
     {
         $faske->load('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,provinsi_id', 'kecamatan:id,kabkot_id', 'kelurahan:id,kecamatan_id');
 
-		return view('faskes.edit', compact('faske'));
+        return view('faskes.edit', compact('faske'));
     }
 
     /**
@@ -108,7 +109,7 @@ class FaskeController extends Controller
      */
     public function update(UpdateFaskeRequest $request, Faske $faske)
     {
-        
+
         $faske->update($request->validated());
 
         return redirect()

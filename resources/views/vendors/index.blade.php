@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', __('Pelaksana Teknisis'))
+@section('title', __('Vendors'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Pelaksana Teknis') }}</h3>
+                    <h3>{{ __('Vendors') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Below is a list of all pelaksana teknis.') }}
+                        {{ __('Below is a list of all vendors.') }}
                     </p>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Pelaksana Teknis') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Vendors') }}</li>
                 </x-breadcrumb>
             </div>
         </div>
@@ -22,11 +22,11 @@
         <section class="section">
             <x-alert></x-alert>
 
-            @can('pelaksana teknis create')
+            @can('vendor create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('pelaksana-teknis.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('vendors.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
-                        {{ __('Create a new pelaksana teknisi') }}
+                        {{ __('Create a new vendor') }}
                     </a>
                 </div>
             @endcan
@@ -40,13 +40,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{ __('Photo') }}</th>
-                                            <th>{{ __('Nama') }}</th>
-                                            <th>{{ __('Jenis Kelamin') }}</th>
+                                            <th>{{ __('Nama Vendor') }}</th>
                                             <th>{{ __('No Telpon') }}</th>
                                             <th>{{ __('Email') }}</th>
-                                            <th>{{ __('Tempat Lahir') }}</th>
-                                            <th>{{ __('Tangal Lahir') }}</th>
+                                            <th>{{ __('Alamat') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -76,24 +73,15 @@
         $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('pelaksana-teknis.index') }}",
+            ajax: "{{ route('vendors.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
                 }, {
-                    data: 'photo',
-                    name: 'photo',
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: 'nama',
-                    name: 'nama',
-                },
-                {
-                    data: 'jenis_kelamin',
-                    name: 'jenis_kelamin',
+                    data: 'nama_vendor',
+                    name: 'nama_vendor',
                 },
                 {
                     data: 'no_telpon',
@@ -104,14 +92,9 @@
                     name: 'email',
                 },
                 {
-                    data: 'tempat_lahir',
-                    name: 'tempat_lahir',
+                    data: 'alamat',
+                    name: 'alamat',
                 },
-                {
-                    data: 'tangal_lahir',
-                    name: 'tangal_lahir',
-                },
-
                 {
                     data: 'action',
                     name: 'action',

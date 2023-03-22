@@ -21,7 +21,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         foreach (config('permission.permissions') as $permission) {
             foreach ($permission['access'] as $access) {
-                Permission::firstOrCreate(['name' => $access]);
+                Permission::create(['name' => $access]);
             }
         }
 

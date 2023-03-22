@@ -53,8 +53,6 @@
                 @foreach (config('generator.sidebars') as $sidebar)
                     @if (isset($sidebar['permissions']))
                         @canany($sidebar['permissions'])
-                            {{-- <li class="sidebar-title">{{ $sidebar['header'] }}</li> --}}
-
                             @foreach ($sidebar['menus'] as $menu)
                                 @php
                                     $permissions = empty($menu['permission']) ? $menu['permissions'] : [$menu['permission']];

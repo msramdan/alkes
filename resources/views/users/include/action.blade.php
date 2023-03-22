@@ -1,5 +1,4 @@
 <td>
-
     @can('user edit')
         <a href="{{ route('users.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>

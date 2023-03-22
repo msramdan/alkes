@@ -775,17 +775,17 @@
         },
         {
             "name": "evdigiina/generator",
-            "version": "dev-dev",
-            "version_normalized": "dev-dev",
+            "version": "v0.2.0",
+            "version_normalized": "0.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Evdigi-INA/generator.git",
-                "reference": "48f9aea4089e9934138614ef548c0a3f2366b323"
+                "reference": "5bf420f99ee1433d571e486787ad1aa823bdfaa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Evdigi-INA/generator/zipball/48f9aea4089e9934138614ef548c0a3f2366b323",
-                "reference": "48f9aea4089e9934138614ef548c0a3f2366b323",
+                "url": "https://api.github.com/repos/Evdigi-INA/generator/zipball/5bf420f99ee1433d571e486787ad1aa823bdfaa4",
+                "reference": "5bf420f99ee1433d571e486787ad1aa823bdfaa4",
                 "shasum": ""
             },
             "require": {
@@ -797,7 +797,7 @@
                 "nunomaduro/collision": "^6.3",
                 "orchestra/testbench": "^7.14"
             },
-            "time": "2023-02-19T12:25:39+00:00",
+            "time": "2023-02-19T12:29:09+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -842,7 +842,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Evdigi-INA/generator/issues",
-                "source": "https://github.com/Evdigi-INA/generator/tree/dev"
+                "source": "https://github.com/Evdigi-INA/generator/tree/v0.2.0"
             },
             "install-path": "../evdigiina/generator"
         },
