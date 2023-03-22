@@ -32,7 +32,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('banner-managements.update', $bannerManagement->id) }}" method="POST">
+                            <form action="{{ route('banner-managements.update', $bannerManagement->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 

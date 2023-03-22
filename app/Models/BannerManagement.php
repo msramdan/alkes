@@ -15,12 +15,5 @@ class BannerManagement extends Model
      * @var string[]
      */
     protected $table = 'banner_managements';
-    protected $fillable = ['banner_iamge', 'posisi'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var string[]
-     */
-    protected $casts = ['banner_iamge' => 'string', 'posisi' => 'integer', 'created_at' => 'datetime:d/m/Y H:i', 'updated_at' => 'datetime:d/m/Y H:i'];
+    protected $fillable = ['banner_image', 'posisi'];
 }

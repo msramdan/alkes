@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('banner_managements', function (Blueprint $table) {
             $table->id();
-            $table->string('banner_iamge', 255);
-			$table->integer('posisi');
+            $table->string('banner_image', 255);
+            $table->integer('posisi');
             $table->timestamps();
         });
     }
