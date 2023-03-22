@@ -12,7 +12,9 @@
                 class="form-control @error('banner_image') is-invalid @enderror"
                 value="{{ isset($bannerManagement) ? $bannerManagement->banner_image : old('banner_image') }}"
                 placeholder="{{ __('Banner Image') }}" @if (!isset($bannerManagement)) required @endif />
-            <span class="text-danger">Saran ukuran gambar 1920x600 pixels</span>
+            <div id="passwordHelpBlock" class="form-text">
+                {{ __('Saran ukuran gambar 1920x600 pixels') }}
+            </div>
 
             @error('banner_image')
                 <span class="text-danger">

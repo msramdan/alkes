@@ -53,6 +53,38 @@
             </div>
         </section>
     </div>
+
+    <div class="modal fade text-left" id="backdrop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4"
+        data-bs-backdrop="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel4">
+                        Dokumen Metode Kerja
+                    </h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center><embed src="" id="metode_kerja" style="width: 100%;height:500px; margin:0px" />
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                    {{-- <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                    <i class="bx bx-check d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">Accept</span>
+                </button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @push('css')
@@ -67,6 +99,13 @@
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).on('click', '.view_dokumen', function() {
+            var metode_kerja = $(this).data('metode_kerja');
+            console.log(metode_kerja)
+            $('#backdrop #metode_kerja').attr("src", "../../../storage/img/metode_kerja/" + metode_kerja);
+        })
+    </script>
     <script>
         $('#data-table').DataTable({
             processing: true,

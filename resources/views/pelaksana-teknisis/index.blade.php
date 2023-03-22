@@ -88,7 +88,7 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, full, meta) {
-                        return `<img src="${data}" alt="" style="width:80px">`;
+                        return `<img src="${data}" alt="" style="width:50px">`;
                     }
                 }, {
                     data: 'nama',

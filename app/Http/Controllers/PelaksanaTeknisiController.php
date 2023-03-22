@@ -152,7 +152,6 @@ class PelaksanaTeknisiController extends Controller
                 'tempat_lahir' => 'required|string|min:1|max:100',
                 'tangal_lahir' => 'required|date',
                 'photo' => 'image|mimes:png,jpg,jpeg',
-                'password' => 'string|min:1|max:200',
             ],
         );
         if ($validator->fails()) {

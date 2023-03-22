@@ -39,7 +39,7 @@
                                 <table class="table table-striped" id="data-table" width="100%">
                                     <thead>
                                         <tr>
-                                            {{-- <th>No</th> --}}
+                                            <th>No</th>
                                             <th>{{ __('Avatar') }}</th>
                                             <th>{{ __('Name') }}</th>
                                             <th>{{ __('Email') }}</th>
@@ -76,13 +76,12 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('users.index') }}",
-            columns: [
-                // {
-                //     data: 'DT_RowIndex',
-                //     name: 'DT_RowIndex',
-                //     orderable: false,
-                //     searchable: false
-                // },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
                 {
                     data: 'avatar',
                     name: 'avatar',
