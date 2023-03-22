@@ -86,7 +86,10 @@
                     data: 'photo',
                     name: 'photo',
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    render: function(data, type, full, meta) {
+                        return `<img src="${data}" alt="" style="width:80px">`;
+                    }
                 }, {
                     data: 'nama',
                     name: 'nama',

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BannerManagement;
-use App\Http\Requests\{StoreBannerManagementRequest, UpdateBannerManagementRequest};
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;

@@ -7,10 +7,11 @@
                     style="width: 100%;margin-bottom:5px">
                 <br>
             @endif
+            <label for="posisi">{{ __('Banner Image') }}</label>
             <input type="file" name="banner_image" id="banner-image"
                 class="form-control @error('banner_image') is-invalid @enderror"
                 value="{{ isset($bannerManagement) ? $bannerManagement->banner_image : old('banner_image') }}"
-                placeholder="{{ __('Banner Image') }}" required />
+                placeholder="{{ __('Banner Image') }}" @if (!isset($bannerManagement)) required @endif />
             <span class="text-danger">Saran ukuran gambar 1920x600 pixels</span>
 
             @error('banner_image')

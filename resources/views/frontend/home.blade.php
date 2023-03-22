@@ -7,11 +7,11 @@
             <div class="container">
                 <div class="pt-3">
                     <div class="hero-slides owl-carousel">
-                        {{-- @foreach ($banner as $row) --}}
-                        <div class="single-hero-slide"
-                            style="background-image: url('https://designing-world.com/suha-v3.0/img/bg-img/2.jpg')">
-                        </div>
-                        {{-- @endforeach --}}
+                        @foreach ($banner as $row)
+                            <div class="single-hero-slide"
+                                style="background-image: url('{{ asset('storage/img/banner_image/' . $row->banner_image) }}')">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

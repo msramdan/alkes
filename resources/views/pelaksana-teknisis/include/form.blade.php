@@ -79,7 +79,7 @@
             <label for="tangal-lahir">{{ __('Tangal Lahir') }}</label>
             <input type="date" name="tangal_lahir" id="tangal-lahir"
                 class="form-control @error('tangal_lahir') is-invalid @enderror"
-                value="{{ isset($pelaksanaTeknisi) && $pelaksanaTeknisi->tangal_lahir ? $pelaksanaTeknisi->tangal_lahir->format('Y-m-d') : old('tangal_lahir') }}"
+                value="{{ isset($pelaksanaTeknisi) && $pelaksanaTeknisi->tangal_lahir ? $pelaksanaTeknisi->tangal_lahir : old('tangal_lahir') }}"
                 placeholder="{{ __('Tangal Lahir') }}" required />
             @error('tangal_lahir')
                 <span class="text-danger">
@@ -107,14 +107,24 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="password">{{ __('Password') }}</label>
-            <input type="password" name="password" id="password"
+            {{-- <input type="password" name="password" id="password"
                 class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}"
                 {{ empty($pelaksanaTeknisi) ? 'required' : '' }}>
             @error('password')
                 <span class="text-danger">
                     {{ $message }}
                 </span>
-            @enderror
+            @enderror --}}
+
+            <div class="input-group">
+                <input type="password" name="password" id="password"
+                    class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}"
+                    {{ empty($pelaksanaTeknisi) ? 'required' : '' }}> &nbsp;
+                <button class="btn btn-success" type="button" onclick="generatePassword()"
+                    id="">Generate</button> &nbsp;
+                <button class="btn btn-primary" type="button" onclick="toggleShowPassword()" id=""><i
+                        class="fa fa-eye"></i></button>
+            </div>
             @isset($pelaksanaTeknisi)
                 <div id="passwordHelpBlock" class="form-text">
                     {{ __('Leave the password & password confirmation blank if you don`t want to change them.') }}
@@ -123,3 +133,70 @@
         </div>
     </div>
 </div>
+
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endpush
+
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function toggleShowPassword() {
+            const type = $('input#password').attr('type');
+            if (type === "password") {
+                $('input#password').attr('type', 'text');
+            } else {
+                $('input#password').attr('type', 'password');
+            }
+        }
+
+        function generatePassword() {
+            let password = "";
+            let passwordLength = 1;
+
+            const lowerCase = 'abcdefghijklmnopqrstuvwxyz'
+            for (let i = 0; i < passwordLength; i++) {
+                const randomNumber = Math.floor(Math.random() * lowerCase.length);
+                password += lowerCase.substring(randomNumber, randomNumber + 1);
+            }
+
+            passwordLength = 1;
+            const number = '0123456789'
+            for (let i = 0; i < passwordLength; i++) {
+                const randomNumber = Math.floor(Math.random() * number.length);
+                password += number.substring(randomNumber, randomNumber + 1);
+            }
+
+            passwordLength = 1;
+            const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            for (let i = 0; i < passwordLength; i++) {
+                const randomNumber = Math.floor(Math.random() * upperCase.length);
+                password += upperCase.substring(randomNumber, randomNumber + 1);
+            }
+
+            passwordLength = 1;
+            const character = '!@#$%^&*()'
+            for (let i = 0; i < passwordLength; i++) {
+                const randomNumber = Math.floor(Math.random() * character.length);
+                password += character.substring(randomNumber, randomNumber + 1);
+            }
+
+            const allChars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            passwordLength = 4;
+            for (let i = 0; i < passwordLength; i++) {
+                const randomNumber = Math.floor(Math.random() * allChars.length);
+                password += allChars.substring(randomNumber, randomNumber + 1);
+            }
+
+            const shuffled = password.split('').sort(function() {
+                return 0.5 - Math.random()
+            }).join('');
+            $('input#password').val(shuffled);
+            $('input#password').attr('type', 'text')
+        }
+    </script>
+@endpush

@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('frontend.home', [
-            'banner' => BannerManagement::all(),
+            'banner' => BannerManagement::orderBy('posisi', 'ASC')->get(),
         ]);
     }
 
