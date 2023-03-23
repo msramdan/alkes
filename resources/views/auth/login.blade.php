@@ -17,8 +17,6 @@
                 </div>
 
                 <h1 class="auth-title">{{ __('Log in.') }}</h1>
-                <p class="auth-subtitle mb-3">{{ __('Log in with your data that you entered during registration.') }}</p>
-
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible show fade">
                         <ul class="ms-0 mb-0">
@@ -70,12 +68,6 @@
                 </form>
 
                 <div class="text-center mt-4 text-lg fs-4">
-                    <p class="text-gray-600">{{ __("Don't have an account") }}?
-                        <a href="/register" class="font-bold">
-                            {{ __('Sign up.') }}
-                        </a>
-                    </p>
-
                     @if (Route::has('password.request'))
                         <p>
                             <a class="font-bold" href="{{ route('password.request') }}">

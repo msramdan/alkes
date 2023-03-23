@@ -27,6 +27,7 @@ class KabkotController extends Controller
             $kabkots = Kabkot::with('province:id,provinsi');
 
             return DataTables::of($kabkots)
+                ->addIndexColumn()
                 ->addColumn('province', function ($row) {
                     return $row->province ? $row->province->provinsi : '';
                 })->addColumn('action', 'kabkots.include.action')
@@ -54,7 +55,7 @@ class KabkotController extends Controller
      */
     public function store(StoreKabkotRequest $request)
     {
-        
+
         Kabkot::create($request->validated());
 
         return redirect()
@@ -72,7 +73,7 @@ class KabkotController extends Controller
     {
         $kabkot->load('province:id,provinsi');
 
-		return view('kabkots.show', compact('kabkot'));
+        return view('kabkots.show', compact('kabkot'));
     }
 
     /**
@@ -85,7 +86,7 @@ class KabkotController extends Controller
     {
         $kabkot->load('province:id,provinsi');
 
-		return view('kabkots.edit', compact('kabkot'));
+        return view('kabkots.edit', compact('kabkot'));
     }
 
     /**
@@ -97,7 +98,7 @@ class KabkotController extends Controller
      */
     public function update(UpdateKabkotRequest $request, Kabkot $kabkot)
     {
-        
+
         $kabkot->update($request->validated());
 
         return redirect()

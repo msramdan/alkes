@@ -35,6 +35,7 @@ class UserController extends Controller
             $users = User::with('roles:id,name');
 
             return Datatables::of($users)
+                ->addIndexColumn()
                 ->addColumn('action', 'users.include.action')
                 ->addColumn('role', function ($row) {
                     return $row->getRoleNames()->toArray() !== [] ? $row->getRoleNames()[0] : '-';

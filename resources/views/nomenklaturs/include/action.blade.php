@@ -1,4 +1,10 @@
 <td>
+    @can('nomenklatur view')
+        <a href="{{ route('nomenklaturs.show', $model->id) }}" class="btn btn-outline-success btn-sm">
+            <i class="fa fa-cog"></i>
+        </a>
+    @endcan
+
     @can('nomenklatur edit')
         <a href="{{ route('nomenklaturs.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>

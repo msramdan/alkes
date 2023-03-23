@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nomenklatur;
 use App\Http\Requests\{StoreNomenklaturRequest, UpdateNomenklaturRequest};
+use App\Models\Type;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,7 +109,8 @@ class NomenklaturController extends Controller
      */
     public function show(Nomenklatur $nomenklatur)
     {
-        return view('nomenklaturs.show', compact('nomenklatur'));
+        $jenis_alat = Type::orderBy('jenis_alat', 'ASC')->get();;
+        return view('nomenklaturs.show', compact('nomenklatur', 'jenis_alat'));
     }
 
     /**

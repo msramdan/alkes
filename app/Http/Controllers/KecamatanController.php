@@ -27,6 +27,7 @@ class KecamatanController extends Controller
             $kecamatans = Kecamatan::with('kabkot:id,kabupaten_kota');
 
             return DataTables::of($kecamatans)
+                ->addIndexColumn()
                 ->addColumn('kabkot', function ($row) {
                     return $row->kabkot ? $row->kabkot->kabupaten_kota : '';
                 })->addColumn('action', 'kecamatans.include.action')

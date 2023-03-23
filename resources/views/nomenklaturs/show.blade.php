@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Detail of Nomenklaturs'))
+@section('title', __('Jenis Alat Yang Dipakai'))
 
 @section('content')
     <div class="page-heading">
@@ -9,7 +9,7 @@
                 <div class="col-12 col-md-8 order-md-1 order-last">
                     <h3>{{ __('Nomenklaturs') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Detail of nomenklatur.') }}
+                        {{ __('Detail Jenis Alat Yang Dipakai') }}
                     </p>
                 </div>
 
@@ -32,24 +32,26 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped">
-                                    <tr>
-                                            <td class="fw-bold">{{ __('Nama Nomenklatur') }}</td>
-                                            <td>{{ $nomenklatur->nama_nomenklatur }}</td>
-                                        </tr>
-                                    <tr>
-                                        <td class="fw-bold">{{ __('Created at') }}</td>
-                                        <td>{{ $nomenklatur->created_at->format('d/m/Y H:i') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">{{ __('Updated at') }}</td>
-                                        <td>{{ $nomenklatur->updated_at->format('d/m/Y H:i') }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
+                            <form action="{{ route('nomenklaturs.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('POST')
+                                <div class="row">
+                                    @foreach ($jenis_alat as $row)
+                                        <div class="col-md-3">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input mt-0" type="checkbox" value=""
+                                                        name="type_id[]" aria-label="Checkbox for following text input">
+                                                </div>
+                                                <input type="text" readonly class="form-control"
+                                                    value="{{ $row->jenis_alat }}" aria-label="Text input with checkbox">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                                <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
+                            </form>
                         </div>
                     </div>
                 </div>

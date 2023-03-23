@@ -15,10 +15,6 @@
                 </div>
 
                 <h1 class="auth-title">{{ __('Forgot Password.') }}</h1>
-
-                <p class="auth-subtitle mb-3">
-                    {{ __('Enter your email and we\'ll send your a link to reset your password.') }}</p>
-
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible show fade">
                         <ul class="ms-0 mb-0">
@@ -55,12 +51,6 @@
                 </form>
 
                 <div class="text-center mt-4 text-lg fs-4">
-                    <p class="text-gray-600">{{ __("Don't have an account") }}?
-                        <a href="/register" class="font-bold">
-                            {{ __('Sign up.') }}
-                        </a>
-                    </p>
-
                     <p class="text-gray-600">{{ __('Already have an account') }}?
                         <a href="/login" class="font-bold">{{ __('Log in.') }}</a>
                     </p>

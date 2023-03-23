@@ -27,8 +27,9 @@ class KelurahanController extends Controller
             $kelurahans = Kelurahan::with('kecamatan:id,kecamatan');
 
             return DataTables::of($kelurahans)
+                ->addIndexColumn()
                 ->addColumn('kecamatan', function ($row) {
-                    return $row->kecamatan ? $row->kecamatan : '';
+                    return $row->kecamatan ? $row->kecamatan->kecamatan : '';
                 })->addColumn('action', 'kelurahans.include.action')
                 ->toJson();
         }

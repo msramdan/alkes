@@ -39,11 +39,10 @@
                                 <table class="table table-striped" id="data-table" width="100%">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>{{ __('Provinsi') }}</th>
                                             <th>{{ __('Ibukota') }}</th>
                                             <th>{{ __('P_bsni') }}</th>
-                                            <th>{{ __('Created At') }}</th>
-                                            <th>{{ __('Updated At') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -75,6 +74,11 @@
             serverSide: true,
             ajax: "{{ route('provinces.index') }}",
             columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                }, {
                     data: 'provinsi',
                     name: 'provinsi',
                 },
@@ -85,14 +89,6 @@
                 {
                     data: 'p_bsni',
                     name: 'p_bsni',
-                },
-                {
-                    data: 'created_at',
-                    name: 'created_at'
-                },
-                {
-                    data: 'updated_at',
-                    name: 'updated_at'
                 },
                 {
                     data: 'action',
