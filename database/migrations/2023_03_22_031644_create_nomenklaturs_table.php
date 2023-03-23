@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('nomenklaturs', function (Blueprint $table) {
             $table->id();
             $table->string('nama_nomenklatur', 255);
+            $table->string('no_dokumen', 255);
             $table->string('metode_kerja', 255);
             $table->timestamps();
         });

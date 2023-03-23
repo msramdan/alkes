@@ -21,5 +21,5 @@ class Nomenklatur extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['nama_nomenklatur', 'metode_kerja'];
+    protected $fillable = ['nama_nomenklatur', 'metode_kerja', 'no_dokumen'];
 }

@@ -41,6 +41,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('Nama Nomenklatur') }}</th>
+                                            <th>{{ __('No Dokumen') }}</th>
                                             <th>{{ __('Metode Kerja') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
@@ -119,6 +120,10 @@
                 }, {
                     data: 'nama_nomenklatur',
                     name: 'nama_nomenklatur',
+                },
+                {
+                    data: 'no_dokumen',
+                    name: 'no_dokumen',
                 },
                 {
                     data: 'metode_kerja',

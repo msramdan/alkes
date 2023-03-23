@@ -70,6 +70,7 @@ class NomenklaturController extends Controller
             $request->all(),
             [
                 'nama_nomenklatur' => 'required|string|min:1|max:255',
+                'no_dokumen' => 'required|string|min:1|max:255',
                 'metode_kerja' => "required|mimes:pdf|max:10000"
             ],
         );
@@ -83,6 +84,7 @@ class NomenklaturController extends Controller
 
             Nomenklatur::create([
                 'nama_nomenklatur' => $request->nama_nomenklatur,
+                'no_dokumen' => $request->no_dokumen,
                 'metode_kerja'     => $metode_kerja->hashName(),
             ]);
             return redirect()
@@ -134,6 +136,7 @@ class NomenklaturController extends Controller
             $request->all(),
             [
                 'nama_nomenklatur' => 'required|string|min:1|max:255',
+                'no_dokumen' => 'required|string|min:1|max:255',
                 'metode_kerja' => "mimes:pdf|max:10000"
             ],
         );
@@ -152,6 +155,7 @@ class NomenklaturController extends Controller
         }
         $banner->update([
             'nama_nomenklatur' => $request->nama_nomenklatur,
+            'no_dokumen' => $request->no_dokumen,
         ]);
         return redirect()
             ->route('nomenklaturs.index')

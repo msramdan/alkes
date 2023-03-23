@@ -16,6 +16,21 @@
 
     <div class="col-md-6">
         <div class="form-group">
+            <label for="no_dokumen">{{ __('No Dokumen') }}</label>
+            <input type="text" name="no_dokumen" id="no_dokumen"
+                class="form-control @error('no_dokumen') is-invalid @enderror"
+                value="{{ isset($nomenklatur) ? $nomenklatur->no_dokumen : old('no_dokumen') }}"
+                placeholder="{{ __('No Dokumen') }}" required />
+            @error('no_dokumen')
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
             <label for="metode_kerja">{{ __('Metode Kerja') }}</label>
             <div class="input-group">
                 <input type="file" name="metode_kerja" id="metode_kerja"
