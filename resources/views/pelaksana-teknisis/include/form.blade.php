@@ -88,54 +88,61 @@
             @enderror
         </div>
     </div>
-    <div class="col-md-2 text-center">
-        <div class="avatar avatar-xl">
-            <img src="{{ Storage::url('public/img/teknisi/' . $pelaksanaTeknisi->photo) }}" alt="avatar">
+
+    @if (isset($pelaksanaTeknisi))
+        <div class="col-md-2 text-center">
+            <div class="avatar avatar-xl">
+                <img src="{{ Storage::url('public/img/teknisi/' . $pelaksanaTeknisi->photo) }}" alt="avatar">
+            </div>
         </div>
+    @endif
+
+    @if (!isset($pelaksanaTeknisi))
+        <div class="col-md-6">
+        @else
+            <div class="col-md-4">
+    @endif
+    <div class="form-group">
+        <label for="photo">{{ __('Photo') }}</label>
+        <input type="file" name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror"
+            value="{{ isset($pelaksanaTeknisi) ? $pelaksanaTeknisi->photo : old('photo') }}"
+            placeholder="{{ __('Photo') }}" @if (!isset($pelaksanaTeknisi)) required @endif />
+        <div id="passwordHelpBlock" class="form-text">
+            {{ __('Saran ukuran gambar 512x512 pixels') }}
+        </div>
+        @error('photo')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label for="photo">{{ __('Photo') }}</label>
-            <input type="file" name="photo" id="photo"
-                class="form-control @error('photo') is-invalid @enderror"
-                value="{{ isset($pelaksanaTeknisi) ? $pelaksanaTeknisi->photo : old('photo') }}"
-                placeholder="{{ __('Photo') }}" @if (!isset($pelaksanaTeknisi)) required @endif />
+</div>
+
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="password">{{ __('Password') }}</label>
+        <div class="input-group">
+            <input type="password" name="password" id="password"
+                class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}"
+                {{ empty($pelaksanaTeknisi) ? 'required' : '' }}> &nbsp;
+            <button class="btn btn-success" type="button" onclick="generatePassword()" id="">Generate</button>
+            &nbsp;
+            <button class="btn btn-primary" type="button" onclick="toggleShowPassword()" id=""><i
+                    class="fa fa-eye"></i></button>
+        </div>
+        @isset($pelaksanaTeknisi)
             <div id="passwordHelpBlock" class="form-text">
-                {{ __('Saran ukuran gambar 512x512 pixels') }}
+                {{ __('Leave the password & password confirmation blank if you don`t want to change them.') }}
             </div>
-            @error('photo')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-            @enderror
-        </div>
+        @endisset
+        @error('password')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
-
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="password">{{ __('Password') }}</label>
-            <div class="input-group">
-                <input type="password" name="password" id="password"
-                    class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}"
-                    {{ empty($pelaksanaTeknisi) ? 'required' : '' }}> &nbsp;
-                <button class="btn btn-success" type="button" onclick="generatePassword()"
-                    id="">Generate</button> &nbsp;
-                <button class="btn btn-primary" type="button" onclick="toggleShowPassword()" id=""><i
-                        class="fa fa-eye"></i></button>
-            </div>
-            @isset($pelaksanaTeknisi)
-                <div id="passwordHelpBlock" class="form-text">
-                    {{ __('Leave the password & password confirmation blank if you don`t want to change them.') }}
-                </div>
-            @endisset
-            @error('password')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-            @enderror
-        </div>
-    </div>
+</div>
 </div>
 
 @push('css')
