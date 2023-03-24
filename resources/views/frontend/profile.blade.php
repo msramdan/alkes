@@ -1,6 +1,7 @@
 @extends('layouts.master-frontend')
 @section('title', 'Profile')
 @section('content')
+    <br>
     <div class="page-content-wrapper">
         <div class="container">
             <!-- Profile Wrapper-->
