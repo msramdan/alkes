@@ -26,9 +26,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function profile()
     {
-        //
+        return view('frontend.profile', [
+            'banner' => BannerManagement::orderBy('posisi', 'ASC')->get(),
+        ]);
+    }
+    public function kontak()
+    {
+        return view('frontend.kontak', [
+            'banner' => BannerManagement::orderBy('posisi', 'ASC')->get(),
+        ]);
     }
 
     /**

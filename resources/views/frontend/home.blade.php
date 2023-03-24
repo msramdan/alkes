@@ -1,5 +1,5 @@
 @extends('layouts.master-frontend')
-@section('title', 'Toko Online')
+@section('title', 'Home')
 @section('content')
     <div class="page-content-wrapper">
         <!-- Hero Wrapper -->

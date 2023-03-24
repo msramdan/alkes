@@ -16,6 +16,8 @@ Route::prefix('web')->group(function () {
         return redirect()->route('home');
     });
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('web-profile');
+    Route::get('/kontak', [HomeController::class, 'kontak'])->name('web-kontak');
 });
 
 // ROUTE CMS ADMIN
@@ -45,5 +47,5 @@ Route::resource('brands', App\Http\Controllers\BrandController::class)->middlewa
 Route::resource('types', App\Http\Controllers\TypeController::class)->middleware('auth');
 Route::resource('vendors', App\Http\Controllers\VendorController::class)->middleware('auth');
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
-Route::post('/nomenklaturs', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
+Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
