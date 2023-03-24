@@ -23,7 +23,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="">
-                                    <img src="{{ asset('frontend/default.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/new.png') }}" alt="Buat Laporan Baru">
                                     <span>Buat Laporan Baru</span>
                                 </a>
                             </div>
@@ -33,7 +33,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="">
-                                    <img src="{{ asset('frontend/default.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/list.png') }}" alt="Buat Laporan Baru">
                                     <span>History Laporan</span>
                                 </a>
                             </div>
@@ -43,7 +43,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="">
-                                    <img src="{{ asset('frontend/default.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/hospital2.png') }}" alt="Buat Laporan Baru">
                                     <span>Fasilitas Kesehatan</span>
                                 </a>
                             </div>
@@ -53,7 +53,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="">
-                                    <img src="{{ asset('frontend/default.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/toolbox.png') }}" alt="Buat Laporan Baru">
                                     <span>Inventaris Alat</span>
                                 </a>
                             </div>
@@ -63,7 +63,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="">
-                                    <img src="{{ asset('frontend/default.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/metode.png') }}" alt="Buat Laporan Baru">
                                     <span>List Metode Kerja</span>
                                 </a>
                             </div>
