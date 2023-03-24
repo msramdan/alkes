@@ -26,6 +26,13 @@
                             <div class="data-content">SUHA JANNAT</div>
                         </div>
                         <div class="single-profile-data d-flex align-items-center justify-content-between">
+                            <div class="title d-flex align-items-center"><i
+                                    class="fa-solid fa-person-half-dress"></i><span>Jenis
+                                    Kelamin</span>
+                            </div>
+                            <div class="data-content">SUHA JANNAT</div>
+                        </div>
+                        <div class="single-profile-data d-flex align-items-center justify-content-between">
                             <div class="title d-flex align-items-center"><i class="fa-solid fa-phone"></i><span>No
                                     Telpon</span>
                             </div>
