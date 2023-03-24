@@ -185,4 +185,51 @@ class NomenklaturController extends Controller
                 ->with('error', __("The nomenklatur can't be deleted because it's related to another table."));
         }
     }
+
+    public function save_equipment_type(Request $request)
+    {
+        $type_id = $request->type_id;
+        $nomenklatur_id = $request->nomenklatur_id;
+
+        if ($type_id != null) {
+            // ambil list data asal
+            $cek = DB::table('nomenklatur_type')
+                ->where('nomenklatur_id', $nomenklatur_id)->get();
+            $listAsal = [];
+            $penambahanBaru = [];
+            foreach ($cek as $value) {
+                array_push($listAsal, $value->type_id);
+            }
+            foreach ($type_id as $key => $value) {
+                // klo tidak ada di asal simpan baru
+                if (in_array($value, $listAsal)) {
+                } else {
+                    DB::table('nomenklatur_type')->insert([
+                        'nomenklatur_id' => $nomenklatur_id,
+                        'type_id' => $value
+                    ]);
+                    array_push($penambahanBaru, $value);
+                }
+            }
+            // cek yg gk ada
+            $valueArrayAwal = array_diff($type_id, $penambahanBaru);
+            $valueArrayAwalDiDelete = array_diff($listAsal, $valueArrayAwal);
+
+            foreach ($valueArrayAwalDiDelete as $key => $value) {
+                DB::table('nomenklatur_type')
+                    ->where('nomenklatur_id', $nomenklatur_id)
+                    ->where('type_id', $value)->delete();
+            }
+        } else {
+            DB::table('nomenklatur_type')
+                ->where('nomenklatur_id', $nomenklatur_id)->delete();
+        }
+
+        $listAsal = [];
+        $penambahanBaru = [];
+
+        return redirect()
+            ->route('nomenklaturs.index')
+            ->with('success', __('Jenis alat untuk nomenklatur berhasil diupdate'));
+    }
 }

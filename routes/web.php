@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    NomenklaturController,
     UserController,
     ProfileController,
     RoleAndPermissionController
@@ -42,7 +43,7 @@ Route::resource('kontak-masukans', App\Http\Controllers\KontakMasukanController:
 Route::resource('rooms', App\Http\Controllers\RoomController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
 Route::resource('types', App\Http\Controllers\TypeController::class)->middleware('auth');
-
 Route::resource('vendors', App\Http\Controllers\VendorController::class)->middleware('auth');
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
+Route::post('/nomenklaturs', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
