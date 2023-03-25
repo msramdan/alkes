@@ -1,7 +1,6 @@
 @extends('layouts.master-frontend')
 @section('title', 'Profile')
 @section('content')
-    <br>
     <div class="page-content-wrapper">
         <div class="container">
             <!-- Profile Wrapper-->
@@ -59,7 +58,7 @@
                         <!-- Edit Profile-->
                         <form action="{{ route('auth-update-password') }}" method="POST">
                             {{ csrf_field() }}
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <div class="title mb-1"><span>Password Lama</span></div>
                                 <input class="form-control @error('password_lama') is-invalid @enderror" type="password"
                                     value="{{ old('password_lama') }}" name="password_lama" id="password_lama" required>
@@ -67,7 +66,7 @@
                                     <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <div class="title mb-1"><span>Password Baru</span></div>
                                 <input class="form-control @error('password') is-invalid @enderror" type="password"
                                     value="{{ old('password') }}" id="password" name="password" required>
@@ -75,7 +74,7 @@
                                     <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <div class="title mb-1"><span>Konfirmasi Password</span>
                                 </div>
                                 <input class="form-control @error('konfirmasi_password') is-invalid @enderror"
