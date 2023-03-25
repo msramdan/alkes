@@ -80,12 +80,18 @@ class AuthWebController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
 
-        DB::table('pelaksana_teknisis')
-            ->where('password', bcrypt($request->password))
-            ->update(['id' => get_data_teknisi()->id]);
-        toast('Update password berhasil !', 'success');
-        $request->session()->forget('id-teknisi');
-        return redirect()->route('auth-web');
+        $update = DB::table('pelaksana_teknisis')
+            ->where('id', get_data_teknisi()->id)
+            ->update(['password' => bcrypt($request->password)]);
+
+        if ($update) {
+            toast('Update password berhasil !', 'success');
+            $request->session()->forget('id-teknisi');
+            return redirect()->route('auth-web');
+        } else {
+            toast('Update password gagal !', 'error');
+            return redirect()->back();
+        }
     }
 
     /**
