@@ -23,6 +23,7 @@ Route::prefix('web')->group(function () {
     Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
     Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');;
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
+    Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
 });
 
 // =================================================================================================

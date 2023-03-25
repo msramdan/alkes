@@ -57,21 +57,39 @@
                             <div class="data-content">{{ get_data_teknisi()->tangal_lahir }}</div>
                         </div>
                         <!-- Edit Profile-->
-                        <div class="mb-3">
-                            <div class="title mb-1"><span>Password Lama</span></div>
-                            <input class="form-control" type="text" value="">
-                        </div>
-                        <div class="mb-3">
-                            <div class="title mb-1"><span>Password Baru</span></div>
-                            <input class="form-control" type="email" value="">
-                        </div>
-                        <div class="mb-3">
-                            <div class="title mb-1"><span>Konfirmasi Password</span>
+                        <form action="{{ route('auth-update-password') }}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="mb-3">
+                                <div class="title mb-1"><span>Password Lama</span></div>
+                                <input class="form-control @error('password_lama') is-invalid @enderror" type="password"
+                                    value="{{ old('password_lama') }}" name="password_lama" id="password_lama" required>
+                                @error('password_lama')
+                                    <span style="color: red;">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <input class="form-control" type="text" value="">
-                        </div>
-                        <div class="edit-profile-btn"><a class="btn btn-primary w-100" href="edit-profile.html">Update
-                                Password</a></div>
+                            <div class="mb-3">
+                                <div class="title mb-1"><span>Password Baru</span></div>
+                                <input class="form-control @error('password') is-invalid @enderror" type="password"
+                                    value="{{ old('password') }}" id="password" name="password" required>
+                                @error('password')
+                                    <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <div class="title mb-1"><span>Konfirmasi Password</span>
+                                </div>
+                                <input class="form-control @error('konfirmasi_password') is-invalid @enderror"
+                                    type="password" value="{{ old('konfirmasi_password') }}" id="konfirmasi_password"
+                                    name="konfirmasi_password" required>
+                                {{-- @error('password')
+                                    <span style="color: red;">{{ $message }}</span>
+                                @enderror --}}
+                            </div>
+                            <div class="edit-profile-btn">
+                                <button type="submit" class="btn btn-success w-100">Update
+                                    Password</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

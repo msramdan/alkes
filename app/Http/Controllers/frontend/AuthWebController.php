@@ -7,10 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\PelaksanaTeknisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class AuthWebController extends Controller
 {
@@ -45,17 +44,46 @@ class AuthWebController extends Controller
                 Session::put('id-teknisi', $data->id);
                 return redirect()->route('home');
             } else {
-                toast('Email atau Password salah!', 'error');
+                toast('Email atau Password salah !', 'error');
                 return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         } else {
-            toast('Email atau Password salah!', 'error');
+            toast('Email atau Password salah !', 'error');
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 
     public function logout(Request $request)
     {
+        $request->session()->forget('id-teknisi');
+        return redirect()->route('auth-web');
+    }
+
+    public function update_password(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'password_lama' =>
+                [
+                    'required', function ($attribute, $value, $fail) {
+                        if (!Hash::check($value, get_data_teknisi()->password)) {
+                            $fail('Old Password didn\'t match');
+                        }
+                    },
+                ],
+                'password' => 'required|min:6|required_with:konfirmasi_password|same:konfirmasi_password',
+                'konfirmasi_password' => 'min:6'
+            ],
+        );
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+        DB::table('pelaksana_teknisis')
+            ->where('password', bcrypt($request->password))
+            ->update(['id' => get_data_teknisi()->id]);
+        toast('Update password berhasil !', 'success');
         $request->session()->forget('id-teknisi');
         return redirect()->route('auth-web');
     }
