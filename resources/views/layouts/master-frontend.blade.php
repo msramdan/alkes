@@ -55,7 +55,8 @@
                 <li><a href="{{ route('web-profile') }}"><i class="fa-solid fa-user"></i>Profile</a></li>
                 <li><a href="{{ route('web-kontak') }}"><i class="fa-solid fa-phone" aria-hidden="true"></i>Kontak</a>
                 </li>
-                <li><a href=""><i class="fa-solid fa-sign-out" aria-hidden="true"></i>Logout</a>
+                <li><a href="{{ route('signout-user') }}"><i class="fa-solid fa-sign-out"
+                            aria-hidden="true"></i>Logout</a>
                 </li>
             </ul>
         </div>

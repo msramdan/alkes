@@ -7,8 +7,8 @@ use App\Http\Controllers\{
     ProfileController,
     RoleAndPermissionController
 };
+use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\HomeController;
-
 
 // ROUTE FRONT END TEKNISI
 Route::prefix('web')->group(function () {
@@ -18,8 +18,12 @@ Route::prefix('web')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'profile'])->name('web-profile');
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('web-kontak');
+    Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
+    Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');;
+    Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
 });
 
+// =================================================================================================
 // ROUTE CMS ADMIN
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/', fn () => view('dashboard'));
