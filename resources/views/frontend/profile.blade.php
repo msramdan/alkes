@@ -57,8 +57,21 @@
                             <div class="data-content">{{ get_data_teknisi()->tangal_lahir }}</div>
                         </div>
                         <!-- Edit Profile-->
-                        <div class="edit-profile-btn mt-3"><a class="btn btn-primary w-100" href="edit-profile.html"><i
-                                    class="fa-solid fa-pen me-2"></i>Edit Profile</a></div>
+                        <div class="mb-3">
+                            <div class="title mb-1"><span>Password Lama</span></div>
+                            <input class="form-control" type="text" value="">
+                        </div>
+                        <div class="mb-3">
+                            <div class="title mb-1"><span>Password Baru</span></div>
+                            <input class="form-control" type="email" value="">
+                        </div>
+                        <div class="mb-3">
+                            <div class="title mb-1"><span>Konfirmasi Password</span>
+                            </div>
+                            <input class="form-control" type="text" value="">
+                        </div>
+                        <div class="edit-profile-btn"><a class="btn btn-primary w-100" href="edit-profile.html">Update
+                                Password</a></div>
                     </div>
                 </div>
             </div>

@@ -72,10 +72,10 @@
                             <button class="btn btn-warning btn-lg w-100" type="submit">Log In</button>
                         </form>
                     </div>
-                    <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1"
+                    {{-- <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1"
                             href="forget-password.html">Forgot Password?</a>
                         </p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
