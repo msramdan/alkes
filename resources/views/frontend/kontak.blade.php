@@ -20,12 +20,22 @@
             </div>
             <!-- Contact Form-->
             <div class="contact-form mt-3 pb-3">
-                <form action="#" method="">
-                    <input class="form-control mb-3" id="username" type="text" placeholder="Nama">
-                    <input class="form-control mb-3" id="email" type="email" placeholder="Email">
-                    <input class="form-control mb-3" id="username" type="text" placeholder="Judul">
-                    <textarea class="form-control mb-3" id="message" name="" cols="30" rows="10" placeholder="Deskripsi"></textarea>
-                    <button class="btn btn-success btn-lg w-100">Send Now</button>
+                <form action="{{ route('web-kontak-store') }}" method="POST">
+                    @csrf
+                    <input class="form-control mb-3" id="" type="text" placeholder="Nama"
+                        value="{{ get_data_teknisi()->nama }}" readonly>
+                    <input class="form-control mb-3" id="" type="email" placeholder="Email"
+                        value="{{ get_data_teknisi()->no_telpon }}" readonly>
+                    <input class="form-control mb-3" id="" type="email" placeholder="Email"
+                        value="{{ get_data_teknisi()->email }}" readonly>
+
+                    <input class="form-control mb-3" id="pelaksana_teknis_id" type="hidden" name="pelaksana_teknis_id"
+                        placeholder="" value="{{ get_data_teknisi()->id }}">
+                    <input class="form-control mb-3" id="judul" type="text" placeholder="Judul" name="judul"
+                        required>
+                    <textarea class="form-control mb-3" id="deksiprsi" cols="30" rows="5" placeholder="Deskripsi"
+                        name="deksiprsi" required></textarea>
+                    <button class="btn btn-success btn-lg w-100" type="submit">Send Now</button>
                 </form>
             </div>
         </div>

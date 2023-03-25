@@ -18,6 +18,8 @@ Route::prefix('web')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'profile'])->name('web-profile');
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('web-kontak');
+    Route::post('/store_kontak', [HomeController::class, 'store_kontak'])->name('web-kontak-store');
+    // auth teknisi
     Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
     Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');;
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
