@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('faskes', function (Blueprint $table) {
             $table->id();
             $table->string('nama_faskes', 200);
-			$table->foreignId('jenis_faskes_id')->nullable()->constrained('jenis_faskes')->restrictOnUpdate()->nullOnDelete();
-			$table->foreignId('provinsi_id')->nullable()->constrained('provinces')->restrictOnUpdate()->nullOnDelete();
-			$table->foreignId('kabkot_id')->nullable()->constrained('kabkots')->restrictOnUpdate()->nullOnDelete();
-			$table->foreignId('kecamatan_id')->nullable()->constrained('kecamatans')->restrictOnUpdate()->nullOnDelete();
-			$table->foreignId('kelurahan_id')->nullable()->constrained('kelurahans')->restrictOnUpdate()->nullOnDelete();
-			$table->longText('alamat');
+            $table->foreignId('jenis_faskes_id')->nullable()->constrained('jenis_faskes')->restrictOnUpdate()->nullOnDelete();
+            $table->foreignId('provinsi_id')->nullable()->constrained('provinces')->restrictOnUpdate()->nullOnDelete();
+            $table->foreignId('kabkot_id')->nullable()->constrained('kabkots')->restrictOnUpdate()->nullOnDelete();
+            $table->foreignId('kecamatan_id')->nullable()->constrained('kecamatans')->restrictOnUpdate()->nullOnDelete();
+            $table->foreignId('kelurahan_id')->nullable()->constrained('kelurahans')->restrictOnUpdate()->nullOnDelete();
+            $table->string('zip_kode', 10);
+            $table->longText('alamat');
             $table->timestamps();
         });
     }

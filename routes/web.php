@@ -5,13 +5,14 @@ use App\Http\Controllers\{
     NomenklaturController,
     UserController,
     ProfileController,
-    RoleAndPermissionController
+    RoleAndPermissionController,
+    WilayahController
 };
 use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\HomeController;
 
 // ROUTE FRONT END TEKNISI
-Route::prefix('web')->group(function () {
+Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/home', function () {
         return redirect()->route('home');
     });
@@ -19,12 +20,12 @@ Route::prefix('web')->group(function () {
     Route::get('/profile', [HomeController::class, 'profile'])->name('web-profile');
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('web-kontak');
     Route::post('/store_kontak', [HomeController::class, 'store_kontak'])->name('web-kontak-store');
-    // auth teknisi
-    Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
-    Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');;
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
-});
+}); // auth teknisi
+Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
+Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
+
 
 // =================================================================================================
 // ROUTE CMS ADMIN
@@ -35,9 +36,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleAndPermissionController::class);
 });
-Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
-    dd('This is just a test and an example for permission and sidebar menu. You can remove this line on web.php, config/permission.php and config/generator.php');
-})->name('tests.index');
+Route::get('kota/{provinsiId}', [WilayahController::class, 'kota'])->name('api.kota');
+Route::get('kecamatan/{kotaId}', [WilayahController::class, 'kecamatan'])->name('api.kecamatan');
+Route::get('kelurahan/{kecamatanId}', [WilayahController::class, 'kelurahan'])->name('api.kelurahan');
+
 Route::resource('jenis-faskes', App\Http\Controllers\JenisFaskeController::class)->middleware('auth');
 Route::resource('banner-managements', App\Http\Controllers\BannerManagementController::class)->middleware('auth');
 Route::resource('provinces', App\Http\Controllers\ProvinceController::class)->middleware('auth');
