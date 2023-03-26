@@ -52,7 +52,7 @@
         <div class="suha-footer-nav">
             <ul class="h-100 d-flex align-items-center justify-content-between ps-0 d-flex rtl-flex-d-row-r">
                 <li><a href=""><i class="fa-solid fa-house"></i>Home</a></li>
-                <li><a href=""><i class="fa-solid fa-user"></i>Profile</a></li>
+                <li><a href="web/profile"><i class="fa-solid fa-user"></i>Profile</a></li>
                 <li><a href=""><i class="fa-solid fa-phone" aria-hidden="true"></i>Kontak</a></li>
                 <li><a href=""><i class="fa-solid fa-sign-out" aria-hidden="true"></i>Logout</a>
                 </li>

@@ -16,6 +16,7 @@ Route::prefix('web')->group(function () {
         return redirect()->route('home');
     });
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    //Route::get('/web/profile', WebProfileController::class)->middleware('auth');
 });
 
 // ROUTE CMS ADMIN
