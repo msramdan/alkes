@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Faske;
 use App\Http\Requests\{StoreFaskeRequest, UpdateFaskeRequest};
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class FaskeController extends Controller
 {
@@ -24,7 +25,7 @@ class FaskeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $faskes = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,provinsi_id', 'kecamatan:id,kabkot_id', 'kelurahan:id,kecamatan_id');
+            $faskes = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,kabupaten_kota', 'kecamatan:id,kecamatan', 'kelurahan:id,kelurahan');
 
             return DataTables::of($faskes)
                 ->addIndexColumn()
@@ -36,11 +37,11 @@ class FaskeController extends Controller
                 })->addColumn('province', function ($row) {
                     return $row->province ? $row->province->provinsi : '';
                 })->addColumn('kabkot', function ($row) {
-                    return $row->kabkot ? $row->kabkot->provinsi_id : '';
+                    return $row->kabkot ? $row->kabkot->kabupaten_kota : '';
                 })->addColumn('kecamatan', function ($row) {
-                    return $row->kecamatan ? $row->kecamatan->kabkot_id : '';
+                    return $row->kecamatan ? $row->kecamatan->kecamatan : '';
                 })->addColumn('kelurahan', function ($row) {
-                    return $row->kelurahan ? $row->kelurahan->kecamatan_id : '';
+                    return $row->kelurahan ? $row->kelurahan->kelurahan : '';
                 })->addColumn('action', 'faskes.include.action')
                 ->toJson();
         }
@@ -96,8 +97,11 @@ class FaskeController extends Controller
     public function edit(Faske $faske)
     {
         $faske->load('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,provinsi_id', 'kecamatan:id,kabkot_id', 'kelurahan:id,kecamatan_id');
+        $kabkot = DB::table('kabkots')->where('provinsi_id', $faske->provinsi_id)->get();
+        $kecamatan = DB::table('kecamatans')->where('kabkot_id', $faske->kabkot_id)->get();
+        $kelurahan = DB::table('kelurahans')->where('kecamatan_id', $faske->kecamatan_id)->get();
 
-        return view('faskes.edit', compact('faske'));
+        return view('faskes.edit', compact('faske', 'kabkot', 'kecamatan', 'kelurahan'));
     }
 
     /**

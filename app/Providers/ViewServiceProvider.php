@@ -69,27 +69,6 @@ class ViewServiceProvider extends ServiceProvider
             );
         });
 
-        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
-            return $view->with(
-                'kabkots',
-                \App\Models\Kabkot::select('id', 'provinsi_id')->get()
-            );
-        });
-
-        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
-            return $view->with(
-                'kecamatans',
-                \App\Models\Kecamatan::select('id', 'kabkot_id')->get()
-            );
-        });
-
-        View::composer(['faskes.create', 'faskes.edit'], function ($view) {
-            return $view->with(
-                'kelurahans',
-                \App\Models\Kelurahan::select('id', 'kecamatan_id')->get()
-            );
-        });
-
         View::composer(['kontak-masukans.create', 'kontak-masukans.edit'], function ($view) {
             return $view->with(
                 'pelaksanaTeknis',

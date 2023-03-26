@@ -25,12 +25,13 @@ class StoreFaskeRequest extends FormRequest
     {
         return [
             'nama_faskes' => 'required|string|min:1|max:200',
-			'jenis_faskes_id' => 'required|exists:App\Models\JenisFaske,id',
-			'provinsi_id' => 'required|exists:App\Models\Province,id',
-			'kabkot_id' => 'required|exists:App\Models\Kabkot,id',
-			'kecamatan_id' => 'required|exists:App\Models\Kecamatan,id',
-			'kelurahan_id' => 'required|exists:App\Models\Kelurahan,id',
-			'alamat' => 'required|string',
+            'jenis_faskes_id' => 'required|exists:App\Models\JenisFaske,id',
+            'provinsi_id' => 'required|exists:App\Models\Province,id',
+            'kabkot_id' => 'required|exists:App\Models\Kabkot,id',
+            'kecamatan_id' => 'required|exists:App\Models\Kecamatan,id',
+            'kelurahan_id' => 'required|exists:App\Models\Kelurahan,id',
+            'alamat' => 'required|string',
+            'zip_kode' => 'required|string',
         ];
     }
 }

@@ -11,3 +11,11 @@ function checked_box($nomenklatur_id, $type_id)
         return "checked";
     }
 }
+
+function get_data_teknisi()
+{
+    $id = Session::get('id-teknisi');
+    $cek = DB::table('pelaksana_teknisis')
+        ->where('id', $id)->first();
+    return $cek;
+}

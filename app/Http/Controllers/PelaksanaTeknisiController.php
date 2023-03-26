@@ -168,16 +168,26 @@ class PelaksanaTeknisiController extends Controller
             ]);
         }
 
-        $teknisi->update([
-            'nama'                  => $request->nama,
-            'jenis_kelamin'         => $request->jenis_kelamin,
-            'no_telpon'             => $request->no_telpon,
-            'email'                 => $request->email,
-            'tempat_lahir'          => $request->tempat_lahir,
-            'tangal_lahir'          => $request->tangal_lahir,
-            'password'              => bcrypt($request->password),
-        ]);
-
+        if ($request->password == "" || $request->password == null) {
+            $teknisi->update([
+                'nama'                  => $request->nama,
+                'jenis_kelamin'         => $request->jenis_kelamin,
+                'no_telpon'             => $request->no_telpon,
+                'email'                 => $request->email,
+                'tempat_lahir'          => $request->tempat_lahir,
+                'tangal_lahir'          => $request->tangal_lahir,
+            ]);
+        } else {
+            $teknisi->update([
+                'nama'                  => $request->nama,
+                'jenis_kelamin'         => $request->jenis_kelamin,
+                'no_telpon'             => $request->no_telpon,
+                'email'                 => $request->email,
+                'tempat_lahir'          => $request->tempat_lahir,
+                'tangal_lahir'          => $request->tangal_lahir,
+                'password'              => bcrypt($request->password),
+            ]);
+        }
 
         return redirect()
             ->route('pelaksana-teknis.index')

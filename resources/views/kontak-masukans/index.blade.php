@@ -33,7 +33,7 @@
                                             <th>{{ __('Pelaksana Teknis') }}</th>
                                             <th>{{ __('Judul') }}</th>
                                             <th>{{ __('Deksiprsi') }}</th>
-                                            <th>{{ __('Created At') }}</th>
+                                            {{-- <th>{{ __('Created At') }}</th> --}}
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -81,10 +81,10 @@
                     data: 'deksiprsi',
                     name: 'deksiprsi',
                 },
-                {
-                    data: 'created_at',
-                    name: 'created_at'
-                },
+                // {
+                //     data: 'created_at',
+                //     name: 'created_at'
+                // },
                 {
                     data: 'action',
                     name: 'action',
