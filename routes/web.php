@@ -10,7 +10,7 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\HomeController;
-
+//
 // ROUTE FRONT END TEKNISI
 Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/home', function () {
