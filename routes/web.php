@@ -22,27 +22,13 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::post('/store_kontak', [HomeController::class, 'store_kontak'])->name('web-kontak-store');
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
+
+    Route::get('/faskes', [HomeController::class, 'faskes'])->name('web-faskes');
+    Route::get('/inventaris', [HomeController::class, 'inventaris'])->name('web-inventaris');
+    Route::get('/listmetodekerja', [HomeController::class, 'listmetodekerja'])->name('web-listmetodekerja');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
-
-//Route::get('/forget-web', [AuthWebController::class, 'forgetform'])->name('forget-web');
-
-//Route::get('kirim-email','App\Http\Controllers\MailController@index');
-
-//Route Bisa Kirim Email//
-/*Route::get('send-mail', function () {
-   
-    $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp'
-    ];
-   
-    \Mail::to('jayadiakhmad17@gmail.com')->send(new \App\Mail\MyTestMail($details));
-   
-    dd("Email is Sent.");
-});*/
-//Route Tutup Bisa Kirim Email//
 
 Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.post');
 Route::post('forget-web', [AuthWebController::class, 'submitforgetform'])->name('forget.password.post'); 

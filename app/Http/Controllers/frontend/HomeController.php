@@ -63,6 +63,19 @@ class HomeController extends Controller
         }
     }
 
+    public function faskes()
+    {
+        return view('frontend.faskes');
+    }
+    public function inventaris()
+    {
+        return view('frontend.inventaris');
+    }
+    public function listmetodekerja()
+    {
+        return view('frontend.listmetodekerja');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

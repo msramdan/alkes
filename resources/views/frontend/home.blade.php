@@ -42,7 +42,7 @@
                     <div class="col-3">
                         <div class="card catagory-card">
                             <div class="card-body px-2">
-                                <a href="">
+                                <a href="{{ route('web-faskes') }}">
                                     <img src="{{ asset('frontend/img/hospital2.png') }}" alt="Buat Laporan Baru">
                                     <span>Fasilitas Kesehatan</span>
                                 </a>
@@ -52,7 +52,7 @@
                     <div class="col-3">
                         <div class="card catagory-card">
                             <div class="card-body px-2">
-                                <a href="">
+                                <a href="{{ route('web-inventaris') }}">
                                     <img src="{{ asset('frontend/img/toolbox.png') }}" alt="Buat Laporan Baru">
                                     <span>Inventaris Alat</span>
                                 </a>
@@ -62,7 +62,7 @@
                     <div class="col-3">
                         <div class="card catagory-card">
                             <div class="card-body px-2">
-                                <a href="">
+                                <a href="{{ route('web-listmetodekerja') }}">
                                     <img src="{{ asset('frontend/img/metode.png') }}" alt="Buat Laporan Baru">
                                     <span>List Metode Kerja</span>
                                 </a>
