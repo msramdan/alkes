@@ -37,6 +37,7 @@ class HomeController extends Controller
     {
         return view('frontend.kontak');
     }
+    
 
     public function store_kontak(Request $request)
     {

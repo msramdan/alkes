@@ -72,7 +72,7 @@
                             <button class="btn btn-warning btn-lg w-100" type="submit">Log In</button>
                         </form>
                     </div>
-                    <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1" href="">Forgot
+                    <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1" href="/forget-web">Forgot
                             Password?</a>
                         </p>
                     </div>

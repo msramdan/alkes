@@ -51,19 +51,12 @@
     <div class="footer-nav-area" id="footerNav">
         <div class="suha-footer-nav">
             <ul class="h-100 d-flex align-items-center justify-content-between ps-0 d-flex rtl-flex-d-row-r">
-<<<<<<< HEAD
-                <li><a href=""><i class="fa-solid fa-house"></i>Home</a></li>
-                <li><a href="web/profile"><i class="fa-solid fa-user"></i>Profile</a></li>
-                <li><a href=""><i class="fa-solid fa-phone" aria-hidden="true"></i>Kontak</a></li>
-                <li><a href=""><i class="fa-solid fa-sign-out" aria-hidden="true"></i>Logout</a>
-=======
                 <li><a href="{{ route('home') }}"><i class="fa-solid fa-house"></i>Home</a></li>
                 <li><a href="{{ route('web-profile') }}"><i class="fa-solid fa-user"></i>Profile</a></li>
                 <li><a href="{{ route('web-kontak') }}"><i class="fa-solid fa-phone" aria-hidden="true"></i>Kontak</a>
                 </li>
                 <li><a href="{{ route('signout-user') }}"><i class="fa-solid fa-sign-out"
                             aria-hidden="true"></i>Logout</a>
->>>>>>> 33dd60af9be0542831cc8b9ec0eb1ed15a85fcef
                 </li>
             </ul>
         </div>
