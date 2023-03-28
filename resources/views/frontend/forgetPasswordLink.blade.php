@@ -51,30 +51,35 @@
             <div class="row justify-content-center">
                 <div class="col-10 col-lg-8">
                     <div class="register-form mt-5">
-                        <form action="{{ route('auth-user') }}" method="POST">
-                            {{ csrf_field() }}
+                        <form action="{{ route('reset.password.post') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
                             <div class="form-group text-start mb-4"><span>Email</span>
                                 <label for="email"><i class="fa-solid fa-user"></i></label>
-                                <input class="form-control" id="email" type="email" name="email" required
-                                    placeholder="account@example.com" autocomplete="off">
-                                @error('email')
-                                    <span style="color: red;">{{ $message }}</span>
-                                @enderror
+                                <input type="text" id="email_address" class="form-control" name="email" required autofocus>
+                                @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
                             <div class="form-group text-start mb-4"><span>Password</span>
                                 <label for="password"><i class="fa-solid fa-key"></i></label>
-                                <input class="form-control" id="password" name="password" type="password" required
-                                    placeholder="Password">
-                                @error('password')
-                                    <span style="color: red;">{{ $message }}</span>
-                                @enderror
+                                <input type="password" id="password" class="form-control" name="password" required autofocus>
+                                @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
                             </div>
-                            <button class="btn btn-warning btn-lg w-100" type="submit">Log In</button>
+                            <div class="form-group text-start mb-4"><span>Confirm Password</span>
+                                <label for="password"><i class="fa-solid fa-key"></i></label>
+                                <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
+                                @if ($errors->has('password_confirmation'))
+                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                                @endif
+                            </div>
+
+
+
+                            <button class="btn btn-warning btn-lg w-100" type="submit">Reset Password</button>
                         </form>
-                    </div>
-                    <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1" href="/forget-web">Forgot
-                            Password?</a>
-                        </p>
                     </div>
                 </div>
             </div>

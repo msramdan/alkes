@@ -17,19 +17,23 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
         return redirect()->route('home');
     });
     Route::get('/', [HomeController::class, 'index'])->name('home');
-<<<<<<< HEAD
-    //Route::get('/web/profile', WebProfileController::class)->middleware('auth');
-});
-=======
     Route::get('/profile', [HomeController::class, 'profile'])->name('web-profile');
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('web-kontak');
     Route::post('/store_kontak', [HomeController::class, 'store_kontak'])->name('web-kontak-store');
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
+
+    Route::get('/faskes', [HomeController::class, 'faskes'])->name('web-faskes');
+    Route::get('/inventaris', [HomeController::class, 'inventaris'])->name('web-inventaris');
+    Route::get('/listmetodekerja', [HomeController::class, 'listmetodekerja'])->name('web-listmetodekerja');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
->>>>>>> 33dd60af9be0542831cc8b9ec0eb1ed15a85fcef
+
+Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.post');
+Route::post('forget-web', [AuthWebController::class, 'submitforgetform'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [AuthWebController::class, 'ResetForm'])->name('reset.password.get');
+Route::post('reset-password', [AuthWebController::class, 'submitResetForm'])->name('reset.password.post');
 
 
 // =================================================================================================
