@@ -40,7 +40,7 @@ class HomeController extends Controller
     {
         return view('frontend.kontak');
     }
-    
+
 
     public function store_kontak(Request $request)
     {
@@ -66,34 +66,6 @@ class HomeController extends Controller
         }
     }
 
-    public function faskes()
-    {
-        // $data = [
-        //     "title" => "Home",
-        //     "posts" => Home::all()
-        // ];
-
-        $faskesdata = DB::table('faskes')
-            ->join('jenis_faskes', 'faskes.jenis_faskes_id', '=', 'jenis_faskes.id')
-            ->join('provinces', 'faskes.provinsi_id', '=', 'provinces.id')
-            ->join('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
-            ->join('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
-            ->join('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
-            ->select('faskes.nama_faskes', 'jenis_faskes.nama_jenis_faskes', 'provinces.provinsi', 
-            'kabkots.kabupaten_kota','kecamatans.kecamatan','kelurahans.kelurahan','alamat','zip_kode')
-            ->get();
-        
-        //dd($faskesdata);
-        return view('frontend.faskes',[
-            'faskesdata' =>  $faskesdata
-        ]);
-        
-        //return view('frontend.faskes', $faskesdata);
-    }
-    public function inventaris()
-    {
-        return view('frontend.inventaris');
-    }
     public function listmetodekerja()
     {
         return view('frontend.listmetodekerja');
