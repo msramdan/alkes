@@ -1,61 +1,103 @@
-@extends('layouts.master-frontend')
-@section('title', 'Profile')
-@section('content')
-    <div class="page-content-wrapper">
-        <main class="login-form">
-            <div class="cotainer">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">Reset Password</div>
-                            <div class="card-body">
-            
-                                <form action="{{ route('reset.password.post') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="token" value="{{ $token }}">
-            
-                                    <div class="form-group row">
-                                        <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="email_address" class="form-control" name="email" required autofocus>
-                                            @if ($errors->has('email'))
-                                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group row">
-                                        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                                        <div class="col-md-6">
-                                            <input type="password" id="password" class="form-control" name="password" required autofocus>
-                                            @if ($errors->has('password'))
-                                                <span class="text-danger">{{ $errors->first('password') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group row">
-                                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
-                                        <div class="col-md-6">
-                                            <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
-                                            @if ($errors->has('password_confirmation'))
-                                                <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-            
-                                    <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Reset Password
-                                        </button>
-                                    </div>
-                                </form>
-                                  
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from designing-world.com/suha-v3.0/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Nov 2022 08:16:58 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
+    <meta name="description" content="Aplikasi DiGi FOrm">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#100DD1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- The above tags *must* come first in the head, any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>DiGi Form - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="img/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }} ">
+    <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/brands.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/solid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
+    <link rel="manifest" href="{{ asset('frontend/manifest.json') }}">
+</head>
+
+<body>
+    <!-- Preloader-->
+    <div class="preloader" id="preloader">
+        <div class="spinner-grow text-secondary" role="status">
+            <div class="sr-only"></div>
+        </div>
+    </div>
+    <!-- Login Wrapper Area-->
+    <div class="login-wrapper d-flex align-items-center justify-content-center text-center">
+        <!-- Background Shape-->
+        <div class="background-shape"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10 col-lg-8">
+                    <div class="register-form mt-5">
+                        <form action="{{ route('reset.password.post') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            <div class="form-group text-start mb-4"><span>Email</span>
+                                <label for="email"><i class="fa-solid fa-user"></i></label>
+                                <input type="text" id="email_address" class="form-control" name="email" required autofocus>
+                                @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
-                        </div>
+                            <div class="form-group text-start mb-4"><span>Password</span>
+                                <label for="password"><i class="fa-solid fa-key"></i></label>
+                                <input type="password" id="password" class="form-control" name="password" required autofocus>
+                                @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group text-start mb-4"><span>Confirm Password</span>
+                                <label for="password"><i class="fa-solid fa-key"></i></label>
+                                <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
+                                @if ($errors->has('password_confirmation'))
+                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                                @endif
+                            </div>
+
+
+
+                            <button class="btn btn-warning btn-lg w-100" type="submit">Reset Password</button>
+                        </form>
                     </div>
                 </div>
             </div>
-          </main>
-    </div>
-@endsection
+        </div>
+        <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/waypoints.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.counterup.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.passwordstrength.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/theme-switching.js') }}"></script>
+        <script src="{{ asset('frontend/js/active.js') }}"></script>
+        <script src="{{ asset('frontend/js/pwa.js') }}"></script>
+        @include('sweetalert::alert')
+</body>
+
+</html>
