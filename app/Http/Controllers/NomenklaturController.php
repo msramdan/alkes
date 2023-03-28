@@ -109,8 +109,9 @@ class NomenklaturController extends Controller
      */
     public function show(Nomenklatur $nomenklatur)
     {
+        $nomenklaturs = Nomenklatur::orderBy('id', 'DESC')->get();
         $jenis_alat = Type::orderBy('jenis_alat', 'ASC')->get();;
-        return view('nomenklaturs.show', compact('nomenklatur', 'jenis_alat'));
+        return view('nomenklaturs.show', compact('nomenklatur', 'jenis_alat', 'nomenklaturs'));
     }
 
     /**
