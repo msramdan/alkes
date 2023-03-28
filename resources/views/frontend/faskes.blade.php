@@ -44,7 +44,7 @@
                                                 src="{{ asset('frontend/img/hospital2.png') }}" alt=""
                                                 style="width: 80%"></a>
                                     </div>
-                                    <div class="product-description">
+                                    <div class="product-description" style="margin-top: 5px; margin-bottom:5px">
                                         <a class="product-title d-block" href="#">{{ $faskesdata->nama_faskes }}</a>
                                         <p class="sale-price"><i class="fa fa-tag" aria-hidden="true"></i>
                                             Jenis Faskes : {{ $faskesdata->nama_jenis_faskes }}</p>

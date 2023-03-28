@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('tangal_lahir');
             $table->string('photo', 200);
             $table->string('password', 200);
+            $table->string('token', 100)->nullable();
             $table->timestamps();
         });
     }

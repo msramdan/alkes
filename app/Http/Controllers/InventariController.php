@@ -24,7 +24,7 @@ class InventariController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $inventaris = Inventari::with('room:id,nama_ruangan', 'type:id,jenis_alat', 'brand:id,nama_merek', 'vendor:id,nama_vendor')->orderBy('inventaris.id', 'DESC')->get();;
+            $inventaris = Inventari::with('room:id,nama_ruangan', 'type:id,jenis_alat', 'brand:id,nama_merek', 'vendor:id,nama_vendor')->orderBy('inventaris.id', 'DESC')->get();
 
             return DataTables::of($inventaris)
                 ->addIndexColumn()
