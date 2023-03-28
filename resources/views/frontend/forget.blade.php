@@ -51,6 +51,7 @@
           <div class="col-10 col-lg-8"><img class="big-logo" src="{{ asset('frontend/img/hospital.png') }}" alt="">
             <!-- Register Form-->
             <div class="register-form mt-5">
+                
                 @if (Session::has('message'))
                     <div class="alert alert-success" role="alert">
                         {{ Session::get('message') }}
