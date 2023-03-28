@@ -52,8 +52,8 @@
     <div class="login-wrapper d-flex align-items-center justify-content-center text-center">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-10 col-lg-8"><img class="big-logo" src="{{ asset('frontend/img/hospital.png') }}"
-                        alt="">
+                <div class="col-10 col-lg-8"><img src="{{ asset('frontend/reset.png') }}" alt=""
+                        style="width: 70%">
                     <!-- Register Form-->
                     <div class="register-form mt-5">
 
