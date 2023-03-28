@@ -10,7 +10,7 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\HomeController;
-
+//
 // ROUTE FRONT END TEKNISI
 Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/home', function () {
@@ -22,9 +22,18 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::post('/store_kontak', [HomeController::class, 'store_kontak'])->name('web-kontak-store');
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
+
+    Route::get('/faskes', [HomeController::class, 'faskes'])->name('web-faskes');
+    Route::get('/inventaris', [HomeController::class, 'inventaris'])->name('web-inventaris');
+    Route::get('/listmetodekerja', [HomeController::class, 'listmetodekerja'])->name('web-listmetodekerja');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
+
+Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.post');
+Route::post('forget-web', [AuthWebController::class, 'submitforgetform'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [AuthWebController::class, 'ResetForm'])->name('reset.password.get');
+Route::post('reset-password', [AuthWebController::class, 'submitResetForm'])->name('reset.password.post');
 
 
 // =================================================================================================
