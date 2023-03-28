@@ -35,7 +35,7 @@
                 <div class="mb-3"></div>
                 <div class="row g-2">
                     {{-- mulai --}}
-                    @foreach ($faskesdata as $faskesdata)
+                    @foreach ($faskesdata as $faskesdatas)
                         <div class="col-12" style="background-color: #FFF;  border-radius:5px">
                             <div class="horizontal-product-card">
                                 <div class="d-flex align-items-center">
@@ -45,11 +45,11 @@
                                                 style="width: 80%"></a>
                                     </div>
                                     <div class="product-description" style="margin-top: 5px; margin-bottom:5px">
-                                        <a class="product-title d-block" href="#">{{ $faskesdata->nama_faskes }}</a>
+                                        <a class="product-title d-block" href="#">{{ $faskesdatas->nama_faskes }}</a>
                                         <p class="sale-price"><i class="fa fa-tag" aria-hidden="true"></i>
-                                            Jenis Faskes : {{ $faskesdata->nama_jenis_faskes }}</p>
+                                            Jenis Faskes : {{ $faskesdatas->nama_jenis_faskes }}</p>
                                         <div class="product-rating"><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            {{ $faskesdata->kabupaten_kota }}
+                                            {{ $faskesdatas->kabupaten_kota }}
                                         </div>
                                     </div>
                                 </div>
@@ -58,6 +58,12 @@
                     @endforeach
                 </div>
             </div>
+            <div class="h-100 d-flex align-items-center justify-content-center" style="margin-top: 7px">
+                {{ $faskesdata->links() }}
+            </div>
+            
         </div>
     </div>
+    
+    
 @endsection

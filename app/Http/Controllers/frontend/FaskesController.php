@@ -31,7 +31,7 @@ class FaskesController extends Controller
                 'alamat',
                 'zip_kode'
             )
-            ->get();
+            ->paginate(5);
         return view('frontend.faskes', [
             'faskesdata' =>  $faskesdata
         ]);
