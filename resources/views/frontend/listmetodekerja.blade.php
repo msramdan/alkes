@@ -68,7 +68,8 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <center><embed src="" id="metode_kerja" style="width: 100%;height:450px; margin:0px" />
+                    <center>
+                        <iframe src="" id="metode_kerja" style="width: 100%;height:450px; margin:0px"></iframe>
                     </center>
                 </div>
                 <div class="modal-footer">
