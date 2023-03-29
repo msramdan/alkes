@@ -110,6 +110,23 @@ return [
      */
     'sidebars' => [
         [
+            'header' => 'Laporans',
+            'permissions' => [
+                'laporan view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Daftar Laporan',
+                    'icon' => '<i class="bi bi-book"></i>',
+                    'route' => '/laporans',
+                    'permission' => 'laporan view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+
+        [
             'header' => 'Nomenklaturs',
             'permissions' => [
                 'nomenklatur view'
@@ -204,7 +221,6 @@ return [
                             'route' => '/vendors',
                             'permission' => 'vendor view'
                         ]
-
                     ]
                 ]
             ]

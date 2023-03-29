@@ -74,3 +74,5 @@ Route::resource('vendors', App\Http\Controllers\VendorController::class)->middle
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
+
+Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
