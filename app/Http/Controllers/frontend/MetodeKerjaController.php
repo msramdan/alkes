@@ -21,69 +21,9 @@ class MetodeKerjaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getDownload($file, $name)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MetodeKerja $metodeKerja)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MetodeKerja $metodeKerja)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MetodeKerja $metodeKerja)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MetodeKerja $metodeKerja)
-    {
-        //
+        $newName = 'Metode Kerja ' . $name . '.pdf';
+        return response()->download(public_path('storage/img/metode_kerja/' . $file), $newName);
     }
 }

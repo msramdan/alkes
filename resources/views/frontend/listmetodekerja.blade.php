@@ -34,11 +34,9 @@
                                                         src="{{ asset('frontend/img/pdf.png') }}" alt="">
                                                 </a>
                                             </center>
-                                            <button type="button" style="width: 100%"
-                                                class="btn btn-secondary btn-block"><i class="fa fa-download"
-                                                    aria-hidden="true"></i> Download</button>
-
-
+                                            <a href="{{ route('web-listmetodekerja-download', ['file' => $row->metode_kerja, 'name' => $row->nama_nomenklatur]) }}"
+                                                style="width: 100%" class="btn btn-secondary btn-block"><i
+                                                    class="fa fa-download" aria-hidden="true"></i> Download</a>
                                         </div>
                                     </div>
                                 </div>

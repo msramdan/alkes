@@ -32,6 +32,7 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
     Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
+    Route::get('/listmetodekerja/download/{file}/{name}', [MetodeKerjaController::class, 'getDownload'])->name('web-listmetodekerja-download');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
