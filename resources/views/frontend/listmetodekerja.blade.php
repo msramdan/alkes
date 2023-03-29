@@ -22,10 +22,10 @@
                             @foreach ($nomenklatur as $row)
                                 <div class="col-6 col-md-4">
                                     <div class="card product-card">
-                                        <div class="card-header" style="height: 33px">
+                                        <div class="card-header">
                                             <center>
-                                                <a class="product-title" href="#" style="font-size: 11px">
-                                                    {{ $row->nama_nomenklatur }}</a>
+                                                <span class="product-title"
+                                                    style="font-size: 11px">{{ $row->nama_nomenklatur }}</span>
                                             </center>
                                         </div>
                                         <div class="card-body">
