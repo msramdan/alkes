@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Models\MetodeKerja;
+use App\Models\Nomenklatur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,8 +15,11 @@ class MetodeKerjaController extends Controller
      */
     public function index()
     {
-        return view('frontend.home', [
-            'banner' => BannerManagement::orderBy('posisi', 'ASC')->get(),
+        $Metodekerja = Nomenklatur::query()->paginate(5);
+        //$Metodekerja2 = $Metodekerja->paginate(5);
+        //dd($Metodekerja);
+        return view('frontend.listmetodekerja', [
+            'metodekerja' => $Metodekerja
         ]);
     }
 

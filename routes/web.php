@@ -12,6 +12,7 @@ use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\FaskesController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\InventarisController;
+use App\Http\Controllers\frontend\MetodeKerjaController;
 
 //
 // ROUTE FRONT END TEKNISI
@@ -28,7 +29,7 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
-    Route::get('/listmetodekerja', [HomeController::class, 'listmetodekerja'])->name('web-listmetodekerja');
+    Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');

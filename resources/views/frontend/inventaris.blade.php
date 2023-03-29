@@ -60,6 +60,9 @@
                     @endforeach
                 </div>
             </div>
+            <div class="h-100 d-flex align-items-center justify-content-center" style="margin-top: 7px">
+                {{ $inventaris->links() }}
+            </div>
         </div>
     </div>
 @endsection
