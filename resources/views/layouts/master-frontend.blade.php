@@ -73,6 +73,7 @@
     <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('frontend/js/theme-switching.js') }}"></script>
     <script src="{{ asset('frontend/js/active.js') }}"></script>
+    @stack('js')
     @include('sweetalert::alert')
 </body>
 
