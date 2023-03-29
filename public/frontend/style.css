@@ -2847,7 +2847,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
     margin: 0 1px;
 }
 
-.product-card .btn {
+/* .product-card .btn {
     position: absolute;
     padding: 0;
     border-radius: 50%;
@@ -2866,7 +2866,7 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-}
+} */
 
 /* Weekly Product Card CSS */
 .horizontal-product-card .product-thumbnail-side {
