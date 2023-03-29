@@ -37,7 +37,7 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
 
-Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.post');
+Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.get');
 Route::post('forget-web', [AuthWebController::class, 'submitforgetform'])->name('forget.password.post');
 Route::get('reset-password/{token}', [AuthWebController::class, 'ResetForm'])->name('reset.password.get');
 Route::post('reset-password', [AuthWebController::class, 'submitResetForm'])->name('reset.password.post');
