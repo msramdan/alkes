@@ -71,7 +71,7 @@
                         <div class="tab-content">
                             <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                 <form id="form-1" class="" novalidate>
-                                    <select class="form-control select2" id="state" required
+                                    {{-- <select class="form-control select2" id="state" required
                                         style="width: 100%; height:36px">
                                         <option selected disabled value="">--
                                             Pilih Nomenklatur --</option>
@@ -80,14 +80,17 @@
                                             </option>
                                         @endforeach
 
-                                    </select>
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                    </select> --}}
+                                    <div class="col">
+                                        <input type="text" class="form-control" value="" id="state"
+                                            placeholder="Cari Nomenklatur" value="" name="password" required="">
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select a valid nomenklatur.
+                                        </div>
                                     </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-
                                 </form>
                             </div>
                             <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
