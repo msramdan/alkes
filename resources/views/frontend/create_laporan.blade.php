@@ -73,10 +73,12 @@
                                 <form id="form-1" class="" novalidate>
                                     <label for="validationCustom04" class="form-label">Nomenklatur</label>
                                     <select class="form-select" id="state" required>
-                                        <option selected disabled value="">Pilih...</option>
-                                        <option>State 1</option>
-                                        <option>State 2</option>
-                                        <option>State 3</option>
+                                        <option selected disabled value="">-- Pilih --</option>
+                                        @foreach ($nomenklatur as $row)
+                                            <option value="{{ $row->id }}">{{ $row->nama_nomenklatur }}
+                                            </option>
+                                        @endforeach
+
                                     </select>
                                     <div class="valid-feedback">
                                         Looks good!
