@@ -61,5 +61,19 @@ class ViewComposerServiceProvider extends ServiceProvider
             );
         });
 
+		View::composer(['laporans.create', 'laporans.edit'], function ($view) {
+            return $view->with(
+                'users',
+                \App\Models\User::select('id', 'name')->get()
+            );
+        });
+
+		View::composer(['laporans.create', 'laporans.edit'], function ($view) {
+            return $view->with(
+                'users',
+                \App\Models\User::select('id', 'name')->get()
+            );
+        });
+
 	}
 }

@@ -192,5 +192,8 @@ return [
         ['group' => 'kontak masukans', 'access' => ['kontak masukan view', 'kontak masukan delete']],
         ['group' => 'rooms', 'access' => ['room view', 'room create', 'room edit', 'room delete']], ['group' => 'brands', 'access' => ['brand view', 'brand create', 'brand edit', 'brand delete']], ['group' => 'types', 'access' => ['type view', 'type create', 'type edit', 'type delete']],
         ['group' => 'vendors', 'access' => ['vendor view', 'vendor create', 'vendor edit', 'vendor delete']],
-  ['group' => 'nomenklaturs', 'access' => ['nomenklatur view', 'nomenklatur create', 'nomenklatur edit', 'nomenklatur delete']],['group' => 'inventaris', 'access' => ['inventari view', 'inventari create', 'inventari edit', 'inventari delete']], 
-		],];
+        ['group' => 'nomenklaturs', 'access' => ['nomenklatur view', 'nomenklatur create', 'nomenklatur edit', 'nomenklatur delete']],
+        ['group' => 'inventaris', 'access' => ['inventari view', 'inventari create', 'inventari edit', 'inventari delete']],
+        ['group' => 'laporans', 'access' => ['laporan view', 'laporan edit', 'laporan delete']],
+    ],
+];

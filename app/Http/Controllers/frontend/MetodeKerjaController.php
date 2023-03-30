@@ -15,77 +15,19 @@ class MetodeKerjaController extends Controller
      */
     public function index()
     {
-        $Metodekerja = Nomenklatur::query()->paginate(5);
-        //$Metodekerja2 = $Metodekerja->paginate(5);
-        //dd($Metodekerja);
         return view('frontend.listmetodekerja', [
-            'metodekerja' => $Metodekerja
+            'nomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // $Metodekerja = Nomenklatur::query()->paginate(5);
+    // return view('frontend.listmetodekerja', [
+    //     'metodekerja' => $Metodekerja
+    // ]
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function getDownload($file, $name)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MetodeKerja $metodeKerja)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MetodeKerja $metodeKerja)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MetodeKerja $metodeKerja)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\MetodeKerja  $metodeKerja
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MetodeKerja $metodeKerja)
-    {
-        //
+        $newName = 'Metode Kerja ' . $name . '.pdf';
+        return response()->download(public_path('storage/img/metode_kerja/' . $file), $newName);
     }
 }
