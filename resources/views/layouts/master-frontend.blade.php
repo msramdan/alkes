@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
     <link rel="manifest" href="{{ asset('frontend/manifest.json') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     @stack('css')
 </head>
 
@@ -67,6 +69,12 @@
     <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('frontend/js/theme-switching.js') }}"></script>
     <script src="{{ asset('frontend/js/active.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 
     @stack('js')
     @include('sweetalert::alert')

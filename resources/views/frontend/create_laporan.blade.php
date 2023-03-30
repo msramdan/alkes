@@ -71,9 +71,10 @@
                         <div class="tab-content">
                             <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                 <form id="form-1" class="" novalidate>
-                                    <label for="validationCustom04" class="form-label">Nomenklatur</label>
-                                    <select class="form-select" id="state" required>
-                                        <option selected disabled value="">-- Pilih --</option>
+                                    <select class="form-control select2" id="state" required
+                                        style="width: 100%; height:36px">
+                                        <option selected disabled value="">--
+                                            Pilih Nomenklatur --</option>
                                         @foreach ($nomenklatur as $row)
                                             <option value="{{ $row->id }}">{{ $row->nama_nomenklatur }}
                                             </option>
@@ -86,6 +87,7 @@
                                     <div class="invalid-feedback">
                                         Please select a valid nomenklatur.
                                     </div>
+
                                 </form>
                             </div>
                             <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
