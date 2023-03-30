@@ -2,7 +2,7 @@
 @section('title', 'List Metode Kerja')
 @section('content')
     <div class="page-content-wrapper">
-        <div class="top-products-area py-3">
+         <div class="top-products-area py-3">
             <div class="container">
                 <div class="top-products-area py-3">
                     <div class="container">
