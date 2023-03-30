@@ -25,7 +25,9 @@ class InventarisController extends Controller
 
         return view('frontend.inventaris', [
             'inventaris' => $inventaris,
-            'allruangan' => $allruangan
+            'allruangan' => $allruangan,
+            'allmerek' => $allmerek,
+            'alljenisalat' => $alljenisalat
         ]);
     }
 }

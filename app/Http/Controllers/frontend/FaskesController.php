@@ -32,8 +32,13 @@ class FaskesController extends Controller
                 'zip_kode'
             )
             ->paginate(5);
+        $alljenis_faskes = DB::table('jenis_faskes')->select('nama_jenis_faskes')->get();
+        $allkabkots = DB::table('kabkots')->select('kabupaten_kota')->get();
+        
         return view('frontend.faskes', [
-            'faskesdata' =>  $faskesdata
+            'faskesdata' =>  $faskesdata,
+            'alljenis_faskes' =>  $alljenis_faskes,
+            'allkabkots' =>  $allkabkots
         ]);
     }
 }

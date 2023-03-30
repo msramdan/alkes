@@ -10,6 +10,9 @@
                             <select class=" small border-0" id="selectProductCatagory" name="kategori"
                                 aria-label="Default select example">
                                 <option value="all">All Jenis Faskes</option>
+                                @foreach ($alljenis_faskes as $alljenis_faskess)
+                                    <option value="all">{{ $alljenis_faskess->nama_jenis_faskes }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -18,6 +21,9 @@
                             <select class=" small border-0" id="selectProductCatagory" name="label"
                                 aria-label="Default select example">
                                 <option value="all">All Kabkot</option>
+                                @foreach ($allkabkots as $allkabkotss)
+                                    <option value="all">{{ $allkabkotss->kabupaten_kota }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

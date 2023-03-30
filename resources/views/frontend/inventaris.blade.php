@@ -1,6 +1,7 @@
 @extends('layouts.master-frontend')
 @section('title', 'Inventaris')
 @section('content')
+{{-- {{ dd($allruangan) }} --}}
     <div class="page-content-wrapper">
         <div class="py-3">
             <div class="container">
@@ -10,7 +11,11 @@
                             <select class=" small border-0" id="selectProductCatagory" name="kategori"
                                 aria-label="Default select example">
                                 <option value="all">All Ruangan</option>
+                                @foreach ($allruangan as $allruangans)
+                                    <option value="all">{{ $allruangans->nama_ruangan }}</option>
+                                @endforeach
                             </select>
+                            
                         </div>
                     </div>
                     <div class="col-4">
@@ -18,6 +23,9 @@
                             <select class=" small border-0" id="selectProductCatagory" name="label"
                                 aria-label="Default select example">
                                 <option value="all">All Merek</option>
+                                @foreach ($allmerek as $allmereks)
+                                    <option value="all">{{ $allmereks->nama_merek }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -26,6 +34,9 @@
                             <select class=" small border-0" id="selectProductCatagory" name="label"
                                 aria-label="Default select example">
                                 <option value="all">All Jenis Alat</option>
+                                @foreach ($alljenisalat as $alljenisalats)
+                                    <option value="all">{{ $alljenisalats->jenis_alat }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
