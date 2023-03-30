@@ -22,7 +22,7 @@
                     <div class="col-3">
                         <div class="card catagory-card">
                             <div class="card-body px-2">
-                                <a href="">
+                                <a href="{{ route('web-laporan_lk') }}">
                                     <img src="{{ asset('frontend/img/new.png') }}" alt="Buat Laporan Baru">
                                     <span>Buat Laporan Baru</span>
                                 </a>
@@ -33,7 +33,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="">
-                                    <img src="{{ asset('frontend/img/list.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/list.png') }}" alt="History Laporam">
                                     <span>History Laporan</span>
                                 </a>
                             </div>
@@ -43,7 +43,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="{{ route('web-faskes') }}">
-                                    <img src="{{ asset('frontend/img/hospital2.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/hospital2.png') }}" alt="Fasilitas Kesehatan">
                                     <span>Fasilitas Kesehatan</span>
                                 </a>
                             </div>
@@ -53,7 +53,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="{{ route('web-inventaris') }}">
-                                    <img src="{{ asset('frontend/img/toolbox.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/toolbox.png') }}" alt="Inventaris Alat">
                                     <span>Inventaris Alat</span>
                                 </a>
                             </div>
@@ -63,7 +63,7 @@
                         <div class="card catagory-card">
                             <div class="card-body px-2">
                                 <a href="{{ route('web-listmetodekerja') }}">
-                                    <img src="{{ asset('frontend/img/metode.png') }}" alt="Buat Laporan Baru">
+                                    <img src="{{ asset('frontend/img/metode.png') }}" alt="List Metode Kerja">
                                     <span>List Metode Kerja</span>
                                 </a>
                             </div>
@@ -76,7 +76,7 @@
         <div class="container">
             <div class="dark-mode-wrapper mt-3 bg-img p-4 p-lg-5">
                 <center>
-                    <p class="text-white">AAAA Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    <p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 </center>
             </div>
         </div>

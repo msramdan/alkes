@@ -12,7 +12,9 @@ use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\FaskesController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\InventarisController;
+use App\Http\Controllers\frontend\LaporanLkController;
 use App\Http\Controllers\frontend\MetodeKerjaController;
+
 
 
 
@@ -29,6 +31,7 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
 
+    Route::get('/laporan_lk', [LaporanLkController::class, 'index'])->name('web-laporan_lk');
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
     Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
