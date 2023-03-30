@@ -66,11 +66,6 @@ class HomeController extends Controller
         }
     }
 
-    public function listmetodekerja()
-    {
-        return view('frontend.listmetodekerja');
-    }
-
     /**
      * Store a newly created resource in storage.
      *

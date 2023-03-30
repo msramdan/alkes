@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->cascadeOnDelete();
             $table->string('field_pendataan_administrasi');
-            $table->string('satuan');
+            $table->string('satuan')->nullable();
             $table->timestamps();
         });
     }

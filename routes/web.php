@@ -12,6 +12,9 @@ use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\FaskesController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\InventarisController;
+use App\Http\Controllers\frontend\MetodeKerjaController;
+
+
 
 //
 // ROUTE FRONT END TEKNISI
@@ -28,12 +31,13 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
-    Route::get('/listmetodekerja', [HomeController::class, 'listmetodekerja'])->name('web-listmetodekerja');
+    Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
+    Route::get('/listmetodekerja/download/{file}/{name}', [MetodeKerjaController::class, 'getDownload'])->name('web-listmetodekerja-download');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
 Route::post('/login-web', [AuthWebController::class, 'login'])->name('auth-user');
 
-Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.post');
+Route::get('forget-web', [AuthWebController::class, 'forgetform'])->name('forget.password.get');
 Route::post('forget-web', [AuthWebController::class, 'submitforgetform'])->name('forget.password.post');
 Route::get('reset-password/{token}', [AuthWebController::class, 'ResetForm'])->name('reset.password.get');
 Route::post('reset-password', [AuthWebController::class, 'submitResetForm'])->name('reset.password.post');
@@ -70,3 +74,5 @@ Route::resource('vendors', App\Http\Controllers\VendorController::class)->middle
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
+
+Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');

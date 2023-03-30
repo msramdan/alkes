@@ -191,7 +191,81 @@ class NomenklaturController extends Controller
     {
         $type_id = $request->type_id;
         $nomenklatur_id = $request->nomenklatur_id;
+        $pendataan_administrasi = $request->pendataan_administrasi;
+        $satuan = $request->satuan;
+        $lingkungan = $request->lingkungan;
 
+        //1. save pendataan_administrasi
+        if ($pendataan_administrasi != null) {
+            // ambil list data asal
+            $cek_pendataan_administrasi = DB::table('nomenklatur_pendataan_administrasi')
+                ->where('nomenklatur_id', $nomenklatur_id)->get();
+            $listAsal_pendataan_administrasi = [];
+            $penambahanBaru_pendataan_administrasi = [];
+            foreach ($cek_pendataan_administrasi as $value) {
+                array_push($listAsal_pendataan_administrasi, $value->field_pendataan_administrasi);
+            }
+            foreach ($pendataan_administrasi as $key => $value) {
+                // klo tidak ada di asal simpan baru
+                if (in_array($value, $listAsal_pendataan_administrasi)) {
+                    if ($value == 'Resolusi') {
+                        DB::table('nomenklatur_pendataan_administrasi')
+                            ->where('nomenklatur_id', $nomenklatur_id)
+                            ->where('field_pendataan_administrasi', 'Resolusi')
+                            ->update(['satuan' => $satuan[3]]);
+                    } else if ($value == 'Rentang Ukur') {
+                        DB::table('nomenklatur_pendataan_administrasi')
+                            ->where('nomenklatur_id', $nomenklatur_id)
+                            ->where('field_pendataan_administrasi', 'Rentang Ukur')
+                            ->update(['satuan' => $satuan[4]]);
+                    } else if ($value == 'Kapasitas') {
+                        DB::table('nomenklatur_pendataan_administrasi')
+                            ->where('nomenklatur_id', $nomenklatur_id)
+                            ->where('field_pendataan_administrasi', 'Kapasitas')
+                            ->update(['satuan' => $satuan[5]]);
+                    }
+                } else {
+                    if ($value == 'Resolusi') {
+                        DB::table('nomenklatur_pendataan_administrasi')->insert([
+                            'nomenklatur_id' => $nomenklatur_id,
+                            'field_pendataan_administrasi' => $value,
+                            'satuan' => $satuan[3]
+                        ]);
+                    } else if ($value == 'Rentang Ukur') {
+                        DB::table('nomenklatur_pendataan_administrasi')->insert([
+                            'nomenklatur_id' => $nomenklatur_id,
+                            'field_pendataan_administrasi' => $value,
+                            'satuan' => $satuan[4]
+                        ]);
+                    } else if ($value == 'Kapasitas') {
+                        DB::table('nomenklatur_pendataan_administrasi')->insert([
+                            'nomenklatur_id' => $nomenklatur_id,
+                            'field_pendataan_administrasi' => $value,
+                            'satuan' => $satuan[5]
+                        ]);
+                    } else {
+                        DB::table('nomenklatur_pendataan_administrasi')->insert([
+                            'nomenklatur_id' => $nomenklatur_id,
+                            'field_pendataan_administrasi' => $value,
+                        ]);
+                    }
+                    array_push($penambahanBaru_pendataan_administrasi, $value);
+                }
+            }
+            // cek yg gk ada
+            $valueArrayAwal_pendataan_administrasi = array_diff($pendataan_administrasi, $penambahanBaru_pendataan_administrasi);
+            $valueArrayAwalDiDelete_pendataan_administrasi = array_diff($listAsal_pendataan_administrasi, $valueArrayAwal_pendataan_administrasi);
+            foreach ($valueArrayAwalDiDelete_pendataan_administrasi as $key => $value) {
+                DB::table('nomenklatur_pendataan_administrasi')
+                    ->where('nomenklatur_id', $nomenklatur_id)
+                    ->where('field_pendataan_administrasi', $value)->delete();
+            }
+        } else {
+            DB::table('nomenklatur_pendataan_administrasi')
+                ->where('nomenklatur_id', $nomenklatur_id)->delete();
+        }
+
+        //2.  save type
         if ($type_id != null) {
             // ambil list data asal
             $cek = DB::table('nomenklatur_type')
@@ -226,8 +300,82 @@ class NomenklaturController extends Controller
                 ->where('nomenklatur_id', $nomenklatur_id)->delete();
         }
 
+        // 3. save PENGUKURAN KONDISI LINGKUNGAN
+        if ($lingkungan != null) {
+            // ambil list data asal
+            $cek_lingkungan = DB::table('nomenklatur_kondisi_lingkungan')
+                ->where('nomenklatur_id', $nomenklatur_id)->get();
+            $listAsal_lingkungan = [];
+            $penambahanBaru_lingkungan = [];
+            foreach ($cek_lingkungan as $value) {
+                array_push($listAsal_lingkungan, $value->field_kondisi_lingkungan);
+            }
+            foreach ($lingkungan as $key => $value) {
+                // klo tidak ada di asal simpan baru
+                if (in_array($value, $listAsal_lingkungan)) {
+                } else {
+                    DB::table('nomenklatur_kondisi_lingkungan')->insert([
+                        'nomenklatur_id' => $nomenklatur_id,
+                        'field_kondisi_lingkungan' => $value
+                    ]);
+                    array_push($penambahanBaru_lingkungan, $value);
+                }
+            }
+            // cek yg gk ada
+            $valueArrayAwal_lingkungan = array_diff($lingkungan, $penambahanBaru_lingkungan);
+            $valueArrayAwalDiDelete_lingkungan = array_diff($listAsal_lingkungan, $valueArrayAwal_lingkungan);
+
+            foreach ($valueArrayAwalDiDelete_lingkungan as $key => $value) {
+                DB::table('nomenklatur_kondisi_lingkungan')
+                    ->where('nomenklatur_id', $nomenklatur_id)
+                    ->where('field_kondisi_lingkungan', $value)->delete();
+            }
+        } else {
+            DB::table('nomenklatur_kondisi_lingkungan')
+                ->where('nomenklatur_id', $nomenklatur_id)->delete();
+        }
+
+        // 4. telaah teknis
+        if ($lingkungan != null) {
+            // ambil list data asal
+            $cek_lingkungan = DB::table('nomenklatur_kondisi_lingkungan')
+                ->where('nomenklatur_id', $nomenklatur_id)->get();
+            $listAsal_lingkungan = [];
+            $penambahanBaru_lingkungan = [];
+            foreach ($cek_lingkungan as $value) {
+                array_push($listAsal_lingkungan, $value->field_kondisi_lingkungan);
+            }
+            foreach ($lingkungan as $key => $value) {
+                // klo tidak ada di asal simpan baru
+                if (in_array($value, $listAsal_lingkungan)) {
+                } else {
+                    DB::table('nomenklatur_kondisi_lingkungan')->insert([
+                        'nomenklatur_id' => $nomenklatur_id,
+                        'field_kondisi_lingkungan' => $value
+                    ]);
+                    array_push($penambahanBaru_lingkungan, $value);
+                }
+            }
+            // cek yg gk ada
+            $valueArrayAwal_lingkungan = array_diff($lingkungan, $penambahanBaru_lingkungan);
+            $valueArrayAwalDiDelete_lingkungan = array_diff($listAsal_lingkungan, $valueArrayAwal_lingkungan);
+
+            foreach ($valueArrayAwalDiDelete_lingkungan as $key => $value) {
+                DB::table('nomenklatur_kondisi_lingkungan')
+                    ->where('nomenklatur_id', $nomenklatur_id)
+                    ->where('field_kondisi_lingkungan', $value)->delete();
+            }
+        } else {
+            DB::table('nomenklatur_kondisi_lingkungan')
+                ->where('nomenklatur_id', $nomenklatur_id)->delete();
+        }
+
         $listAsal = [];
         $penambahanBaru = [];
+        $listAsal_pendataan_administrasi = [];
+        $penambahanBaru_pendataan_administrasi = [];
+        $listAsal_lingkungan = [];
+        $penambahanBaru_lingkungan = [];
 
         return redirect()
             ->route('nomenklaturs.index')
