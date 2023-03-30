@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row g-1 align-items-center rtl-flex-d-row-r">
                     <div id="smartwizard" dir="" class="sw sw-justified sw-theme-arrows">
-                        <ul class="nav nav-progress">
+                        <ul class="nav nav-progress" id="step">
                             <li class="nav-item">
                                 <a class="nav-link default active" href="#step-1">
                                     <div class="num">1</div>
@@ -94,7 +94,86 @@
                                 </form>
                             </div>
                             <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                Step content 2
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Merek" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Type/Model" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Nomor Seri" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Nomor Seri" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Nomor Seri" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Nomor Seri" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Nomor Seri" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <input type="text" class="form-control" value="" id="state"
+                                        placeholder="Nomor Seri" value="" name="password" required="">
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select a valid nomenklatur.
+                                    </div>
+                                </div>
                             </div>
                             <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                 Step content 3
