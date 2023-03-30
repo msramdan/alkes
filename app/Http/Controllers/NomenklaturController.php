@@ -194,6 +194,8 @@ class NomenklaturController extends Controller
         $pendataan_administrasi = $request->pendataan_administrasi;
         $satuan = $request->satuan;
         $lingkungan = $request->lingkungan;
+        $teknis = $request->teknis;
+        $keselamatan_listrik = $request->keselamatan_listrik;
 
         //1. save pendataan_administrasi
         if ($pendataan_administrasi != null) {
@@ -336,42 +338,81 @@ class NomenklaturController extends Controller
         }
 
         // 4. telaah teknis
-        if ($lingkungan != null) {
+        if ($teknis != null) {
             // ambil list data asal
-            $cek_lingkungan = DB::table('nomenklatur_kondisi_lingkungan')
+            $cek_teknis = DB::table('nomenklatur_telaah_teknis')
                 ->where('nomenklatur_id', $nomenklatur_id)->get();
-            $listAsal_lingkungan = [];
-            $penambahanBaru_lingkungan = [];
-            foreach ($cek_lingkungan as $value) {
-                array_push($listAsal_lingkungan, $value->field_kondisi_lingkungan);
+            $listAsal_teknis = [];
+            $penambahanBaru_teknis = [];
+            foreach ($cek_teknis as $value) {
+                array_push($listAsal_teknis, $value->field_telaah_teknis);
             }
-            foreach ($lingkungan as $key => $value) {
+            foreach ($teknis as $key => $value) {
                 // klo tidak ada di asal simpan baru
-                if (in_array($value, $listAsal_lingkungan)) {
+                if (in_array($value, $listAsal_teknis)) {
                 } else {
-                    DB::table('nomenklatur_kondisi_lingkungan')->insert([
+                    DB::table('nomenklatur_telaah_teknis')->insert([
                         'nomenklatur_id' => $nomenklatur_id,
-                        'field_kondisi_lingkungan' => $value
+                        'field_telaah_teknis' => $value
                     ]);
-                    array_push($penambahanBaru_lingkungan, $value);
+                    array_push($penambahanBaru_teknis, $value);
                 }
             }
             // cek yg gk ada
-            $valueArrayAwal_lingkungan = array_diff($lingkungan, $penambahanBaru_lingkungan);
-            $valueArrayAwalDiDelete_lingkungan = array_diff($listAsal_lingkungan, $valueArrayAwal_lingkungan);
+            $valueArrayAwal_teknis = array_diff($teknis, $penambahanBaru_teknis);
+            $valueArrayAwalDiDelete_teknis = array_diff($listAsal_teknis, $valueArrayAwal_teknis);
 
-            foreach ($valueArrayAwalDiDelete_lingkungan as $key => $value) {
-                DB::table('nomenklatur_kondisi_lingkungan')
+            foreach ($valueArrayAwalDiDelete_teknis as $key => $value) {
+                DB::table('nomenklatur_telaah_teknis')
                     ->where('nomenklatur_id', $nomenklatur_id)
-                    ->where('field_kondisi_lingkungan', $value)->delete();
+                    ->where('field_telaah_teknis', $value)->delete();
             }
         } else {
-            DB::table('nomenklatur_kondisi_lingkungan')
+            DB::table('nomenklatur_telaah_teknis')
                 ->where('nomenklatur_id', $nomenklatur_id)->delete();
         }
 
+        // 5. keselamatan listrik
+        if ($keselamatan_listrik != null) {
+            // ambil list data asal
+            $cek_keselamatan_listrik = DB::table('nomenklatur_keselamatan_listrik')
+                ->where('nomenklatur_id', $nomenklatur_id)->get();
+            $listAsal_keselamatan_listrik = [];
+            $penambahanBaru_keselamatan_listrik = [];
+            foreach ($cek_keselamatan_listrik as $value) {
+                array_push($listAsal_keselamatan_listrik, $value->field_keselamatan_listrik);
+            }
+            foreach ($keselamatan_listrik as $key => $value) {
+                // klo tidak ada di asal simpan baru
+                if (in_array($value, $listAsal_keselamatan_listrik)) {
+                } else {
+                    DB::table('nomenklatur_keselamatan_listrik')->insert([
+                        'nomenklatur_id' => $nomenklatur_id,
+                        'field_keselamatan_listrik' => $value
+                    ]);
+                    array_push($penambahanBaru_keselamatan_listrik, $value);
+                }
+            }
+            // cek yg gk ada
+            $valueArrayAwal_keselamatan_listrik = array_diff($keselamatan_listrik, $penambahanBaru_keselamatan_listrik);
+            $valueArrayAwalDiDelete_keselamatan_listrik = array_diff($listAsal_keselamatan_listrik, $valueArrayAwal_keselamatan_listrik);
+
+            foreach ($valueArrayAwalDiDelete_keselamatan_listrik as $key => $value) {
+                DB::table('nomenklatur_keselamatan_listrik')
+                    ->where('nomenklatur_id', $nomenklatur_id)
+                    ->where('field_keselamatan_listrik', $value)->delete();
+            }
+        } else {
+            DB::table('nomenklatur_keselamatan_listrik')
+                ->where('nomenklatur_id', $nomenklatur_id)->delete();
+        }
+
+
+
         $listAsal = [];
+        $listAsal_teknis = [];
         $penambahanBaru = [];
+        $penambahanBaru_teknis = [];
         $listAsal_pendataan_administrasi = [];
         $penambahanBaru_pendataan_administrasi = [];
         $listAsal_lingkungan = [];
