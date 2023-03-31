@@ -55,9 +55,18 @@
                                         <div class="product-rating"><i class="fa fa-tag" aria-hidden="true"></i>
                                             Status : {{ $row->status_laporan }}
                                         </div>
-                                        <div class="product-rating"><i class="fa fa-user" style="background-color: #1E90FF"
+                                        {{-- <div class="product-rating"><i class="fa fa-user" style="background-color: #1E90FF"
                                                 aria-hidden="true"></i>
                                             Reviewer : {{ $row->user_review }}
+                                        </div> --}}
+                                        <div style="margin-top: 5px">
+                                            <button class="btn btn-secondary btn-sm"><i class="fa fa-eye"
+                                                    aria-hidden="true"></i>
+                                                View</button>&nbsp;
+                                            <button class="btn btn-success btn-sm"><i class="fa fa-pencil"
+                                                    aria-hidden="true"></i> Edit</button>&nbsp;
+                                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i> Hapus</button>
                                         </div>
                                     </div>
                                 </div>
