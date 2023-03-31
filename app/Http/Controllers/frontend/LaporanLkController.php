@@ -14,7 +14,14 @@ class LaporanLkController extends Controller
      */
     public function index()
     {
-        return view('frontend.create_laporan', [
+        return view('frontend.create-laporan.select_nomenklatur', [
+            'nomenklatur' => Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get(),
+        ]);
+    }
+
+    public function create()
+    {
+        return view('frontend.create-laporan.create_laporan', [
             'nomenklatur' => Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get(),
         ]);
     }

@@ -32,7 +32,7 @@
                     <div class="col-3">
                         <div class="card catagory-card">
                             <div class="card-body px-2">
-                                <a href="">
+                                <a href="{{ route('web-history_laporan') }}">
                                     <img src="{{ asset('frontend/img/list.png') }}" alt="History Laporam">
                                     <span>History Laporan</span>
                                 </a>

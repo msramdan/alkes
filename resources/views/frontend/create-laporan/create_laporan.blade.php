@@ -12,56 +12,50 @@
                     <div id="smartwizard" dir="" class="sw sw-justified sw-theme-arrows">
                         <ul class="nav nav-progress" id="step">
                             <li class="nav-item">
-                                <a class="nav-link default active" href="#step-1">
-                                    <div class="num">1</div>
-                                    Pilih Nomenklatur
+                                <a class="nav-link default" href="#step-1">
+                                    <span class="num">1</span>
+                                    Pendataan Administrasi
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-2">
                                     <span class="num">2</span>
-                                    Pendataan Administrasi
+                                    Daftar Alat Ukur
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-3">
                                     <span class="num">3</span>
-                                    Daftar Alat Ukur
+                                    Kondisi Lingkungan
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-4">
                                     <span class="num">4</span>
-                                    Kondisi Lingkungan
+                                    Pemeriksaan Fisik & Fungsi Alat
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-5">
                                     <span class="num">5</span>
-                                    Pemeriksaan Fisik & Fungsi Alat
+                                    Pengukuran Keselamatan Listrik
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-6">
                                     <span class="num">6</span>
-                                    Pengukuran Keselamatan Listrik
+                                    Pengukuran Kinerja
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-7">
                                     <span class="num">7</span>
-                                    Pengukuran Kinerja
+                                    Telaah Teknis
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link default" href="#step-8">
                                     <span class="num">8</span>
-                                    Telaah Teknis
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link default" href="#step-9">
-                                    <span class="num">9</span>
                                     Kesimpulan Telaah Teknis Kalibrasi
                                 </a>
                             </li>
@@ -71,16 +65,6 @@
                         <div class="tab-content">
                             <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                 <form id="form-1" class="" novalidate>
-                                    {{-- <select class="form-control select2" id="state" required
-                                        style="width: 100%; height:36px">
-                                        <option selected disabled value="">--
-                                            Pilih Nomenklatur --</option>
-                                        @foreach ($nomenklatur as $row)
-                                            <option value="{{ $row->id }}">{{ $row->nama_nomenklatur }}
-                                            </option>
-                                        @endforeach
-
-                                    </select> --}}
                                     <div class="col">
                                         <input type="text" class="form-control" value="" id="state"
                                             placeholder="Cari Nomenklatur" value="" name="password" required="">
@@ -94,86 +78,17 @@
                                 </form>
                             </div>
                             <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Merek" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                <div class="row g-1">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="First name"
+                                            aria-label="First name">
                                     </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Type/Model" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Last name"
+                                            aria-label="Last name">
                                     </div>
                                 </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Nomor Seri" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Nomor Seri" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Nomor Seri" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Nomor Seri" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Nomor Seri" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <input type="text" class="form-control" value="" id="state"
-                                        placeholder="Nomor Seri" value="" name="password" required="">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select a valid nomenklatur.
-                                    </div>
-                                </div>
+
                             </div>
                             <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                 Step content 3
@@ -192,9 +107,6 @@
                             </div>
                             <div id="step-8" class="tab-pane" role="tabpanel" aria-labelledby="step-8">
                                 Step content 8
-                            </div>
-                            <div id="step-9" class="tab-pane" role="tabpanel" aria-labelledby="step-9">
-                                Step content 9
                             </div>
                         </div>
                     </div>
@@ -325,7 +237,7 @@
                     showNextButton: true, // show/hide a Next button
                     showPreviousButton: true, // show/hide a Previous button
                     position: 'bottom', // none/ top/ both bottom
-                    extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">Simpan</button>`
+                    extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()"> <i class="fas fa-save" aria-hidden="true"></i> Simpan</button>`
                 },
                 anchor: {
                     enableNavigation: true, // Enable/Disable anchor navigation
