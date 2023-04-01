@@ -61,53 +61,15 @@
                             </li>
                         </ul>
                         <hr>
-
                         <div class="tab-content">
-                            <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                                <form id="form-1" class="" novalidate>
-                                    <div class="col">
-                                        <input type="text" class="form-control" value="" id="state"
-                                            placeholder="Cari Nomenklatur" value="" name="password" required="">
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Please select a valid nomenklatur.
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                <div class="row g-1">
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="First name"
-                                            aria-label="First name">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="Last name"
-                                            aria-label="Last name">
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                                Step content 3
-                            </div>
-                            <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-                                Step content 4
-                            </div>
-                            <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
-                                Step content 5
-                            </div>
-                            <div id="step-6" class="tab-pane" role="tabpanel" aria-labelledby="step-6">
-                                Step content 6
-                            </div>
-                            <div id="step-7" class="tab-pane" role="tabpanel" aria-labelledby="step-7">
-                                Step content 7
-                            </div>
-                            <div id="step-8" class="tab-pane" role="tabpanel" aria-labelledby="step-8">
-                                Step content 8
-                            </div>
+                            @include('frontend.create-laporan.step.1')
+                            @include('frontend.create-laporan.step.2')
+                            @include('frontend.create-laporan.step.3')
+                            @include('frontend.create-laporan.step.4')
+                            @include('frontend.create-laporan.step.5')
+                            @include('frontend.create-laporan.step.6')
+                            @include('frontend.create-laporan.step.7')
+                            @include('frontend.create-laporan.step.8')
                         </div>
                     </div>
                 </div>

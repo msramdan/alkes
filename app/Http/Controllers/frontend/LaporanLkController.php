@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Nomenklatur;
+use Illuminate\Support\Facades\DB;
 
 class LaporanLkController extends Controller
 {
@@ -21,8 +22,10 @@ class LaporanLkController extends Controller
 
     public function create()
     {
+        $nomenklatur_id = $_GET['nomenklatur_id'];
+        $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();
         return view('frontend.create-laporan.create_laporan', [
-            'nomenklatur' => Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get(),
+            'nomenklatur_id' => $nomenklatur_id,
         ]);
     }
 }
