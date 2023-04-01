@@ -38,6 +38,15 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
+
+    Route::get('/inventaris/filter', [InventarisController::class, 'filter']);
+
+    // Route::get('/inventaris/filter/', function () {
+    //     $hallo = request()->query('nama_ruangan');
+    //     return "Nilai parameter hallo adalah: " . $hallo;
+    // });
+
+
     Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
     Route::get('/listmetodekerja/download/{file}/{name}', [MetodeKerjaController::class, 'getDownload'])->name('web-listmetodekerja-download');
 }); // auth teknisi

@@ -1,18 +1,21 @@
 @extends('layouts.master-frontend')
 @section('title', 'Inventaris')
 @section('content')
-{{-- {{ dd($allruangan) }} --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- {{ dd($getid_ruangan) }} --}}
     <div class="page-content-wrapper">
         <div class="py-3">
             <div class="container">
                 <div class="row g-1 align-items-center rtl-flex-d-row-r">
                     <div class="col-4">
                         <div class="select-product-catagory" style="width: 100%">
-                            <select class=" small border-0" id="selectProductCatagory" name="kategori"
+                            <select class=" small border-0" id="selectruangan" name="ruangan"
                                 aria-label="Default select example">
                                 <option value="all">All Ruangan</option>
                                 @foreach ($allruangan as $allruangans)
-                                    <option value="all">{{ $allruangans->nama_ruangan }}</option>
+                                    {{-- {{ bisa }}
+                                    <option value="/web/inventaris/{{ $allruangans->nama_ruangan }}">{{ $allruangans->nama_ruangan }}</option> --}}
+                                    <option value="{{ $allruangans->nama_ruangan }}">{{ $allruangans->nama_ruangan }}</option>
                                 @endforeach
                             </select>
                             
@@ -20,7 +23,7 @@
                     </div>
                     <div class="col-4">
                         <div class="select-product-catagory">
-                            <select class=" small border-0" id="selectProductCatagory" name="label"
+                            <select class=" small border-0" id="selectmerek" name="merek"
                                 aria-label="Default select example">
                                 <option value="all">All Merek</option>
                                 @foreach ($allmerek as $allmereks)
@@ -31,7 +34,7 @@
                     </div>
                     <div class="col-4">
                         <div class="select-product-catagory">
-                            <select class=" small border-0" id="selectProductCatagory" name="label"
+                            <select class=" small border-0" id="selectjenisalat" name="jenisalat"
                                 aria-label="Default select example">
                                 <option value="all">All Jenis Alat</option>
                                 @foreach ($alljenisalat as $alljenisalats)
@@ -76,4 +79,27 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
+
+    <script>        
+        $(function(){
+            $('#selectruangan').on('change', function () {
+                var url1 = '/web/inventaris/filter';
+                // var nama_ruangan = '{{ $allruangans->nama_ruangan }}';
+                var nama_ruangan= $("#selectruangan option:selected").val()
+
+                var url = url1+'?nama_ruangan='+nama_ruangan ;
+
+                window.location.href=url;
+
+                
+
+            });
+        });
+    </script>
+
 @endsection
