@@ -12,7 +12,10 @@ use App\Http\Controllers\frontend\AuthWebController;
 use App\Http\Controllers\frontend\FaskesController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\InventarisController;
+use App\Http\Controllers\frontend\LaporanLkController;
 use App\Http\Controllers\frontend\MetodeKerjaController;
+use App\Http\Controllers\frontend\HistoryLaporanLkController;
+
 
 
 
@@ -28,6 +31,10 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::post('/store_kontak', [HomeController::class, 'store_kontak'])->name('web-kontak-store');
     Route::get('/logout-web', [AuthWebController::class, 'logout'])->name('signout-user');
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
+    Route::get('/laporan_lk', [LaporanLkController::class, 'index'])->name('web-laporan_lk');
+    Route::get('/create_laporan_lk', [LaporanLkController::class, 'create'])->name('web-create_laporan_lk');
+    Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
+
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');

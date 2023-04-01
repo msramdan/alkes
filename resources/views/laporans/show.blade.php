@@ -35,29 +35,31 @@
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
                                     <tr>
-                                            <td class="fw-bold">{{ __('No Laporan') }}</td>
-                                            <td>{{ $laporan->no__laporan }}</td>
-                                        </tr>
-									<tr>
+                                        <td class="fw-bold">{{ __('No Laporan') }}</td>
+                                        <td>{{ $laporan->no_laporan }}</td>
+                                    </tr>
+                                    <tr>
                                         <td class="fw-bold">{{ __('User') }}</td>
                                         <td>{{ $laporan->user ? $laporan->user->name : '' }}</td>
                                     </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Tgl Laporan') }}</td>
-                                            <td>{{ isset($laporan->tgl_laporan) ? $laporan->tgl_laporan->format('d/m/Y H:i') : ''  }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Status Laporan') }}</td>
-                                            <td>{{ $laporan->status_laporan }}</td>
-                                        </tr>
-									<tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Tgl Laporan') }}</td>
+                                        <td>{{ isset($laporan->tgl_laporan) ? $laporan->tgl_laporan->format('d/m/Y H:i') : '' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Status Laporan') }}</td>
+                                        <td>{{ $laporan->status_laporan }}</td>
+                                    </tr>
+                                    <tr>
                                         <td class="fw-bold">{{ __('User') }}</td>
                                         <td>{{ $laporan->user ? $laporan->user->name : '' }}</td>
                                     </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Tgl Review') }}</td>
-                                            <td>{{ isset($laporan->tgl_review) ? $laporan->tgl_review->format('d/m/Y H:i') : ''  }}</td>
-                                        </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Tgl Review') }}</td>
+                                        <td>{{ isset($laporan->tgl_review) ? $laporan->tgl_review->format('d/m/Y H:i') : '' }}
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Created at') }}</td>
                                         <td>{{ $laporan->created_at->format('d/m/Y H:i') }}</td>

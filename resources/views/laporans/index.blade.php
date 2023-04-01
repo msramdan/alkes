@@ -76,8 +76,8 @@
             serverSide: true,
             ajax: "{{ route('laporans.index') }}",
             columns: [{
-                    data: 'no__laporan',
-                    name: 'no__laporan',
+                    data: 'no_laporan',
+                    name: 'no_laporan',
                 },
                 {
                     data: 'user',

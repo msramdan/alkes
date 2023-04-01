@@ -4541,10 +4541,16 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
     -webkit-transition-duration: 500ms;
     -o-transition-duration: 500ms;
     transition-duration: 500ms;
-    border-color: #ebebeb;
-    height: 50px;
+    /* border-color: #ebebeb;
+    height: 36px;
     padding: 0.375rem 1rem;
-    font-size: 14px;
+    font-size: 14px; */
+
+    height: 36px;
+    padding: 0 15px;
+    color: #747794;
+    font-size: 13px;
+
 }
 
 .form-control:focus {

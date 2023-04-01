@@ -44,7 +44,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Merk"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Merk') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Merk', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Merk"
@@ -59,7 +59,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Tipe / Model"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Tipe / Model') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Tipe / Model', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Tipe / Model"
@@ -75,7 +75,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Nomor Seri"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Nomor Seri') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Nomor Seri', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Nomor Seri"
@@ -91,7 +91,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Resolusi"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Resolusi') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Resolusi', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Resolusi"
@@ -112,7 +112,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Rentang Ukur"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Rentang Ukur') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Rentang Ukur', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Rentang Ukur"
@@ -133,7 +133,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Kapasitas"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Kapasitas') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Kapasitas', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Kapasitas"
@@ -153,7 +153,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Faskes Pemilik"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Faskes Pemilik') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Faskes Pemilik', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Faskes Pemilik"
@@ -167,7 +167,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Ruangan"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Ruangan') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Ruangan', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Ruangan"
@@ -182,7 +182,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Tempat Kalibrasi"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Tempat Kalibrasi') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Tempat Kalibrasi', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Tempat Kalibrasi"
@@ -197,7 +197,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Tanggal Penerimaan"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Tanggal Penerimaan') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Tanggal Penerimaan', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control"
@@ -212,7 +212,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Tanggal Kalibrasi"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Tanggal Kalibrasi') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Tanggal Kalibrasi', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Tanggal Kalibrasi"
@@ -227,7 +227,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Channel IDA"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Channel IDA') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Channel IDA', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Channel IDA"
@@ -241,7 +241,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox"
                                                     name="pendataan_administrasi[]" value="Jenis Timbangan"
-                                                    {{ checked_box_pendataan_administrasi($nomenklatur->id, 'Jenis Timbangan') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_pendataan_administrasi', 'Jenis Timbangan', 'nomenklatur_pendataan_administrasi') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Jenis Timbangan"
@@ -260,7 +260,6 @@
                             <div class="card-body">
                                 <h6>DAFTAR ALAT UKUR</h2>
                                     <hr>
-
                                     <div class="row">
                                         <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}"
                                             readonly>
@@ -270,7 +269,7 @@
                                                     <div class="input-group-text">
                                                         <input class="form-check-input mt-0" type="checkbox"
                                                             name="type_id[]" value="{{ $row->id }}"
-                                                            {{ checked_box($nomenklatur->id, $row->id) }}
+                                                            {{ is_checked($nomenklatur->id, 'type_id', $row->id, 'nomenklatur_type') }}
                                                             aria-label="Checkbox for following text input">
                                                     </div>
                                                     <input type="text" readonly class="form-control"
@@ -293,7 +292,8 @@
                                         <div class="input-group mb-3">
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox" name="lingkungan[]"
-                                                    value="Suhu" {{ cek_lingkungan($nomenklatur->id, 'Suhu') }}
+                                                    value="Suhu"
+                                                    {{ is_checked($nomenklatur->id, 'field_kondisi_lingkungan', 'Suhu', 'nomenklatur_kondisi_lingkungan') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Suhu"
@@ -306,7 +306,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox" name="lingkungan[]"
                                                     value="Kelembaban Ruangan"
-                                                    {{ cek_lingkungan($nomenklatur->id, 'Kelembaban Ruangan') }}
+                                                    {{ is_checked($nomenklatur->id, 'field_kondisi_lingkungan', 'Kelembaban Ruangan', 'nomenklatur_kondisi_lingkungan') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control"
@@ -353,32 +353,37 @@
                                 <div class="row">
                                     <table class="table table-bordered">
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Phase - Netral"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Phase - Netral', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td>Phase - Netral
                                             </td>
                                             <td rowspan="3">Tegangan Input (Main Voltage)
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Phase - Ground"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Phase - Ground', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td>Phase - Ground</td>
 
                                         </tr>
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Ground - Netral"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Ground - Netral', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td>Ground - Netral
                                             </td>
-
                                         </tr>
-
-
                                         {{-- == --}}
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Kabel dapat dilepas (DPS)"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Kabel dapat dilepas (DPS)', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td>Kabel dapat dilepas (DPS)
                                             </td>
 
@@ -386,21 +391,27 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Kabel tidak dapat dilepas (NPS)"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Kabel tidak dapat dilepas (NPS)', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td>Kabel tidak dapat dilepas (NPS)</td>
 
                                         </tr>
                                         {{-- == --}}
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Resistansi isolasi"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Resistansi isolasi', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td colspan="2">Resistansi isolasi</td>
                                         </tr>
                                         {{-- === --}}
                                         <tr>
-                                            <td><input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                    value="" aria-label="Checkbox for following text input"></td>
+                                            <td><input class="form-check-input mt-0" type="checkbox"
+                                                    name="keselamatan_listrik[]" value="Kelas I tipe B/BF/CF"
+                                                    {{ is_checked($nomenklatur->id, 'field_keselamatan_listrik', 'Kelas I tipe B/BF/CF', 'nomenklatur_keselamatan_listrik') }}
+                                                    aria-label="Checkbox for following text input"></td>
                                             <td>Kelas I tipe B/BF/CF
 
                                             </td>
@@ -454,6 +465,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox" name="teknis[]"
                                                     value="Fisik dan Fungsi"
+                                                    {{ is_checked($nomenklatur->id, 'field_telaah_teknis', 'Fisik dan Fungsi', 'nomenklatur_telaah_teknis') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Fisik dan Fungsi"
@@ -466,6 +478,7 @@
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox" name="teknis[]"
                                                     value="Keselamatan Listrik"
+                                                    {{ is_checked($nomenklatur->id, 'field_telaah_teknis', 'Keselamatan Listrik', 'nomenklatur_telaah_teknis') }}
                                                     aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control"
@@ -476,7 +489,9 @@
                                         <div class="input-group mb-3">
                                             <div class="input-group-text">
                                                 <input class="form-check-input mt-0" type="checkbox" name="teknis[]"
-                                                    value="Kinerja" aria-label="Checkbox for following text input">
+                                                    value="Kinerja"
+                                                    {{ is_checked($nomenklatur->id, 'field_telaah_teknis', 'Kinerja', 'nomenklatur_telaah_teknis') }}
+                                                    aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" readonly class="form-control" value="Kinerja"
                                                 aria-label="">
