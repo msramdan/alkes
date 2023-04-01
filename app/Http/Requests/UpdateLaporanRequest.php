@@ -24,7 +24,7 @@ class UpdateLaporanRequest extends FormRequest
     public function rules()
     {
         return [
-            'no__laporan' => 'required|string|min:1|max:100',
+            'no_laporan' => 'required|string|min:1|max:100',
 			'user_created' => 'required|exists:App\Models\User,id',
 			'tgl_laporan' => 'required',
 			'status_laporan' => 'required|string|min:1|max:150',
