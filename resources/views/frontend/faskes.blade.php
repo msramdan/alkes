@@ -36,11 +36,19 @@
                     </div>
                     <div class="col-4">
                         <div class="select-product-catagory">
-                            <select class=" small border-0" id="selectProductCatagory" name="short"
+                            <select class=" small border-0" id="selectshort" name="short"
                                 aria-label="Default select example">
-                                <option value="" disabled selected>Short By</option>
-                                <option value="" disabled>Nama A-Z</option>
-                                <option value="" disabled>Nama Z-A</option>
+                                <option value="def" disabled selected>Short By</option>
+                                
+                                {{-- <option value="ASC">Nama A-Z</option> --}}
+                                <option value="ASC" {{ old('short') == 'ASC' || $selected_short == 'ASC' ? 'selected' : '' }}>
+                                    Nama A-Z
+                                </option>
+
+                                {{-- <option value="DESC">Nama Z-A</option> --}}
+                                <option value="DESC" {{ old('short') == 'DESC' || $selected_short == 'DESC' ? 'selected' : '' }}>
+                                    Nama Z-A
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -88,12 +96,15 @@
             var url = '/web/faskes/filter';
             var nama_jenisfaskes = 'alljenisfaskes';
             var nama_kabkot = 'allkabkot';
-
-            $('#selectjenisfaskes, #selectkabkot').on('change', function () {
+ 
+            $('#selectjenisfaskes, #selectkabkot, #selectshort').on('change', function () {
                 nama_jenisfaskes = $("#selectjenisfaskes option:selected").val();
                 nama_kabkot = $("#selectkabkot option:selected").val();
+                var sorting = $("#selectshort option:selected").val();
                 
-                var urlfull = url + '?nama_jenisfaskes=' + nama_jenisfaskes + '&nama_kabkot=' + nama_kabkot;
+                var urlfull = url + '?nama_jenisfaskes=' + nama_jenisfaskes + '&nama_kabkot=' 
+                + nama_kabkot + '&sorting=' + sorting;
+
                 console.log(urlfull);
 
                 window.location.href = urlfull;

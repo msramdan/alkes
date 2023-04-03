@@ -28,14 +28,26 @@ class FaskesController extends Controller
             'alljenis_faskes' =>  $alljenis_faskes,
             'allkabkots' =>  $allkabkots,
             'selected_jenisfaskes' => 'alljenisfaskes',
-            'selected_kabkot' => 'allkabkot'
+            'selected_kabkot' => 'allkabkot',
+            'selected_short' => 'def'
         ]);
     }
 
-    private function getFaskes($jenisfaskes, $kabkot) {
-        $faskesdata = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi',
-        'kabkot:id,kabupaten_kota','kecamatan:id,kecamatan','kelurahan:id,kelurahan')
-            ->orderBy('faskes.id', 'DESC');
+    private function getFaskes($jenisfaskes, $kabkot, $short) {
+        if($short=="def"){
+            $faskesdata = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi',
+            'kabkot:id,kabupaten_kota','kecamatan:id,kecamatan','kelurahan:id,kelurahan')
+            ->orderBy('faskes.nama_faskes', 'ASC');
+        }else{
+            $faskesdata = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi',
+            'kabkot:id,kabupaten_kota','kecamatan:id,kecamatan','kelurahan:id,kelurahan')
+            ->orderBy('faskes.nama_faskes', $short);
+        }
+        
+        
+        
+        $selected_short = old('short') ?? $short;
+        // dd($selected_short);
 
         if ($jenisfaskes != "alljenisfaskes") {
             $getid_jenisfaskes = DB::table('jenis_faskes')->select('id')->where('nama_jenis_faskes', $jenisfaskes)->get();
@@ -57,18 +69,27 @@ class FaskesController extends Controller
     
             $faskesdata->where('faskes.kabkot_id', $id_kabkot);
         }
-    
-        return $faskesdata->paginate(5);
+
+        if($short=="def"){
+            return $faskesdata->orderBy('faskes.nama_faskes', 'ASC')->paginate(5);
+        }else{
+            return $faskesdata->orderBy('faskes.nama_faskes', $short)->paginate(5);
+        }
+
     }
 
     public function filter()
     {
         $nama_jenisfaskes = request()->query('nama_jenisfaskes') ?? 'alljenisfaskes';
         $nama_kabkot = request()->query('nama_kabkot') ?? 'allkabkot';
+        $nama_short = request()->query('sorting') ?? 'def';
+        
+
+        // dd($nama_short);
 
         // dd($nama_jenisfaskes, $nama_kabkot);
 
-        $faskesdata = $this->getFaskes($nama_jenisfaskes, $nama_kabkot);      
+        $faskesdata = $this->getFaskes($nama_jenisfaskes, $nama_kabkot, $nama_short);      
         $alljenis_faskes = DB::table('jenis_faskes')->select('nama_jenis_faskes')->get();
         $allkabkots = DB::table('kabkots')->select('kabupaten_kota')->get();
         
@@ -77,7 +98,8 @@ class FaskesController extends Controller
             'alljenis_faskes' =>  $alljenis_faskes,
             'allkabkots' =>  $allkabkots,
             'selected_jenisfaskes' => $nama_jenisfaskes,
-            'selected_kabkot' => $nama_kabkot
+            'selected_kabkot' => $nama_kabkot,
+            'selected_short' => $nama_short
         ]);
 
     }
