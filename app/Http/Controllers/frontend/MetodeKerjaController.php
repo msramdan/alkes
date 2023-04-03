@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Models\MetodeKerja;
+use App\Models\Nomenklatur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Nomenklatur;
 
 class MetodeKerjaController extends Controller
 {
@@ -17,9 +16,14 @@ class MetodeKerjaController extends Controller
     public function index()
     {
         return view('frontend.listmetodekerja', [
-            'nomenklatur' => Nomenklatur::orderBy('id', 'DESC')->get(),
+            'nomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5),
         ]);
     }
+
+    // $Metodekerja = Nomenklatur::query()->paginate(5);
+    // return view('frontend.listmetodekerja', [
+    //     'metodekerja' => $Metodekerja
+    // ]
 
     public function getDownload($file, $name)
     {

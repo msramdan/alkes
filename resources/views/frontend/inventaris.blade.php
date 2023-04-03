@@ -1,31 +1,51 @@
 @extends('layouts.master-frontend')
 @section('title', 'Inventaris')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- {{ dd($selected_merk) }} --}}
     <div class="page-content-wrapper">
         <div class="py-3">
             <div class="container">
                 <div class="row g-1 align-items-center rtl-flex-d-row-r">
                     <div class="col-4">
                         <div class="select-product-catagory" style="width: 100%">
-                            <select class=" small border-0" id="selectProductCatagory" name="kategori"
+                            <select class=" small border-0" id="selectruangan" name="ruangan"
                                 aria-label="Default select example">
-                                <option value="all">All Ruangan</option>
+                                <option value="allruangan">All Ruangan</option>
+                                @foreach ($allruangan as $allruangans)
+                                    <option value="{{ $allruangans->nama_ruangan }}" {{ old('ruangan') == $allruangans->nama_ruangan || $selected_ruangan == $allruangans->nama_ruangan ? 'selected' : '' }}>
+                                        {{ $allruangans->nama_ruangan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="select-product-catagory">
+                            <select class=" small border-0" id="selectmerek" name="merek"
+                                aria-label="Default select example">
+                                <option value="allmerek">All Merek</option>
+                                @foreach ($allmerek as $allmereks)
+                                    {{-- <option value="all">{{ $allmereks->nama_merek }}</option> --}}
+                                    <option value="{{ $allmereks->nama_merek }}" {{ old('merek') == $allmereks->nama_merek || $selected_merek == $allmereks->nama_merek ? 'selected' : '' }}>
+                                        {{ $allmereks->nama_merek }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="select-product-catagory">
-                            <select class=" small border-0" id="selectProductCatagory" name="label"
+                            <select class=" small border-0" id="selectjenisalat" name="jenisalat"
                                 aria-label="Default select example">
-                                <option value="all">All Merek</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="select-product-catagory">
-                            <select class=" small border-0" id="selectProductCatagory" name="label"
-                                aria-label="Default select example">
-                                <option value="all">All Jenis Alat</option>
+                                <option value="alljenisalat">All Jenis Alat</option>
+                                @foreach ($alljenisalat as $alljenisalats)
+                                    {{-- <option value="all">{{ $alljenisalats->jenis_alat }}</option> --}}
+                                    <option value="{{ $alljenisalats->jenis_alat }}" {{ old('merek') == $alljenisalats->jenis_alat || $selected_jenis_alat == $alljenisalats->jenis_alat ? 'selected' : '' }}>
+                                        {{ $alljenisalats->jenis_alat }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -60,6 +80,35 @@
                     @endforeach
                 </div>
             </div>
+            <div class="h-100 d-flex align-items-center justify-content-center" style="margin-top: 7px">
+                {{ $inventaris->links() }}
+            </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
+
+    <script>
+        $(function(){
+            var url = '/web/inventaris/filter';
+            var nama_ruangan = 'allruangan';
+            var nama_merek = 'allmerek';
+            var nama_jenisalat = 'alljenisalat';
+
+            $('#selectruangan, #selectmerek, #selectjenisalat').on('change', function () {
+                var nama_ruangan = $("#selectruangan option:selected").val();
+                var nama_merek = $("#selectmerek option:selected").val();
+                var nama_jenisalat = $("#selectjenisalat option:selected").val();
+                var urlfull = url + '?nama_ruangan=' + nama_ruangan + '&nama_merek=' + nama_merek + '&nama_jenisalat=' + nama_jenisalat;
+                console.log(urlfull);
+
+                window.location.href = urlfull;
+            });
+
+        });
+    </script>
+
 @endsection
