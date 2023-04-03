@@ -1,28 +1,35 @@
 @extends('layouts.master-frontend')
 @section('title', 'List Faskes')
 @section('content')
+{{-- {{ dd($faskesdata); }} --}}
     <div class="page-content-wrapper">
         <div class="py-3">
             <div class="container">
                 <div class="row g-1 align-items-center rtl-flex-d-row-r">
                     <div class="col-4">
                         <div class="select-product-catagory" style="width: 100%">
-                            <select class=" small border-0" id="selectProductCatagory" name="kategori"
+                            <select class=" small border-0" id="selectjenisfaskes" name="jenisfaskes"
                                 aria-label="Default select example">
-                                <option value="all">All Jenis Faskes</option>
+                                <option value="alljenisfaskes">All Jenis Faskes</option>
                                 @foreach ($alljenis_faskes as $alljenis_faskess)
-                                    <option value="all">{{ $alljenis_faskess->nama_jenis_faskes }}</option>
+                                    {{-- <option value="all">{{ $alljenis_faskess->nama_jenis_faskes }}</option> --}}
+                                    <option value="{{ $alljenis_faskess->nama_jenis_faskes }}" {{ old('jenisfaskes') == $alljenis_faskess->nama_jenis_faskes || $selected_jenisfaskes == $alljenis_faskess->nama_jenis_faskes ? 'selected' : '' }}>
+                                        {{ $alljenis_faskess->nama_jenis_faskes }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="select-product-catagory">
-                            <select class=" small border-0" id="selectProductCatagory" name="label"
+                            <select class=" small border-0" id="selectkabkot" name="kabkot"
                                 aria-label="Default select example">
-                                <option value="all">All Kabkot</option>
+                                <option value="allkabkot">All Kabkot</option>
                                 @foreach ($allkabkots as $allkabkotss)
-                                    <option value="all">{{ $allkabkotss->kabupaten_kota }}</option>
+                                    {{-- <option value="all">{{ $allkabkotss->kabupaten_kota }}</option> --}}
+                                    <option value="{{ $allkabkotss->kabupaten_kota }}" {{ old('kabkot') == $allkabkotss->kabupaten_kota || $selected_kabkot == $allkabkotss->kabupaten_kota ? 'selected' : '' }}>
+                                        {{ $allkabkotss->kabupaten_kota }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -53,9 +60,9 @@
                                     <div class="product-description" style="margin-top: 5px; margin-bottom:5px">
                                         <a class="product-title d-block" href="#">{{ $faskesdatas->nama_faskes }}</a>
                                         <p class="sale-price"><i class="fa fa-tag" aria-hidden="true"></i>
-                                            Jenis Faskes : {{ $faskesdatas->nama_jenis_faskes }}</p>
+                                            Jenis Faskes : {{ $faskesdatas->jenis_faske->nama_jenis_faskes }}</p>
                                         <div class="product-rating"><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            {{ $faskesdatas->kabupaten_kota }}
+                                            {{ $faskesdatas->kabkot->kabupaten_kota }}
                                         </div>
                                     </div>
                                 </div>
@@ -70,6 +77,30 @@
             
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
+
+    <script>
+        $(function(){
+            var url = '/web/faskes/filter';
+            var nama_jenisfaskes = 'alljenisfaskes';
+            var nama_kabkot = 'allkabkot';
+
+            $('#selectjenisfaskes, #selectkabkot').on('change', function () {
+                nama_jenisfaskes = $("#selectjenisfaskes option:selected").val();
+                nama_kabkot = $("#selectkabkot option:selected").val();
+                
+                var urlfull = url + '?nama_jenisfaskes=' + nama_jenisfaskes + '&nama_kabkot=' + nama_kabkot;
+                console.log(urlfull);
+
+                window.location.href = urlfull;
+            });
+
+        });
+    </script>
     
     
 @endsection

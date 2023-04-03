@@ -17,6 +17,7 @@ class InventarisController extends Controller
     public function index()
     {
         $inventaris = Inventari::with('room:id,nama_ruangan', 'type:id,jenis_alat', 'brand:id,nama_merek', 'vendor:id,nama_vendor')->orderBy('inventaris.id', 'DESC')->paginate(5);
+        // dd($inventaris);
         $allruangan = DB::table('rooms')->select('nama_ruangan')->get();
         $allmerek = DB::table('brands')->select('nama_merek')->get();
         $alljenisalat = DB::table('types')->select('jenis_alat')->get();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Faske;
 use Illuminate\Support\Facades\DB;
 
 class FaskesController extends Controller
@@ -15,30 +16,69 @@ class FaskesController extends Controller
      */
     public function index()
     {
-        $faskesdata = DB::table('faskes')
-            ->join('jenis_faskes', 'faskes.jenis_faskes_id', '=', 'jenis_faskes.id')
-            ->join('provinces', 'faskes.provinsi_id', '=', 'provinces.id')
-            ->join('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
-            ->join('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
-            ->join('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
-            ->select(
-                'faskes.nama_faskes',
-                'jenis_faskes.nama_jenis_faskes',
-                'provinces.provinsi',
-                'kabkots.kabupaten_kota',
-                'kecamatans.kecamatan',
-                'kelurahans.kelurahan',
-                'alamat',
-                'zip_kode'
-            )
-            ->paginate(5);
+        $faskesdata = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi',
+        'kabkot:id,kabupaten_kota','kecamatan:id,kecamatan','kelurahan:id,kelurahan')
+            ->orderBy('faskes.id', 'DESC')->paginate(5);
+
         $alljenis_faskes = DB::table('jenis_faskes')->select('nama_jenis_faskes')->get();
         $allkabkots = DB::table('kabkots')->select('kabupaten_kota')->get();
         
         return view('frontend.faskes', [
             'faskesdata' =>  $faskesdata,
             'alljenis_faskes' =>  $alljenis_faskes,
-            'allkabkots' =>  $allkabkots
+            'allkabkots' =>  $allkabkots,
+            'selected_jenisfaskes' => 'alljenisfaskes',
+            'selected_kabkot' => 'allkabkot'
         ]);
+    }
+
+    private function getFaskes($jenisfaskes, $kabkot) {
+        $faskesdata = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi',
+        'kabkot:id,kabupaten_kota','kecamatan:id,kecamatan','kelurahan:id,kelurahan')
+            ->orderBy('faskes.id', 'DESC');
+
+        if ($jenisfaskes != "alljenisfaskes") {
+            $getid_jenisfaskes = DB::table('jenis_faskes')->select('id')->where('nama_jenis_faskes', $jenisfaskes)->get();
+            $id_jenisfaskesjson = strval($getid_jenisfaskes);
+            $id_jenisfaskesjsondata = json_decode($id_jenisfaskesjson, true);
+            $id_jenisfaskes = $id_jenisfaskesjsondata[0]['id'];
+    
+            $selected_jenisfaskes = old('jenisfaskes') ?? $jenisfaskes;
+    
+            $faskesdata->where('faskes.jenis_faskes_id', $id_jenisfaskes);
+        }
+        if ($kabkot != "allkabkot") {
+            $getid_kabkot = DB::table('kabkots')->select('id')->where('kabupaten_kota', $kabkot)->get();
+            $id_kabkotjson = strval($getid_kabkot);
+            $id_kabkotjsondata = json_decode($id_kabkotjson, true);
+            $id_kabkot = $id_kabkotjsondata[0]['id'];
+    
+            $selected_kabkot = old('kabkot') ?? $kabkot;
+    
+            $faskesdata->where('faskes.kabkot_id', $id_kabkot);
+        }
+    
+        return $faskesdata->paginate(5);
+    }
+
+    public function filter()
+    {
+        $nama_jenisfaskes = request()->query('nama_jenisfaskes') ?? 'alljenisfaskes';
+        $nama_kabkot = request()->query('nama_kabkot') ?? 'allkabkot';
+
+        // dd($nama_jenisfaskes, $nama_kabkot);
+
+        $faskesdata = $this->getFaskes($nama_jenisfaskes, $nama_kabkot);      
+        $alljenis_faskes = DB::table('jenis_faskes')->select('nama_jenis_faskes')->get();
+        $allkabkots = DB::table('kabkots')->select('kabupaten_kota')->get();
+        
+        return view('frontend.faskes', [
+            'faskesdata' =>  $faskesdata,
+            'alljenis_faskes' =>  $alljenis_faskes,
+            'allkabkots' =>  $allkabkots,
+            'selected_jenisfaskes' => $nama_jenisfaskes,
+            'selected_kabkot' => $nama_kabkot
+        ]);
+
     }
 }
