@@ -11,11 +11,13 @@
                         <div class="select-product-catagory" style="width: 100%">
                             <select class=" small border-0" id="selectruangan" name="ruangan"
                                 aria-label="Default select example">
-                                <option value="all">All Ruangan</option>
+                                <option value="allruangan">All Ruangan</option>
                                 @foreach ($allruangan as $allruangans)
-                                    {{-- {{ bisa }}
-                                    <option value="/web/inventaris/{{ $allruangans->nama_ruangan }}">{{ $allruangans->nama_ruangan }}</option> --}}
-                                    <option value="{{ $allruangans->nama_ruangan }}">{{ $allruangans->nama_ruangan }}</option>
+                                    {{-- <option value="{{ $allruangans->nama_ruangan }}">{{ $allruangans->nama_ruangan }}</option> --}}
+                                    <option value="{{ $allruangans->nama_ruangan }}" {{ old('ruangan') == $allruangans->nama_ruangan || $selected_ruangan == $allruangans->nama_ruangan ? 'selected' : '' }}>
+                                        {{ $allruangans->nama_ruangan }}
+                                    </option>
+
                                 @endforeach
                             </select>
                             
@@ -85,19 +87,16 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
 
-    <script>        
+    <script>
         $(function(){
             $('#selectruangan').on('change', function () {
                 var url1 = '/web/inventaris/filter';
-                // var nama_ruangan = '{{ $allruangans->nama_ruangan }}';
                 var nama_ruangan= $("#selectruangan option:selected").val()
-
                 var url = url1+'?nama_ruangan='+nama_ruangan ;
 
+                console.log(url);
+
                 window.location.href=url;
-
-                
-
             });
         });
     </script>
