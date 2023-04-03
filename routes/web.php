@@ -37,8 +37,9 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
 
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
-    Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
+    Route::get('/faskes/filter', [FaskesController::class, 'filter']);
 
+    Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
     Route::get('/inventaris/filter', [InventarisController::class, 'filter']);
 
     // Route::get('/inventaris/filter/', function () {

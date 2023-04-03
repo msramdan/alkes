@@ -42,7 +42,7 @@
                                 <option value="alljenisalat">All Jenis Alat</option>
                                 @foreach ($alljenisalat as $alljenisalats)
                                     {{-- <option value="all">{{ $alljenisalats->jenis_alat }}</option> --}}
-                                    <option value="{{ $alljenisalats->jenis_alat }}" {{ old('merek') == $alljenisalats->jenis_alat || $selected_jenis_alat == $alljenisalats->jenis_alat ? 'selected' : '' }}>
+                                    <option value="{{ $alljenisalats->jenis_alat }}" {{ old('jenisalat') == $alljenisalats->jenis_alat || $selected_jenis_alat == $alljenisalats->jenis_alat ? 'selected' : '' }}>
                                         {{ $alljenisalats->jenis_alat }}
                                     </option>
                                 @endforeach
