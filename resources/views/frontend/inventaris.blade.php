@@ -2,7 +2,7 @@
 @section('title', 'Inventaris')
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-{{-- {{ dd($getid_ruangan) }} --}}
+{{-- {{ dd($selected_merk) }} --}}
     <div class="page-content-wrapper">
         <div class="py-3">
             <div class="container">
@@ -13,11 +13,9 @@
                                 aria-label="Default select example">
                                 <option value="allruangan">All Ruangan</option>
                                 @foreach ($allruangan as $allruangans)
-                                    {{-- <option value="{{ $allruangans->nama_ruangan }}">{{ $allruangans->nama_ruangan }}</option> --}}
                                     <option value="{{ $allruangans->nama_ruangan }}" {{ old('ruangan') == $allruangans->nama_ruangan || $selected_ruangan == $allruangans->nama_ruangan ? 'selected' : '' }}>
                                         {{ $allruangans->nama_ruangan }}
                                     </option>
-
                                 @endforeach
                             </select>
                             
@@ -27,9 +25,12 @@
                         <div class="select-product-catagory">
                             <select class=" small border-0" id="selectmerek" name="merek"
                                 aria-label="Default select example">
-                                <option value="all">All Merek</option>
+                                <option value="allmerek">All Merek</option>
                                 @foreach ($allmerek as $allmereks)
-                                    <option value="all">{{ $allmereks->nama_merek }}</option>
+                                    {{-- <option value="all">{{ $allmereks->nama_merek }}</option> --}}
+                                    <option value="{{ $allmereks->nama_merek }}" {{ old('merek') == $allmereks->nama_merek || $selected_merek == $allmereks->nama_merek ? 'selected' : '' }}>
+                                        {{ $allmereks->nama_merek }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -38,9 +39,12 @@
                         <div class="select-product-catagory">
                             <select class=" small border-0" id="selectjenisalat" name="jenisalat"
                                 aria-label="Default select example">
-                                <option value="all">All Jenis Alat</option>
+                                <option value="alljenisalat">All Jenis Alat</option>
                                 @foreach ($alljenisalat as $alljenisalats)
-                                    <option value="all">{{ $alljenisalats->jenis_alat }}</option>
+                                    {{-- <option value="all">{{ $alljenisalats->jenis_alat }}</option> --}}
+                                    <option value="{{ $alljenisalats->jenis_alat }}" {{ old('merek') == $alljenisalats->jenis_alat || $selected_jenis_alat == $alljenisalats->jenis_alat ? 'selected' : '' }}>
+                                        {{ $alljenisalats->jenis_alat }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -89,15 +93,21 @@
 
     <script>
         $(function(){
-            $('#selectruangan').on('change', function () {
-                var url1 = '/web/inventaris/filter';
-                var nama_ruangan= $("#selectruangan option:selected").val()
-                var url = url1+'?nama_ruangan='+nama_ruangan ;
+            var url = '/web/inventaris/filter';
+            var nama_ruangan = 'allruangan';
+            var nama_merek = 'allmerek';
+            var nama_jenisalat = 'alljenisalat';
 
-                console.log(url);
+            $('#selectruangan, #selectmerek, #selectjenisalat').on('change', function () {
+                var nama_ruangan = $("#selectruangan option:selected").val();
+                var nama_merek = $("#selectmerek option:selected").val();
+                var nama_jenisalat = $("#selectjenisalat option:selected").val();
+                var urlfull = url + '?nama_ruangan=' + nama_ruangan + '&nama_merek=' + nama_merek + '&nama_jenisalat=' + nama_jenisalat;
+                console.log(urlfull);
 
-                window.location.href=url;
+                window.location.href = urlfull;
             });
+
         });
     </script>
 
