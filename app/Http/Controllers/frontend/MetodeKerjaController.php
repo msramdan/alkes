@@ -17,6 +17,7 @@ class MetodeKerjaController extends Controller
     {
         return view('frontend.listmetodekerja', [
             'filternomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5),
+            'nomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5)
         ]);
     }
 
@@ -34,7 +35,7 @@ class MetodeKerjaController extends Controller
     public function filter()
     {
         $nomenklatur_id = $_GET['nomenklatur_id'];
-        
+
         if($nomenklatur_id == "allnomenklatur"){
             $filternomenklatur = Nomenklatur::orderBy('id', 'DESC')->paginate(5);
         }else{
