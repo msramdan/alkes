@@ -47,8 +47,8 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     //     return "Nilai parameter hallo adalah: " . $hallo;
     // });
 
-
     Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
+    Route::get('/listmetodekerja/filter', [MetodeKerjaController::class, 'filter']);
     Route::get('/listmetodekerja/download/{file}/{name}', [MetodeKerjaController::class, 'getDownload'])->name('web-listmetodekerja-download');
 }); // auth teknisi
 Route::get('/auth-web', [AuthWebController::class, 'index'])->name('auth-web');
