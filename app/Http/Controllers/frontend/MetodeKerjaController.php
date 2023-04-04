@@ -16,7 +16,8 @@ class MetodeKerjaController extends Controller
     public function index()
     {
         return view('frontend.listmetodekerja', [
-            'nomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5),
+            'filternomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5),
+            'nomenklatur' => Nomenklatur::orderBy('id', 'DESC')->paginate(5)
         ]);
     }
 
@@ -30,4 +31,23 @@ class MetodeKerjaController extends Controller
         $newName = 'Metode Kerja ' . $name . '.pdf';
         return response()->download(public_path('storage/img/metode_kerja/' . $file), $newName);
     }
+
+    public function filter()
+    {
+        $nomenklatur_id = $_GET['nomenklatur_id'];
+
+        if($nomenklatur_id == "allnomenklatur"){
+            $filternomenklatur = Nomenklatur::orderBy('id', 'DESC')->paginate(5);
+        }else{
+            $filternomenklatur = Nomenklatur::where('id', $nomenklatur_id)->get();
+        }
+
+        $nomenklatur = Nomenklatur::orderBy('id', 'DESC')->paginate(5);
+
+        return view('frontend.listmetodekerja', [
+            'filternomenklatur' => $filternomenklatur,
+            'nomenklatur' => $nomenklatur
+        ]);
+    }
+
 }

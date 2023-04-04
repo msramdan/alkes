@@ -43,7 +43,7 @@ class InventarisController extends Controller
             $id_ruanganjsondata = json_decode($id_ruanganjson, true);
             $id_ruangan = $id_ruanganjsondata[0]['id'];
     
-            $selected_ruangan = old('ruangan') ?? $ruangan;
+            // $selected_ruangan = old('ruangan') ?? $ruangan;
     
             $inventaris->where('inventaris.ruangan_id', $id_ruangan);
         }
@@ -54,7 +54,7 @@ class InventarisController extends Controller
             $id_merekjsondata = json_decode($id_merekjson, true);
             $id_merek = $id_merekjsondata[0]['id'];
     
-            $selected_merek = old('merek') ?? $merek;
+            // $selected_merek = old('merek') ?? $merek;
     
             $inventaris->where('inventaris.merk_id', $id_merek);
         }
@@ -65,7 +65,7 @@ class InventarisController extends Controller
             $id_jenisalatjsondata = json_decode($id_jenisalatjson, true);
             $id_jenisalat = $id_jenisalatjsondata[0]['id'];
     
-            $selected_jenis_alat = old('jenisalat') ?? $jenisalat;
+            // $selected_jenis_alat = old('jenisalat') ?? $jenisalat;
     
             $inventaris->where('inventaris.jenis_alat_id', $id_jenisalat);
         }
