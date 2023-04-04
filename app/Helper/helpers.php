@@ -32,3 +32,29 @@ function get_data_teknisi()
         ->where('id', $id)->first();
     return $cek;
 }
+
+
+function is_show($nomenklatur_id, $field, $value, $table)
+{
+    $cek = DB::table($table)
+        ->where('nomenklatur_id', $nomenklatur_id)
+        ->where($field, $value)->first();
+    if ($cek) {
+        return 'show';
+    }else{
+        return 'none';
+    }
+}
+
+
+function is_required($nomenklatur_id, $field, $value, $table)
+{
+    $cek = DB::table($table)
+        ->where('nomenklatur_id', $nomenklatur_id)
+        ->where($field, $value)->first();
+    if ($cek) {
+        return 'show';
+    }else{
+        return 'none';
+    }
+}
