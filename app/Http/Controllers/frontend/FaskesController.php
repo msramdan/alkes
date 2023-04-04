@@ -44,18 +44,15 @@ class FaskesController extends Controller
             ->orderBy('faskes.nama_faskes', $short);
         }
         
+        // $selected_short = old('short') ?? $short;
         
-        
-        $selected_short = old('short') ?? $short;
-        // dd($selected_short);
-
         if ($jenisfaskes != "alljenisfaskes") {
             $getid_jenisfaskes = DB::table('jenis_faskes')->select('id')->where('nama_jenis_faskes', $jenisfaskes)->get();
             $id_jenisfaskesjson = strval($getid_jenisfaskes);
             $id_jenisfaskesjsondata = json_decode($id_jenisfaskesjson, true);
             $id_jenisfaskes = $id_jenisfaskesjsondata[0]['id'];
     
-            $selected_jenisfaskes = old('jenisfaskes') ?? $jenisfaskes;
+            // $selected_jenisfaskes = old('jenisfaskes') ?? $jenisfaskes;
     
             $faskesdata->where('faskes.jenis_faskes_id', $id_jenisfaskes);
         }
@@ -65,16 +62,12 @@ class FaskesController extends Controller
             $id_kabkotjsondata = json_decode($id_kabkotjson, true);
             $id_kabkot = $id_kabkotjsondata[0]['id'];
     
-            $selected_kabkot = old('kabkot') ?? $kabkot;
+            // $selected_kabkot = old('kabkot') ?? $kabkot;
     
             $faskesdata->where('faskes.kabkot_id', $id_kabkot);
         }
 
-        if($short=="def"){
-            return $faskesdata->orderBy('faskes.nama_faskes', 'ASC')->paginate(5);
-        }else{
-            return $faskesdata->orderBy('faskes.nama_faskes', $short)->paginate(5);
-        }
+        return $faskesdata->orderBy('faskes.nama_faskes', $short == "def" ? "ASC" : $short)->paginate(5);
 
     }
 

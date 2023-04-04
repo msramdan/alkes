@@ -39,16 +39,8 @@
                             <select class=" small border-0" id="selectshort" name="short"
                                 aria-label="Default select example">
                                 <option value="def" disabled selected>Short By</option>
-                                
-                                {{-- <option value="ASC">Nama A-Z</option> --}}
-                                <option value="ASC" {{ old('short') == 'ASC' || $selected_short == 'ASC' ? 'selected' : '' }}>
-                                    Nama A-Z
-                                </option>
-
-                                {{-- <option value="DESC">Nama Z-A</option> --}}
-                                <option value="DESC" {{ old('short') == 'DESC' || $selected_short == 'DESC' ? 'selected' : '' }}>
-                                    Nama Z-A
-                                </option>
+                                <option value="ASC" {{ old('short') == 'ASC' || $selected_short == 'ASC' ? 'selected' : '' }}>Nama A-Z</option>
+                                <option value="DESC" {{ old('short') == 'DESC' || $selected_short == 'DESC' ? 'selected' : '' }}>Nama Z-A</option>
                             </select>
                         </div>
                     </div>
