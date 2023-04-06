@@ -197,6 +197,9 @@ class NomenklaturController extends Controller
         $teknis = $request->teknis;
         $keselamatan_listrik = $request->keselamatan_listrik;
 
+        $parameter_pemeriksaan = $request->parameter_pemeriksaan;
+        $batas_pemeriksaan = $request->batas_pemeriksaan;
+
         //1. save pendataan_administrasi
         if ($pendataan_administrasi != null) {
             // ambil list data asal
@@ -406,6 +409,18 @@ class NomenklaturController extends Controller
             DB::table('nomenklatur_keselamatan_listrik')
                 ->where('nomenklatur_id', $nomenklatur_id)->delete();
         }
+
+        // 6. Kondisi Fisik dan fungsi
+        if (!empty($parameter_pemeriksaan)) {
+            foreach ($parameter_pemeriksaan as $i => $params) {
+                $fisik_dan_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')->insert([
+                    'nomenklatur_id' => $nomenklatur_id,
+                    'field_parameter' => $parameter_pemeriksaan[$i],
+                    'field_batas_pemeriksaan' => $batas_pemeriksaan[$i],
+                ]);
+            }
+        }
+
 
 
 
