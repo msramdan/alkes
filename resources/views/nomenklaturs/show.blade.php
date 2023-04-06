@@ -519,7 +519,7 @@
             $('#add_berkas').click(function() {
                 i++;
                 $('#dynamic_field').append('<tr id="row' + i +
-                    '"><td><input required type="text" name="name[]" placeholder="" class="form-control " /></td><td><input required style="" type="text" name="phone[]" placeholder="" class="form-control " /></td><td><button type="button" name="remove" id="' +
+                    '"><td><input required type="text" name="parameter_pemeriksaan[]" placeholder="" class="form-control " /></td><td><input required style="" type="text" name="batas_pemeriksaan[]" placeholder="" class="form-control " /></td><td><button type="button" name="remove" id="' +
                     i +
                     '" class="btn btn-danger btn_remove"><i class="bi bi-trash"></i></button></td></tr>'
                 );
