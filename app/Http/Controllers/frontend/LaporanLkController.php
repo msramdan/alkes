@@ -40,11 +40,23 @@ class LaporanLkController extends Controller
                                 ->where('nomenklatur_id', $nomenklatur_id)
                                 ->get();
 
+        $nomenklatur_keselamatan_listrik = DB::table('nomenklatur_keselamatan_listrik')
+                                              ->select('*')
+                                              ->where('nomenklatur_id', $nomenklatur_id)
+                                              ->get();
+
+        $nomeklatur_telaah_teknis = DB::table('nomenklatur_telaah_teknis')
+                                        ->select('*')
+                                        ->where('nomenklatur_id', $nomenklatur_id)
+                                        ->get();
+
         return view('frontend.create-laporan.create_laporan', [
             'nomenklatur_id' => $nomenklatur_id,
             'nomenklatur_type' => $nomenklatur_type,
             'faskes' => $faskes,
             'nomenklatur_fungsi' => $nomenklatur_fungsi,
+            'nomenklatur_keselamatan_listrik' => $nomenklatur_keselamatan_listrik,
+            'nomeklatur_telaah_teknis' => $nomeklatur_telaah_teknis
         ]);
     }
 }

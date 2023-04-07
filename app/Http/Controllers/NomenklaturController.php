@@ -421,9 +421,6 @@ class NomenklaturController extends Controller
             }
         }
 
-
-
-
         $listAsal = [];
         $listAsal_teknis = [];
         $penambahanBaru = [];

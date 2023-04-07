@@ -1,5 +1,4 @@
 <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-    <form id="form-4" class="" novalidate>
     @foreach ($nomenklatur_fungsi as $res)
         <div class="col mb-2">
             <label for="" style=" font-size: 12px;">{{ $res->field_parameter }}</label>
@@ -17,5 +16,4 @@
             </div>
         </div>
     @endforeach
-    </form>
 </div>
