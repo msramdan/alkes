@@ -22,19 +22,31 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @php
-                            $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
-                        @endphp
-                        <center>
-                            {!! QrCode::size(150)->generate($string) !!}
-                        </center>
+
+
+                        @if ($model->status_laporan != 'Need Review')
+                            @php
+                                $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
+                            @endphp
+                            <center>
+                                {!! QrCode::size(150)->generate($string) !!}
+                            </center>
+                        @else
+                            <center>
+                                <h5 style="color: red">Tidak tersedia status laporan masih "Need Review"</h4>
+                            </center>
+                        @endif
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <a href="" target="_blank" class="btn btn-danger "> <i class="fa fa-print"
-                                aria-hidden="true"></i>
-                            Print {{ $model->id }}</a>
+
+                        @if ($model->status_laporan != 'Need Review')
+                            <a href="" target="_blank" class="btn btn-danger "> <i class="fa fa-print"
+                                    aria-hidden="true"></i>
+                                Print</a>
+                        @endif
+
                     </div>
                 </div>
             </div>
