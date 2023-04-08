@@ -28,28 +28,27 @@ class InventarisExport implements FromView, ShouldAutoSize, WithEvents
             ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
             ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
             ->join('vendors', 'inventaris.vendor_id', '=', 'vendors.id')
-            ->select('inventaris.*', 'rooms.nama_ruangan', 'rooms.id', 'brands.nama_merek', 'brands.id', 'types.jenis_alat', 'types.id', 'vendors.nama_vendor', 'vendors.id');
-
+            ->select('inventaris.*', 'rooms.nama_ruangan', 'brands.nama_merek', 'types.jenis_alat', 'vendors.nama_vendor');
 
         if (isset($this->ruangan) && !empty($this->ruangan)) {
             if ($this->ruangan != 'All') {
-                $inventaris = $inventaris->where('rooms.id', $this->ruangan);
+                $inventaris = $inventaris->where('inventaris.ruangan_id', $this->ruangan);
             }
         }
         if (isset($this->merek) && !empty($this->merek)) {
             if ($this->merek != 'All') {
-                $inventaris = $inventaris->where('brands.id', $this->merek);
+                $inventaris = $inventaris->where('inventaris.merk_id', $this->merek);
             }
         }
         if (isset($this->jenis_alat) && !empty($this->jenis_alat)) {
             if ($this->jenis_alat != 'All') {
-                $inventaris = $inventaris->where('types.id', $this->jenis_alat);
+                $inventaris = $inventaris->where('inventaris.jenis_alat_id', $this->jenis_alat);
             }
         }
 
-        if (isset($vendor) && !empty($vendor)) {
+        if (isset($this->vendor) && !empty($this->vendor)) {
             if ($this->vendor != 'All') {
-                $inventaris = $inventaris->where('vendors.id', $this->vendor);
+                $inventaris = $inventaris->where('inventaris.vendor_id', $this->vendor);
             }
         }
 

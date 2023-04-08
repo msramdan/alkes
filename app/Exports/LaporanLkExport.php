@@ -30,7 +30,7 @@ class LaporanLkExport implements FromView, ShouldAutoSize, WithEvents
             ->join('faskes', 'laporans.faskes_id', '=', 'faskes.id')
             ->join('users', 'laporans.user_review', '=', 'users.id')
             ->join('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
-            ->select('laporans.*', 'pelaksana_teknisis.nama', 'pelaksana_teknisis.id', 'faskes.nama_faskes', 'faskes.id', 'users.name', 'users.id', 'nomenklaturs.nama_nomenklatur');
+            ->select('laporans.*', 'pelaksana_teknisis.nama', 'faskes.nama_faskes', 'users.name', 'nomenklaturs.nama_nomenklatur');
 
         if (isset($this->start_date) && !empty($this->start_date)) {
             $from = date("Y-m-d H:i:s", substr($this->start_date, 0, 10));

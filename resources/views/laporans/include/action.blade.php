@@ -4,10 +4,42 @@
         <button type="button" title="Other" class="btn btn-outline-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false"> <i class="fa fa-print"></i> </button>
         <div class="dropdown-menu" style="">
-            <a href="https://iot.easytopup.my.id/panel/device/12/edit" class="dropdown-item">Lembar Kerja</a>
-            <a href="https://iot.easytopup.my.id/panel/device/12" class="dropdown-item">Sertifikat</a>
-            <a href="https://iot.easytopup.my.id/panel/device/12/edit" class="dropdown-item">QR Scan Sertifikat</a>
+            <a href="" class="dropdown-item">Lembar Kerja</a>
+            <a href="" class="dropdown-item">Sertifikat</a>
+            <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
+                data-bs-target="#modalQr{{ $model->id }}">
+                QR Scan Sertifikat
+            </a>
         </div>
+
+        {{-- download qr --}}
+        <div class="modal fade" id="modalQr{{ $model->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">QR Scan Sertifikat</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @php
+                            $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
+                        @endphp
+                        <center>
+                            {!! QrCode::size(150)->generate($string) !!}
+                        </center>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="" target="_blank" class="btn btn-danger "> <i class="fa fa-print"
+                                aria-hidden="true"></i>
+                            Print {{ $model->id }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     @can('laporan view')

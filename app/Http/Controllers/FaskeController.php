@@ -37,17 +37,17 @@ class FaskeController extends Controller
                 ->join('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
                 ->join('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
                 ->join('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
-                ->select('faskes.*', 'jenis_faskes.nama_jenis_faskes', 'jenis_faskes.id', 'provinces.provinsi', 'kabkots.kabupaten_kota', 'kabkots.id', 'kecamatans.kecamatan', 'kelurahans.kelurahan');
+                ->select('faskes.*', 'jenis_faskes.nama_jenis_faskes', 'provinces.provinsi', 'kabkots.kabupaten_kota', 'kecamatans.kecamatan', 'kelurahans.kelurahan');
             $jenisFaskes = intval($request->query('jenisFaskes'));
             $kabkots = intval($request->query('kabkots'));
             if (isset($jenisFaskes) && !empty($jenisFaskes)) {
                 if ($jenisFaskes != 'All') {
-                    $faskes = $faskes->where('jenis_faskes.id', $jenisFaskes);
+                    $faskes = $faskes->where('faskes.jenis_faskes_id', $jenisFaskes);
                 }
             }
             if (isset($kabkots) && !empty($kabkots)) {
                 if ($kabkots != 'All') {
-                    $faskes = $faskes->where('kabkots.id', $kabkots);
+                    $faskes = $faskes->where('faskes.kabkot_id', $kabkots);
                 }
             }
             $faskes = $faskes->orderBy('faskes.id', 'desc')->get();

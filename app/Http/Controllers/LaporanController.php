@@ -35,7 +35,7 @@ class LaporanController extends Controller
                 ->join('faskes', 'laporans.faskes_id', '=', 'faskes.id')
                 ->join('users', 'laporans.user_review', '=', 'users.id')
                 ->join('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
-                ->select('laporans.*', 'pelaksana_teknisis.nama', 'pelaksana_teknisis.id', 'faskes.nama_faskes', 'faskes.id', 'users.name', 'users.id', 'nomenklaturs.nama_nomenklatur');
+                ->select('laporans.*', 'pelaksana_teknisis.nama', 'faskes.nama_faskes', 'users.name', 'nomenklaturs.nama_nomenklatur');
             $start_date = intval($request->query('start_date'));
             $end_date = intval($request->query('end_date'));
             $teknisi = $request->query('teknisi');

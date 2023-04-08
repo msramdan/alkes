@@ -15,7 +15,7 @@ use App\Http\Controllers\frontend\InventarisController;
 use App\Http\Controllers\frontend\LaporanLkController;
 use App\Http\Controllers\frontend\MetodeKerjaController;
 use App\Http\Controllers\frontend\HistoryLaporanLkController;
-
+use App\Http\Controllers\rs\SertifikatController;
 
 
 
@@ -90,3 +90,5 @@ Route::resource('inventaris', App\Http\Controllers\InventariController::class)->
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
 Route::get('export-data-lk/{start_date}/{end_date}/{teknisi}/{faskes}/{status}', [App\Http\Controllers\LaporanController::class, 'export'])->name('exportReportLk')->middleware('auth');
+// =========================================================================================================
+Route::get('e_sertifikat/{id}', [SertifikatController::class, 'sertifikat'])->name('e_sertifikat');

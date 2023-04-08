@@ -39,7 +39,7 @@ class InventariController extends Controller
                 ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
                 ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
                 ->join('vendors', 'inventaris.vendor_id', '=', 'vendors.id')
-                ->select('inventaris.*', 'rooms.nama_ruangan', 'rooms.id', 'brands.nama_merek', 'brands.id', 'types.jenis_alat', 'types.id', 'vendors.nama_vendor', 'vendors.id');
+                ->select('inventaris.*', 'rooms.nama_ruangan', 'brands.nama_merek', 'types.jenis_alat', 'vendors.nama_vendor');
             $ruangan = intval($request->query('ruangan'));
             $merek = intval($request->query('merek'));
             $jenis_alat = intval($request->query('jenis_alat'));
@@ -48,23 +48,23 @@ class InventariController extends Controller
 
             if (isset($ruangan) && !empty($ruangan)) {
                 if ($ruangan != 'All') {
-                    $inventaris = $inventaris->where('rooms.id', $ruangan);
+                    $inventaris = $inventaris->where('ruangan_id', $ruangan);
                 }
             }
             if (isset($merek) && !empty($merek)) {
                 if ($merek != 'All') {
-                    $inventaris = $inventaris->where('brands.id', $merek);
+                    $inventaris = $inventaris->where('merk_id', $merek);
                 }
             }
             if (isset($jenis_alat) && !empty($jenis_alat)) {
                 if ($jenis_alat != 'All') {
-                    $inventaris = $inventaris->where('types.id', $jenis_alat);
+                    $inventaris = $inventaris->where('jenis_alat_id', $jenis_alat);
                 }
             }
 
             if (isset($vendor) && !empty($vendor)) {
                 if ($vendor != 'All') {
-                    $inventaris = $inventaris->where('vendors.id', $vendor);
+                    $inventaris = $inventaris->where('vendor_id', $vendor);
                 }
             }
 
