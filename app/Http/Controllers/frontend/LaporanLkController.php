@@ -7,6 +7,7 @@ use App\Models\Nomenklatur;
 use Illuminate\Support\Facades\DB;
 use App\Models\Faske;
 use App\Models\Inventari;
+use Illuminate\Http\Request;
 
 class LaporanLkController extends Controller
 {
@@ -22,9 +23,9 @@ class LaporanLkController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $nomenklatur_id = $_GET['nomenklatur_id'];
+        $nomenklatur_id = $request->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
         //menampilkan form bagian administrasi sesuai dengan field yang sudah di config pada halaman admin
         $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();

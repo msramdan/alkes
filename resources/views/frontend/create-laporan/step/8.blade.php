@@ -1,8 +1,8 @@
 <div id="step-8" class="tab-pane" role="tabpanel" aria-labelledby="step-8">
     <div class="col mb-2">
-        <label for="" style=" font-size: 12px;">Berdasarkan hasil pemeriksaan fungsi, pengukuran
-            keselamatan listrik dan kalibrasi kinerja, alat kesehatan
-            tersebut di atas dinyatakan </label>
+        <label for="" style=" font-size: 12px;">Berdasarkan hasil pengujian
+            dan/ atau hasil kalibrasi, alat
+            ini dinyatakan </label>
         <select class="form-control select2" id="kesimpulan-telaah-teknis"
             name="kesimpulan-telaah-teknis" required style="width: 100%;" required>
             <option selected disabled value="">-- Pilih --</option>
