@@ -23,6 +23,7 @@
                     @endphp
                     <center>
                         {!! QrCode::size(150)->generate($string) !!}
+                        <p style="margin-top: 10px"><b>Inventaris {{ $model->kode_inventaris }}</b></p>
                     </center>
                 </div>
                 <div class="modal-footer">

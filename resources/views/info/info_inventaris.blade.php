@@ -24,14 +24,56 @@
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
                         <div class="panel-body">
                             <center>
-                                <h4><b>Hi Welcome 👋</b> </h4>
-                                <p>The certificate can be downloaded by clicking the button below</p>
-                                <button class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                                    Download Certificate </button>
-                                <p style="margin-top: 10px"><b>Referenches : LK-202203-001 </b></p>
+                                <h5><b>Detail Inventaris PT. Mitra Tera Akurasi</b> </h5>
                             </center>
-                            <br>
-                            <br>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 40%"> <b>Kode Inventaris</b> </td>
+                                        <td style="width: 2%">:</td>
+                                        <td style="width: 58%">{{ $inventaris->kode_inventaris }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Kode</b> </td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->kode }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Tahun Pembelian</b> </td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->tahun_pembelian }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Ruangan</b> </td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->nama_ruangan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Jenis Alat</b></td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->jenis_alat }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Merek</b></td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->nama_merek }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Tipe</b></td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->tipe }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Serial Number</b></td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->serial_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Vendor</b></td>
+                                        <td>:</td>
+                                        <td>{{ $inventaris->nama_vendor }}</td>
+                                    </tr>
+                            </table>
                             <hr>
                             Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
                                 style="width: 40%;">
@@ -39,15 +81,14 @@
                     </div>
                 </div>
             </div>
+            <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
+                data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
         </div>
-        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
-            data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
-    </div>
-    <script src="{{ asset('template_sertifikat') }}/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-    <script src="{{ asset('template_sertifikat') }}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="{{ asset('template_sertifikat') }}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="{{ asset('template_sertifikat') }}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-    <script src="{{ asset('template_sertifikat') }}/assets/js/apps.min.js"></script>
+        <script src="{{ asset('template_sertifikat') }}/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+        <script src="{{ asset('template_sertifikat') }}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="{{ asset('template_sertifikat') }}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="{{ asset('template_sertifikat') }}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+        <script src="{{ asset('template_sertifikat') }}/assets/js/apps.min.js"></script>
 </body>
 
 </html>

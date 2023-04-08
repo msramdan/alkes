@@ -30,6 +30,7 @@
                             @endphp
                             <center>
                                 {!! QrCode::size(150)->generate($string) !!}
+                                <p style="margin-top: 10px"><b>E-Sertifikat</b></p>
                             </center>
                         @else
                             <center>
