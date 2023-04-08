@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive p-1">
-                                <table class="table table-striped" id="data-table" width="100%">
+                                <table class="table table-striped" id="data-table" width="100%" style="min-height: 200px">
                                     <thead>
                                         <tr>
                                             <th>{{ __('No Laporan') }}</th>

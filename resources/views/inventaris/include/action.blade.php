@@ -1,4 +1,7 @@
 <td>
+    <a href="" title="QR For Sertifikat" class="btn btn-outline-dark btn-sm">
+        <i class="fa fa-qrcode"></i>
+    </a>
     @can('inventari edit')
         <a href="{{ route('inventaris.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>
