@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FaskesExport;
 use App\Models\Faske;
+use App\Models\JenisFaske;
 use App\Http\Requests\{StoreFaskeRequest, UpdateFaskeRequest};
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Kabkot;
+use Illuminate\Http\Request;
 
 class FaskeController extends Controller
 {
@@ -22,10 +27,30 @@ class FaskeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (request()->ajax()) {
-            $faskes = Faske::with('jenis_faske:id,nama_jenis_faskes', 'province:id,provinsi', 'kabkot:id,kabupaten_kota', 'kecamatan:id,kecamatan', 'kelurahan:id,kelurahan');
+            $faskes
+                = DB::table('faskes')
+                ->join('jenis_faskes', 'faskes.jenis_faskes_id', '=', 'jenis_faskes.id')
+                ->join('provinces', 'faskes.provinsi_id', '=', 'provinces.id')
+                ->join('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
+                ->join('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
+                ->join('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
+                ->select('faskes.*', 'jenis_faskes.nama_jenis_faskes', 'jenis_faskes.id', 'provinces.provinsi', 'kabkots.kabupaten_kota', 'kabkots.id', 'kecamatans.kecamatan', 'kelurahans.kelurahan');
+            $jenisFaskes = intval($request->query('jenisFaskes'));
+            $kabkots = intval($request->query('kabkots'));
+            if (isset($jenisFaskes) && !empty($jenisFaskes)) {
+                if ($jenisFaskes != 'All') {
+                    $faskes = $faskes->where('jenis_faskes.id', $jenisFaskes);
+                }
+            }
+            if (isset($kabkots) && !empty($kabkots)) {
+                if ($kabkots != 'All') {
+                    $faskes = $faskes->where('kabkots.id', $kabkots);
+                }
+            }
+            $faskes = $faskes->orderBy('faskes.id', 'desc')->get();
 
             return DataTables::of($faskes)
                 ->addIndexColumn()
@@ -33,20 +58,24 @@ class FaskeController extends Controller
                     return str($row->alamat)->limit(100);
                 })
                 ->addColumn('jenis_faske', function ($row) {
-                    return $row->jenis_faske ? $row->jenis_faske->nama_jenis_faskes : '';
+                    return $row->nama_jenis_faskes;
                 })->addColumn('province', function ($row) {
-                    return $row->province ? $row->province->provinsi : '';
+                    return $row->provinsi;
                 })->addColumn('kabkot', function ($row) {
-                    return $row->kabkot ? $row->kabkot->kabupaten_kota : '';
+                    return $row->kabupaten_kota;
                 })->addColumn('kecamatan', function ($row) {
-                    return $row->kecamatan ? $row->kecamatan->kecamatan : '';
+                    return $row->kecamatan;
                 })->addColumn('kelurahan', function ($row) {
-                    return $row->kelurahan ? $row->kelurahan->kelurahan : '';
+                    return $row->kelurahan;
                 })->addColumn('action', 'faskes.include.action')
                 ->toJson();
         }
-
-        return view('faskes.index');
+        $jenisFaskes = JenisFaske::orderBy('id', 'DESC')->get();
+        $kabkots = Kabkot::orderBy('id', 'DESC')->get();
+        return view('faskes.index', [
+            'jenisFaskes' => $jenisFaskes,
+            'kabkots' => $kabkots,
+        ]);
     }
 
     /**
@@ -140,5 +169,12 @@ class FaskeController extends Controller
                 ->route('faskes.index')
                 ->with('error', __("The faske can't be deleted because it's related to another table."));
         }
+    }
+
+    public function export($jenisFaskes,  $kabkots)
+    {
+        $date = date('d-m-Y');
+        $nameFile = 'Report_faskes' . $date;
+        return Excel::download(new FaskesExport($jenisFaskes, $kabkots), $nameFile . '.xlsx');
     }
 }

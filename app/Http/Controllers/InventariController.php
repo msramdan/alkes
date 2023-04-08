@@ -189,7 +189,7 @@ class InventariController extends Controller
     public function export($ruangan, $merek, $jenis_alat, $vendor)
     {
         $date = date('d-m-Y');
-        $nameFile = 'RM-Device Log-' . $date;
+        $nameFile = 'Report_Inventory' . $date;
         return Excel::download(new InventarisExport($ruangan, $merek, $jenis_alat, $vendor), $nameFile . '.xlsx');
     }
 }

@@ -74,6 +74,7 @@ Route::resource('kabkots', App\Http\Controllers\KabkotController::class)->middle
 Route::resource('kecamatans', App\Http\Controllers\KecamatanController::class)->middleware('auth');
 Route::resource('kelurahans', App\Http\Controllers\KelurahanController::class)->middleware('auth');
 Route::resource('faskes', App\Http\Controllers\FaskeController::class)->middleware('auth');
+Route::get('export-data-faskes/{jenisFaskes}/{kabkots}', [App\Http\Controllers\FaskeController::class, 'export'])->name('exportReportFaskes')->middleware('auth');
 Route::resource('pelaksana-teknis', App\Http\Controllers\PelaksanaTeknisiController::class)->middleware('auth');
 Route::resource('metode-kerjas', App\Http\Controllers\MetodeKerjaController::class)->middleware('auth');
 Route::resource('kontak-masukans', App\Http\Controllers\KontakMasukanController::class)->middleware('auth');
@@ -84,5 +85,5 @@ Route::resource('vendors', App\Http\Controllers\VendorController::class)->middle
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
-Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportDevice')->middleware('auth');
+Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
