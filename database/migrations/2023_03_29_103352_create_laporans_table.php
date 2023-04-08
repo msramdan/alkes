@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan', 100);
-            $table->foreignId('user_created')->constrained('users')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('user_created')->constrained('pelaksana_teknisis')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('faskes_id')->constrained('faskes')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->restrictOnDelete();
             $table->dateTime('tgl_laporan');
             $table->string('status_laporan', 150);
             $table->foreignId('user_review')->nullable()->constrained('users')->restrictOnUpdate()->restrictOnDelete();

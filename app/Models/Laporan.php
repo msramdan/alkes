@@ -23,10 +23,6 @@ class Laporan extends Model
      */
     protected $fillable = ['no_laporan', 'user_created', 'tgl_laporan', 'status_laporan', 'user_review', 'tgl_review'];
 
-    public function user()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'user_created');
-    }
 
     public function user_review()
     {
