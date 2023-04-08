@@ -33,7 +33,9 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::post('/update-password', [AuthWebController::class, 'update_password'])->name('auth-update-password');
     Route::get('/laporan_lk', [LaporanLkController::class, 'index'])->name('web-laporan_lk');
     Route::get('/create_laporan_lk', [LaporanLkController::class, 'create'])->name('web-create_laporan_lk');
+    Route::post('/submit-laporan', [LaporanLkController::class, 'submitLaporan'])->name('web-submit-laporan');
     Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
+
 
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');

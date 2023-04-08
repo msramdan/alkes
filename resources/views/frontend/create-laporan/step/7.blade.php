@@ -3,7 +3,7 @@
         <div class="col mb-2">
             <label for="" style=" font-size: 12px;">{{ $res->field_telaah_teknis }}</label>
             <select class="form-control select2" id="pemeriksaan-alat{{ $res->id }}"
-                name="telaah-teknis{{ $res->id }}" required style="width: 100%;" required>
+                name="telaah_teknis-{{ $res->id }}" required style="width: 100%;" required>
                 <option selected disabled value="">-- Pilih --</option>
                 <option value="baik">Baik</option>
                 <option value="tidak-baik">Tidak baik</option>

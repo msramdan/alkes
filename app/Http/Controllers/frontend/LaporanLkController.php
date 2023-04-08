@@ -7,6 +7,7 @@ use App\Models\Nomenklatur;
 use Illuminate\Support\Facades\DB;
 use App\Models\Faske;
 use App\Models\Inventari;
+use Illuminate\Http\Request;
 
 class LaporanLkController extends Controller
 {
@@ -22,9 +23,9 @@ class LaporanLkController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $nomenklatur_id = $_GET['nomenklatur_id'];
+        $nomenklatur_id = $request->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
         //menampilkan form bagian administrasi sesuai dengan field yang sudah di config pada halaman admin
         $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();
@@ -59,4 +60,14 @@ class LaporanLkController extends Controller
             'nomeklatur_telaah_teknis' => $nomeklatur_telaah_teknis
         ]);
     }
+
+    public function submitLaporan(Request $request) {
+        dd($request->input());
+        $administrasi = $this->preg_grep_keys('/^administrasi_+(?:.+)/m', $request->input());
+        dd($administrasi);
+    }
+
+    private function preg_grep_keys($pattern, $input, $flags = 0) {
+		return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input),$flags)));
+	}
 }
