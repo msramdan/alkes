@@ -4,7 +4,7 @@
             dan/ atau hasil kalibrasi, alat
             ini dinyatakan </label>
         <select class="form-control select2" id="kesimpulan-telaah-teknis"
-            name="kesimpulan-telaah-teknis" required style="width: 100%;" required>
+            name="kesimpulan_telaah_teknis" required style="width: 100%;" required>
             <option selected disabled value="">-- Pilih --</option>
             <option value="baik">Baik</option>
             <option value="tidak-baik">Tidak baik</option>

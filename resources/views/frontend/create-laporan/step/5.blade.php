@@ -3,7 +3,7 @@
     <div class="row mb-2">
         <div class="col">
             <label for="" style=" font-size: 12px;">{{ $data->field_keselamatan_listrik }} {{ $data->unit }}</label>
-            <input type="text" name="keselamatan-listrik{{ $data->id }}" class="form-control" placeholder="" aria-label="{{ $data->field_keselamatan_listrik }}">
+            <input type="text" name="keselamatan_listrik-{{ $data->id }}" class="form-control" placeholder="" aria-label="{{ $data->field_keselamatan_listrik }}">
         </div>
     </div>
     @endforeach

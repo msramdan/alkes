@@ -61,8 +61,10 @@
                             </li>
                         </ul>
                         <hr>
-                        <form>
+                        <form id="form-laporan" action="{{ route('web-submit-laporan') }}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <div class="tab-content">
+                                <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur_id }}">
                                 @include('frontend.create-laporan.step.1')
                                 @include('frontend.create-laporan.step.2')
                                 @include('frontend.create-laporan.step.3')
@@ -96,7 +98,8 @@
             //         return false;
             //     }
             // }
-            alert("Selesai");
+            //alert("Selesai");
+            $('#form-laporan').submit();
         }
 
         function showConfirm() {

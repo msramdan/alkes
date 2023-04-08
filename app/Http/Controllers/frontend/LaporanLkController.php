@@ -60,4 +60,14 @@ class LaporanLkController extends Controller
             'nomeklatur_telaah_teknis' => $nomeklatur_telaah_teknis
         ]);
     }
+
+    public function submitLaporan(Request $request) {
+        dd($request->input());
+        $administrasi = $this->preg_grep_keys('/^administrasi_+(?:.+)/m', $request->input());
+        dd($administrasi);
+    }
+
+    private function preg_grep_keys($pattern, $input, $flags = 0) {
+		return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input),$flags)));
+	}
 }
