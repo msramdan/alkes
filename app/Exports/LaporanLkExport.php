@@ -25,40 +25,48 @@ class LaporanLkExport implements FromView, ShouldAutoSize, WithEvents
 
     public function view(): View
     {
-        $inventaris
-            = DB::table('inventaris')
-            ->join('rooms', 'inventaris.ruangan_id', '=', 'rooms.id')
-            ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
-            ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
-            ->join('vendors', 'inventaris.vendor_id', '=', 'vendors.id')
-            ->select('inventaris.*', 'rooms.nama_ruangan', 'rooms.id', 'brands.nama_merek', 'brands.id', 'types.jenis_alat', 'types.id', 'vendors.nama_vendor', 'vendors.id');
+        $laporans = DB::table('laporans')
+            ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
+            ->join('faskes', 'laporans.faskes_id', '=', 'faskes.id')
+            ->join('users', 'laporans.user_review', '=', 'users.id')
+            ->join('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
+            ->select('laporans.*', 'pelaksana_teknisis.nama', 'pelaksana_teknisis.id', 'faskes.nama_faskes', 'faskes.id', 'users.name', 'users.id', 'nomenklaturs.nama_nomenklatur');
 
-
-        if (isset($this->ruangan) && !empty($this->ruangan)) {
-            if ($this->ruangan != 'All') {
-                $inventaris = $inventaris->where('rooms.id', $this->ruangan);
-            }
+        if (isset($this->start_date) && !empty($this->start_date)) {
+            $from = date("Y-m-d H:i:s", substr($this->start_date, 0, 10));
+            $laporans = $laporans->where('tgl_laporan', '>=', $from);
+        } else {
+            $from = date('Y-m-d') . " 00:00:00";
+            $laporans = $laporans->where('tgl_laporan', '>=', $from);
         }
-        if (isset($this->merek) && !empty($this->merek)) {
-            if ($this->merek != 'All') {
-                $inventaris = $inventaris->where('brands.id', $this->merek);
-            }
-        }
-        if (isset($this->jenis_alat) && !empty($this->jenis_alat)) {
-            if ($this->jenis_alat != 'All') {
-                $inventaris = $inventaris->where('types.id', $this->jenis_alat);
-            }
+        if (isset($this->end_date) && !empty($this->end_date)) {
+            $to = date("Y-m-d H:i:s", substr($this->end_date, 0, 10));
+            $laporans = $laporans->where('tgl_laporan', '<=', $to);
+        } else {
+            $to = date('Y-m-d') . " 23:59:59";
+            $laporans = $laporans->where('tgl_laporan', '<=', $to);
         }
 
-        if (isset($vendor) && !empty($vendor)) {
-            if ($this->vendor != 'All') {
-                $inventaris = $inventaris->where('vendors.id', $this->vendor);
+        if (isset($this->teknisi) && !empty($this->teknisi)) {
+            if ($this->teknisi != 'All') {
+                $laporans = $laporans->where('user_created', $this->teknisi);
             }
         }
 
-        $inventaris = $inventaris->orderBy('inventaris.id', 'desc')->get();
-        return view('inventaris.export', [
-            'data' => $inventaris
+        if (isset($this->faskes) && !empty($this->faskes)) {
+            if ($this->faskes != 'All') {
+                $laporans = $laporans->where('faskes_id', $this->faskes);
+            }
+        }
+
+        if (isset($this->status) && !empty($this->status)) {
+            if ($this->status != 'All') {
+                $laporans = $laporans->where('status_laporan', $this->status);
+            }
+        }
+        $laporans = $laporans->orderBy('laporans.id', 'DESC')->get();
+        return view('laporans.export', [
+            'data' => $laporans
         ]);
     }
 
