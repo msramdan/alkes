@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InventarisExport;
 use App\Models\Inventari;
+use App\Models\Room;
+use App\Models\Brand;
+use App\Models\Type;
+use App\Models\Vendor;
 use App\Http\Requests\{StoreInventariRequest, UpdateInventariRequest};
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class InventariController extends Controller
 {
@@ -21,26 +30,70 @@ class InventariController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (request()->ajax()) {
-            $inventaris = Inventari::with('room:id,nama_ruangan', 'type:id,jenis_alat', 'brand:id,nama_merek', 'vendor:id,nama_vendor')->orderBy('inventaris.id', 'DESC')->get();
+            $inventaris
+                = DB::table('inventaris')
+                ->join('rooms', 'inventaris.ruangan_id', '=', 'rooms.id')
+                ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
+                ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
+                ->join('vendors', 'inventaris.vendor_id', '=', 'vendors.id')
+                ->select('inventaris.*', 'rooms.nama_ruangan', 'rooms.id', 'brands.nama_merek', 'brands.id', 'types.jenis_alat', 'types.id', 'vendors.nama_vendor', 'vendors.id');
+            $ruangan = intval($request->query('ruangan'));
+            $merek = intval($request->query('merek'));
+            $jenis_alat = intval($request->query('jenis_alat'));
+            $vendor = intval($request->query('vendor'));
+
+
+            if (isset($ruangan) && !empty($ruangan)) {
+                if ($ruangan != 'All') {
+                    $inventaris = $inventaris->where('rooms.id', $ruangan);
+                }
+            }
+            if (isset($merek) && !empty($merek)) {
+                if ($merek != 'All') {
+                    $inventaris = $inventaris->where('brands.id', $merek);
+                }
+            }
+            if (isset($jenis_alat) && !empty($jenis_alat)) {
+                if ($jenis_alat != 'All') {
+                    $inventaris = $inventaris->where('types.id', $jenis_alat);
+                }
+            }
+
+            if (isset($vendor) && !empty($vendor)) {
+                if ($vendor != 'All') {
+                    $inventaris = $inventaris->where('vendors.id', $vendor);
+                }
+            }
+
+            $inventaris = $inventaris->orderBy('inventaris.id', 'desc')->get();
 
             return DataTables::of($inventaris)
                 ->addIndexColumn()
                 ->addColumn('room', function ($row) {
-                    return $row->room ? $row->room->nama_ruangan : '';
+                    return $row->nama_ruangan;
                 })->addColumn('type', function ($row) {
-                    return $row->type ? $row->type->jenis_alat : '';
+                    return $row->jenis_alat;
                 })->addColumn('brand', function ($row) {
-                    return $row->brand ? $row->brand->nama_merek : '';
+                    return $row->nama_merek;
                 })->addColumn('vendor', function ($row) {
-                    return $row->vendor ? $row->vendor->nama_vendor : '';
+                    return $row->nama_vendor;
                 })->addColumn('action', 'inventaris.include.action')
                 ->toJson();
         }
 
-        return view('inventaris.index');
+        $rooms = Room::orderBy('id', 'DESC')->get();
+        $brands = Brand::orderBy('id', 'DESC')->get();
+        $types = Type::orderBy('id', 'DESC')->get();
+        $vendors = Vendor::orderBy('id', 'DESC')->get();
+        return view('inventaris.index', [
+            'rooms' => $rooms,
+            'brands' => $brands,
+            'types' => $types,
+            'vendors' => $vendors,
+        ]);
     }
 
     /**
@@ -131,5 +184,12 @@ class InventariController extends Controller
                 ->route('inventaris.index')
                 ->with('error', __("The inventari can't be deleted because it's related to another table."));
         }
+    }
+
+    public function export($ruangan, $merek, $jenis_alat, $vendor)
+    {
+        $date = date('d-m-Y');
+        $nameFile = 'RM-Device Log-' . $date;
+        return Excel::download(new InventarisExport($ruangan, $merek, $jenis_alat, $vendor), $nameFile . '.xlsx');
     }
 }

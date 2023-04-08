@@ -42,11 +42,6 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
     Route::get('/inventaris/filter', [InventarisController::class, 'filter']);
 
-    // Route::get('/inventaris/filter/', function () {
-    //     $hallo = request()->query('nama_ruangan');
-    //     return "Nilai parameter hallo adalah: " . $hallo;
-    // });
-
     Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
     Route::get('/listmetodekerja/filter', [MetodeKerjaController::class, 'filter']);
     Route::get('/listmetodekerja/download/{file}/{name}', [MetodeKerjaController::class, 'getDownload'])->name('web-listmetodekerja-download');
@@ -72,7 +67,6 @@ Route::middleware(['auth', 'web'])->group(function () {
 Route::get('kota/{provinsiId}', [WilayahController::class, 'kota'])->name('api.kota');
 Route::get('kecamatan/{kotaId}', [WilayahController::class, 'kecamatan'])->name('api.kecamatan');
 Route::get('kelurahan/{kecamatanId}', [WilayahController::class, 'kelurahan'])->name('api.kelurahan');
-
 Route::resource('jenis-faskes', App\Http\Controllers\JenisFaskeController::class)->middleware('auth');
 Route::resource('banner-managements', App\Http\Controllers\BannerManagementController::class)->middleware('auth');
 Route::resource('provinces', App\Http\Controllers\ProvinceController::class)->middleware('auth');
@@ -81,7 +75,6 @@ Route::resource('kecamatans', App\Http\Controllers\KecamatanController::class)->
 Route::resource('kelurahans', App\Http\Controllers\KelurahanController::class)->middleware('auth');
 Route::resource('faskes', App\Http\Controllers\FaskeController::class)->middleware('auth');
 Route::resource('pelaksana-teknis', App\Http\Controllers\PelaksanaTeknisiController::class)->middleware('auth');
-
 Route::resource('metode-kerjas', App\Http\Controllers\MetodeKerjaController::class)->middleware('auth');
 Route::resource('kontak-masukans', App\Http\Controllers\KontakMasukanController::class)->middleware('auth');
 Route::resource('rooms', App\Http\Controllers\RoomController::class)->middleware('auth');
@@ -91,5 +84,5 @@ Route::resource('vendors', App\Http\Controllers\VendorController::class)->middle
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
-
+Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportDevice')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
