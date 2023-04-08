@@ -61,16 +61,18 @@
                             </li>
                         </ul>
                         <hr>
-                        <div class="tab-content">
-                            @include('frontend.create-laporan.step.1')
-                            @include('frontend.create-laporan.step.2')
-                            @include('frontend.create-laporan.step.3')
-                            @include('frontend.create-laporan.step.4')
-                            @include('frontend.create-laporan.step.5')
-                            @include('frontend.create-laporan.step.6')
-                            @include('frontend.create-laporan.step.7')
-                            @include('frontend.create-laporan.step.8')
-                        </div>
+                        <form>
+                            <div class="tab-content">
+                                @include('frontend.create-laporan.step.1')
+                                @include('frontend.create-laporan.step.2')
+                                @include('frontend.create-laporan.step.3')
+                                @include('frontend.create-laporan.step.4')
+                                @include('frontend.create-laporan.step.5')
+                                @include('frontend.create-laporan.step.6')
+                                @include('frontend.create-laporan.step.7')
+                                @include('frontend.create-laporan.step.8')
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

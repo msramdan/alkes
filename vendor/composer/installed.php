@@ -3,7 +3,11 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+<<<<<<< HEAD
         'reference' => 'fe9ee6e1fc8246a36d5d4d5880d91d870731efea',
+=======
+        'reference' => 'e3ed21a90c2d522fd0229cef960803cba5cbbf31',
+>>>>>>> 9f3c9d645eefd06aeb3127cedfa182e4c015374c
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -44,6 +48,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
+<<<<<<< HEAD
             'dev_requirement' => false,
         ),
         'composer/semver' => array(
@@ -53,6 +58,8 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/./semver',
             'aliases' => array(),
+=======
+>>>>>>> 9f3c9d645eefd06aeb3127cedfa182e4c015374c
             'dev_requirement' => false,
         ),
         'cordoval/hamcrest-php' => array(
@@ -466,7 +473,11 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+<<<<<<< HEAD
             'reference' => 'fe9ee6e1fc8246a36d5d4d5880d91d870731efea',
+=======
+            'reference' => 'e3ed21a90c2d522fd0229cef960803cba5cbbf31',
+>>>>>>> 9f3c9d645eefd06aeb3127cedfa182e4c015374c
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -542,6 +553,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/mime-type-detection',
             'aliases' => array(),
+<<<<<<< HEAD
             'dev_requirement' => false,
         ),
         'maatwebsite/excel' => array(
@@ -578,6 +590,8 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../markbaker/matrix',
             'aliases' => array(),
+=======
+>>>>>>> 9f3c9d645eefd06aeb3127cedfa182e4c015374c
             'dev_requirement' => false,
         ),
         'maximebf/debugbar' => array(
