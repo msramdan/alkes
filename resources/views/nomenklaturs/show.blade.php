@@ -327,7 +327,7 @@
                                         <button style="margin-bottom: 10px;" type="button" name="add_berkas"
                                             id="add_berkas" class="btn btn-success btn-sm"><i class="fa fa-plus"
                                                 aria-hidden="true"></i> Add </button>
-                                        <table class="table table-bordered" id="dynamic_field">
+                                        <table class="table table-bordered" >
                                             <thead>
                                                 <tr>
                                                     <th>Bagian Alat</th>
@@ -335,7 +335,25 @@
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="dynamic_field">
+                                                @forelse ($nomenklatur_fisik_fungsi as $i => $item)
+                                                    <tr id="row{{$i}}">
+                                                        <td>
+                                                            <input required type="text" name="parameter_pemeriksaan[]" placeholder="" class="form-control " value="{{ $item->field_parameter }}" />
+                                                        </td>
+                                                        <td>
+                                                            <input required style="" type="text" name="batas_pemeriksaan[]" placeholder="" class="form-control " value="{{ $item->field_batas_pemeriksaan }}" />
+                                                            <input type="hidden" name="pemeriksaan_id[]" value="{{ $item->id }}">
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" name="remove" onclick="deletePemeriksaan(this, '{{ $item->id }}')" id="{{ $i }}" class="btn btn-danger btn_remove">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
@@ -518,10 +536,21 @@
             var i = 1;
             $('#add_berkas').click(function() {
                 i++;
-                $('#dynamic_field').append('<tr id="row' + i +
-                    '"><td><input required type="text" name="parameter_pemeriksaan[]" placeholder="" class="form-control " /></td><td><input required style="" type="text" name="batas_pemeriksaan[]" placeholder="" class="form-control " /></td><td><button type="button" name="remove" id="' +
-                    i +
-                    '" class="btn btn-danger btn_remove"><i class="bi bi-trash"></i></button></td></tr>'
+                $('#dynamic_field').append(`
+                <tr id="row${i}">
+                    <td>
+                        <input required type="text" name="parameter_pemeriksaan[]" placeholder="" class="form-control " />
+                    </td>
+                    <td>
+                        <input required style="" type="text" name="batas_pemeriksaan[]" placeholder="" class="form-control " />
+                        <input type="hidden" name="pemeriksaan_id[]">
+                    </td>
+                    <td>
+                        <button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>`
                 );
             });
             $(document).on('click', '.btn_remove', function() {
@@ -534,5 +563,21 @@
                 $('#' + trid + '').remove();
             });
         });
+        function deletePemeriksaan(element, id_pemeriksaan) {
+            $.ajax({
+                type: 'post',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('nomenklatur.pemeriksaan.delete') }}",
+                data: {
+                    pemeriksaan_id: id_pemeriksaan
+                }, success: function(result) {
+                    $(element).remove();
+                }, error: function(err) {
+
+                }
+            })
+        }
     </script>
 @endpush
