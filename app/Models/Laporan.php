@@ -21,7 +21,7 @@ class Laporan extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['no_laporan', 'user_created', 'tgl_laporan', 'status_laporan', 'user_review', 'tgl_review'];
+    protected $fillable = ['no_laporan', 'nomenklatur_id' ,'user_created', 'tgl_laporan', 'status_laporan', 'user_review', 'tgl_review'];
 
 
     public function user_review()

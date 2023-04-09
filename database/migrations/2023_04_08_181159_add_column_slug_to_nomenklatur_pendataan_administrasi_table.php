@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('nomenklatur_keselamatan_listrik', function (Blueprint $table) {
-            $table->string('unit')->after('field_keselamatan_listrik');
+        Schema::table('nomenklatur_pendataan_administrasi', function (Blueprint $table) {
+            $table->string('slug')->after('satuan')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('nomenklatur_keselamatan_listrik', function (Blueprint $table) {
-            $table->dropColumn('unit');
+        Schema::table('nomenklatur_pendataan_administrasi', function (Blueprint $table) {
+            //
         });
     }
 };

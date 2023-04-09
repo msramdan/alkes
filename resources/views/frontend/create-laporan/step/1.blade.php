@@ -28,7 +28,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Nomor Seri', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Nomor Seri</label>
-        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_nomerseri"
+        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_nomer-seri"
             required>
         <div class="valid-feedback">
             Looks good!
@@ -90,7 +90,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Faskes Pemilik', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Faskes Pemilik</label>
-        <select class="form-control select2" id="" name="administrasi_faskespemilik" required style="width: 100%;"
+        <select class="form-control select2" id="" name="administrasi_faskes-pemilik" required style="width: 100%;"
             required>
             <option selected disabled value="">--
                 Pilih --</option>
@@ -124,7 +124,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tempat Kalibrasi', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Tempat Kalibrasi</label>
-        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_tempatkalibrasi"
+        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_tempat-kalibrasi"
             required>
         <div class="valid-feedback">
             Looks good!
@@ -137,7 +137,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tanggal Penerimaan', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Tanggal Penerimaan</label>
-        <input type="date" class="form-control" value="" id="" placeholder="" name="administrasi_tglpenerimaan"
+        <input type="date" class="form-control" value="" id="" placeholder="" name="administrasi_tanggal-penerimaan"
             required>
         <div class="valid-feedback">
             Looks good!
@@ -150,7 +150,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tanggal Kalibrasi', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Tanggal Kalibrasi</label>
-        <input type="date" class="form-control" value="" id="" placeholder="" name="administrasi_tglkalibrasi"
+        <input type="date" class="form-control" value="" id="" placeholder="" name="administrasi_tanggal-kalibrasi"
             required>
         <div class="valid-feedback">
             Looks good!
