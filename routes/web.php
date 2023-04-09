@@ -15,7 +15,7 @@ use App\Http\Controllers\frontend\InventarisController;
 use App\Http\Controllers\frontend\LaporanLkController;
 use App\Http\Controllers\frontend\MetodeKerjaController;
 use App\Http\Controllers\frontend\HistoryLaporanLkController;
-
+use App\Http\Controllers\info\InfoController;
 
 
 
@@ -78,6 +78,7 @@ Route::resource('kelurahans', App\Http\Controllers\KelurahanController::class)->
 Route::resource('faskes', App\Http\Controllers\FaskeController::class)->middleware('auth');
 Route::get('export-data-faskes/{jenisFaskes}/{kabkots}', [App\Http\Controllers\FaskeController::class, 'export'])->name('exportReportFaskes')->middleware('auth');
 Route::resource('pelaksana-teknis', App\Http\Controllers\PelaksanaTeknisiController::class)->middleware('auth');
+Route::get('export-data-teknisi', [App\Http\Controllers\PelaksanaTeknisiController::class, 'export'])->name('export-data-teknisi')->middleware('auth');
 Route::resource('metode-kerjas', App\Http\Controllers\MetodeKerjaController::class)->middleware('auth');
 Route::resource('kontak-masukans', App\Http\Controllers\KontakMasukanController::class)->middleware('auth');
 Route::resource('rooms', App\Http\Controllers\RoomController::class)->middleware('auth');
@@ -90,3 +91,6 @@ Route::resource('inventaris', App\Http\Controllers\InventariController::class)->
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
 Route::get('export-data-lk/{start_date}/{end_date}/{teknisi}/{faskes}/{status}', [App\Http\Controllers\LaporanController::class, 'export'])->name('exportReportLk')->middleware('auth');
+// =========================================================================================================
+Route::get('e_sertifikat/{id}', [InfoController::class, 'sertifikat'])->name('e_sertifikat');
+Route::get('info_inventaris/{id}', [InfoController::class, 'info_inventaris'])->name('info_inventaris');
