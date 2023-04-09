@@ -7,8 +7,8 @@
         @endphp
         <div class="col mb-2">
             <label for="" style=" font-size: 12px;">{{ $row->jenis_alat }}</label>
-            <select class="form-control select2" id="type-{{ $row->type_id }}"
-                name="type-{{ $row->type_id }}" required style="width: 100%;" required>
+            <select class="form-control select2" id="type-{{ $row->id }}"
+                name="type-{{ $row->id }}" required style="width: 100%;" required>
                 <option selected disabled value="">-- Pilih --</option>
                 @foreach ($inventaris as $data)
                     <option value="{{ $data->id }}">{{ $data->kode_inventaris }}

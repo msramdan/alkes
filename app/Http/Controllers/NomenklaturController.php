@@ -110,8 +110,9 @@ class NomenklaturController extends Controller
     public function show(Nomenklatur $nomenklatur)
     {
         $nomenklaturs = Nomenklatur::orderBy('id', 'DESC')->get();
-        $jenis_alat = Type::orderBy('jenis_alat', 'ASC')->get();;
-        return view('nomenklaturs.show', compact('nomenklatur', 'jenis_alat', 'nomenklaturs'));
+        $jenis_alat = Type::orderBy('jenis_alat', 'ASC')->get();
+        $nomenklatur_fisik_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')->where('nomenklatur_id', $nomenklatur->id)->get();
+        return view('nomenklaturs.show', compact('nomenklatur', 'jenis_alat', 'nomenklaturs', 'nomenklatur_fisik_fungsi'));
     }
 
     /**
@@ -199,6 +200,7 @@ class NomenklaturController extends Controller
 
         $parameter_pemeriksaan = $request->parameter_pemeriksaan;
         $batas_pemeriksaan = $request->batas_pemeriksaan;
+        $pemeriksaan_id = $request->pemeriksaan_id;
 
         //1. save pendataan_administrasi
         if ($pendataan_administrasi != null) {
@@ -413,11 +415,22 @@ class NomenklaturController extends Controller
         // 6. Kondisi Fisik dan fungsi
         if (!empty($parameter_pemeriksaan)) {
             foreach ($parameter_pemeriksaan as $i => $params) {
-                $fisik_dan_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')->insert([
-                    'nomenklatur_id' => $nomenklatur_id,
-                    'field_parameter' => $parameter_pemeriksaan[$i],
-                    'field_batas_pemeriksaan' => $batas_pemeriksaan[$i],
-                ]);
+                if (empty($pemeriksaan_id[$i])) {
+                    $fisik_dan_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')->insert([
+                        'nomenklatur_id' => $nomenklatur_id,
+                        'field_parameter' => $parameter_pemeriksaan[$i],
+                        'field_batas_pemeriksaan' => $batas_pemeriksaan[$i],
+                    ]);
+                } else {
+                    $fisik_dan_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')
+                                        ->where('id', $pemeriksaan_id[$i])
+                                        ->update([
+                                            'nomenklatur_id' => $nomenklatur_id,
+                                            'field_parameter' => $parameter_pemeriksaan[$i],
+                                            'field_batas_pemeriksaan' => $batas_pemeriksaan[$i],
+                                        ]);
+                }
+
             }
         }
 
@@ -433,5 +446,22 @@ class NomenklaturController extends Controller
         return redirect()
             ->route('nomenklaturs.index')
             ->with('success', __('Jenis alat untuk nomenklatur berhasil diupdate'));
+    }
+
+    public function deletePemeriksaan(Request $request) {
+        $pemeriksaan = DB::table('nomenklatur_kondisi_fisik_fungsi')
+                        ->where('id', $request->pemeriksaan_id)
+                        ->delete();
+        if ($pemeriksaan) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Succes delete pemeriksaan kondisi fisik dan fungsi',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete pemeriksaan kondisi fisik dan fungsi'
+            ], 500);
+        }
     }
 }

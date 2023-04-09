@@ -86,6 +86,7 @@ Route::resource('brands', App\Http\Controllers\BrandController::class)->middlewa
 Route::resource('types', App\Http\Controllers\TypeController::class)->middleware('auth');
 Route::resource('vendors', App\Http\Controllers\VendorController::class)->middleware('auth');
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
+Route::post('/nomenklatur/pemeriksaan_fisik_fungsi', [App\Http\Controllers\NomenklaturController::class, 'deletePemeriksaan'])->name('nomenklatur.pemeriksaan.delete');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
