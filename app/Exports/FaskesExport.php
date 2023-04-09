@@ -29,16 +29,16 @@ class FaskesExport implements FromView, ShouldAutoSize, WithEvents
             ->join('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
             ->join('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
             ->join('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
-            ->select('faskes.*', 'jenis_faskes.nama_jenis_faskes', 'jenis_faskes.id', 'provinces.provinsi', 'kabkots.kabupaten_kota', 'kabkots.id', 'kecamatans.kecamatan', 'kelurahans.kelurahan');
+            ->select('faskes.*', 'jenis_faskes.nama_jenis_faskes', 'provinces.provinsi', 'kabkots.kabupaten_kota', 'kecamatans.kecamatan', 'kelurahans.kelurahan');
 
         if (isset($this->jenisFaskes) && !empty($this->jenisFaskes)) {
             if ($this->jenisFaskes != 'All') {
-                $faskes = $faskes->where('jenis_faskes.id', $this->jenisFaskes);
+                $faskes = $faskes->where('faskes.jenis_faskes_id', $this->jenisFaskes);
             }
         }
         if (isset($this->kabkots) && !empty($this->kabkots)) {
             if ($this->kabkots != 'All') {
-                $faskes = $faskes->where('kabkots.id', $this->kabkots);
+                $faskes = $faskes->where('faskes.kabkot_id', $this->kabkots);
             }
         }
         $faskes = $faskes->orderBy('faskes.id', 'desc')->get();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TeknisiExport;
 use App\Models\PelaksanaTeknisi;
 use App\Http\Requests\{StorePelaksanaTeknisiRequest, UpdatePelaksanaTeknisiRequest};
 use Yajra\DataTables\Facades\DataTables;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class PelaksanaTeknisiController extends Controller
@@ -214,5 +216,12 @@ class PelaksanaTeknisiController extends Controller
                 ->route('pelaksana-teknis.index')
                 ->with('error', __("The pelaksanaTeknisi can't be deleted because it's related to another table."));
         }
+    }
+
+    public function export()
+    {
+        $date = date('d-m-Y');
+        $nameFile = 'Daftar-Teknisi' . $date;
+        return Excel::download(new TeknisiExport(), $nameFile . '.xlsx');
     }
 }
