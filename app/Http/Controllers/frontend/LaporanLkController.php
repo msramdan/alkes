@@ -71,6 +71,8 @@ class LaporanLkController extends Controller
             'tgl_laporan' => Carbon::now(),
             'nomenklatur_id' => $request->nomenklatur_id,
             'status_laporan' => 'Need Review',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         $no_laporan = 'LAP-'.date('Ymd').'-'.sprintf("%04d", $laporan->id);
@@ -92,7 +94,9 @@ class LaporanLkController extends Controller
             DB::table('laporan_pendataan_administrasi')->insert([
                 'no_laporan' => $no_laporan,
                 'nomenklatur_pendataan_administrasi_id' => 1,
-                'value' => $_POST["{$administrasis}"]
+                'value' => $_POST["{$administrasis}"],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
 
@@ -110,6 +114,8 @@ class LaporanLkController extends Controller
                 'no_laporan' => $no_laporan,
                 'nomenklatur_type_id' => $nomenklatur_type_id[1],
                 'inventaris_id' => $request->{$alat},
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
 
@@ -120,6 +126,8 @@ class LaporanLkController extends Controller
             'suhu_akhir' => $request->lingkungan_suhu_akhir,
             'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal,
             'kelembapan_ruangan_akhir' => $request->lingkungan_kelembapan_ruangan_akhir,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         //Create Laporan Fisik dan fungsi
@@ -135,7 +143,9 @@ class LaporanLkController extends Controller
             DB::table('laporan_kondisi_fisik_fungsi')->insert([
                 'no_laporan' => $no_laporan,
                 'nomenklatur_kondisi_fisik_fungsi_id' => $nomenklatur_kondisi_fisik_fungsi->id,
-                'value' => $request->{$fisik}
+                'value' => $request->{$fisik},
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
 
@@ -152,7 +162,9 @@ class LaporanLkController extends Controller
             DB::table('laporan_pengukuran_keselamatan_listrik')->insert([
                 'no_laporan' => $no_laporan,
                 'nomenklatur_keselamatan_listrik_id' => $nomenklatur_keselamatan_listrik->id,
-                'value' => $request->{$listrik}
+                'value' => $request->{$listrik},
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
 
@@ -170,7 +182,9 @@ class LaporanLkController extends Controller
             DB::table('laporan_telaah_teknis')->insert([
                 'no_laporan' => $no_laporan,
                 'nomenklatur_telaah_teknis_id' => $nomenklatur_telaah_teknis->id,
-                'value' => $request->{$teknis}
+                'value' => $request->{$teknis},
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
 
@@ -179,7 +193,9 @@ class LaporanLkController extends Controller
             'no_laporan' => $no_laporan,
             'pelaksana_pengujian' => '',
             'penyelia' => '',
-            'value' => $request->kesimpulan_telaah_teknis
+            'value' => $request->kesimpulan_telaah_teknis,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         return redirect()->route('home')->with('success', 'Berhasil membuat data laporan');

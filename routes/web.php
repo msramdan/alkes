@@ -35,7 +35,14 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/create_laporan_lk', [LaporanLkController::class, 'create'])->name('web-create_laporan_lk');
     Route::post('/submit-laporan', [LaporanLkController::class, 'submitLaporan'])->name('web-submit-laporan');
     Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
-
+    Route::get('/history_laporan/{nolaporan}', [HistoryLaporanLkController::class, 'edit'])->name('web-history_laporan.edit');
+    Route::get('/history_laporan/pendataan_administrasi/{nolaporan}', [HistoryLaporanLkController::class, 'pendataanAdministrasi'])->name('web-history_laporan.pendataanAdministrasi');
+    Route::get('/history_laporan/daftar_alat_ukur/{nolaporan}', [HistoryLaporanLkController::class, 'daftarAlatUkur'])->name('web-history_laporan.daftarAlatUkur');
+    Route::get('/history_laporan/kondisi-lingkungan/{nolaporan}', [HistoryLaporanLkController::class, 'kondisiLingkungan'])->name('web-history_laporan.kondisiLingkungan');
+    Route::get('/history_laporan/pemeriksaan-fisik-fungsi', [HistoryLaporanLkController::class, 'pemeriksaanFisikFungsi'])->name('web-history_laporan.pemeriksaanFisikFungsi');
+    Route::get('/history_laporan/keselamatan-listrik', [HistoryLaporanLkController::class, 'keselamatanListrik'])->name('web-history_laporan.keselamatanListrik');
+    Route::get('/history_laporan/telaah-teknis', [HistoryLaporanLkController::class, 'telaahTeknis'])->name('web-history_laporan.telaahTeknis');
+    Route::get('/history_laporan/kesimpulan-telaah_teknis', [HistoryLaporanLkController::class, 'kesimpulanTelaahTeknis'])->name('web-history_laporan.kesimpulanTelaahTeknis');
 
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
