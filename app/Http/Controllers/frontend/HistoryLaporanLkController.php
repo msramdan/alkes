@@ -22,9 +22,9 @@ class HistoryLaporanLkController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit($nolaporan)
     {
-        $laporan = Laporan::find($id);
+        $laporan = Laporan::where('no_laporan', $nolaporan)->first();
 
         return view('frontend.history-laporan.edit', compact('laporan'));
     }
@@ -37,9 +37,7 @@ class HistoryLaporanLkController extends Controller
                                         laporan_pendataan_administrasi.id,
                                         laporan_pendataan_administrasi.no_laporan,
                                         laporan_pendataan_administrasi.nomenklatur_pendataan_administrasi_id,
-                                        laporan_pendataan_administrasi.value,
-                                        nomenklatur_pendataan_administrasi.nomenklatur_id
-                                        nomenklatur_pendataan_administrasi.field_pendataan_administrasi
+                                        laporan_pendataan_administrasi.value
                                       ')
                                        ->join(
                                         'nomenklatur_pendataan_administrasi',

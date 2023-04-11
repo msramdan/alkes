@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->cascadeOnDelete();
             $table->string('field_keselamatan_listrik');
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->timestamps();
         });
     }
