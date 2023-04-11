@@ -63,8 +63,8 @@
                                             <button class="btn btn-secondary btn-sm"><i class="fa fa-eye"
                                                     aria-hidden="true"></i>
                                                 View</button>&nbsp;
-                                            <button class="btn btn-success btn-sm"><i class="fa fa-pencil"
-                                                    aria-hidden="true"></i> Edit</button>&nbsp;
+                                            <a class="btn btn-success btn-sm" href="{{ url('/web/history_laporan/'. $row->no_laporan) }}"><i class="fa fa-pencil"
+                                                    aria-hidden="true"></i> Edit</a>&nbsp;
                                             <button class="btn btn-danger btn-sm"><i class="fa fa-trash"
                                                     aria-hidden="true"></i> Hapus</button>
                                         </div>
