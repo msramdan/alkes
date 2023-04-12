@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('nomenklatur_keselamatan_listrik', function (Blueprint $table) {
-            $table->string('ambang_batas')->after('unit');
+        Schema::table('nomenklatur_pengukuran_kinerja', function (Blueprint $table) {
+            //$table->tinyInteger('is_show')->after('type_id')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('nomenklatur_keselamatan_listrik', function (Blueprint $table) {
-            $table->dropColumn('ambang_batas');
+        Schema::table('nomenklatur_pengukuran_kinerja', function (Blueprint $table) {
+            //
         });
     }
 };

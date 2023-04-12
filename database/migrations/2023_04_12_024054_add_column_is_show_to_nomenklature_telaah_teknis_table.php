@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nomenklatur_keselamatan_listrik', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->cascadeOnDelete();
-            $table->string('field_keselamatan_listrik');
-            $table->timestamps();
+        Schema::table('nomenklatur_telaah_teknis', function (Blueprint $table) {
+            $table->tinyInteger('is_show')->after('field_telaah_teknis')->default(0);
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nomenklatur_keselamatan_listrik');
+        Schema::table('nomenklature_telaah_teknis', function (Blueprint $table) {
+            //
+        });
     }
 };

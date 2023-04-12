@@ -71,6 +71,7 @@ class LaporanLkController extends Controller
             'tgl_laporan' => Carbon::now(),
             'nomenklatur_id' => $request->nomenklatur_id,
             'status_laporan' => 'Need Review',
+            'faskes_id' => $_POST['administrasi_faskes-pemilik'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -86,14 +87,14 @@ class LaporanLkController extends Controller
         $administrasi_key = array_keys($administrasi);
         foreach ($administrasi_key as $i => $administrasis) {
             $slug_administrasi = explode('_', $administrasis);
-
+            \Log::info($slug_administrasi);
             $field_administrasi = DB::table('nomenklatur_pendataan_administrasi')
                                     ->where('slug', $slug_administrasi[1])->first();
 
 
             DB::table('laporan_pendataan_administrasi')->insert([
                 'no_laporan' => $no_laporan,
-                'nomenklatur_pendataan_administrasi_id' => 1,
+                'nomenklatur_pendataan_administrasi_id' => $field_administrasi->id,
                 'value' => $_POST["{$administrasis}"],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

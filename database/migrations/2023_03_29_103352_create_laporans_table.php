@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('no_laporan', 100)->nullable();
             $table->foreignId('user_created')->constrained('pelaksana_teknisis')->restrictOnUpdate()->restrictOnDelete();
-            $table->foreignId('faskes_id')->constrained('faskes')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('faskes_id')->nullable()->constrained('faskes')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->restrictOnDelete();
             $table->dateTime('tgl_laporan');
             $table->string('status_laporan', 150);

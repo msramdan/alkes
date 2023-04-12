@@ -53,7 +53,7 @@
                 @foreach (config('generator.sidebars') as $sidebar)
                     @if (isset($sidebar['permissions']))
                         @canany($sidebar['permissions'])
-                            <li class="sidebar-title">{{ $sidebar['header'] }}</li>
+                            {{-- <li class="sidebar-title">{{ $sidebar['header'] }}</li> --}}
 
                             @foreach ($sidebar['menus'] as $menu)
                                 @php
@@ -64,14 +64,15 @@
                                     @if (empty($menu['submenus']))
                                         @can($menu['permission'])
                                             <li class="sidebar-item{{ is_active_menu($menu['route']) }}">
-                                                <a href="{{ route(str($menu['route'])->remove('/')->plural() . '.index') }}" class="sidebar-link">
+                                                <a href="{{ route(str($menu['route'])->remove('/')->plural() . '.index') }}"
+                                                    class="sidebar-link">
                                                     {!! $menu['icon'] !!}
                                                     <span>{{ __($menu['title']) }}</span>
                                                 </a>
                                             </li>
                                         @endcan
                                     @else
-                                        <li class="sidebar-item has-sub{{  is_active_menu($menu['permissions']) }}">
+                                        <li class="sidebar-item has-sub{{ is_active_menu($menu['permissions']) }}">
                                             <a href="#" class="sidebar-link">
                                                 {!! $menu['icon'] !!}
                                                 <span>{{ __($menu['title']) }}</span>
@@ -80,8 +81,9 @@
                                                 @canany($menu['permissions'])
                                                     @foreach ($menu['submenus'] as $submenu)
                                                         @can($submenu['permission'])
-                                                            <li class="submenu-item{{  is_active_menu($submenu['route']) }}">
-                                                                <a href="{{ route(str($submenu['route'])->remove('/')->plural() . '.index') }}">
+                                                            <li class="submenu-item{{ is_active_menu($submenu['route']) }}">
+                                                                <a
+                                                                    href="{{ route(str($submenu['route'])->remove('/')->plural() . '.index') }}">
                                                                     {{ __($submenu['title']) }}
                                                                 </a>
                                                             </li>
