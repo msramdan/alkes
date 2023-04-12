@@ -15,7 +15,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tipe / Model', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Tipe / Model</label>
-        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_model"
+        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_tipe-model"
             required>
         <div class="valid-feedback">
             Looks good!
@@ -28,7 +28,7 @@
     <div class="col "
         style="display:  {{ is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Nomor Seri', 'nomenklatur_pendataan_administrasi') }}">
         <label for="" style=" font-size: 12px;">Nomor Seri</label>
-        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_nomer-seri"
+        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_nomor-seri"
             required>
         <div class="valid-feedback">
             Looks good!

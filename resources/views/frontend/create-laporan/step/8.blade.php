@@ -3,6 +3,7 @@
         <label for="" style=" font-size: 12px;">Berdasarkan hasil pengujian
             dan/ atau hasil kalibrasi, alat
             ini dinyatakan </label>
+        <span>Catatan : Pilih Hasil kalibrasi laik atau tidak laik pakai</span>
         <select class="form-control select2" id="kesimpulan-telaah-teknis"
             name="kesimpulan_telaah_teknis" required style="width: 100%;" required>
             <option selected disabled value="">-- Pilih --</option>
