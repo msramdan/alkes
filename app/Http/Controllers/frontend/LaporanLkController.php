@@ -12,6 +12,7 @@ use App\Models\Laporan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class LaporanLkController extends Controller
 {
@@ -66,6 +67,17 @@ class LaporanLkController extends Controller
     }
 
     public function submitLaporan(Request $request) {
+        // $rules = [];
+
+        // //Add rules = administrasi
+        // $nomenklatur_administrasi = DB::table('nomenklatur_pendataan_administrasi')
+        //                                 ->where('nomenklatur_id', $request->nomenklatur_id)
+        //                                 ->get();
+
+        // foreach ($nomenklatur_administrasi as $administrasi) {
+        //     $rules['administrasi_'.$administrasi->slug] = 'required';
+        // }
+
         $laporan = Laporan::create([
             'user_created' => Session::get('id-teknisi'),
             'tgl_laporan' => Carbon::now(),
@@ -87,7 +99,7 @@ class LaporanLkController extends Controller
         $administrasi_key = array_keys($administrasi);
         foreach ($administrasi_key as $i => $administrasis) {
             $slug_administrasi = explode('_', $administrasis);
-            \Log::info($slug_administrasi);
+
             $field_administrasi = DB::table('nomenklatur_pendataan_administrasi')
                                     ->where('slug', $slug_administrasi[1])->first();
 
@@ -123,10 +135,10 @@ class LaporanLkController extends Controller
         //Create Laporan kondisi lingkungan
         DB::table('laporan_kondisi_lingkungan')->insert([
             'no_laporan' => $no_laporan,
-            'suhu_awal' => $request->lingkungan_suhu_awal,
-            'suhu_akhir' => $request->lingkungan_suhu_akhir,
-            'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal,
-            'kelembapan_ruangan_akhir' => $request->lingkungan_kelembapan_ruangan_akhir,
+            'suhu_awal' => $request->lingkungan_suhu_awal ?: null,
+            'suhu_akhir' => $request->lingkungan_suhu_akhir ?: null,
+            'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal ? $request->lingkungan_kelembapan_ruangan_awal :  null,
+            'kelembapan_ruangan_akhir' => $request->lingkungan_kelembapan_ruangan_akhir ? $request->lingkungan_kelembapan_ruangan_akhir : null,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

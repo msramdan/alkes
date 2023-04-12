@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class NomenklaturController extends Controller
 {
@@ -219,41 +220,54 @@ class NomenklaturController extends Controller
                         DB::table('nomenklatur_pendataan_administrasi')
                             ->where('nomenklatur_id', $nomenklatur_id)
                             ->where('field_pendataan_administrasi', 'Resolusi')
-                            ->update(['satuan' => $satuan[3]]);
+                            ->update([
+                                'satuan' => $satuan[3],
+                                'slug'   => Str::slug('Resolusi'),
+                            ]);
                     } else if ($value == 'Rentang Ukur') {
                         DB::table('nomenklatur_pendataan_administrasi')
                             ->where('nomenklatur_id', $nomenklatur_id)
                             ->where('field_pendataan_administrasi', 'Rentang Ukur')
-                            ->update(['satuan' => $satuan[4]]);
+                            ->update([
+                                'satuan' => $satuan[4],
+                                'slug'   => Str::slug('Rentang Ukur'),
+                            ]);
                     } else if ($value == 'Kapasitas') {
                         DB::table('nomenklatur_pendataan_administrasi')
                             ->where('nomenklatur_id', $nomenklatur_id)
                             ->where('field_pendataan_administrasi', 'Kapasitas')
-                            ->update(['satuan' => $satuan[5]]);
+                            ->update([
+                                'satuan' => $satuan[5],
+                                'slug'   => Str::slug('Kapasitas'),
+                            ]);
                     }
                 } else {
                     if ($value == 'Resolusi') {
                         DB::table('nomenklatur_pendataan_administrasi')->insert([
                             'nomenklatur_id' => $nomenklatur_id,
                             'field_pendataan_administrasi' => $value,
-                            'satuan' => $satuan[3]
+                            'satuan' => $satuan[3],
+                            'slug' => Str::slug($value),
                         ]);
                     } else if ($value == 'Rentang Ukur') {
                         DB::table('nomenklatur_pendataan_administrasi')->insert([
                             'nomenklatur_id' => $nomenklatur_id,
                             'field_pendataan_administrasi' => $value,
-                            'satuan' => $satuan[4]
+                            'satuan' => $satuan[4],
+                            'slug' => Str::slug($value),
                         ]);
                     } else if ($value == 'Kapasitas') {
                         DB::table('nomenklatur_pendataan_administrasi')->insert([
                             'nomenklatur_id' => $nomenklatur_id,
                             'field_pendataan_administrasi' => $value,
-                            'satuan' => $satuan[5]
+                            'satuan' => $satuan[5],
+                            'slug' => Str::slug($value),
                         ]);
                     } else {
                         DB::table('nomenklatur_pendataan_administrasi')->insert([
                             'nomenklatur_id' => $nomenklatur_id,
                             'field_pendataan_administrasi' => $value,
+                            'slug' => Str::slug($value),
                         ]);
                     }
                     array_push($penambahanBaru_pendataan_administrasi, $value);

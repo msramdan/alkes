@@ -61,10 +61,9 @@
                             </li>
                         </ul>
                         <hr>
-                        <form id="form-laporan" action="{{ route('web-submit-laporan') }}" method="post" enctype="multipart/form-data">
-                            @csrf
+                        {{-- <form id="form-laporan" action="{{ route('web-submit-laporan') }}" method="post" enctype="multipart/form-data">
+                            @csrf --}}
                             <div class="tab-content">
-                                <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur_id }}">
                                 @include('frontend.create-laporan.step.1')
                                 @include('frontend.create-laporan.step.2')
                                 @include('frontend.create-laporan.step.3')
@@ -74,31 +73,73 @@
                                 @include('frontend.create-laporan.step.7')
                                 @include('frontend.create-laporan.step.8')
                             </div>
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <form action="{{ route('web-submit-laporan') }}" id="form-laporan" method="POST" hidden enctype="multipart/form-data">
+        @csrf
+    </form>
 @endsection
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript">
     </script>
     <script type="text/javascript">
-        // const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        $('#faskes').change(function() {
+            var value = $(this).find(":selected").val();
+            $('#administrasi_faskes-pemilik').val(value);
+        });
+
+        function selectChange(elements, target) {
+            var value = $(elements).find(":selected").val();
+            $(target).val(value);
+        }
 
         function onConfirm() {
-            // let form = document.getElementById('form-9');
-            // if (form) {
-            //     if (!form.checkValidity()) {
-            //         form.classList.add('was-validated');
-            //         $('#smartwizard').smartWizard("setState", [3], 'error');
-            //         $("#smartwizard").smartWizard('fixHeight');
-            //         return false;
-            //     }
-            // }
-            //alert("Selesai");
+            $('#form-laporan').html('');
+            //form-1
+            var nomenklatur_id = "{{ $nomenklatur_id }}";
+            var csrf = "{{ csrf_token() }}";
+            $('#form-laporan').append(`
+                <input type="hidden" name="nomenklatur_id" value="${nomenklatur_id}"/>
+                <input type="hidden" name="_token" value="${csrf}"/>
+            `);
+            var form1 = document.getElementById('form-1').elements;
+            [...form1].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+            var form2 = document.getElementById('form-2').elements;
+            [...form2].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+            var form3 = document.getElementById('form-3').elements;
+            [...form3].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+            var form4 = document.getElementById('form-4').elements;
+            [...form4].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+            var form5 = document.getElementById('form-5').elements;
+            [...form5].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+            // var form6 = document.getElementById('form-6').elements;
+            // [...form6].forEach((item) => {
+            //     $('#form-laporan').append(item.cloneNode(true));
+            // });
+            var form7 = document.getElementById('form-7').elements;
+            [...form7].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+            var form8 = document.getElementById('form-8').elements;
+            [...form8].forEach((item) => {
+                $('#form-laporan').append(item.cloneNode(true));
+            });
+
             $('#form-laporan').submit();
         }
 
@@ -142,6 +183,7 @@
                 stepDirection) {
                 // Validate only on forward movement
                 if (stepDirection == 'forward') {
+                   // console.log(tes.elements);
                     let form = document.getElementById('form-' + (currentStepIdx + 1));
                     if (form) {
                         if (!form.checkValidity()) {
