@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class LaporanLkController extends Controller
 {
@@ -107,6 +108,7 @@ class LaporanLkController extends Controller
             DB::table('laporan_pendataan_administrasi')->insert([
                 'no_laporan' => $no_laporan,
                 'field_pendataan_administrasi' => $field_administrasi->field_pendataan_administrasi,
+                'slug' => Str::slug($field_administrasi->field_pendataan_administrasi),
                 'value' => $_POST["{$administrasis}"],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -158,6 +160,7 @@ class LaporanLkController extends Controller
                 'field_parameter_fisik_fungsi' => $nomenklatur_kondisi_fisik_fungsi->field_parameter,
                 'field_batas_pemeriksaan' => $nomenklatur_kondisi_fisik_fungsi->field_batas_pemeriksaan,
                 'value' => $request->{$fisik},
+                'slug' => Str::slug($nomenklatur_kondisi_fisik_fungsi->field_parameter),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
@@ -177,6 +180,7 @@ class LaporanLkController extends Controller
                 'no_laporan' => $no_laporan,
                 'field_keselamatan_listrik' => $nomenklatur_keselamatan_listrik->field_keselamatan_listrik,
                 'value' => $request->{$listrik},
+                'slug' => Str::slug($nomenklatur_keselamatan_listrik->field_keselamatan_listrik),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
@@ -196,6 +200,7 @@ class LaporanLkController extends Controller
             DB::table('laporan_telaah_teknis')->insert([
                 'no_laporan' => $no_laporan,
                 'field_telaah_teknis' => $nomenklatur_telaah_teknis->field_telaah_teknis,
+                'slug' => Str::slug($nomenklatur_telaah_teknis->field_telaah_teknis),
                 'value' => $request->{$teknis},
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

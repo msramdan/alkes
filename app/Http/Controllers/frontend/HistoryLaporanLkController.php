@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Laporan;
 use App\Models\Faske;
 use Illuminate\Support\Facades\DB;
@@ -38,45 +39,67 @@ class HistoryLaporanLkController extends Controller
                                     ->where('no_laporan', $nolaporan)
                                     ->get();
 
-        $pendataan_administrasi = DB::connection('mysql')->select(
-            "SELECT
-              laporan_pendataan_administrasi.id,
-              laporan_pendataan_administrasi.no_laporan,
-              laporan_pendataan_administrasi.nomenkklatur_pendataan_administrasi_id,
-              laporan_pendataan_administrasi.value,
-              nomenklatur_pendataan_administrasi.id,
-              nomenklatur_pendataan_administrasi.nomenklatur_id,
-              nomenklatur_
-            FROM
-            "
-        );
+        $pendataan_administrasi = DB::table('laporan_pendataan_administrasi')
+                                    ->select('*')
+                                    ->where('no_laporan', $nolaporan)
+                                    ->get();
 
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
 
         return view('frontend.history-laporan.pendataan_administrasi', compact('laporan', 'pendataan_administrasi', 'faskes', 'nomenklatur_id'));
     }
 
+    public function updatePendataanAdministrasi(Request $request)
+    {
+        $slugs = array_keys($request->input());
+
+        foreach ($slugs as $slug) {
+            $laporan_pendataan_administrasi = DB::table('laporan_pendataan_administrasi')
+                                                ->where('slug', $slug)
+                                                ->where('no_laporan', $request->no_laporan)
+                                                ->update([
+                                                    'value' => $request->{$slug}
+                                                ]);
+        }
+
+        return redirect('/web/history_laporan/'.$request->no_laporan);
+    }
+
     public function daftarAlatUkur($nolaporan)
     {
+        $laporan = Laporan::where('no_laporan', $nolaporan)->first();
+        $nomenklatur_id = $laporan->nomenklatur_id;
         $alat_ukur = DB::table('laporan_daftar_alat_ukur')
-                        ->select('
-                            laporan_daftar_alat_ukur.id,
-                            laporan_daftar_alat_ukur.no_laporan,
-                            laporan_daftar_alat_ukur.nomenklatur_type_id,
-                            laporan_daftar_alat_ukur.inventaris_id,
-                            nomenklatur_type.nomenklatur_id,
-                            nomenklatur.type_id,
-                            nomenklaturs.nama_nomenklatur,
-                            nomenklatur.no_dokumen,
-                            type.jenis_alat
-                        ')
-                        ->join('nomenklatur_type', 'laporan_daftar_alat_ukur.nomenklatur_type_id', 'nomenklatur_type.id')
-                        ->join('nomenklaturs', 'nomenklatur_type.nomenklatur_id', 'nomenklaturs.id')
-                        ->join('type', 'nomenklatur_type.type_id', 'type.id')
-                        ->where('laporan_daftar_alat_ukur.no_laporan', $nolaporan)
+                        ->select(
+                            "laporan_daftar_alat_ukur.id",
+                            "laporan_daftar_alat_ukur.no_laporan",
+                            'laporan_daftar_alat_ukur.type_id',
+                            "laporan_daftar_alat_ukur.inventaris_id",
+                            "laporan_daftar_alat_ukur.created_at",
+                            "laporan_daftar_alat_ukur.updated_at",
+                            "types.jenis_alat",
+                        )
+                        ->join('types', 'laporan_daftar_alat_ukur.type_id', 'types.id')
+                        ->where('no_laporan', $nolaporan)
                         ->get();
 
-        return view('frontend.history-laporan.daftar_alat_ukur');
+        return view('frontend.history-laporan.daftar_alat_ukur', compact('laporan', 'nomenklatur_id', 'alat_ukur'));
+    }
+
+    public function updateAlatUkur(Request $request)
+    {
+        $alat_ukur = array_keys($request->input());
+
+        foreach ($alat_ukur as $alat) {
+            DB::table('laporan_daftar_alat_ukur')
+                ->where('no_laporan', $request->no_laporan)
+                ->where('id', $alat)
+                ->update([
+                    'inventaris_id' => $request->{$alat}
+                ]);
+        }
+
+        return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
     public function kondisiLingkungan($nolaporan)

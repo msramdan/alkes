@@ -1,15 +1,17 @@
 @extends('layouts.master-frontend')
-@section('title', 'History Laporan')
+@section('title', 'Edit History Laporan')
 @section('content')
 <div class="page-content-wrapper">
     <div class="py-3">
         <div class="container">
-            <form id="form-1">
+            <form action="{{ url('/web/history_laporan/pendataan_administrasi') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="no_laporan" value="{{ $laporan->no_laporan }}">
                 @foreach ($pendataan_administrasi as $administrasi)
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Merk', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug ==  'merk')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Merek</label>
-                        <input type="text" class="form-control" value="" id="administrasi_merk" placeholder="" name="administrasi_merk"
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="merk" placeholder="" name="merk"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -20,10 +22,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tipe / Model', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'tipe-model')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Tipe / Model</label>
-                        <input type="text" class="form-control" value="" id="administrasi_tipe-model" placeholder="" name="administrasi_tipe-model"
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="tipe-model" placeholder="" name="tipe-model"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -34,10 +36,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Nomor Seri', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'nomor-seri')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Nomor Seri</label>
-                        <input type="text" class="form-control" value="" id="administrasi_nomor-seri" placeholder="" name="administrasi_nomor-seri"
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="nomor-seri" placeholder="" name="nomor-seri"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -48,11 +50,11 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Resolusi', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'resolusi')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Resolusi</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="" id="administrasi_resolusi" name="administrasi_resolusi" value=""
+                            <input type="text" class="form-control" placeholder="" id="resolusi" name="resolusi" value="{{ $administrasi->value }}"
                                 required>
                             <span class="input-group-text" id=""
                                 style="width: 70px">{{ cek_satuan($nomenklatur_id, 'Resolusi') }}</span>
@@ -66,11 +68,11 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Rentang Ukur', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'rentang-ukur')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Rentang Ukur</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="" name="administrasi_rentang-ukur" required>
+                            <input type="text" class="form-control" placeholder="" value="{{ $administrasi->value }}" name="rentang-ukur" required>
                             <span class="input-group-text" style="width: 70px"
                                 id="">{{ cek_satuan($nomenklatur_id, 'Rentang Ukur') }}</span>
                         </div>
@@ -83,11 +85,11 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Kapasitas', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'kapasitas')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Kapasitas</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="administrasi_kapasitas" aria-describedby="" required>
+                            <input type="text" class="form-control" name="kapasitas" aria-describedby="" value="{{ $administrasi->value }}" required>
                             <span class="input-group-text" id=""
                                 style="width: 70px">{{ cek_satuan($nomenklatur_id, 'Kapasitas') }}</span>
                         </div>
@@ -100,16 +102,15 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Faskes Pemilik', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'faskes-pemilik')
                     <div class="col">
-                        <input type="hidden" name="administrasi_faskes-pemilik" id="administrasi_faskes-pemilik">
                         <label for="" style=" font-size: 12px;">Faskes Pemilik</label>
-                        <select class="form-control select2" id="faskes" name="administrasi_faskes-pemilik-select" required style="width: 100%;"
+                        <select class="form-control select2" id="faskes" name="faskes-pemilik" required style="width: 100%;"
                             required>
                             <option selected disabled value="">--
                                 Pilih --</option>
                             @foreach ($faskes as $row)
-                                <option value="{{ $row->id }}">{{ $row->nama_faskes }}
+                                <option value="{{ $row->id }}" {{ $administrasi->value == $row->id ? 'selected' : ''}}>{{ $row->nama_faskes }}
                                 </option>
                             @endforeach
                         </select>
@@ -122,10 +123,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Ruangan', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'ruangan')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Ruangan</label>
-                        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_ruangan"
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="" placeholder="" name="ruangan"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -136,10 +137,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tempat Kalibrasi', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'tempat-kalibrasi')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Tempat Kalibrasi</label>
-                        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_tempat-kalibrasi"
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="" placeholder="" name="tempat-kalibrasi"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -150,10 +151,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tanggal Penerimaan', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'tanggal-penerimaan')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Tanggal Penerimaan</label>
-                        <input type="date" class="form-control" value="" id="" placeholder="" name="administrasi_tanggal-penerimaan"
+                        <input type="date" class="form-control" value="{{ $administrasi->value }}" id="" placeholder="" name="tanggal-penerimaan"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -164,10 +165,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Tanggal Kalibrasi', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'tanggal-kalibrasi')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Tanggal Kalibrasi</label>
-                        <input type="date" class="form-control" value="" id="" placeholder="" name="administrasi_tanggal-kalibrasi"
+                        <input type="date" class="form-control" value="{{ $administrasi->value }}" id="" placeholder="" name="tanggal-kalibrasi"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -178,10 +179,10 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Channel IDA', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'channel-ida')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Channel IDA</label>
-                        <input type="text" class="form-control" value="" id="" placeholder="" name="administrasi_channel-ida"
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="" placeholder="" name="channel-ida"
                             required>
                         <div class="valid-feedback">
                             Looks good!
@@ -192,11 +193,11 @@
                     </div>
                     @endif
 
-                    @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Jenis Timbangan', 'nomenklatur_pendataan_administrasi') == 'show')
+                    @if ($administrasi->slug == 'jenis-timbangan')
                     <div class="col">
                         <label for="" style=" font-size: 12px;">Jenis Timbangan</label>
-                        <input type="text" class="form-control" value="" id="" placeholder="" required
-                            name="administrasi_jenis-timbangan">
+                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="" placeholder="" required
+                            name="jenis-timbangan">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -206,6 +207,7 @@
                     </div>
                     @endif
                 @endforeach
+                <button class="btn btn-success mt-2" type="submit">Submit</button>
             </form>
         </div>
     </div>

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('laporan_kesimpulan_telaah_teknis', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan');
-            $table->string('pelaksana_pengujian');
-            $table->string('penyelia');
-            $table->string('value');
+            $table->string('pelaksana_pengujian')->nullable();
+            $table->string('penyelia')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }

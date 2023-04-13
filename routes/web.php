@@ -37,7 +37,9 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
     Route::get('/history_laporan/{nolaporan}', [HistoryLaporanLkController::class, 'edit'])->name('web-history_laporan.edit');
     Route::get('/history_laporan/pendataan_administrasi/{nolaporan}', [HistoryLaporanLkController::class, 'pendataanAdministrasi'])->name('web-history_laporan.pendataanAdministrasi');
+    Route::post('/history_laporan/pendataan_administrasi', [HistoryLaporanLkController::class, 'updatePendataanAdministrasi'])->name('web-history_laporan.updatePendataanAdministrasi');
     Route::get('/history_laporan/daftar_alat_ukur/{nolaporan}', [HistoryLaporanLkController::class, 'daftarAlatUkur'])->name('web-history_laporan.daftarAlatUkur');
+    Route::post('/history_laporan/daftar_alat_ukur', [HistoryLaporanLkController::class, 'updateAlatUkur'])->name('web-history_laporan.updateAlatUkur');
     Route::get('/history_laporan/kondisi-lingkungan/{nolaporan}', [HistoryLaporanLkController::class, 'kondisiLingkungan'])->name('web-history_laporan.kondisiLingkungan');
     Route::get('/history_laporan/pemeriksaan-fisik-fungsi/{nolaporan}', [HistoryLaporanLkController::class, 'pemeriksaanFisikFungsi'])->name('web-history_laporan.pemeriksaanFisikFungsi');
     Route::get('/history_laporan/keselamatan-listrik/{nolaporan}', [HistoryLaporanLkController::class, 'keselamatanListrik'])->name('web-history_laporan.keselamatanListrik');
