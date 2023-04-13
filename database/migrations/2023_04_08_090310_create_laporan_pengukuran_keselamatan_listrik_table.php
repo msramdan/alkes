@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('laporan_pengukuran_keselamatan_listrik', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan');
-            $table->foreignId('nomenklatur_keselamatan_listrik_id');
+            $table->string('field_keselamatan_listrik');
             $table->string('value');
             $table->timestamps();
         });

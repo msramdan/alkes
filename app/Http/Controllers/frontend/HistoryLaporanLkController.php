@@ -32,24 +32,28 @@ class HistoryLaporanLkController extends Controller
     public function pendataanAdministrasi($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
+        $nomenklatur_id = $laporan->nomenklatur_id;
         $pendataan_administrasi = DB::table('laporan_pendataan_administrasi')
-                                      ->select('
-                                        laporan_pendataan_administrasi.id,
-                                        laporan_pendataan_administrasi.no_laporan,
-                                        laporan_pendataan_administrasi.nomenklatur_pendataan_administrasi_id,
-                                        laporan_pendataan_administrasi.value
-                                      ')
-                                       ->join(
-                                        'nomenklatur_pendataan_administrasi',
-                                        'laporan_pendataan_administrasi.nomenklatur_pendataan_administrasi_id',
-                                        'nomenklatur_pendataan_administrasi.nomenklatur_pendataan_administrasi_id'
-                                        )
-                                        ->where('laporan_pendataan_administrasi.no_laporan', $nolaporan)
-                                        ->get();
+                                    ->select("*")
+                                    ->where('no_laporan', $nolaporan)
+                                    ->get();
+
+        $pendataan_administrasi = DB::connection('mysql')->select(
+            "SELECT
+              laporan_pendataan_administrasi.id,
+              laporan_pendataan_administrasi.no_laporan,
+              laporan_pendataan_administrasi.nomenkklatur_pendataan_administrasi_id,
+              laporan_pendataan_administrasi.value,
+              nomenklatur_pendataan_administrasi.id,
+              nomenklatur_pendataan_administrasi.nomenklatur_id,
+              nomenklatur_
+            FROM
+            "
+        );
 
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
 
-        return view('frontend.history-laporan.pendataan_administrasi', compact('laporan', 'pendataan_administrasi', 'fasskes'));
+        return view('frontend.history-laporan.pendataan_administrasi', compact('laporan', 'pendataan_administrasi', 'faskes', 'nomenklatur_id'));
     }
 
     public function daftarAlatUkur($nolaporan)
