@@ -106,7 +106,7 @@ class LaporanLkController extends Controller
 
             DB::table('laporan_pendataan_administrasi')->insert([
                 'no_laporan' => $no_laporan,
-                'nomenklatur_pendataan_administrasi_id' => $field_administrasi->id,
+                'field_pendataan_administrasi' => $field_administrasi->field_pendataan_administrasi,
                 'value' => $_POST["{$administrasis}"],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -125,7 +125,7 @@ class LaporanLkController extends Controller
 
             DB::table('laporan_daftar_alat_ukur')->insert([
                 'no_laporan' => $no_laporan,
-                'nomenklatur_type_id' => $nomenklatur_type_id[1],
+                'type_id' => $nomenklatur_type->type_id,
                 'inventaris_id' => $request->{$alat},
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -155,7 +155,8 @@ class LaporanLkController extends Controller
 
             DB::table('laporan_kondisi_fisik_fungsi')->insert([
                 'no_laporan' => $no_laporan,
-                'nomenklatur_kondisi_fisik_fungsi_id' => $nomenklatur_kondisi_fisik_fungsi->id,
+                'field_parameter_fisik_fungsi' => $nomenklatur_kondisi_fisik_fungsi->field_parameter,
+                'field_batas_pemeriksaan' => $nomenklatur_kondisi_fisik_fungsi->field_batas_pemeriksaan,
                 'value' => $request->{$fisik},
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -174,7 +175,7 @@ class LaporanLkController extends Controller
 
             DB::table('laporan_pengukuran_keselamatan_listrik')->insert([
                 'no_laporan' => $no_laporan,
-                'nomenklatur_keselamatan_listrik_id' => $nomenklatur_keselamatan_listrik->id,
+                'field_keselamatan_listrik' => $nomenklatur_keselamatan_listrik->field_keselamatan_listrik,
                 'value' => $request->{$listrik},
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -194,7 +195,7 @@ class LaporanLkController extends Controller
 
             DB::table('laporan_telaah_teknis')->insert([
                 'no_laporan' => $no_laporan,
-                'nomenklatur_telaah_teknis_id' => $nomenklatur_telaah_teknis->id,
+                'field_telaah_teknis' => $nomenklatur_telaah_teknis->field_telaah_teknis,
                 'value' => $request->{$teknis},
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

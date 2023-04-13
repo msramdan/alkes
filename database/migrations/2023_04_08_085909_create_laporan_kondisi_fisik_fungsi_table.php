@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('laporan_kondisi_fisik_fungsi', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan');
-            $table->foreignId('nomenklatur_kondisi_fisik_fungsi_id');
+            $table->string('field_parameter_fisik_fungsi');
+            $table->string('field_batas_pemeriksaan');
             $table->string('value');
             $table->timestamps();
         });

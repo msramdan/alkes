@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('laporan_pendataan_administrasi', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan')->nullable();
-            $table->foreignId('nomenklatur_pendataan_administrasi_id')->cascadeOnDelete();
+            $table->string('field_pendataan_administrasi')->nullable();
             $table->string('value');
             $table->timestamps();
         });

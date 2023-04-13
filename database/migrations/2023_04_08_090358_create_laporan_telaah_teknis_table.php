@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('laporan_telaah_teknis', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan');
-            $table->foreignId('nomenklatur_telaah_teknis_id');
+            $table->string('field_telaah_teknis');
             $table->string('value');
             $table->timestamps();
         });
