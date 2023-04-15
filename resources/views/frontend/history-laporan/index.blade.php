@@ -60,9 +60,9 @@
                                             Reviewer : {{ $row->user_review }}
                                         </div> --}}
                                         <div style="margin-top: 5px">
-                                            <button class="btn btn-secondary btn-sm"><i class="fa fa-eye"
+                                            <a class="btn btn-secondary btn-sm" href="{{ url('/web/show/history_laporan/'. $row->no_laporan) }}"><i class="fa fa-eye"
                                                     aria-hidden="true"></i>
-                                                View</button>&nbsp;
+                                                View</a>&nbsp;
                                             <a class="btn btn-success btn-sm" href="{{ url('/web/history_laporan/'. $row->no_laporan) }}"><i class="fa fa-pencil"
                                                     aria-hidden="true"></i> Edit</a>&nbsp;
                                             <button class="btn btn-danger btn-sm"><i class="fa fa-trash"

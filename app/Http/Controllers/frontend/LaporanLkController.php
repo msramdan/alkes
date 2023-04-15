@@ -68,17 +68,6 @@ class LaporanLkController extends Controller
     }
 
     public function submitLaporan(Request $request) {
-        // $rules = [];
-
-        // //Add rules = administrasi
-        // $nomenklatur_administrasi = DB::table('nomenklatur_pendataan_administrasi')
-        //                                 ->where('nomenklatur_id', $request->nomenklatur_id)
-        //                                 ->get();
-
-        // foreach ($nomenklatur_administrasi as $administrasi) {
-        //     $rules['administrasi_'.$administrasi->slug] = 'required';
-        // }
-
         $laporan = Laporan::create([
             'user_created' => Session::get('id-teknisi'),
             'tgl_laporan' => Carbon::now(),

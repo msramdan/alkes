@@ -47,7 +47,7 @@ class HistoryLaporanLkController extends Controller
 
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
 
-        return view('frontend.history-laporan.pendataan_administrasi', compact('laporan', 'pendataan_administrasi', 'faskes', 'nomenklatur_id'));
+        return view('frontend.history-laporan.edit.pendataan_administrasi', compact('laporan', 'pendataan_administrasi', 'faskes', 'nomenklatur_id'));
     }
 
     public function updatePendataanAdministrasi(Request $request)
@@ -84,7 +84,7 @@ class HistoryLaporanLkController extends Controller
                         ->where('no_laporan', $nolaporan)
                         ->get();
 
-        return view('frontend.history-laporan.daftar_alat_ukur', compact('laporan', 'nomenklatur_id', 'alat_ukur'));
+        return view('frontend.history-laporan.edit.daftar_alat_ukur', compact('laporan', 'nomenklatur_id', 'alat_ukur'));
     }
 
     public function updateAlatUkur(Request $request)
@@ -113,7 +113,7 @@ class HistoryLaporanLkController extends Controller
                                 ->first();
 
 
-        return view('frontend.history-laporan.kondisi_lingkungan', compact('kondisi_lingkungan', 'laporan'));
+        return view('frontend.history-laporan.edit.kondisi_lingkungan', compact('kondisi_lingkungan', 'laporan'));
     }
 
     public function updateKondisiLingkungan(Request $request)
@@ -139,7 +139,7 @@ class HistoryLaporanLkController extends Controller
                             ->where('no_laporan', $nolaporan)
                             ->get();
 
-        return view('frontend.history-laporan.pemeriksaan_fisik_fungsi', compact('laporan', 'fisik_fungsi'));
+        return view('frontend.history-laporan.edit.pemeriksaan_fisik_fungsi', compact('laporan', 'fisik_fungsi'));
     }
 
     public function updatePemeriksaanFisikFungsi(Request $request)
@@ -167,7 +167,7 @@ class HistoryLaporanLkController extends Controller
                                     ->where('no_laporan', $nolaporan)
                                     ->get();
 
-        return view('frontend.history-laporan.keselamatan_listrik', compact('laporan', 'keselamatan_listrik'));
+        return view('frontend.history-laporan.edit.keselamatan_listrik', compact('laporan', 'keselamatan_listrik'));
     }
 
     public function updateKeselamatanListrik(Request $request)
@@ -195,7 +195,7 @@ class HistoryLaporanLkController extends Controller
                             ->where('no_laporan', $nolaporan)
                             ->get();
 
-        return view('frontend.history-laporan.telaah_teknis', compact('laporan', 'telaah_teknis'));
+        return view('frontend.history-laporan.edit.telaah_teknis', compact('laporan', 'telaah_teknis'));
     }
 
     public function updateTelaahTeknis(Request $request)
@@ -224,7 +224,7 @@ class HistoryLaporanLkController extends Controller
                                     ->where('no_laporan', $nolaporan)
                                     ->get();
 
-        return view('frontend.history-laporan.kesimpulan_telaah_teknis', compact('laporan', 'kesimpulan_telaah_teknis'));
+        return view('frontend.history-laporan.edit.kesimpulan_telaah_teknis', compact('laporan', 'kesimpulan_telaah_teknis'));
     }
 
     public function updateKesimpulanTelaahTeknis(Request $request)
