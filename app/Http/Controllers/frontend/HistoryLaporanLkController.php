@@ -237,4 +237,32 @@ class HistoryLaporanLkController extends Controller
         return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
+    public function deleteLaporan($nolaporan)
+    {
+        $laporan = Laporan::where('no_laporan', $nolaporan)->delete();
+        $pendataanAdministrasi = DB::table('laporan_pendataan_administrasi')
+                                    ->where('no_laporan', $nolaporan)
+                                    ->delete();
+        $daftarAlatUkur = DB::table('laporan_daftar_alat_ukur')
+                            ->where('no_laporan', $nolaporan)
+                            ->delete();
+        $kondisiLingkungan = DB::table('laporan_kondisi_lingkungan')
+                                ->where('no_laporan', $nolaporan)
+                                ->delete();
+        $pemeriksaanFisikFungsi = DB::table('laporan_kondisi_fisik_fungsi')
+                                    ->where('no_laporan', $nolaporan)
+                                    ->delete();
+        $keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
+                                ->where('no_laporan', $nolaporan)
+                                ->delete();
+        $telaahTeknis = DB::table('laporan_telaah_teknis')
+                         ->where('no_laporan', $nolaporan)
+                         ->delete();
+        $kesimpulanTelaahTeknis = DB::table('laporan_kesimpulan_telaah_teknis')
+                                    ->where('no_laporan', $nolaporan)
+                                    ->delete();
+
+        Alert::toast('Success Delete data', 'success');
+        return redirect('/web/history_laporan/'.$nolaporan);
+    }
 }
