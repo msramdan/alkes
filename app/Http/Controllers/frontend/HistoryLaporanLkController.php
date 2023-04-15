@@ -263,6 +263,6 @@ class HistoryLaporanLkController extends Controller
                                     ->delete();
 
         Alert::toast('Success Delete data', 'success');
-        return redirect('/web/history_laporan/'.$nolaporan);
+        return redirect()->back();
     }
 }
