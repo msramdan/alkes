@@ -37,6 +37,7 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::post('/submit-laporan', [LaporanLkController::class, 'submitLaporan'])->name('web-submit-laporan');
     Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
     Route::get('/history_laporan/{nolaporan}', [HistoryLaporanLkController::class, 'edit'])->name('web-history_laporan.edit');
+    Route::get('/history_laporan/delete/{nolaporan}', [HistoryLaporanLkController::class, 'delete'])->name('web-history_laporan.delete');
     Route::get('/history_laporan/pendataan_administrasi/{nolaporan}', [HistoryLaporanLkController::class, 'pendataanAdministrasi'])->name('web-history_laporan.pendataanAdministrasi');
     Route::post('/history_laporan/pendataan_administrasi', [HistoryLaporanLkController::class, 'updatePendataanAdministrasi'])->name('web-history_laporan.updatePendataanAdministrasi');
     Route::get('/history_laporan/daftar_alat_ukur/{nolaporan}', [HistoryLaporanLkController::class, 'daftarAlatUkur'])->name('web-history_laporan.daftarAlatUkur');
