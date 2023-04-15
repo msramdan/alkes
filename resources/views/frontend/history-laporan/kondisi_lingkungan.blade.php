@@ -4,7 +4,7 @@
 <div class="page-content-wrapper">
     <div class="py-3">
         <div class="container">
-            <form action="{{ url('/web/history_laporan/kondisi_lingkungan') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/web/history_laporan/kondisi-lingkungan') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="no_laporan" value="{{ $laporan->no_laporan }}">
                 @if (!empty($kondisi_lingkungan->suhu_awal) && !empty($kondisi_lingkungan->suhu_akhir))

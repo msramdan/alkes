@@ -9,7 +9,7 @@
                 <input type="hidden" name="no_laporan" value="{{ $laporan->no_laporan }}">
                 @foreach ($fisik_fungsi as $data)
                     <div class="col mb-2">
-                        <label for="" style=" font-size: 12px;">{{ $data->field_pemeriksaan_fisik_fungsi }}</label>
+                        <label for="" style=" font-size: 12px;">{{ $data->field_parameter_fisik_fungsi }}</label>
                         <select class="form-control select2" id="{{ $data->slug }}"
                             name="{{ $data->slug }}" required style="width: 100%;" required>
                             <option selected disabled value="">-- Pilih --</option>

@@ -10,7 +10,7 @@
                 @foreach ($keselamatan_listrik as $listrik)
                     <div class="col">
                         <label for="" style=" font-size: 12px;">{{ $listrik->field_keselamatan_listrik }}</label>
-                        <input type="text" class="form-control" value="{{ $administrasi->value }}" id="{{ $listrik->field_keselamatan_listrik }}" placeholder="" name="{{ $listrik->field_keselamatan_listrik }}"
+                        <input type="text" class="form-control" value="{{ $listrik->value }}" id="{{ $listrik->field_keselamatan_listrik }}" placeholder="" name="{{ $listrik->field_keselamatan_listrik }}"
                             required>
                         <div class="valid-feedback">
                             Looks good!

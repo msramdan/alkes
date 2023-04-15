@@ -176,7 +176,7 @@ class HistoryLaporanLkController extends Controller
 
         foreach ($datas as $data) {
             $keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
-                                ->where('no_laporan', $$request->no_laporan)
+                                ->where('no_laporan', $request->no_laporan)
                                 ->where('slug', $data)
                                 ->update([
                                     'value' => $request->{$data}
