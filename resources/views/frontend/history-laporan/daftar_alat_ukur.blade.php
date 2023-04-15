@@ -31,6 +31,7 @@
                         </div>
                     </div>
                 @endforeach
+                <a class="btn btn-danger mt-2" href="{{ url()->previous() }}">Cancel</a>
                 <button class="btn btn-success mt-2" type="submit">Submit</button>
             </form>
         </div>

@@ -8,6 +8,7 @@ use App\Models\Laporan;
 use App\Models\Faske;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HistoryLaporanLkController extends Controller
 {
@@ -61,7 +62,7 @@ class HistoryLaporanLkController extends Controller
                                                     'value' => $request->{$slug}
                                                 ]);
         }
-
+        Alert::toast('Success Update data', 'success');
         return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
@@ -99,51 +100,63 @@ class HistoryLaporanLkController extends Controller
                 ]);
         }
 
+        Alert::toast('Success Update data', 'success');
         return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
     public function kondisiLingkungan($nolaporan)
     {
-        $kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')
-                                ->select('
-                                    laporan_kondisi_lingkungan.no_laporan,
-                                    laporan_kondisi_lingkungan.suhu_awal,
-                                    laporan_kondisi_lingkungan.suhu_akhir,
-                                    laporan_kondisi_lingkungan.kelembapan_ruangan_awal,
-                                    laporan_kondisi_lingkungan.kelembapan_ruangan_akhir,
-                                ')
-                                ->where('laporan_kondisi_lingkuan.no_laporan', $nolaporan)
-                                ->get();
+       $laporan = Laporan::where('no_laporan', $nolaporan)->first();
+       $kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')
+                                ->select('*')
+                                ->where('no_laporan', $nolaporan)
+                                ->first();
 
-        return view('frontend.history-laporan.kondisi_lingkungan', compact('kondisi_lingkungan'));
+
+        return view('frontend.history-laporan.kondisi_lingkungan', compact('kondisi_lingkungan', 'laporan'));
+    }
+
+    public function updateKondisiLingkungan(Request $request)
+    {
+        $kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')
+                                ->where('no_laporan', $request->nolaporan)
+                                ->update([
+                                    'suhu_awal' => $request->suhu_awal,
+                                    'suhu_akhir' => $request->suhu_akhir,
+                                    'kelembapan_ruangan_awal' => $request->kelembapan_ruangan_awal,
+                                    'kelembapan_ruangan_akhir' => $request->kelembapan_ruangan_akhir,
+                                ]);
+
+        Alert::toast('Success Update data', 'success');
+        return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
     public function pemeriksaanFisikFungsi($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
+
         $fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')
-                            ->select('
-                                laporan_kondisi_fisik_fungsi.id,
-                                laporan_kondisi_fisik_fungsi.no_laporan,
-                                laporan_kondisi_fisik_fungsi.nomenklatur_kondisi_fisik_fungsi_id,
-                                laporan_kondisi_fisik_fungsi.value,
-                                laporan_kondisi_fisik_fungsi.created_at,
-                                laporan_kondisi_fisik_fungsi.updated_at,
-                                nomenklatur_kondisi_fisik_fungsi.nomenklatur_id,
-                                nomenklatur_kondisi_fisik_fungsi.field_parameter,
-                                nomenklatur_kondisi_fisik_fungsi.field_batas_pemeriksaan
-                                nomenklaturs.nama_nomenklatur
-                            ')
-                            ->join(
-                                'nomenklatur_kondisi_fisik_fungsi',
-                                'laporan_kondisi_fisik_fungsi.nomenklatur_kondisi_fisik_fungsi_id',
-                                'nomenklatur_kondisi_fisik_fungsi.id'
-                            )
-                            ->join('nomenklaturs', 'nomenklatur_kondisi_fisik_fungsi.nomenklatur_id', 'nomenklaturs.id')
-                            ->where('laporan_kondisi_fisik_fungsi.no_laporan', $nolaporan)
+                            ->where('no_laporan', $nolaporan)
                             ->get();
 
         return view('frontend.history-laporan.pemeriksaan_fisik_fungsi', compact('laporan', 'fisik_fungsi'));
+    }
+
+    public function updatePemeriksaanFisikFungsi(Request $request)
+    {
+        $datas = array_keys($request->input());
+
+        foreach ($datas as $data) {
+            $fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')
+                            ->where('no_laporan', $request->no_laporan)
+                            ->where('slug', $data)
+                            ->update([
+                                'value' => $request->{$data}
+                            ]);
+        }
+
+        Alert::toast('Success Update data', 'success');
+        return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
     public function keselamatanListrik($nolaporan)
@@ -151,32 +164,27 @@ class HistoryLaporanLkController extends Controller
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
 
         $keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
-                                ->select('
-                                    laporan_pengukuran_keselamatan_listrik.id,
-                                    laporan_pengukuran_keselamatan_listrik.no_laporan,
-                                    laporan_pengukuran_keselamatan_listrik.nomenklatur_keselamatan_listrik_id,
-                                    laporan_pengukuran_keselamatan_listrik.value,
-                                    laporan_pengukuran_keselamatan_listrik.created_at,
-                                    laporan_pengukuran_keselamatan_listrik.updated_at
-                                    nomenklatur_keselamatan_listrik.nomenklatur_id,
-                                    nomenklatur_keselematan_listrik.field_keselamatan_listrik,
-                                    nomenklatur_keselamatan_listrik.unit,
-                                    nomenklaturs.nama_nomenklatur
-                                ')
-                                ->join(
-                                    'nomenklatur_keselamatan_listrik',
-                                    'laporan_pengukuran_keselamatan_listrik.nomenklatur_keselamatan_listrik_id',
-                                    'nomenklatur_keselamatan_listrik.id'
-                                )
-                                ->join(
-                                    'nomenklaturs',
-                                    'nomenklatur_keselamatan_listrik.nomenklatur_id',
-                                    'nomenklaturs.id'
-                                )
-                                ->where('laporan_pengukuran_keselamatan_listrik.no_laporan', $nolaporan)
-                                ->get();
+                                    ->where('no_laporan', $nolaporan)
+                                    ->get();
 
         return view('frontend.history-laporan.keselamatan_listrik', compact('laporan', 'keselamatan_listrik'));
+    }
+
+    public function updateKeselamatanListrik(Request $request)
+    {
+        $datas = array_keys($request->input());
+
+        foreach ($datas as $data) {
+            $keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
+                                ->where('no_laporan', $$request->no_laporan)
+                                ->where('slug', $data)
+                                ->update([
+                                    'value' => $request->{$data}
+                                ]);
+        }
+
+        Alert::toast('Success Update data', 'success');
+        return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
     public function telaahTeknis($nolaporan)
@@ -184,49 +192,49 @@ class HistoryLaporanLkController extends Controller
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
 
         $telaah_teknis = DB::table('laporan_telaah_teknis')
-                            ->select('
-                                laporan_telaah_teknis.id,
-                                laporan_telaah_teknis.no_laporan,
-                                laporan_telaah_teknis.nomenklatur_telaah_teknis_id,
-                                laporan_telaah_teknis.value,
-                                laporan_telaah_teknis.created_at,
-                                laporan_telaah_teknis.updated_at,
-                                nomenklatur_telaah_teknis.nomenklatur_id,
-                                nomenklatur_telaah_teknis.field_telaah_teknis,
-                                nomenklaturs.nama_nomenklatur
-                            ')
-                            ->join(
-                                'nomenklatur_telaah_teknis',
-                                'laporan_telaah_teknis.nomenklatur_telaah_teknis_id',
-                                'nomenklatur_telaah_teknis.id'
-                            )
-                            ->join(
-                                'nomenklaturs',
-                                'nomenklatur_telaah_teknis.nomenklatur_id',
-                                'nomenklaturs.id'
-                            )
-                            ->where('laporan_telaah_teknis.no_laporan', $nolaporan)
+                            ->where('no_laporan', $nolaporan)
                             ->get();
 
         return view('frontend.history-laporan.telaah_teknis', compact('laporan', 'telaah_teknis'));
     }
+
+    public function updateTelaahTeknis(Request $request)
+    {
+        $datas = array_keys($request->input());
+
+        foreach ($datas as $data) {
+            $telaah_teknis = DB::table('laporan_telaah_teknis')
+                                ->where('no_laporan', $request->no_laporan)
+                                ->where('slug', $data)
+                                ->update([
+                                    'value' => $request->{$data}
+                                ]);
+        }
+
+        Alert::toast('Success Update data', 'success');
+        return redirect('/web/history_laporan/'.$request->no_laporan);
+    }
+
 
     public function kesimpulanTelaahTeknis($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
 
         $kesimpulan_telaah_teknis = DB::table('laporan_kesimpulan_telaah_teknis')
-                                    ->select('
-                                        laporan_kesimpulan_telaah_teknis.id,
-                                        laporan_kesimpulan_telaah_teknis.no_laporan,
-                                        laporan_kesimpulan_telaah_teknis.value,
-                                        laporan_kesimpulan_telaah_teknis.created_at,
-                                        laporan_kesimpulan_telaah_teknis.updated_at,
-                                    ')
-                                    ->where('laporan_kesimpulan_telaah_teknis.no_laporan', $nolaporan)
+                                    ->where('no_laporan', $nolaporan)
                                     ->get();
 
         return view('frontend.history-laporan.kesimpulan_telaah_teknis', compact('laporan', 'kesimpulan_telaah_teknis'));
+    }
+
+    public function updateKesimpulanTelaahTeknis(Request $request)
+    {
+        $kesimpulan = DB::table('laporan_kesimpulan_telaah_teknis')
+                         ->where('no_laporan', $request->nolaporan)
+                         ->get();
+
+        Alert::toast('Success Update data', 'success');
+        return redirect('/web/history_laporan/'.$request->no_laporan);
     }
 
 }

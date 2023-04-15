@@ -41,10 +41,15 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/history_laporan/daftar_alat_ukur/{nolaporan}', [HistoryLaporanLkController::class, 'daftarAlatUkur'])->name('web-history_laporan.daftarAlatUkur');
     Route::post('/history_laporan/daftar_alat_ukur', [HistoryLaporanLkController::class, 'updateAlatUkur'])->name('web-history_laporan.updateAlatUkur');
     Route::get('/history_laporan/kondisi-lingkungan/{nolaporan}', [HistoryLaporanLkController::class, 'kondisiLingkungan'])->name('web-history_laporan.kondisiLingkungan');
+    Route::post('/history_laporan/kondisi-lingkungan', [HistoryLaporanLkController::class, 'updateKondisiLingkungan'])->name('web-history_laporan.updateKondisiLingkungan');
     Route::get('/history_laporan/pemeriksaan-fisik-fungsi/{nolaporan}', [HistoryLaporanLkController::class, 'pemeriksaanFisikFungsi'])->name('web-history_laporan.pemeriksaanFisikFungsi');
+    Route::post('/history_laporan/pemeriksaan-fisik-fungsi', [HistoryLaporanLkController::class, 'updatePemeriksaanFisikFungsi'])->name('web-history_laporan.updatePemeriksaanFisikFungsi');
     Route::get('/history_laporan/keselamatan-listrik/{nolaporan}', [HistoryLaporanLkController::class, 'keselamatanListrik'])->name('web-history_laporan.keselamatanListrik');
+    Route::post('/history_laporan/keselamatan-listrik', [HistoryLaporanLkController::class, 'updateKeselamatanListrik'])->name('web-history_laporan.updateKeselamatanListrik');
     Route::get('/history_laporan/telaah-teknis/{nolaporan}', [HistoryLaporanLkController::class, 'telaahTeknis'])->name('web-history_laporan.telaahTeknis');
+    Route::post('/history_laporan/telaah-teknis', [HistoryLaporanLkController::class, 'telaahTeknis'])->name('web-history_laporan.updateTelaahTeknis');
     Route::get('/history_laporan/kesimpulan-telaah_teknis/{nolaporan}', [HistoryLaporanLkController::class, 'kesimpulanTelaahTeknis'])->name('web-history_laporan.kesimpulanTelaahTeknis');
+    Route::post('/history_laporan/kesimpulan-telaah_teknis', [HistoryLaporanLkController::class, 'updateKesimpulanTelaahTeknis'])->name('web-history_laporan.updateKesimpulanTelaahTeknis');
 
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
