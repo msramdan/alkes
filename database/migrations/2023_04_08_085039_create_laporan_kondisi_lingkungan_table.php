@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('laporan_kondisi_lingkungan', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan');
-            $table->string('suhu_awal');
-            $table->string('suhu_akhir');
-            $table->string('kelembapan_ruangan_awal');
-            $table->string('kelembapan_ruangan_akhir');
+            $table->string('suhu_awal')->nullable();
+            $table->string('suhu_akhir')->nullable();
+            $table->string('kelembapan_ruangan_awal')->nullable();
+            $table->string('kelembapan_ruangan_akhir')->nullable();
             $table->timestamps();
         });
     }

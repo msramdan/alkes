@@ -5595,6 +5595,14 @@ li.suha-dropdown-menu .dropdown-trigger-btn.active i {
     color: #ffaf00;
 }
 
+[theme-color=dark] .sweetalert-title {
+    color: #000;
+}
+
+[theme-color=dark] .sweetalert-subtitle {
+    color: #000;
+}
+
 [view-mode=rtl] {
     /* Demo */
 }

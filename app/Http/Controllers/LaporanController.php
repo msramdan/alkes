@@ -30,17 +30,19 @@ class LaporanController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $laporans = DB::table('laporans')
-                ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
-                ->join('faskes', 'laporans.faskes_id', '=', 'faskes.id')
-                ->join('users', 'laporans.user_review', '=', 'users.id')
-                ->join('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
-                ->select('laporans.*', 'pelaksana_teknisis.nama', 'faskes.nama_faskes', 'users.name', 'nomenklaturs.nama_nomenklatur');
             $start_date = intval($request->query('start_date'));
             $end_date = intval($request->query('end_date'));
             $teknisi = $request->query('teknisi');
             $faskes = intval($request->query('faskes'));
             $status = $request->query('status');
+
+            $laporans = DB::table('laporans')
+                ->leftjoin('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
+                ->leftjoin('faskes', 'laporans.faskes_id', '=', 'faskes.id')
+                ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
+                ->leftjoin('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
+                ->select('laporans.*', 'pelaksana_teknisis.nama', 'faskes.nama_faskes', 'users.name', 'nomenklaturs.nama_nomenklatur');
+
 
             if (isset($start_date) && !empty($start_date)) {
                 $from = date("Y-m-d H:i:s", substr($request->query('start_date'), 0, 10));
@@ -49,12 +51,23 @@ class LaporanController extends Controller
                 $from = date('Y-m-d') . " 00:00:00";
                 $laporans = $laporans->where('tgl_laporan', '>=', $from);
             }
+
             if (isset($end_date) && !empty($end_date)) {
                 $to = date("Y-m-d H:i:s", substr($request->query('end_date'), 0, 10));
                 $laporans = $laporans->where('tgl_laporan', '<=', $to);
             } else {
                 $to = date('Y-m-d') . " 23:59:59";
                 $laporans = $laporans->where('tgl_laporan', '<=', $to);
+            }
+
+            if (isset($start_date) && !empty($start_date) && isset($end_date) && !empty($end_date)) {
+                $from = date("Y-m-d H:i:s", substr($request->query('start_date'), 0, 10));
+                $to = date("Y-m-d H:i:s", substr($request->query('end_date'), 0, 10));
+                $laporans = $laporans->whereBetween('tgl_laporan', [$from, $to]);
+            } else {
+                $from = date('Y-m-d') . " 00:00:00";
+                $to = date('Y-m-d') . " 23:59:59";
+                $laporans = $laporans->whereBetween('tgl_laporan', [$from, $to]);
             }
 
             if (isset($teknisi) && !empty($teknisi)) {
@@ -74,6 +87,7 @@ class LaporanController extends Controller
                     $laporans = $laporans->where('status_laporan', $status);
                 }
             }
+
             $laporans = $laporans->orderBy('laporans.id', 'DESC')->get();
 
             return DataTables::of($laporans)

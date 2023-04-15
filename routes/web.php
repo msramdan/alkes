@@ -15,6 +15,7 @@ use App\Http\Controllers\frontend\InventarisController;
 use App\Http\Controllers\frontend\LaporanLkController;
 use App\Http\Controllers\frontend\MetodeKerjaController;
 use App\Http\Controllers\frontend\HistoryLaporanLkController;
+use App\Http\Controllers\frontend\ShowHistoryLaporanController;
 use App\Http\Controllers\info\InfoController;
 
 
@@ -37,13 +38,28 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
     Route::get('/history_laporan/{nolaporan}', [HistoryLaporanLkController::class, 'edit'])->name('web-history_laporan.edit');
     Route::get('/history_laporan/pendataan_administrasi/{nolaporan}', [HistoryLaporanLkController::class, 'pendataanAdministrasi'])->name('web-history_laporan.pendataanAdministrasi');
+    Route::post('/history_laporan/pendataan_administrasi', [HistoryLaporanLkController::class, 'updatePendataanAdministrasi'])->name('web-history_laporan.updatePendataanAdministrasi');
     Route::get('/history_laporan/daftar_alat_ukur/{nolaporan}', [HistoryLaporanLkController::class, 'daftarAlatUkur'])->name('web-history_laporan.daftarAlatUkur');
+    Route::post('/history_laporan/daftar_alat_ukur', [HistoryLaporanLkController::class, 'updateAlatUkur'])->name('web-history_laporan.updateAlatUkur');
     Route::get('/history_laporan/kondisi-lingkungan/{nolaporan}', [HistoryLaporanLkController::class, 'kondisiLingkungan'])->name('web-history_laporan.kondisiLingkungan');
+    Route::post('/history_laporan/kondisi-lingkungan', [HistoryLaporanLkController::class, 'updateKondisiLingkungan'])->name('web-history_laporan.updateKondisiLingkungan');
     Route::get('/history_laporan/pemeriksaan-fisik-fungsi/{nolaporan}', [HistoryLaporanLkController::class, 'pemeriksaanFisikFungsi'])->name('web-history_laporan.pemeriksaanFisikFungsi');
+    Route::post('/history_laporan/pemeriksaan-fisik-fungsi', [HistoryLaporanLkController::class, 'updatePemeriksaanFisikFungsi'])->name('web-history_laporan.updatePemeriksaanFisikFungsi');
     Route::get('/history_laporan/keselamatan-listrik/{nolaporan}', [HistoryLaporanLkController::class, 'keselamatanListrik'])->name('web-history_laporan.keselamatanListrik');
+    Route::post('/history_laporan/keselamatan-listrik', [HistoryLaporanLkController::class, 'updateKeselamatanListrik'])->name('web-history_laporan.updateKeselamatanListrik');
     Route::get('/history_laporan/telaah-teknis/{nolaporan}', [HistoryLaporanLkController::class, 'telaahTeknis'])->name('web-history_laporan.telaahTeknis');
+    Route::post('/history_laporan/telaah-teknis', [HistoryLaporanLkController::class, 'telaahTeknis'])->name('web-history_laporan.updateTelaahTeknis');
     Route::get('/history_laporan/kesimpulan-telaah_teknis/{nolaporan}', [HistoryLaporanLkController::class, 'kesimpulanTelaahTeknis'])->name('web-history_laporan.kesimpulanTelaahTeknis');
+    Route::post('/history_laporan/kesimpulan-telaah_teknis', [HistoryLaporanLkController::class, 'updateKesimpulanTelaahTeknis'])->name('web-history_laporan.updateKesimpulanTelaahTeknis');
 
+    Route::get('/show/history_laporan/{nolaporan}', [ShowHistoryLaporanController::class, 'show'])->name('web-show-history_laporan.show');
+    Route::get('/show/history_laporan/pendataan_administrasi/{nolaporan}', [ShowHistoryLaporanController::class, 'pendataanAdministrasi'])->name('web-show-history_laporan.pendataanAdministrasi');
+    Route::get('/show/history_laporan/daftar_alat_ukur/{nolaporan}', [ShowHistoryLaporanController::class, 'daftarAlatUkur'])->name('web-show-history_laporan.daftarAlatUkur');
+    Route::get('/show/history_laporan/kondisi-lingkungan/{nolaporan}', [ShowHistoryLaporanController::class, 'kondisiLingkungan'])->name('web-show-history_laporan.kondisiLingkungan');
+    Route::get('/show/history_laporan/pemeriksaan-fisik-fungsi/{nolaporan}', [ShowHistoryLaporanController::class, 'pemeriksaanFisikFungsi'])->name('web-show-history_laporan.pemeriksaanFisikFungsi');
+    Route::get('/show/history_laporan/keselamatan-listrik/{nolaporan}', [ShowHistoryLaporanController::class, 'keselamatanListrik'])->name('web-show-history_laporan.keselamatanListrik');
+    Route::get('/show/history_laporan/telaah-teknis/{nolaporan}', [ShowHistoryLaporanController::class, 'telaahTeknis'])->name('web-show-history_laporan.telaahTeknis');
+    Route::get('/show/history_laporan/kesimpulan-telaah_teknis/{nolaporan}', [ShowHistoryLaporanController::class, 'kesimpulanTelaahTeknis'])->name('web-show-history_laporan.kesimpulanTelaahTeknis');
 
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/faskes/filter', [FaskesController::class, 'filter']);

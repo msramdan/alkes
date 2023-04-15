@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('no_laporan')->nullable();
             $table->string('field_pendataan_administrasi')->nullable();
+            $table->string('slug');
             $table->string('value');
             $table->timestamps();
         });

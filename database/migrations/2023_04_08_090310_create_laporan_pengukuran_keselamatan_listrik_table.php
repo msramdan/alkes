@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('laporan_pengukuran_keselamatan_listrik', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan');
-            $table->string('field_keselamatan_listrik');
-            $table->string('value');
+            $table->string('field_keselamatan_listrik')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }
