@@ -14,7 +14,7 @@
                     name="type-{{ $row->id }}" required style="width: 100%;" required onchange="selectChange(this, '#type-{{ $row->id }}')">
                     <option selected disabled value="">-- Pilih --</option>
                     @foreach ($inventaris as $data)
-                        <option value="{{ $data->id }}">{{ $data->kode_inventaris }}
+                        <option value="{{ $data->id }}">{{ $data->kode_inventaris}}
                         </option>
                     @endforeach
                 </select>

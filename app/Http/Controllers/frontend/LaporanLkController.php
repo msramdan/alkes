@@ -202,6 +202,7 @@ class LaporanLkController extends Controller
             'pelaksana_pengujian' => '',
             'penyelia' => '',
             'value' => $request->kesimpulan_telaah_teknis,
+            'catatan' => $request->catatan_kesimpulan_telaah_teknis,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
