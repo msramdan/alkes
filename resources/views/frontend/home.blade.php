@@ -72,13 +72,5 @@
                 </div>
             </div>
         </div>
-
-        <div class="container">
-            <div class="dark-mode-wrapper mt-3 bg-img p-4 p-lg-5">
-                <center>
-                    <p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                </center>
-            </div>
-        </div>
     </div>
 @endsection

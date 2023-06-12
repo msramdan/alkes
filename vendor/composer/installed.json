@@ -5489,7 +5489,6 @@
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
             "time": "2023-03-27T22:05:11+00:00",
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "captainhook": {

@@ -672,6 +672,7 @@ class ComposerStaticInit9729285d7bc0c4b62d06bd7f76f42dbe
         'App\\Http\\Controllers\\frontend\\InventarisController' => __DIR__ . '/../..' . '/app/Http/Controllers/frontend/InventarisController.php',
         'App\\Http\\Controllers\\frontend\\LaporanLkController' => __DIR__ . '/../..' . '/app/Http/Controllers/frontend/LaporanLkController.php',
         'App\\Http\\Controllers\\frontend\\MetodeKerjaController' => __DIR__ . '/../..' . '/app/Http/Controllers/frontend/MetodeKerjaController.php',
+        'App\\Http\\Controllers\\frontend\\ShowHistoryLaporanController' => __DIR__ . '/../..' . '/app/Http/Controllers/frontend/ShowHistoryLaporanController.php',
         'App\\Http\\Controllers\\info\\InfoController' => __DIR__ . '/../..' . '/app/Http/Controllers/info/InfoController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

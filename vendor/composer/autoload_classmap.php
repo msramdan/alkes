@@ -45,6 +45,7 @@ return array(
     'App\\Http\\Controllers\\frontend\\InventarisController' => $baseDir . '/app/Http/Controllers/frontend/InventarisController.php',
     'App\\Http\\Controllers\\frontend\\LaporanLkController' => $baseDir . '/app/Http/Controllers/frontend/LaporanLkController.php',
     'App\\Http\\Controllers\\frontend\\MetodeKerjaController' => $baseDir . '/app/Http/Controllers/frontend/MetodeKerjaController.php',
+    'App\\Http\\Controllers\\frontend\\ShowHistoryLaporanController' => $baseDir . '/app/Http/Controllers/frontend/ShowHistoryLaporanController.php',
     'App\\Http\\Controllers\\info\\InfoController' => $baseDir . '/app/Http/Controllers/info/InfoController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

@@ -4,13 +4,13 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="/">
-                        <img src="{{ asset('mazer') }}/images/logo/logo.svg" alt="Logo">
+                        DigiForm
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
-                        height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                        role="img" class="iconify iconify--system-uicons" width="20" height="20"
+                        preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
@@ -98,20 +98,6 @@
                         @endcanany
                     @endif
                 @endforeach
-
-                @if (env('APP_ENV') === 'local')
-                    <li class="sidebar-title">{{ __('Generators') }}</li>
-
-                    <li class="sidebar-item{{ request()->is('generators/create') ? ' active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('generators.create') }}">
-                            <i class="bi bi-grid-fill"></i>
-                            <span> {{ __('CRUD Generator') }}</span>
-                        </a>
-                    </li>
-                @endif
-
-                <li class="sidebar-title">Account</li>
-
                 <li class="sidebar-item{{ request()->is('profile') ? ' active' : '' }}">
                     <a class="sidebar-link" href="{{ route('profile') }}">
                         <i class="bi bi-person-badge-fill"></i>
