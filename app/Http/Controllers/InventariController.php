@@ -144,8 +144,8 @@ class InventariController extends Controller
     public function edit(Inventari $inventari)
     {
         $inventari->load('room:id,nama_ruangan', 'type:id,jenis_alat', 'brand:id,nama_merek', 'vendor:id,nama_vendor',);
-
-        return view('inventaris.edit', compact('inventari'));
+        $types = Type::select('id', 'jenis_alat')->where('id', $inventari->jenis_alat_id)->get();
+        return view('inventaris.edit', compact('inventari', 'types'));
     }
 
     /**

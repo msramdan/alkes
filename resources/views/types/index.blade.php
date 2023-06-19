@@ -22,14 +22,14 @@
         <section class="section">
             <x-alert></x-alert>
 
-            @can('type create')
+            {{-- @can('type create')
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('types.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Create a new type') }}
                     </a>
                 </div>
-            @endcan
+            @endcan --}}
 
             <div class="row">
                 <div class="col-md-12">
@@ -41,7 +41,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('Jenis Alat') }}</th>
-                                            <th>{{ __('Action') }}</th>
+                                            <th>{{ __('ID') }}</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -81,11 +81,15 @@
                     name: 'jenis_alat',
                 },
                 {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                }
+                    data: 'id',
+                    name: 'id',
+                },
+                // {
+                //     data: 'action',
+                //     name: 'action',
+                //     orderable: false,
+                //     searchable: false
+                // }
             ],
         });
     </script>

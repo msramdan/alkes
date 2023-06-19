@@ -83,7 +83,7 @@ class ViewServiceProvider extends ServiceProvider
             );
         });
 
-        View::composer(['inventaris.create', 'inventaris.edit'], function ($view) {
+        View::composer(['inventaris.create'], function ($view) {
             return $view->with(
                 'types',
                 \App\Models\Type::select('id', 'jenis_alat')->get()

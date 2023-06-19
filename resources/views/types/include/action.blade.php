@@ -1,4 +1,4 @@
-<td>
+{{-- <td>
 
     @can('type edit')
         <a href="{{ route('types.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
@@ -17,4 +17,4 @@
             </button>
         </form>
     @endcan
-</td>
+</td> --}}

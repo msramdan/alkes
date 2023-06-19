@@ -24,9 +24,12 @@ class TypeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $types = Type::orderBy('id', 'DESC')->get();
+            $types = Type::orderBy('id', 'ASC')->get();
             return DataTables::of($types)
                 ->addIndexColumn()
+                ->addColumn('id', function ($row) {
+                    return "ID-" . $row->id;
+                })
                 ->addColumn('action', 'types.include.action')
                 ->toJson();
         }
