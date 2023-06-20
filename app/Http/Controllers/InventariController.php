@@ -13,10 +13,11 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Illuminate\Support\Facades\Storage;
 
 class InventariController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('permission:inventari view')->only('index', 'show');
@@ -191,5 +192,56 @@ class InventariController extends Controller
         $date = date('d-m-Y');
         $nameFile = 'Report_Inventory' . $date;
         return Excel::download(new InventarisExport($ruangan, $merek, $jenis_alat, $vendor), $nameFile . '.xlsx');
+    }
+
+    public function inventarisSertifikat($inventaris_id)
+    {
+        /*
+        39 = Thermohygrometer
+        ==========================================================================*/
+        $data = Inventari::where('id', $inventaris_id)->first();
+        if ($data->jenis_alat_id == 39) {
+            return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
+        } else {
+            return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
+        }
+    }
+
+    public function inventarisSertifikatSave(Request $request)
+    {
+        $data = Inventari::where('id', $request->inventaris_id)->first();
+        if ($data->jenis_alat_id == 39) {
+            //upload file
+            $file = $request->file('file');
+            $file->storeAs('public/sertifikat/Thermohygrometer', $file->hashName());
+            DB::table('sertifikat_thermohygrometer')->insert(
+                [
+                    'inventaris_id' => $request->inventaris_id,
+                    'tahun' => $request->tahun,
+                    'uc_suhu' => $request->uc_suhu,
+                    'intercept_suhu' => $request->intercept_suhu,
+                    'x_variable_suhu' => $request->x_variable_suhu,
+                    'uc_kelembapan' => $request->uc_kelembapan,
+                    'intercept_kelembapan' => $request->intercept_kelembapan,
+                    'x_variable_kelembapan' => $request->x_variable_kelembapan,
+                    'file' =>  $file->hashName(),
+                ]
+            );
+        } else {
+            die();
+        }
+        return redirect()
+            ->back()
+            ->with('success', __('Sertifikat inventaris berhasil disimpan'));
+    }
+
+    public function ThermohygrometerDelete($id)
+    {
+        $data = DB::table('sertifikat_thermohygrometer')->where('id', $id)->first();
+        Storage::delete('public/sertifikat/Thermohygrometer/' . $data->file);
+        DB::table('sertifikat_thermohygrometer')->where('id', $id)->delete();
+        return redirect()
+            ->back()
+            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
     }
 }

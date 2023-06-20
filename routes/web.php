@@ -112,7 +112,13 @@ Route::resource('vendors', App\Http\Controllers\VendorController::class)->middle
 Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::class)->middleware('auth');
 Route::post('/nomenklatur/pemeriksaan_fisik_fungsi', [App\Http\Controllers\NomenklaturController::class, 'deletePemeriksaan'])->name('nomenklatur.pemeriksaan.delete');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
+
+
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
+Route::get('inventarisSertifikat/{id}', [App\Http\Controllers\InventariController::class, 'inventarisSertifikat'])->name('inventarisSertifikat')->middleware('auth');
+Route::post('inventarisSertifikatSave', [App\Http\Controllers\InventariController::class, 'inventarisSertifikatSave'])->name('inventarisSertifikatSave')->middleware('auth');
+Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariController::class, 'ThermohygrometerDelete'])->name('ThermohygrometerDelete')->middleware('auth');
+
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
 Route::get('export-data-lk/{start_date}/{end_date}/{teknisi}/{faskes}/{status}', [App\Http\Controllers\LaporanController::class, 'export'])->name('exportReportLk')->middleware('auth');

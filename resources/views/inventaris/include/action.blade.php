@@ -1,7 +1,7 @@
 <td>
-    {{-- <a href="" class="btn btn-outline-dark btn-sm">
-        <i class="fa fa-qrcode"></i>
-    </a> --}}
+    <a href="{{ route('inventarisSertifikat', $model->id) }}" class="btn btn-success btn-sm" title="Sertifikat">
+        <i class="fa fa-certificate" aria-hidden="true"></i>
+    </a>
 
     <a href="#" title="QR Code" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal"
         data-bs-target="#modalQr{{ $model->id }}">
@@ -37,13 +37,13 @@
     </div>
 
     @can('inventari edit')
-        <a href="{{ route('inventaris.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
+        <a href="{{ route('inventaris.edit', $model->id) }}" title="Edit" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>
         </a>
     @endcan
 
     @can('inventari delete')
-        <form action="{{ route('inventaris.destroy', $model->id) }}" method="post" class="d-inline"
+        <form action="{{ route('inventaris.destroy', $model->id) }}" method="post" title="Hapus" class="d-inline"
             onsubmit="return confirm('Are you sure to delete this record?')">
             @csrf
             @method('delete')
