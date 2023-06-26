@@ -11,6 +11,7 @@ use App\Models\Faske;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 
 class LaporanController extends Controller
@@ -160,5 +161,18 @@ class LaporanController extends Controller
         $date = date('d-m-Y');
         $nameFile = 'Laporan_Lk' . $date;
         return Excel::download(new LaporanLkExport($start_date, $end_date, $teknisi, $faskes, $status), $nameFile . '.xlsx');
+    }
+
+    public function pdf_lk($id)
+    {
+        $laporan = Laporan::find($id);
+        $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
+        $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
+        $pdf = PDF::loadview('laporans.pdf_lk', [
+            'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
+            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan
+        ]);
+        return $pdf->stream();
+        // return $pdf->download('Lembar-Kerja');
     }
 }

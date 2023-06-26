@@ -4,7 +4,7 @@
         <button type="button" title="Other" class="btn btn-outline-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false"> <i class="fa fa-print"></i> </button>
         <div class="dropdown-menu" style="">
-            <a href="" class="dropdown-item">Lembar Kerja</a>
+            <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Lembar Kerja</a>
             <a href="" class="dropdown-item">Sertifikat</a>
             <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
                 data-bs-target="#modalQr{{ $model->id }}">

@@ -176,7 +176,6 @@ class InventariController extends Controller
     {
         try {
             $inventari->delete();
-
             return redirect()
                 ->route('inventaris.index')
                 ->with('success', __('The inventari was deleted successfully.'));
