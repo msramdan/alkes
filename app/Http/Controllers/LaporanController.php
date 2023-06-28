@@ -8,6 +8,7 @@ use App\Http\Requests\{StoreLaporanRequest, UpdateLaporanRequest};
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\PelaksanaTeknisi;
 use App\Models\Faske;
+use App\Models\Nomenklatur;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -166,9 +167,31 @@ class LaporanController extends Controller
     public function pdf_lk($id)
     {
         $laporan = Laporan::find($id);
+        $nomenklaturs = Nomenklatur::find($laporan->nomenklatur_id);
+        $laporan_pendataan_administrasi =
+            DB::table('laporan_pendataan_administrasi')
+            ->join('nomenklatur_pendataan_administrasi', 'laporan_pendataan_administrasi.slug', '=', 'nomenklatur_pendataan_administrasi.slug')
+            ->select('laporan_pendataan_administrasi.*', 'nomenklatur_pendataan_administrasi.satuan',)
+            ->where('no_laporan', $laporan->no_laporan)
+            ->where('nomenklatur_id', $laporan->nomenklatur_id)
+            ->get();
+
+        $dataAwal = ceil(count($laporan_pendataan_administrasi) / 2);
+        $laporan_daftar_alat_ukur =
+            DB::table('laporan_daftar_alat_ukur')
+            ->join('inventaris', 'laporan_daftar_alat_ukur.inventaris_id', '=', 'inventaris.id')
+            ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
+            ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
+            ->select('inventaris.*', 'brands.nama_merek', 'types.jenis_alat')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
         $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
         $pdf = PDF::loadview('laporans.pdf_lk', [
+            'nomenklaturs' => $nomenklaturs,
+            'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
+            'dataAwal' => $dataAwal,
+            'laporan_daftar_alat_ukur' => $laporan_daftar_alat_ukur,
             'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
             'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan
         ]);
