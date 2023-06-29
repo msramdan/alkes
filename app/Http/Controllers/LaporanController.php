@@ -119,7 +119,12 @@ class LaporanController extends Controller
 
     public function create()
     {
-        return view('laporans.create');
+        $nomenklaturs = Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get();
+        $PelaksanaTeknisi = PelaksanaTeknisi::orderBy('nama', 'ASC')->get();
+        return view('laporans.create', [
+            'nomenklaturs' => $nomenklaturs,
+            'PelaksanaTeknisi' => $PelaksanaTeknisi
+        ]);
     }
 
     public function store(StoreFaskeRequest $request)

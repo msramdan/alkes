@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', __('Laporans'))
+@section('title', __('Laporan'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Laporans') }}</h3>
+                    <h3>{{ __('Laporan') }}</h3>
                     <p class="text-subtitle text-muted">
                         {{ __('Below is a list of all laporans.') }}
                     </p>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Laporans') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Laporan') }}</li>
                 </x-breadcrumb>
             </div>
         </div>
@@ -23,9 +23,9 @@
             <x-alert></x-alert>
             @can('laporan create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('nomenklaturs.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('laporans.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
-                        {{ __('Create a new laporan') }}
+                        {{ __('Assign a new laporan') }}
                     </a>
                 </div>
             @endcan

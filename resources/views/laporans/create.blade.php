@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Create Laporans'))
+@section('title', __('Assign Laporan'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Laporans') }}</h3>
+                    <h3>{{ __('Laporan') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Create a new laporan.') }}
+                        {{ __('Assign a new laporan.') }}
                     </p>
                 </div>
 
@@ -18,10 +18,10 @@
                         <a href="/">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('laporans.index') }}">{{ __('Laporans') }}</a>
+                        <a href="{{ route('laporans.index') }}">{{ __('Laporan') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ __('Create') }}
+                        {{ __('Assign') }}
                     </li>
                 </x-breadcrumb>
             </div>

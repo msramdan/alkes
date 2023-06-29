@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_created')->constrained('pelaksana_teknisis')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('faskes_id')->nullable()->constrained('faskes')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->restrictOnDelete();
-            $table->dateTime('tgl_laporan');
+            $table->dateTime('tgl_laporan')->nullable();;
             $table->string('status_laporan', 150);
             $table->string('no_dokumen', 150)->nullable();
             $table->foreignId('user_review')->nullable()->constrained('users')->restrictOnUpdate()->restrictOnDelete();
