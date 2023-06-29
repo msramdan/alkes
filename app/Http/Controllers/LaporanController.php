@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use Illuminate\Support\Facades\Validator;
+use App\Helper\StringHelper;
 
 
 class LaporanController extends Controller
@@ -122,8 +123,9 @@ class LaporanController extends Controller
     {
         $nomenklaturs = Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get();
         $PelaksanaTeknisi = PelaksanaTeknisi::orderBy('nama', 'ASC')->get();
+        $number = StringHelper::generateZeroIndexNumberWithPrefixFromDB(new Laporan(), 'LAP', 'no_laporan');
         return view('laporans.create', [
-            'no_laporan' => 'ramdan',
+            'no_laporan' => $number,
             'nomenklaturs' => $nomenklaturs,
             'PelaksanaTeknisi' => $PelaksanaTeknisi
         ]);
@@ -196,10 +198,8 @@ class LaporanController extends Controller
 
         $laporan = Laporan::findOrFail($laporan->id);
         $laporan->update([
-            'no_laporan' => $request->no_laporan,
             'nomenklatur_id' => $request->nomenklatur_id,
             'user_created' => $request->user_created,
-            'status_laporan' => "Initial",
             'tgl_laporan' => date('Y-m-d H:i:s'),
         ]);
 
