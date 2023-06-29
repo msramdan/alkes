@@ -21,6 +21,15 @@
 
         <section class="section">
             <x-alert></x-alert>
+            @can('laporan create')
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('nomenklaturs.create') }}" class="btn btn-primary mb-3">
+                        <i class="fas fa-plus"></i>
+                        {{ __('Create a new laporan') }}
+                    </a>
+                </div>
+            @endcan
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

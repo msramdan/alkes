@@ -22,6 +22,7 @@ class LaporanController extends Controller
         $this->middleware('permission:laporan view')->only('index', 'show');
         $this->middleware('permission:laporan edit')->only('edit', 'update');
         $this->middleware('permission:laporan delete')->only('destroy');
+        $this->middleware('permission:laporan create')->only('create', 'store');
     }
 
     /**
@@ -116,6 +117,22 @@ class LaporanController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('laporans.create');
+    }
+
+    public function store(StoreFaskeRequest $request)
+    {
+
+        Faske::create($request->validated());
+
+        return redirect()
+            ->route('laporans.index')
+            ->with('success', __('The faske was created successfully.'));
+    }
+
+
 
     public function show(Laporan $laporan)
     {
@@ -188,6 +205,41 @@ class LaporanController extends Controller
         $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
         $pdf = PDF::loadview('laporans.pdf_lk', [
+            'nomenklaturs' => $nomenklaturs,
+            'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
+            'dataAwal' => $dataAwal,
+            'laporan_daftar_alat_ukur' => $laporan_daftar_alat_ukur,
+            'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
+            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan
+        ]);
+        return $pdf->stream();
+        // return $pdf->download('Lembar-Kerja');
+    }
+
+    public function pdf_lk_scorsing($id)
+    {
+        $laporan = Laporan::find($id);
+        $nomenklaturs = Nomenklatur::find($laporan->nomenklatur_id);
+        $laporan_pendataan_administrasi =
+            DB::table('laporan_pendataan_administrasi')
+            ->join('nomenklatur_pendataan_administrasi', 'laporan_pendataan_administrasi.slug', '=', 'nomenklatur_pendataan_administrasi.slug')
+            ->select('laporan_pendataan_administrasi.*', 'nomenklatur_pendataan_administrasi.satuan',)
+            ->where('no_laporan', $laporan->no_laporan)
+            ->where('nomenklatur_id', $laporan->nomenklatur_id)
+            ->get();
+
+        $dataAwal = ceil(count($laporan_pendataan_administrasi) / 2);
+        $laporan_daftar_alat_ukur =
+            DB::table('laporan_daftar_alat_ukur')
+            ->join('inventaris', 'laporan_daftar_alat_ukur.inventaris_id', '=', 'inventaris.id')
+            ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
+            ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
+            ->select('inventaris.*', 'brands.nama_merek', 'types.jenis_alat')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
+        $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
+        $pdf = PDF::loadview('laporans.pdf_lk_scorsing', [
             'nomenklaturs' => $nomenklaturs,
             'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
             'dataAwal' => $dataAwal,

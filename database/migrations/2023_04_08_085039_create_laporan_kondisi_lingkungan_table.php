@@ -20,6 +20,13 @@ return new class extends Migration
             $table->string('suhu_akhir')->nullable();
             $table->string('kelembapan_ruangan_awal')->nullable();
             $table->string('kelembapan_ruangan_akhir')->nullable();
+            $table->string('tahun', 4)->nullable();
+            $table->double('uc_suhu', 15, 9)->nullable();
+            $table->double('intercept_suhu', 15, 9)->nullable();
+            $table->double('x_variable_suhu', 15, 9)->nullable();
+            $table->double('uc_kelembapan', 15, 9)->nullable();
+            $table->double('intercept_kelembapan', 15, 9)->nullable();
+            $table->double('x_variable_kelembapan', 15, 9)->nullable();
             $table->timestamps();
         });
     }

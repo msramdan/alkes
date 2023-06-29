@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inventaris_id')->constrained('inventaris')->restrictOnUpdate()->cascadeOnDelete();
             $table->string('tahun', 4);
-            $table->string('uc_suhu', 50)->nullable();
-            $table->string('intercept_suhu', 50)->nullable();
-            $table->string('x_variable_suhu', 50)->nullable();
-            $table->string('uc_kelembapan', 50)->nullable();
-            $table->string('intercept_kelembapan', 50)->nullable();
-            $table->string('x_variable_kelembapan', 50)->nullable();
+            $table->double('uc_suhu', 15, 9)->nullable();
+            $table->double('intercept_suhu', 15, 9)->nullable();
+            $table->double('x_variable_suhu', 15, 9)->nullable();
+            $table->double('uc_kelembapan', 15, 9)->nullable();
+            $table->double('intercept_kelembapan', 15, 9)->nullable();
+            $table->double('x_variable_kelembapan', 15, 9)->nullable();
             $table->string('file');
             $table->timestamps();
         });

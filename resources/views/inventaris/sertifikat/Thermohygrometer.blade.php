@@ -41,36 +41,36 @@
 
                                     <div class="form-group">
                                         <label for="uc_suhu">{{ __('UC Suhu') }}</label>
-                                        <input type="number" step="0.01" name="uc_suhu" id="uc_suhu"
+                                        <input type="number" step="0.000000001" name="uc_suhu" id="uc_suhu"
                                             class="form-control" value="" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="intercept_suhu">{{ __('Intercept Suhu') }}</label>
-                                        <input type="text" name="intercept_suhu" id="intercept_suhu" class="form-control"
-                                            value="" required />
+                                        <input type="number" step="0.000000001" name="intercept_suhu" id="intercept_suhu"
+                                            class="form-control" value="" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="x_variable_suhu">{{ __('X Variable Suhu') }}</label>
-                                        <input type="text" name="x_variable_suhu" id="x_variable_suhu"
+                                        <input type="number" step="0.000000001" name="x_variable_suhu" id="x_variable_suhu"
                                             class="form-control" value="" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="uc_kelembapan">{{ __('UC Kelembapan') }}</label>
-                                        <input type="number" step="0.01" name="uc_kelembapan" id="uc_kelembapan"
+                                        <input type="number" step="0.000000001" name="uc_kelembapan" id="uc_kelembapan"
                                             class="form-control" value="" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="intercept_kelembapan">{{ __('Intercept Kelembapan') }}</label>
-                                        <input type="text" name="intercept_kelembapan" id="intercept_kelembapan"
-                                            class="form-control" value="" required />
+                                        <input type="number" step="0.000000001" name="intercept_kelembapan"
+                                            id="intercept_kelembapan" class="form-control" value="" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="x_variable_kelembapan">{{ __('X Variable Kelembapan') }}</label>
-                                        <input type="text" name="x_variable_kelembapan" id="x_variable_kelembapan"
-                                            class="form-control" value="" required />
+                                        <input type="number" step="0.000000001" name="x_variable_kelembapan"
+                                            id="x_variable_kelembapan" class="form-control" value="" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="file">{{ __('File Excel') }}</label>

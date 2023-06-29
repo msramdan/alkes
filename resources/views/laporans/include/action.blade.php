@@ -4,8 +4,9 @@
         <button type="button" title="Other" class="btn btn-outline-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false"> <i class="fa fa-print"></i> </button>
         <div class="dropdown-menu" style="">
-            <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Lembar Kerja</a>
-            <a href="" class="dropdown-item">Sertifikat</a>
+            <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">LK Input</a>
+            <a href="{{ route('pdf_lk_scorsing', $model->id) }}" target="_blank" class="dropdown-item">LK Skorsing</a>
+            <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
             <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
                 data-bs-target="#modalQr{{ $model->id }}">
                 QR Scan Sertifikat
@@ -22,8 +23,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
-
                         @if ($model->status_laporan != 'Need Review')
                             @php
                                 $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;

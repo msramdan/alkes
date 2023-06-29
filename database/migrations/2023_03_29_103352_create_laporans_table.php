@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('nomenklatur_id')->constrained('nomenklaturs')->restrictOnUpdate()->restrictOnDelete();
             $table->dateTime('tgl_laporan');
             $table->string('status_laporan', 150);
+            $table->string('no_dokumen', 150)->nullable();
             $table->foreignId('user_review')->nullable()->constrained('users')->restrictOnUpdate()->restrictOnDelete();
             $table->dateTime('tgl_review')->nullable();
             $table->timestamps();
