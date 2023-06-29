@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Illuminate\Support\Facades\Validator;
 
 
 class LaporanController extends Controller
@@ -122,19 +123,37 @@ class LaporanController extends Controller
         $nomenklaturs = Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get();
         $PelaksanaTeknisi = PelaksanaTeknisi::orderBy('nama', 'ASC')->get();
         return view('laporans.create', [
+            'no_laporan' => 'ramdan',
             'nomenklaturs' => $nomenklaturs,
             'PelaksanaTeknisi' => $PelaksanaTeknisi
         ]);
     }
 
-    public function store(StoreFaskeRequest $request)
+    public function store(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'no_laporan' => "required|unique:laporans,no_laporan",
+                'nomenklatur_id' => "required",
+                'user_created' => "required",
+            ],
+        );
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
 
-        Faske::create($request->validated());
+        DB::table('laporans')->insert([
+            'no_laporan' => $request->no_laporan,
+            'nomenklatur_id' => $request->nomenklatur_id,
+            'user_created' => $request->user_created,
+            'status_laporan' => "Initial",
+            'tgl_laporan' => date('Y-m-d H:i:s'),
+        ]);
 
         return redirect()
             ->route('laporans.index')
-            ->with('success', __('The faske was created successfully.'));
+            ->with('success', __('Assign Laporan was created successfully.'));
     }
 
 
@@ -149,15 +168,40 @@ class LaporanController extends Controller
 
     public function edit(Laporan $laporan)
     {
-        $laporan->load('user:id,name', 'user:id,name',);
-
-        return view('laporans.edit', compact('laporan'));
+        $nomenklaturs = Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get();
+        $PelaksanaTeknisi = PelaksanaTeknisi::orderBy('nama', 'ASC')->get();
+        return view('laporans.edit', [
+            'no_laporan' => $laporan->no_laporan,
+            'laporan' => $laporan,
+            'nomenklaturs' => $nomenklaturs,
+            'PelaksanaTeknisi' => $PelaksanaTeknisi
+        ]);
     }
 
-    public function update(UpdateLaporanRequest $request, Laporan $laporan)
+    public function update(Request $request, Laporan $laporan)
     {
 
-        $laporan->update($request->validated());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'no_laporan' => "required|unique:laporans,no_laporan," . $laporan->id,
+                'nomenklatur_id' => "required",
+                'user_created' => "required",
+            ],
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+        $laporan = Laporan::findOrFail($laporan->id);
+        $laporan->update([
+            'no_laporan' => $request->no_laporan,
+            'nomenklatur_id' => $request->nomenklatur_id,
+            'user_created' => $request->user_created,
+            'status_laporan' => "Initial",
+            'tgl_laporan' => date('Y-m-d H:i:s'),
+        ]);
 
         return redirect()
             ->route('laporans.index')

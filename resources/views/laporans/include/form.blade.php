@@ -2,9 +2,8 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="no-laporan">{{ __('No Laporan') }}</label>
-            <input type="text" name="no_laporan" id="no-laporan"
-                class="form-control @error('no_laporan') is-invalid @enderror"
-                value="{{ isset($laporan) ? $laporan->no_laporan : old('no_laporan') }}"
+            <input type="text" name="no_laporan" id="no-laporan" readonly
+                class="form-control @error('no_laporan') is-invalid @enderror" value="{{ $no_laporan }}"
                 placeholder="{{ __('No Laporan') }}" required />
             @error('no_laporan')
                 <span class="text-danger">

@@ -8,9 +8,12 @@
             <a href="{{ route('pdf_lk_scorsing', $model->id) }}" target="_blank" class="dropdown-item">LK Skorsing</a>
             <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
             <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
-                data-bs-target="#modalQr{{ $model->id }}">
-                QR Scan Sertifikat
+                data-bs-target="#modalQr{{ $model->id }}">E-Sertifikat
             </a>
+            <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
+                data-bs-target="#modalQr{{ $model->id }}">Qr Code
+            </a>
+
         </div>
 
         {{-- download qr --}}
@@ -53,21 +56,23 @@
         </div>
 
     </div>
+    @if ($model->status_laporan == 'Initial')
+        @can('laporan edit')
+            <a href="{{ route('laporans.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-pencil-alt"></i>
+            </a>
+        @endcan
+        @can('laporan delete')
+            <form action="{{ route('laporans.destroy', $model->id) }}" method="post" class="d-inline"
+                onsubmit="return confirm('Are you sure to delete this record?')">
+                @csrf
+                @method('delete')
 
-    @can('laporan view')
-        <a href="{{ route('laporans.show', $model->id) }}" title="Detail Laporan" class="btn btn-outline-success btn-sm">
-            <i class="fa fa-eye"></i>
-        </a>
-    @endcan
-    @can('laporan delete')
-        <form action="{{ route('laporans.destroy', $model->id) }}" method="post" class="d-inline"
-            onsubmit="return confirm('Are you sure to delete this record?')">
-            @csrf
-            @method('delete')
+                <button class="btn btn-outline-danger btn-sm">
+                    <i class="ace-icon fa fa-trash-alt"></i>
+                </button>
+            </form>
+        @endcan
+    @endif
 
-            <button class="btn btn-outline-danger btn-sm">
-                <i class="ace-icon fa fa-trash-alt"></i>
-            </button>
-        </form>
-    @endcan
 </td>
