@@ -33,7 +33,9 @@ class LaporanLkController extends Controller
 
     public function create(Request $request)
     {
-        $nomenklatur_id = $request->nomenklatur_id;
+        $laporan_id = $request->laporan_id;
+        $laporan = Laporan::where('id', $laporan_id)->first();
+        $nomenklatur_id=$laporan->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
         //menampilkan form bagian administrasi sesuai dengan field yang sudah di config pada halaman admin
         $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();

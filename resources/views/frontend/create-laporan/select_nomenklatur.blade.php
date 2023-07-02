@@ -96,7 +96,7 @@
                                 <span>Pilih Laporan</span>
                             </center>
                             <div class="form-group mb-2">
-                                <select class="form-control select2" id="state" name="nomenklatur_id" required
+                                <select class="form-control select2" id="state" name="laporan_id" required
                                     style="width: 100%;" required>
                                     <option selected disabled value="">-- Pilih --</option>
                                     @foreach ($laporan as $row)
