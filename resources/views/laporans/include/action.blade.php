@@ -29,84 +29,92 @@
 
                         <div class="row">
                             <div class=" col-md-6">
-                                <table style="padding: 5px;width:150px; border: 1px solid;border-radius: 5px;">
-                                    @php
-                                        $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
-                                    @endphp
-                                    <thead>
-                                        <tr>
-                                            <td>
-                                                <center>
-                                                    <img src="{{ asset('asset/logo.png') }}" style="width: 100%">
-                                                </center>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 5px">
-                                                <center>
-                                                    {!! QrCode::size(100)->generate($string) !!}
-                                                </center>
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom: 1pt solid black;">
-                                            <td style="text-align: center;">
-                                                <span style="font-size: 11px"><b>{{ $model->no_laporan }}</b></span>
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom: 1pt solid black;">
-                                            <td style="text-align: center;">
-                                                <span style="font-size: 11px"><b>Date : 2023-06-30</b></span><br>
-                                                <span style="font-size: 11px"><b>Due : 2024-06-30</b></span>
-                                            </td>
-                                        </tr>
-                                        <tr style="background-color: green;">
-                                            <td style="text-align: center;">
-                                                <b style="color: white"><i class="fa fa-check" aria-hidden="true"></i>
-                                                    LAIK PAKAI</b>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <center>
+                                    <table style="padding: 5px;width:150px; border: 1px solid;border-radius: 5px;">
+                                        @php
+                                            $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
+                                        @endphp
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <center>
+                                                        <img src="{{ asset('asset/logo.png') }}" style="width: 100%">
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px">
+                                                    <center>
+                                                        {!! QrCode::size(100)->generate($string) !!}
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                            <tr style="border-bottom: 1pt solid black;">
+                                                <td style="text-align: center;">
+                                                    <span style="font-size: 11px"><b>{{ $model->no_laporan }}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr style="border-bottom: 1pt solid black;">
+                                                <td style="text-align: center;">
+                                                    <span style="font-size: 11px"><b>Date : 2023-06-30</b></span><br>
+                                                    <span style="font-size: 11px"><b>Due : 2024-06-30</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: green;">
+                                                <td style="text-align: center;">
+                                                    <b style="color: white"><i class="fa fa-check" aria-hidden="true"></i>
+                                                        LAIK PAKAI</b>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table> <br>
+                                    <button class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i> Cetak</button>
+                                </center>
+
                             </div>
                             <div class=" col-md-6">
-                                <table style="padding: 5px;width:150px; border: 1px solid;border-radius: 5px;">
-                                    @php
-                                        $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
-                                    @endphp
-                                    <thead>
-                                        <tr>
-                                            <td>
-                                                <center>
-                                                    <img src="{{ asset('asset/logo.png') }}" style="width: 100%">
-                                                </center>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 5px">
-                                                <center>
-                                                    {!! QrCode::size(100)->generate($string) !!}
-                                                </center>
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom: 1pt solid black;">
-                                            <td style="text-align: center;">
-                                                <span style="font-size: 11px"><b>{{ $model->no_laporan }}</b></span>
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom: 1pt solid black;">
-                                            <td style="text-align: center;">
-                                                <span style="font-size: 11px"><b>Date : 2023-06-30</b></span><br>
-                                                <span style="font-size: 11px"><b>Due : 2024-06-30</b></span>
-                                            </td>
-                                        </tr>
-                                        <tr style="background-color: green;">
-                                            <td style="text-align: center;">
-                                                <b style="color: white"><i class="fa fa-check" aria-hidden="true"></i>
-                                                    LAIK PAKAI</b>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <center>
+                                    <table style="padding: 5px;width:150px; border: 1px solid;border-radius: 5px;">
+                                        @php
+                                            $string = url('/') . '/' . 'e_sertifikat/' . '' . $model->id;
+                                        @endphp
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <center>
+                                                        <img src="{{ asset('asset/logo.png') }}" style="width: 100%">
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px">
+                                                    <center>
+                                                        {!! QrCode::size(100)->generate($string) !!}
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                            <tr style="border-bottom: 1pt solid black;">
+                                                <td style="text-align: center;">
+                                                    <span style="font-size: 11px"><b>{{ $model->no_laporan }}</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr style="border-bottom: 1pt solid black;">
+                                                <td style="text-align: center;">
+                                                    <span style="font-size: 11px"><b>Date : 2023-06-30</b></span><br>
+                                                    <span style="font-size: 11px"><b>Due : 2024-06-30</b></span>
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: red;">
+                                                <td style="text-align: center;">
+                                                    <b style="color: white"><i class="fa fa-times" aria-hidden="true"></i>
+                                                        TIDAK LAIK</b>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table> <br>
+                                    <button class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i> Cetak</button>
+                                </center>
+
                             </div>
 
                         </div>

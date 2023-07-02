@@ -17,15 +17,17 @@ use Illuminate\Support\Str;
 
 class LaporanLkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        $laporan = DB::table('laporans')
+            ->join('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
+            ->select('laporans.*', 'nomenklaturs.nama_nomenklatur')
+            ->where('user_created', get_data_teknisi()->id)
+            ->where('status_laporan', 'Initial')
+            ->get();
         return view('frontend.create-laporan.select_nomenklatur', [
-            'nomenklatur' => Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get(),
+            'laporan' => $laporan
         ]);
     }
 
@@ -38,24 +40,24 @@ class LaporanLkController extends Controller
 
         //Alat yang digunakan untuk mengisi form  bagian daftar alat ukur
         $nomenklatur_type = DB::table('nomenklatur_type')
-                        ->join('types', 'nomenklatur_type.type_id', '=', 'types.id')
-                        ->select('nomenklatur_type.*', 'types.jenis_alat')
-                        ->where('nomenklatur_id', $nomenklatur_id)->get();
+            ->join('types', 'nomenklatur_type.type_id', '=', 'types.id')
+            ->select('nomenklatur_type.*', 'types.jenis_alat')
+            ->where('nomenklatur_id', $nomenklatur_id)->get();
 
         $nomenklatur_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')
-                                ->select('*')
-                                ->where('nomenklatur_id', $nomenklatur_id)
-                                ->get();
+            ->select('*')
+            ->where('nomenklatur_id', $nomenklatur_id)
+            ->get();
 
         $nomenklatur_keselamatan_listrik = DB::table('nomenklatur_keselamatan_listrik')
-                                              ->select('*')
-                                              ->where('nomenklatur_id', $nomenklatur_id)
-                                              ->get();
+            ->select('*')
+            ->where('nomenklatur_id', $nomenklatur_id)
+            ->get();
 
         $nomeklatur_telaah_teknis = DB::table('nomenklatur_telaah_teknis')
-                                        ->select('*')
-                                        ->where('nomenklatur_id', $nomenklatur_id)
-                                        ->get();
+            ->select('*')
+            ->where('nomenklatur_id', $nomenklatur_id)
+            ->get();
 
         return view('frontend.create-laporan.create_laporan', [
             'nomenklatur_id' => $nomenklatur_id,
@@ -67,7 +69,8 @@ class LaporanLkController extends Controller
         ]);
     }
 
-    public function submitLaporan(Request $request) {
+    public function submitLaporan(Request $request)
+    {
         $laporan = Laporan::create([
             'user_created' => Session::get('id-teknisi'),
             'tgl_laporan' => Carbon::now(),
@@ -78,7 +81,7 @@ class LaporanLkController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        $no_laporan = 'LAP-'.date('Ymd').'-'.sprintf("%04d", $laporan->id);
+        $no_laporan = 'LAP-' . date('Ymd') . '-' . sprintf("%04d", $laporan->id);
 
         $laporan->update([
             'no_laporan' => $no_laporan
@@ -91,7 +94,7 @@ class LaporanLkController extends Controller
             $slug_administrasi = explode('_', $administrasis);
 
             $field_administrasi = DB::table('nomenklatur_pendataan_administrasi')
-                                    ->where('slug', $slug_administrasi[1])->first();
+                ->where('slug', $slug_administrasi[1])->first();
 
 
             DB::table('laporan_pendataan_administrasi')->insert([
@@ -111,8 +114,8 @@ class LaporanLkController extends Controller
         foreach ($alat_ukur_key as $key => $alat) {
             $nomenklatur_type_id = explode('-', $alat);
             $nomenklatur_type = DB::table('nomenklatur_type')
-                                ->where('id', $nomenklatur_type_id[1])
-                                ->first();
+                ->where('id', $nomenklatur_type_id[1])
+                ->first();
 
             DB::table('laporan_daftar_alat_ukur')->insert([
                 'no_laporan' => $no_laporan,
@@ -141,8 +144,8 @@ class LaporanLkController extends Controller
         foreach ($fisik_fungsi_key as $a => $fisik) {
             $fisik_fungsi_id = explode('-', $fisik);
             $nomenklatur_kondisi_fisik_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')
-                                                ->where('id', $fisik_fungsi_id[1])
-                                                ->first();
+                ->where('id', $fisik_fungsi_id[1])
+                ->first();
 
             DB::table('laporan_kondisi_fisik_fungsi')->insert([
                 'no_laporan' => $no_laporan,
@@ -162,8 +165,8 @@ class LaporanLkController extends Controller
         foreach ($keselamatan_listrik_key as $a => $listrik) {
             $listrik_id = explode('-', $listrik);
             $nomenklatur_keselamatan_listrik = DB::table('nomenklatur_keselamatan_listrik')
-                                                ->where('id', $listrik_id[1])
-                                                ->first();
+                ->where('id', $listrik_id[1])
+                ->first();
 
             DB::table('laporan_pengukuran_keselamatan_listrik')->insert([
                 'no_laporan' => $no_laporan,
@@ -183,8 +186,8 @@ class LaporanLkController extends Controller
             $teknis_id = explode('-', $teknis);
 
             $nomenklatur_telaah_teknis = DB::table('nomenklatur_telaah_teknis')
-                                                ->where('id', $teknis_id[1])
-                                                ->first();
+                ->where('id', $teknis_id[1])
+                ->first();
 
             DB::table('laporan_telaah_teknis')->insert([
                 'no_laporan' => $no_laporan,
@@ -210,7 +213,8 @@ class LaporanLkController extends Controller
         return redirect()->route('home')->with('success', 'Berhasil membuat data laporan');
     }
 
-    private function preg_grep_keys($pattern, $input, $flags = 0) {
-		return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input),$flags)));
-	}
+    private function preg_grep_keys($pattern, $input, $flags = 0)
+    {
+        return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input), $flags)));
+    }
 }

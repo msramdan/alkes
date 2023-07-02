@@ -8,6 +8,31 @@
 
 ### [Unreleased]
 
+### [v10.6.0] - 2023-06-29
+
+- feat: Expose autoFilter setter to disable post filtering #2981
+ 
+### [v10.5.0] - 2023-06-29
+
+- feat: Prevent editColumn when column is not shown #3018
+
+### [v10.4.4] - 2023-06-27
+
+- feat: Optimize countQuery with complex select #3008
+- fix: phpstan #3022
+
+### [v10.4.3] - 2023-06-07
+
+- Fix: Prevent the filteredCount() query if no filter is applied to the initial query #3007
+
+### [v10.4.2] - 2023-05-31
+
+- Fix return type for setTransformer() and setSerializer() #3003
+
+### [v10.4.1] - 2023-05-27
+
+- fix: Error when setting language config for "editor" #2983
+
 ### [v10.4.0] - 2023-03-28
 
 - feat: Allow any callable in ->addColumn() #2977
@@ -118,7 +143,11 @@
 - Drop support for `ApiResourceDataTable`
 - PHP8 syntax / method signature changed
 
-[Unreleased]: https://github.com/yajra/laravel-datatables/compare/v10.3.1...10.x
+[Unreleased]: https://github.com/yajra/laravel-datatables/compare/v10.6.0...10.x
+[v10.6.0]: https://github.com/yajra/laravel-datatables/compare/v10.6.0...v10.5.0
+[v10.5.0]: https://github.com/yajra/laravel-datatables/compare/v10.5.0...v10.4.4
+[v10.4.4]: https://github.com/yajra/laravel-datatables/compare/v10.4.4...v10.4.3
+[v10.3.1]: https://github.com/yajra/laravel-datatables/compare/v10.3.1...v10.3.0
 [v10.3.1]: https://github.com/yajra/laravel-datatables/compare/v10.3.1...v10.3.0
 [v10.3.0]: https://github.com/yajra/laravel-datatables/compare/v10.3.0...v10.2.3
 [v10.2.3]: https://github.com/yajra/laravel-datatables/compare/v10.2.3...v10.2.2
