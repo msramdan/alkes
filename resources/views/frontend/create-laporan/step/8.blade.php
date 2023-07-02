@@ -19,15 +19,17 @@
                 Please select a valid Condition.
             </div>
         </div>
+
+        <div class="col mb-2">
+            <label for="" style=" font-size: 12px;">Catatan</label> <br>
+            <textarea name="catatan_kesimpulan_telaah_teknis" class="form-control" id="catatan_kesimpulan_telaah_teknis" required></textarea>
+            <div class="valid-feedback">
+                Okay !
+            </div>
+            <div class="invalid-feedback">
+                Please select a valid Condition.
+            </div>
+        </div>
     </form>
-    <div class="col mb-2">
-        <label for="" style=" font-size: 12px;">Catatan</label> <br>
-        <textarea name="catatan_kesimpulan_telaah_teknis" class="form-control" id="" required></textarea>
-        <div class="valid-feedback">
-            Okay !
-        </div>
-        <div class="invalid-feedback">
-            Please select a valid Condition.
-        </div>
-    </div>
+
 </div>

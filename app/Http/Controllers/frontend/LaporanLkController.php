@@ -35,7 +35,7 @@ class LaporanLkController extends Controller
     {
         $laporan_id = $request->laporan_id;
         $laporan = Laporan::where('id', $laporan_id)->first();
-        $nomenklatur_id=$laporan->nomenklatur_id;
+        $nomenklatur_id = $laporan->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
         //menampilkan form bagian administrasi sesuai dengan field yang sudah di config pada halaman admin
         $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();
@@ -113,6 +113,12 @@ class LaporanLkController extends Controller
             $nomenklatur_type = DB::table('nomenklatur_type')
                 ->where('id', $nomenklatur_type_id[1])
                 ->first();
+            // Thermohygrometer
+            if ($nomenklatur_type->type_id == 39) {
+                // get detail $sertifikat
+                $inventaris_id = $request->{$alat};
+                $sertifikat = DB::table('sertifikat_thermohygrometer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+            }
 
             DB::table('laporan_daftar_alat_ukur')->insert([
                 'no_laporan' => $laporan->no_laporan,
@@ -124,12 +130,20 @@ class LaporanLkController extends Controller
         }
 
         //Create Laporan kondisi lingkungan
+
         DB::table('laporan_kondisi_lingkungan')->insert([
             'no_laporan' => $laporan->no_laporan,
             'suhu_awal' => $request->lingkungan_suhu_awal ?: null,
             'suhu_akhir' => $request->lingkungan_suhu_akhir ?: null,
             'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal ? $request->lingkungan_kelembapan_ruangan_awal :  null,
             'kelembapan_ruangan_akhir' => $request->lingkungan_kelembapan_ruangan_akhir ? $request->lingkungan_kelembapan_ruangan_akhir : null,
+            'tahun' => isset($sertifikat->tahun),
+            'uc_suhu' => isset($sertifikat->uc_suhu),
+            'intercept_suhu' => isset($sertifikat->intercept_suhu),
+            'x_variable_suhu' => isset($sertifikat->x_variable_suhu),
+            'uc_kelembapan' => isset($sertifikat->uc_kelembapan),
+            'intercept_kelembapan' => isset($sertifikat->intercept_kelembapan),
+            'x_variable_kelembapan' => isset($sertifikat->x_variable_kelembapan),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -199,8 +213,6 @@ class LaporanLkController extends Controller
         //Create Laporan Kesimpulan Telaah Teknis
         DB::table('laporan_kesimpulan_telaah_teknis')->insert([
             'no_laporan' => $laporan->no_laporan,
-            'pelaksana_pengujian' => '',
-            'penyelia' => '',
             'value' => $request->kesimpulan_telaah_teknis,
             'catatan' => $request->catatan_kesimpulan_telaah_teknis,
             'created_at' => Carbon::now(),

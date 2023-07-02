@@ -108,7 +108,7 @@ class ShowHistoryLaporanController extends Controller
 
         $kesimpulan_telaah_teknis = DB::table('laporan_kesimpulan_telaah_teknis')
                                     ->where('no_laporan', $nolaporan)
-                                    ->get();
+                                    ->first();
 
         return view('frontend.history-laporan.show.kesimpulan_telaah_teknis', compact('laporan', 'kesimpulan_telaah_teknis'));
     }
