@@ -120,6 +120,7 @@ Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariCon
 
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
+Route::post('updateStatus', [App\Http\Controllers\LaporanController::class, 'updateStatus'])->name('updateStatus')->middleware('auth');
 Route::get('export-data-lk/{start_date}/{end_date}/{teknisi}/{faskes}/{status}', [App\Http\Controllers\LaporanController::class, 'export'])->name('exportReportLk')->middleware('auth');
 Route::get('pdf_lk/{id}', [App\Http\Controllers\LaporanController::class, 'pdf_lk'])->name('pdf_lk')->middleware('auth');
 Route::get('pdf_lk_scorsing/{id}', [App\Http\Controllers\LaporanController::class, 'pdf_lk_scorsing'])->name('pdf_lk_scorsing')->middleware('auth');

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('no_dokumen', 150)->nullable();
             $table->foreignId('user_review')->nullable()->constrained('users')->restrictOnUpdate()->restrictOnDelete();
             $table->dateTime('tgl_review')->nullable();
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }

@@ -299,4 +299,16 @@ class LaporanController extends Controller
         return $pdf->stream();
         // return $pdf->download('Lembar-Kerja');
     }
+
+    public function updateStatus(Request $request)
+    {
+        $laporan = Laporan::findOrFail($request->id);
+        $laporan->update([
+            'catatan' => $request->catatan,
+            'status_laporan' => $request->status_laporan,
+        ]);
+        return redirect()
+            ->route('laporans.index')
+            ->with('success', __('Status laporan kerja was updated successfully.'));
+    }
 }
