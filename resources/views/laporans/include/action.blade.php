@@ -1,21 +1,21 @@
 <td>
-
     <div class="btn-group">
-        <button type="button" title="Other" class="btn btn-outline-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+        <button type="button" title="Other" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false"> <i class="fa fa-print"></i> </button>
         <div class="dropdown-menu" style="">
-            <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">LK Input</a>
-            <a href="{{ route('pdf_lk_scorsing', $model->id) }}" target="_blank" class="dropdown-item">LK Skorsing</a>
-            <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
-            {{-- <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
-                data-bs-target="#modalQr{{ $model->id }}">E-Sertifikat
-            </a> --}}
+            @if ($model->status_laporan != 'Initial')
+                <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">LK Input</a>
+                <a href="{{ route('pdf_lk_scorsing', $model->id) }}" target="_blank" class="dropdown-item">LK
+                    Skorsing</a>
+                <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
+                <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
+                    data-bs-target="#modalQr{{ $model->id }}">E-Sertifikat
+                </a>
+            @endif
             <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
                 data-bs-target="#modalQr{{ $model->id }}">Qr Code
             </a>
-
         </div>
-
         {{-- download qr --}}
         <div class="modal fade" id="modalQr{{ $model->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -62,13 +62,15 @@
                                             </tr>
                                             <tr style="background-color: green;">
                                                 <td style="text-align: center;">
-                                                    <b style="color: white"><i class="fa fa-check" aria-hidden="true"></i>
+                                                    <b style="color: white"><i class="fa fa-check"
+                                                            aria-hidden="true"></i>
                                                         LAIK PAKAI</b>
                                                 </td>
                                             </tr>
                                         </thead>
                                     </table> <br>
-                                    <button class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i> Cetak</button>
+                                    <button class="btn btn-primary btn-sm"><i class="fa fa-print"
+                                            aria-hidden="true"></i> Cetak</button>
                                 </center>
 
                             </div>
@@ -106,22 +108,18 @@
                                             </tr>
                                             <tr style="background-color: red;">
                                                 <td style="text-align: center;">
-                                                    <b style="color: white"><i class="fa fa-times" aria-hidden="true"></i>
+                                                    <b style="color: white"><i class="fa fa-times"
+                                                            aria-hidden="true"></i>
                                                         TIDAK LAIK</b>
                                                 </td>
                                             </tr>
                                         </thead>
                                     </table> <br>
-                                    <button class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i> Cetak</button>
+                                    <button class="btn btn-primary btn-sm"><i class="fa fa-print"
+                                            aria-hidden="true"></i> Cetak</button>
                                 </center>
-
                             </div>
-
                         </div>
-
-
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -129,25 +127,30 @@
                 </div>
             </div>
         </div>
-
     </div>
-    @if ($model->status_laporan == 'Initial')
-        @can('laporan edit')
-            <a href="{{ route('laporans.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
-                <i class="fa fa-pencil-alt"></i>
-            </a>
-        @endcan
-        @can('laporan delete')
-            <form action="{{ route('laporans.destroy', $model->id) }}" method="post" class="d-inline"
-                onsubmit="return confirm('Are you sure to delete this record?')">
-                @csrf
-                @method('delete')
 
-                <button class="btn btn-outline-danger btn-sm">
-                    <i class="ace-icon fa fa-trash-alt"></i>
-                </button>
-            </form>
-        @endcan
-    @endif
-
+    <div class="btn-group">
+        <button type="button" title="Other" class="btn btn-outline-dark btn-sm dropdown-toggle"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cog"></i> </button>
+        <div class="dropdown-menu" style="">
+            @if ($model->status_laporan != 'Initial')
+                <a href="" title="Approved" class="dropdown-item">Approved</a>
+                <a href="" title="Rejected" class="dropdown-item">Rejected</a>
+            @endif
+            @if ($model->status_laporan == 'Initial')
+                @can('laporan edit')
+                    <a href="{{ route('laporans.edit', $model->id) }}" title="Rejected" class="dropdown-item">Edit</a>
+                @endcan
+                @can('laporan delete')
+                    <form action="{{ route('laporans.destroy', $model->id) }}" title="Delete" method="post"
+                        onsubmit="return confirm('Are you sure to delete this record?')">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger btn-sm">Hapus
+                        </button>
+                    </form>
+                @endcan
+            @endif
+        </div>
+    </div>
 </td>
