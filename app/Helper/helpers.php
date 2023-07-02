@@ -33,6 +33,17 @@ function get_data_teknisi()
     return $cek;
 }
 
+function get_data_rs($id)
+{
+    $cek = DB::table('faskes')
+        ->where('id', $id)->first();
+    if(isset($cek->nama_faskes)){
+        return $cek->nama_faskes;
+    }else{
+        return '-';
+    }
+}
+
 
 function is_show($nomenklatur_id, $field, $value, $table)
 {
