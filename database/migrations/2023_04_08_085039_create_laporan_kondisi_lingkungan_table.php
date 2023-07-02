@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('laporan_kondisi_lingkungan', function (Blueprint $table) {
             $table->id();
-            $table->string('no_laporan');
+            $table->string('no_laporan', 100);
+            $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
             $table->double('suhu_awal', 11, 2)->nullable();
             $table->double('suhu_akhir', 11, 2)->nullable();
             $table->double('kelembapan_ruangan_awal', 11, 2)->nullable();

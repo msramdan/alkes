@@ -206,8 +206,8 @@ class LaporanLkController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-
-        return redirect()->route('home')->with('success', 'Berhasil membuat data laporan');
+        toast('Berhasil membuat data laporan', 'success');
+        return redirect()->route('home');
     }
 
     private function preg_grep_keys($pattern, $input, $flags = 0)

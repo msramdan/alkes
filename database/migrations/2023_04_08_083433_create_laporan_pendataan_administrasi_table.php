@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('laporan_pendataan_administrasi', function (Blueprint $table) {
             $table->id();
-            $table->string('no_laporan')->nullable();
+            $table->string('no_laporan', 100);
+            $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->onDelete('cascade');
             $table->string('field_pendataan_administrasi')->nullable();
             $table->string('slug');
             $table->string('value');

@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('laporan_kesimpulan_telaah_teknis', function (Blueprint $table) {
             $table->id();
-            $table->string('no_laporan');
+            $table->string('no_laporan', 100);
+            $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
             $table->string('pelaksana_pengujian')->nullable();
             $table->string('penyelia')->nullable();
             $table->string('value')->nullable();
