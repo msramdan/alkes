@@ -61,8 +61,6 @@
                             </li>
                         </ul>
                         <hr>
-                        {{-- <form id="form-laporan" action="{{ route('web-submit-laporan') }}" method="post" enctype="multipart/form-data">
-                            @csrf --}}
                             <div class="tab-content">
                                 @include('frontend.create-laporan.step.1')
                                 @include('frontend.create-laporan.step.2')
@@ -73,7 +71,6 @@
                                 @include('frontend.create-laporan.step.7')
                                 @include('frontend.create-laporan.step.8')
                             </div>
-                        {{-- </form> --}}
                     </div>
                 </div>
             </div>
@@ -100,11 +97,12 @@
 
         function onConfirm() {
             $('#form-laporan').html('');
-            //form-1
             var nomenklatur_id = "{{ $nomenklatur_id }}";
+            var laporan_id = "{{ $laporan_id }}";
             var csrf = "{{ csrf_token() }}";
             $('#form-laporan').append(`
                 <input type="hidden" name="nomenklatur_id" value="${nomenklatur_id}"/>
+                <input type="hidden" name="laporan_id" value="${laporan_id}"/>
                 <input type="hidden" name="_token" value="${csrf}"/>
             `);
             var form1 = document.getElementById('form-1').elements;
@@ -144,37 +142,6 @@
         }
 
         function showConfirm() {
-            // const name = $('#first-name').val() + ' ' + $('#last-name').val();
-            // const products = $('#sel-products').val();
-            // const shipping = $('#address').val() + ' ' + $('#state').val() + ' ' + $('#zip').val();
-            // let html = `<h4 class="mb-3-">Customer Details</h4>
-        //       <hr class="my-2">
-        //       <div class="row g-3 align-items-center">
-        //         <div class="col-auto">
-        //           <label class="col-form-label">Name</label>
-        //         </div>
-        //         <div class="col-auto">
-        //           <span class="form-text-">${name}</span>
-        //         </div>
-        //       </div>
-
-        //       <h4 class="mt-3">Products</h4>
-        //       <hr class="my-2">
-        //       <div class="row g-3 align-items-center">
-        //         <div class="col-auto">
-        //           <span class="form-text-">${products}</span>
-        //         </div>
-        //       </div>
-
-        //       <h4 class="mt-3">Shipping</h4>
-        //       <hr class="my-2">
-        //       <div class="row g-3 align-items-center">
-        //         <div class="col-auto">
-        //           <span class="form-text-">${shipping}</span>
-        //         </div>
-        //       </div>`;
-            // $("#order-details").html(html);
-            // $('#smartwizard').smartWizard("fixHeight");
         }
 
         $(function() {

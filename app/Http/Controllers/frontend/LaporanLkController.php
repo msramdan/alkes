@@ -63,6 +63,7 @@ class LaporanLkController extends Controller
 
         return view('frontend.create-laporan.create_laporan', [
             'nomenklatur_id' => $nomenklatur_id,
+            'laporan_id' => $laporan_id,
             'nomenklatur_type' => $nomenklatur_type,
             'faskes' => $faskes,
             'nomenklatur_fungsi' => $nomenklatur_fungsi,
@@ -73,25 +74,19 @@ class LaporanLkController extends Controller
 
     public function submitLaporan(Request $request)
     {
-        $laporan = Laporan::create([
-            'user_created' => Session::get('id-teknisi'),
+        $laporan = Laporan::findOrFail($request->laporan_id);
+        $laporan->update([
             'tgl_laporan' => Carbon::now(),
-            'nomenklatur_id' => $request->nomenklatur_id,
             'status_laporan' => 'Need Review',
             'faskes_id' => $_POST['administrasi_faskes-pemilik'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-        $no_laporan = 'LAP-' . date('Ymd') . '-' . sprintf("%04d", $laporan->id);
-
-        $laporan->update([
-            'no_laporan' => $no_laporan
-        ]);
-
         //Create Laporan Pendataan Administrasi
         $administrasi = $this->preg_grep_keys('/^administrasi_+(?:.+)/m', $request->input());
         $administrasi_key = array_keys($administrasi);
+
         foreach ($administrasi_key as $i => $administrasis) {
             $slug_administrasi = explode('_', $administrasis);
 
@@ -100,7 +95,7 @@ class LaporanLkController extends Controller
 
 
             DB::table('laporan_pendataan_administrasi')->insert([
-                'no_laporan' => $no_laporan,
+                'no_laporan' => $laporan->no_laporan,
                 'field_pendataan_administrasi' => $field_administrasi->field_pendataan_administrasi,
                 'slug' => Str::slug($field_administrasi->field_pendataan_administrasi),
                 'value' => $_POST["{$administrasis}"],
@@ -120,7 +115,7 @@ class LaporanLkController extends Controller
                 ->first();
 
             DB::table('laporan_daftar_alat_ukur')->insert([
-                'no_laporan' => $no_laporan,
+                'no_laporan' => $laporan->no_laporan,
                 'type_id' => $nomenklatur_type->type_id,
                 'inventaris_id' => $request->{$alat},
                 'created_at' => Carbon::now(),
@@ -130,7 +125,7 @@ class LaporanLkController extends Controller
 
         //Create Laporan kondisi lingkungan
         DB::table('laporan_kondisi_lingkungan')->insert([
-            'no_laporan' => $no_laporan,
+            'no_laporan' => $laporan->no_laporan,
             'suhu_awal' => $request->lingkungan_suhu_awal ?: null,
             'suhu_akhir' => $request->lingkungan_suhu_akhir ?: null,
             'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal ? $request->lingkungan_kelembapan_ruangan_awal :  null,
@@ -150,7 +145,7 @@ class LaporanLkController extends Controller
                 ->first();
 
             DB::table('laporan_kondisi_fisik_fungsi')->insert([
-                'no_laporan' => $no_laporan,
+                'no_laporan' => $laporan->no_laporan,
                 'field_parameter_fisik_fungsi' => $nomenklatur_kondisi_fisik_fungsi->field_parameter,
                 'field_batas_pemeriksaan' => $nomenklatur_kondisi_fisik_fungsi->field_batas_pemeriksaan,
                 'value' => $request->{$fisik},
@@ -171,7 +166,7 @@ class LaporanLkController extends Controller
                 ->first();
 
             DB::table('laporan_pengukuran_keselamatan_listrik')->insert([
-                'no_laporan' => $no_laporan,
+                'no_laporan' => $laporan->no_laporan,
                 'field_keselamatan_listrik' => $nomenklatur_keselamatan_listrik->field_keselamatan_listrik,
                 'value' => $request->{$listrik},
                 'slug' => Str::slug($nomenklatur_keselamatan_listrik->field_keselamatan_listrik),
@@ -192,7 +187,7 @@ class LaporanLkController extends Controller
                 ->first();
 
             DB::table('laporan_telaah_teknis')->insert([
-                'no_laporan' => $no_laporan,
+                'no_laporan' => $laporan->no_laporan,
                 'field_telaah_teknis' => $nomenklatur_telaah_teknis->field_telaah_teknis,
                 'slug' => Str::slug($nomenklatur_telaah_teknis->field_telaah_teknis),
                 'value' => $request->{$teknis},
@@ -203,7 +198,7 @@ class LaporanLkController extends Controller
 
         //Create Laporan Kesimpulan Telaah Teknis
         DB::table('laporan_kesimpulan_telaah_teknis')->insert([
-            'no_laporan' => $no_laporan,
+            'no_laporan' => $laporan->no_laporan,
             'pelaksana_pengujian' => '',
             'penyelia' => '',
             'value' => $request->kesimpulan_telaah_teknis,
