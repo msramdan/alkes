@@ -34,6 +34,7 @@ class LaporanLkController extends Controller
 
     public function create(Request $request)
     {
+        $step = 0;
         $laporan_id = $request->laporan_id;
         $nomenklatur_id = $request->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
@@ -62,6 +63,8 @@ class LaporanLkController extends Controller
             ->get();
 
         return view('frontend.create-laporan.create_laporan', [
+            'step' => $step,
+            'count_nomenklatur_keselamatan_listrik' => count($nomenklatur_keselamatan_listrik),
             'nomenklatur_id' => $nomenklatur_id,
             'laporan_id' => $laporan_id,
             'nomenklatur_type' => $nomenklatur_type,

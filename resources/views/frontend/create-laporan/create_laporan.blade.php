@@ -12,58 +12,84 @@
                     <div id="smartwizard" dir="" class="sw sw-justified sw-theme-arrows">
                         <ul class="nav nav-progress" id="step">
                             <li class="nav-item">
-                                <a class="nav-link default" href="#step-1">
-                                    <span class="num">1</span>
+                                @php
+                                    $step = $step + 1;
+                                @endphp
+                                <a class="nav-link default" href="#step-{{ $step }}">
+                                    <span class="num">{{ $step }}</span>
                                     Pendataan Administrasi
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link default" href="#step-2">
-                                    <span class="num">2</span>
+                                @php
+                                    $step = $step + 1;
+                                @endphp
+                                <a class="nav-link default" href="#step-{{ $step }}">
+                                    <span class="num">{{ $step }}</span>
                                     Daftar Alat Ukur
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link default" href="#step-3">
-                                    <span class="num">3</span>
+                                @php
+                                    $step = $step + 1;
+                                @endphp
+                                <a class="nav-link default" href="#step-{{ $step }}">
+                                    <span class="num">{{ $step }}</span>
                                     Kondisi Lingkungan
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link default" href="#step-4">
-                                    <span class="num">4</span>
+                                @php
+                                    $step = $step + 1;
+                                @endphp
+                                <a class="nav-link default" href="#step-{{ $step }}">
+                                    <span class="num">{{ $step }}</span>
                                     Pemeriksaan Fisik & Fungsi Alat
                                 </a>
                             </li>
+                            @if ($count_nomenklatur_keselamatan_listrik > 0)
+                                <li class="nav-item">
+                                    @php
+                                        $step = $step + 1;
+                                    @endphp
+                                    <a class="nav-link default" href="#step-{{ $step }}">
+                                        <span class="num">{{ $step }}</span>
+                                        Pengukuran Keselamatan Listrik
+                                    </a>
+                                </li>
+                            @endif
+
                             <li class="nav-item">
-                                <a class="nav-link default" href="#step-5">
-                                    <span class="num">5</span>
-                                    Pengukuran Keselamatan Listrik
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link default" href="#step-6">
-                                    <span class="num">6</span>
+                                @php
+                                    $step = $step + 1;
+                                @endphp
+                                <a class="nav-link default" href="#step-{{ $step }}">
+                                    <span class="num">{{ $step }}</span>
                                     Pengukuran Kinerja
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link default" href="#step-7">
-                                    <span class="num">7</span>
+                                @php
+                                    $step = $step + 1;
+                                @endphp
+                                <a class="nav-link default" href="#step-{{ $step }}">
+                                    <span class="num">{{ $step }}</span>
                                     Telaah Teknis
                                 </a>
                             </li>
                         </ul>
                         <hr>
-                            <div class="tab-content">
-                                @include('frontend.create-laporan.step.1')
-                                @include('frontend.create-laporan.step.2')
-                                @include('frontend.create-laporan.step.3')
-                                @include('frontend.create-laporan.step.4')
+                        <div class="tab-content">
+                            @include('frontend.create-laporan.step.1')
+                            @include('frontend.create-laporan.step.2')
+                            @include('frontend.create-laporan.step.3')
+                            @include('frontend.create-laporan.step.4')
+                            @if ($count_nomenklatur_keselamatan_listrik > 0)
                                 @include('frontend.create-laporan.step.5')
-                                @include('frontend.create-laporan.step.6')
-                                @include('frontend.create-laporan.step.7')
-                            </div>
+                            @endif
+                            @include('frontend.create-laporan.step.6')
+                            @include('frontend.create-laporan.step.7')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,6 +118,7 @@
             $('#form-laporan').html('');
             var nomenklatur_id = "{{ $nomenklatur_id }}";
             var laporan_id = "{{ $laporan_id }}";
+            var count_nomenklatur_keselamatan_listrik = "{{ $count_nomenklatur_keselamatan_listrik }}";
             var csrf = "{{ csrf_token() }}";
             $('#form-laporan').append(`
                 <input type="hidden" name="nomenklatur_id" value="${nomenklatur_id}"/>
@@ -114,10 +141,13 @@
             [...form4].forEach((item) => {
                 $('#form-laporan').append(item.cloneNode(true));
             });
-            var form5 = document.getElementById('form-5').elements;
-            [...form5].forEach((item) => {
-                $('#form-laporan').append(item.cloneNode(true));
-            });
+
+            if (count_nomenklatur_keselamatan_listrik > 0) {
+                var form5 = document.getElementById('form-5').elements;
+                [...form5].forEach((item) => {
+                    $('#form-laporan').append(item.cloneNode(true));
+                });
+            }
             // var form6 = document.getElementById('form-6').elements;
             // [...form6].forEach((item) => {
             //     $('#form-laporan').append(item.cloneNode(true));
@@ -129,8 +159,7 @@
             $('#form-laporan').submit();
         }
 
-        function showConfirm() {
-        }
+        function showConfirm() {}
 
         $(function() {
             // Leave step event is used for validating the forms
@@ -138,7 +167,7 @@
                 stepDirection) {
                 // Validate only on forward movement
                 if (stepDirection == 'forward') {
-                   // console.log(tes.elements);
+                    // console.log(tes.elements);
                     let form = document.getElementById('form-' + (currentStepIdx + 1));
                     if (form) {
                         if (!form.checkValidity()) {
