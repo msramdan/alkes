@@ -256,6 +256,11 @@ class LaporanController extends Controller
             ->first();
         $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
+        $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
+            ->select('*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $count_laporan_pengukuran_keselamatan_listrik = count($laporan_pengukuran_keselamatan_listrik);
         $pdf = PDF::loadview('laporans.pdf_lk', [
             'nomenklaturs' => $nomenklaturs,
             'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
@@ -264,7 +269,9 @@ class LaporanController extends Controller
             'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
             'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan,
             'laporan_telaah_teknis' => $laporan_telaah_teknis,
-            'laporan_kesimpulan_telaah_teknis' => $laporan_kesimpulan_telaah_teknis
+            'laporan_kesimpulan_telaah_teknis' => $laporan_kesimpulan_telaah_teknis,
+            'laporan_pengukuran_keselamatan_listrik' => $laporan_pengukuran_keselamatan_listrik,
+            'count_laporan_pengukuran_keselamatan_listrik' => $count_laporan_pengukuran_keselamatan_listrik
         ]);
         return $pdf->stream();
         // return $pdf->download('Lembar-Kerja');

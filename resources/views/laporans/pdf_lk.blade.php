@@ -233,85 +233,85 @@
             @endforelse
         </tbody>
     </table>
+    @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
+        <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b></p>
+        <table class="table table-bordered table-sm"
+            style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+            <thead>
+                <tr>
+                    <th style="width: 4%;text-align: center;">No</th>
+                    <th colspan="2" style="width: 24%;text-align: center;">Parameter</th>
+                    <th style="width: 20%;text-align: center;">Terukur</th>
+                    <th style="width: 20%;text-align: center;">Ambang Batas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3">1</td>
+                    <td rowspan="3" style="text-align: justify">Tegangan Input (Main Voltage)</td>
+                    <td style="text-align: justify">Phase - Netral</td>
+                    <td style="text-align: justify">Vac</td>
+                    <td style="text-align: justify">220 ± 10% Vac
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: justify">Phase - Ground</td>
+                    <td style="text-align: justify">Vac</td>
+                    <td style="text-align: justify">220 ± 10% Vac
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: justify">Ground - Netral</td>
+                    <td style="text-align: justify">Vac</td>
+                    <td style="text-align: justify">≤ 5 Vac
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">2</td>
+                    <td colspan="2" style="text-align: justify">Resistansi pembumian protektif</td>
+                    <td colspan="2" style="text-align: justify;background-color: gray"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
+                    <td style="text-align: justify;">Ω
+                    </td>
+                    <td style="text-align: justify;">≤ 200 mΩ
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
+                    <td style="text-align: justify;">Ω
+                    </td>
+                    <td style="text-align: justify;">≤ 300 mΩ
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
+                    <td style="text-align: justify">MΩ</td>
+                    <td style="text-align: justify">> 2Ω
 
-    <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b></p>
-    <table class="table table-bordered table-sm"
-        style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-        <thead>
-            <tr>
-                <th style="width: 4%;text-align: center;">No</th>
-                <th colspan="2" style="width: 24%;text-align: center;">Parameter</th>
-                <th style="width: 20%;text-align: center;">Terukur</th>
-                <th style="width: 20%;text-align: center;">Ambang Batas</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td rowspan="3">1</td>
-                <td rowspan="3" style="text-align: justify">Tegangan Input (Main Voltage)</td>
-                <td style="text-align: justify">Phase - Netral</td>
-                <td style="text-align: justify">Vac</td>
-                <td style="text-align: justify">220 ± 10% Vac
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: justify">Phase - Ground</td>
-                <td style="text-align: justify">Vac</td>
-                <td style="text-align: justify">220 ± 10% Vac
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: justify">Ground - Netral</td>
-                <td style="text-align: justify">Vac</td>
-                <td style="text-align: justify">≤ 5 Vac
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="3">2</td>
-                <td colspan="2" style="text-align: justify">Resistansi pembumian protektif</td>
-                <td colspan="2" style="text-align: justify;background-color: gray"></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
-                <td style="text-align: justify;">Ω
-                </td>
-                <td style="text-align: justify;">≤ 200 mΩ
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
-                <td style="text-align: justify;">Ω
-                </td>
-                <td style="text-align: justify;">≤ 300 mΩ
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
-                <td style="text-align: justify">MΩ</td>
-                <td style="text-align: justify">> 2Ω
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">4</td>
+                    <td colspan="2" style="text-align: justify">Arus bocor peralatan metode langsung/diferensial
+                    </td>
+                    <td colspan="2" style="text-align: justify;background-color: gray"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
+                    <td style="text-align: justify;">µA
+                    </td>
+                    <td style="text-align: justify;">≤ 200 mΩ
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    @endif
 
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="2">4</td>
-                <td colspan="2" style="text-align: justify">Arus bocor peralatan metode langsung/diferensial</td>
-                <td colspan="2" style="text-align: justify;background-color: gray"></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
-                <td style="text-align: justify;">µA
-                </td>
-                <td style="text-align: justify;">≤ 200 mΩ
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <p style="font-size: 14px"><b>F. PENGUKURAN KINERJA</b></p>
-
-
-    <p style="font-size: 14px"><b>G. TELAAH TEKNIS</b></p>
+    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN KINERJA</b></p>
+    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH TEKNIS</b></p>
     <table class="table table-bordered table-sm"
         style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
         <tbody>
@@ -347,8 +347,6 @@
             </tr>
         </tbody>
     </table>
-
-
     <table class="table table-bordered table-sm"
         style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
         <tbody>
