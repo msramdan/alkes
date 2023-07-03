@@ -53,12 +53,6 @@
                                     Telaah Teknis
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link default" href="#step-8">
-                                    <span class="num">8</span>
-                                    Kesimpulan Telaah Teknis Kalibrasi
-                                </a>
-                            </li>
                         </ul>
                         <hr>
                             <div class="tab-content">
@@ -69,7 +63,6 @@
                                 @include('frontend.create-laporan.step.5')
                                 @include('frontend.create-laporan.step.6')
                                 @include('frontend.create-laporan.step.7')
-                                @include('frontend.create-laporan.step.8')
                             </div>
                     </div>
                 </div>
@@ -133,11 +126,6 @@
             [...form7].forEach((item) => {
                 $('#form-laporan').append(item.cloneNode(true));
             });
-            var form8 = document.getElementById('form-8').elements;
-            [...form8].forEach((item) => {
-                $('#form-laporan').append(item.cloneNode(true));
-            });
-
             $('#form-laporan').submit();
         }
 

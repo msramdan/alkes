@@ -213,7 +213,6 @@ class LaporanLkController extends Controller
         //Create Laporan Kesimpulan Telaah Teknis
         DB::table('laporan_kesimpulan_telaah_teknis')->insert([
             'no_laporan' => $laporan->no_laporan,
-            'value' => $request->kesimpulan_telaah_teknis,
             'catatan' => $request->catatan_kesimpulan_telaah_teknis,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

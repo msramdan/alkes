@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('no_laporan', 100);
             $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
-            $table->string('value')->nullable();
             $table->string('catatan')->nullable();
             $table->timestamps();
         });
