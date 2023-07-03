@@ -474,7 +474,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6>G. TELAAH TEKNIS</h6>
+                                <h6>TELAAH TEKNIS</h6>
                                 <hr>
                                 <div class="row">
                                     <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}" readonly>
