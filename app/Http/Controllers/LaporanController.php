@@ -121,12 +121,10 @@ class LaporanController extends Controller
 
     public function create()
     {
-        $nomenklaturs = Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get();
         $PelaksanaTeknisi = PelaksanaTeknisi::orderBy('nama', 'ASC')->get();
         $number = StringHelper::generateZeroIndexNumberWithPrefixFromDB(new Laporan(), 'LAP', 'no_laporan');
         return view('laporans.create', [
             'no_laporan' => $number,
-            'nomenklaturs' => $nomenklaturs,
             'PelaksanaTeknisi' => $PelaksanaTeknisi
         ]);
     }
@@ -137,7 +135,6 @@ class LaporanController extends Controller
             $request->all(),
             [
                 'no_laporan' => "required|unique:laporans,no_laporan",
-                'nomenklatur_id' => "required",
                 'user_created' => "required",
             ],
         );
@@ -147,7 +144,6 @@ class LaporanController extends Controller
 
         DB::table('laporans')->insert([
             'no_laporan' => $request->no_laporan,
-            'nomenklatur_id' => $request->nomenklatur_id,
             'user_created' => $request->user_created,
             'status_laporan' => "Initial",
             'tgl_laporan' => date('Y-m-d H:i:s'),
@@ -170,12 +166,10 @@ class LaporanController extends Controller
 
     public function edit(Laporan $laporan)
     {
-        $nomenklaturs = Nomenklatur::orderBy('nama_nomenklatur', 'ASC')->get();
         $PelaksanaTeknisi = PelaksanaTeknisi::orderBy('nama', 'ASC')->get();
         return view('laporans.edit', [
             'no_laporan' => $laporan->no_laporan,
             'laporan' => $laporan,
-            'nomenklaturs' => $nomenklaturs,
             'PelaksanaTeknisi' => $PelaksanaTeknisi
         ]);
     }
@@ -187,7 +181,6 @@ class LaporanController extends Controller
             $request->all(),
             [
                 'no_laporan' => "required|unique:laporans,no_laporan," . $laporan->id,
-                'nomenklatur_id' => "required",
                 'user_created' => "required",
             ],
         );
