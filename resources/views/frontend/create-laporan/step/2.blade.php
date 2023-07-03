@@ -3,6 +3,7 @@
         @foreach ($nomenklatur_type as $row)
             @php
                 $inventaris = DB::table('inventaris')
+                    ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
                     ->where('jenis_alat_id', $row->type_id)
                     ->get();
             @endphp
@@ -14,7 +15,7 @@
                     name="type-{{ $row->id }}" required style="width: 100%;" required onchange="selectChange(this, '#type-{{ $row->id }}')">
                     <option selected disabled value="">-- Pilih --</option>
                     @foreach ($inventaris as $data)
-                        <option value="{{ $data->id }}">{{ $data->kode_inventaris}}
+                        <option value="{{ $data->id }}">SN {{ $data->serial_number}} | KD {{ $data->kode_inventaris}} | Merk {{ $data->nama_merek}} | Type {{ $data->tipe}}
                         </option>
                     @endforeach
                 </select>
