@@ -24,6 +24,10 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="col mb-2">
+                    <label for="" style=" font-size: 12px;">Catatan</label> <br>
+                    <textarea name="catatan_kesimpulan_telaah_teknis" class="form-control" @readonly(true) id="catatan_kesimpulan_telaah_teknis" required>{{ $kesimpulan_telaah_teknis->catatan }}</textarea>
+                </div>
             </form>
         </div>
     </div>
