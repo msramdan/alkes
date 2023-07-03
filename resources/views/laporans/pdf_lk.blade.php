@@ -346,7 +346,7 @@
         style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
         <tbody>
             <tr>
-                <td style="height:60px"><b>Catatan :</b>  </td>
+                <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
             </tr>
         </tbody>
     </table>
