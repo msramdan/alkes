@@ -14,7 +14,12 @@ class ShowHistoryLaporanController extends Controller
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
 
-        return view('frontend.history-laporan.show', compact('laporan'));
+        $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
+        ->select('*')
+        ->where('no_laporan', $laporan->no_laporan)
+        ->get();
+        $count_laporan_pengukuran_keselamatan_listrik = count($laporan_pengukuran_keselamatan_listrik);
+        return view('frontend.history-laporan.show', compact('laporan','count_laporan_pengukuran_keselamatan_listrik'));
     }
 
     public function pendataanAdministrasi($nolaporan)
