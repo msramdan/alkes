@@ -19,10 +19,10 @@
                     @endforeach
                 </select>
                 <div class="valid-feedback">
-                    Looks good!
+                    Okay !
                 </div>
                 <div class="invalid-feedback">
-                    Please select a valid {{ $row->jenis_alat }}.
+                    Silahkan pilih {{ $row->jenis_alat }}.
                 </div>
             </div>
         @endforeach

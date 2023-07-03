@@ -6,28 +6,30 @@
                 ini dinyatakan </label> <br>
             <input type="hidden" name="kesimpulan_telaah_teknis" id="kesimpulan_select_telaah_teknis">
             <select class="form-control select2" id="kesimpulan-telaah-teknis"
-                name="kesimpulan_select_telaah_teknis" required style="width: 100%;" required
+                name="kesimpulan_select_telaah_teknis" required style="width: 100%;"
                 onchange="selectChange(this, '#kesimpulan_select_telaah_teknis')">
                 <option selected disabled value="">-- Pilih --</option>
                 <option value="baik">Baik</option>
                 <option value="tidak-baik">Tidak baik</option>
             </select>
             <div class="valid-feedback">
-                Looks good!
+                Okay !
+            </div>
+            <div class="invalid-feedback">
+                Please select a valid Condition.
+            </div>
+        </div>
+
+        <div class="col mb-2">
+            <label for="" style=" font-size: 12px;">Catatan</label> <br>
+            <textarea name="catatan_kesimpulan_telaah_teknis" class="form-control" id="catatan_kesimpulan_telaah_teknis" required></textarea>
+            <div class="valid-feedback">
+                Okay !
             </div>
             <div class="invalid-feedback">
                 Please select a valid Condition.
             </div>
         </div>
     </form>
-    <div class="col mb-2">
-        <label for="" style=" font-size: 12px;">Catatan</label> <br>
-        <textarea name="catatan_kesimpulan_telaah_teknis" class="form-control" id=""></textarea>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-        <div class="invalid-feedback">
-            Please select a valid Condition.
-        </div>
-    </div>
+
 </div>

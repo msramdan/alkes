@@ -20,7 +20,7 @@ class HistoryLaporanLkController extends Controller
     public function index()
     {
         return view('frontend.history-laporan.index', [
-            'laporan' => Laporan::orderBy('id', 'DESC')->get(),
+            'laporan' => Laporan::where('status_laporan', '!=', 'Initial')->orderBy('id', 'DESC')->get(),
         ]);
     }
 

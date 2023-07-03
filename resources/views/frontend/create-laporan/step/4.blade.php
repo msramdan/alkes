@@ -11,10 +11,10 @@
                     <option value="tidak-baik">Tidak baik</option>
                 </select>
                 <div class="valid-feedback">
-                    Looks good!
+                    Okay !
                 </div>
                 <div class="invalid-feedback">
-                    Please select a valid Condition.
+                    Silahkan pilih kondisi {{ $res->field_parameter }}
                 </div>
             </div>
         @endforeach

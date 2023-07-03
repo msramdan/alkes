@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('laporan_daftar_alat_ukur', function (Blueprint $table) {
             $table->id();
-            $table->string('no_laporan');
+            $table->string('no_laporan', 100);
+            $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
             $table->foreignId('type_id')->cascadeOnDelete();
             $table->foreignId('inventaris_id');
             $table->timestamps();

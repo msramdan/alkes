@@ -11,7 +11,6 @@
                     <label for="" style=" font-size: 12px;">Berdasarkan hasil pengujian
                         dan/ atau hasil kalibrasi, alat
                         ini dinyatakan </label> <br>
-                    <small>Catatan : Pilih Hasil kalibrasi laik atau tidak laik pakai</small>
                     <select class="form-control select2" id="kesimpulan-telaah-teknis"
                         name="kesimpulan_telaah_teknis" required style="width: 100%;" @readonly(true) required>
                         <option selected disabled value="">-- Pilih --</option>
@@ -24,6 +23,11 @@
                     <div class="invalid-feedback">
                         Please select a valid Condition.
                     </div>
+                </div>
+
+                <div class="col mb-2">
+                    <label for="" style=" font-size: 12px;">Catatan</label> <br>
+                    <textarea name="catatan_kesimpulan_telaah_teknis" class="form-control" @readonly(true) id="catatan_kesimpulan_telaah_teknis" required>{{ $kesimpulan_telaah_teknis->catatan }}</textarea>
                 </div>
             </form>
         </div>

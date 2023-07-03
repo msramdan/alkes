@@ -2,13 +2,6 @@
 @section('title', 'Create Laporan')
 @push('css')
     <style>
-        /* body {
-                                                                                                                                                                                                                                                        background: #2a2a2b;
-                                                                                                                                                                                                                                                        color: #fff;
-                                                                                                                                                                                                                                                        text-align: center;
-                                                                                                                                                                                                                                                        font-family: Arial, Helvetica;
-                                                                                                                                                                                                                                                    } */
-
         .big {
             font-size: 1.2em;
         }
@@ -100,15 +93,14 @@
                     <div class="container">
                         <form action="{{ route('web-create_laporan_lk') }}" style="margin-top: 50%" method="GET">
                             <center>
-                                <span>Pilih Nomenklatur</span>
+                                <span>Pilih Laporan</span>
                             </center>
                             <div class="form-group mb-2">
-                                <select class="form-control select2" id="state" name="nomenklatur_id" required
+                                <select class="form-control select2" id="state" name="laporan_id" required
                                     style="width: 100%;" required>
-                                    <option selected disabled value="">--
-                                        Pilih --</option>
-                                    @foreach ($nomenklatur as $row)
-                                        <option value="{{ $row->id }}">{{ $row->nama_nomenklatur }}
+                                    <option selected disabled value="">-- Pilih --</option>
+                                    @foreach ($laporan as $row)
+                                        <option value="{{ $row->id }}">{{ $row->no_laporan }} - {{ $row->nama_nomenklatur}}
                                         </option>
                                     @endforeach
                                 </select>
@@ -117,9 +109,6 @@
                                 <button class="btn btn-success">Selanjutnya <i class="fa fa-arrow-right"
                                         aria-hidden="true"></i></button>
                             </div>
-
-
-
                         </form>
                     </div>
                 </div>

@@ -251,6 +251,16 @@ class LaporanController extends Controller
             ->select('inventaris.*', 'brands.nama_merek', 'types.jenis_alat')
             ->where('no_laporan', $laporan->no_laporan)
             ->get();
+        $laporan_telaah_teknis =
+            DB::table('laporan_telaah_teknis')
+            ->select('laporan_telaah_teknis.*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $laporan_kesimpulan_telaah_teknis =
+            DB::table('laporan_kesimpulan_telaah_teknis')
+            ->select('laporan_kesimpulan_telaah_teknis.*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->first();
         $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
         $pdf = PDF::loadview('laporans.pdf_lk', [
@@ -259,7 +269,9 @@ class LaporanController extends Controller
             'dataAwal' => $dataAwal,
             'laporan_daftar_alat_ukur' => $laporan_daftar_alat_ukur,
             'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
-            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan
+            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan,
+            'laporan_telaah_teknis' => $laporan_telaah_teknis,
+            'laporan_kesimpulan_telaah_teknis' => $laporan_kesimpulan_telaah_teknis
         ]);
         return $pdf->stream();
         // return $pdf->download('Lembar-Kerja');
@@ -298,5 +310,17 @@ class LaporanController extends Controller
         ]);
         return $pdf->stream();
         // return $pdf->download('Lembar-Kerja');
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $laporan = Laporan::findOrFail($request->id);
+        $laporan->update([
+            'catatan' => $request->catatan,
+            'status_laporan' => $request->status_laporan,
+        ]);
+        return redirect()
+            ->route('laporans.index')
+            ->with('success', __('Status laporan kerja was updated successfully.'));
     }
 }

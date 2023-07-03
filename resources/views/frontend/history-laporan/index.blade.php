@@ -55,18 +55,20 @@
                                         <div class="product-rating"><i class="fa fa-tag" aria-hidden="true"></i>
                                             Status : {{ $row->status_laporan }}
                                         </div>
-                                        {{-- <div class="product-rating"><i class="fa fa-user" style="background-color: #1E90FF"
-                                                aria-hidden="true"></i>
-                                            Reviewer : {{ $row->user_review }}
-                                        </div> --}}
                                         <div style="margin-top: 5px">
-                                            <a class="btn btn-secondary btn-sm" href="{{ url('/web/show/history_laporan/'. $row->no_laporan) }}"><i class="fa fa-eye"
-                                                    aria-hidden="true"></i>
+                                            <a class="btn btn-secondary btn-sm"
+                                                href="{{ url('/web/show/history_laporan/' . $row->no_laporan) }}"><i
+                                                    class="fa fa-eye" aria-hidden="true"></i>
                                                 View</a>&nbsp;
-                                            <a class="btn btn-success btn-sm" href="{{ url('/web/history_laporan/'. $row->no_laporan) }}"><i class="fa fa-pencil"
-                                                    aria-hidden="true"></i> Edit</a>&nbsp;
-                                            <a class="btn btn-danger btn-sm" href="{{ url('/web/history_laporan/delete/'.$row->no_laporan) }}"><i class="fa fa-trash"
-                                                    aria-hidden="true"></i> Hapus</a>
+
+                                            @if ($row->status_laporan == 'Need Review')
+                                                <a class="btn btn-success btn-sm"
+                                                    href="{{ url('/web/history_laporan/' . $row->no_laporan) }}"><i
+                                                        class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                            @else
+                                                <button class="btn btn-success btn-sm" disabled><i class="fa fa-pencil"
+                                                        aria-hidden="true"></i> Edit</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

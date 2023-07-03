@@ -99,7 +99,6 @@
                                             <th>{{ __('Nomenklatur') }}</th>
                                             <th>{{ __('Status Laporan') }}</th>
                                             <th>{{ __('Reviewer') }}</th>
-                                            <th>{{ __('Tgl Review') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -167,10 +166,6 @@
             {
                 data: 'user_review',
                 name: 'user_review.name'
-            },
-            {
-                data: 'tgl_review',
-                name: 'tgl_review',
             },
             {
                 data: 'action',
