@@ -61,14 +61,6 @@
                             </div>
                         </nav>
                     </li>
-                    <li class="list-group-item">
-                        <nav class="navbar bg-body-tertiary">
-                            <div class="container-fluid d-flex">
-                              <a class="navbar-brand" href="{{ url('/web/show/history_laporan/kesimpulan-telaah_teknis/'.$laporan->no_laporan) }}">Kesimpulan Telaah Teknis Kalibrasi</a>
-                              <i class="fa-solid fa-angle-right ms-auto"></i>
-                            </div>
-                        </nav>
-                    </li>
                 </ul>
             </div>
         </div>
