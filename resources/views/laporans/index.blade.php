@@ -75,6 +75,7 @@
                                         <div class="col-md-2">
                                             <select name="status" id="status" class="form-control select2-form">
                                                 <option value="All">All Status Laporan</option>
+                                                <option value="Initial">Initial</option>
                                                 <option value="Need Review">Need Review</option>
                                                 <option value="Approved">Approved</option>
                                             </select>

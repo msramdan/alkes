@@ -92,15 +92,24 @@
                 <div class="top-products-area py-3">
                     <div class="container">
                         <form action="{{ route('web-create_laporan_lk') }}" style="margin-top: 50%" method="GET">
-                            <center>
-                                <span>Pilih Laporan</span>
-                            </center>
-                            <div class="form-group mb-2">
-                                <select class="form-control select2" id="state" name="laporan_id" required
+                            <div class="col mb-2">
+                                <label for="" style=" font-size: 12px;">Laporan</label>
+                                <select class="form-control select2" id="laporan_id" name="laporan_id" required
                                     style="width: 100%;" required>
                                     <option selected disabled value="">-- Pilih --</option>
                                     @foreach ($laporan as $row)
-                                        <option value="{{ $row->id }}">{{ $row->no_laporan }} - {{ $row->nama_nomenklatur}}
+                                        <option value="{{ $row->id }}">{{ $row->no_laporan }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col mb-2">
+                                <label for="" style=" font-size: 12px;">Nomenklatur</label>
+                                <select class="form-control select2" id="nomenklatur_id" name="nomenklatur_id" required
+                                    style="width: 100%;" required>
+                                    <option selected disabled value="">-- Pilih --</option>
+                                    @foreach ($nomenklaturs as $row)
+                                        <option value="{{ $row->id }}">{{ $row->nama_nomenklatur }}
                                         </option>
                                     @endforeach
                                 </select>

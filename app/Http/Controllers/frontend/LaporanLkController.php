@@ -20,22 +20,22 @@ class LaporanLkController extends Controller
 
     public function index()
     {
+        $nomenklaturs = Nomenklatur::orderBy('id', 'DESC')->get();
         $laporan = DB::table('laporans')
-            ->join('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
-            ->select('laporans.*', 'nomenklaturs.nama_nomenklatur')
+            ->select('laporans.*')
             ->where('user_created', get_data_teknisi()->id)
             ->where('status_laporan', 'Initial')
             ->get();
         return view('frontend.create-laporan.select_nomenklatur', [
-            'laporan' => $laporan
+            'laporan' => $laporan,
+            'nomenklaturs' => $nomenklaturs
         ]);
     }
 
     public function create(Request $request)
     {
         $laporan_id = $request->laporan_id;
-        $laporan = Laporan::where('id', $laporan_id)->first();
-        $nomenklatur_id = $laporan->nomenklatur_id;
+        $nomenklatur_id = $request->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
         //menampilkan form bagian administrasi sesuai dengan field yang sudah di config pada halaman admin
         $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();
@@ -75,14 +75,15 @@ class LaporanLkController extends Controller
     public function submitLaporan(Request $request)
     {
         $laporan = Laporan::findOrFail($request->laporan_id);
-        $laporan->update([
+        $data = [
             'tgl_laporan' => Carbon::now(),
             'status_laporan' => 'Need Review',
             'faskes_id' => $_POST['administrasi_faskes-pemilik'],
+            'nomenklatur_id' => $request->nomenklatur_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-        ]);
-
+        ];
+        $laporan->update($data);
         //Create Laporan Pendataan Administrasi
         $administrasi = $this->preg_grep_keys('/^administrasi_+(?:.+)/m', $request->input());
         $administrasi_key = array_keys($administrasi);
