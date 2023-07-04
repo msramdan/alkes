@@ -152,15 +152,12 @@ class LaporanController extends Controller
             ->with('success', __('Assign Laporan was created successfully.'));
     }
 
-
-
     public function show(Laporan $laporan)
     {
         $laporan->load('user:id,name', 'user:id,name',);
 
         return view('laporans.show', compact('laporan'));
     }
-
 
     public function edit(Laporan $laporan)
     {
@@ -226,7 +223,7 @@ class LaporanController extends Controller
         $laporan = DB::table('laporans')
             ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
             ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
-            ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi','users.name as name_user')
+            ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi', 'users.name as name_user')
             ->where('laporans.id', $id)
             ->first();
 
@@ -329,5 +326,35 @@ class LaporanController extends Controller
         return redirect()
             ->route('laporans.index')
             ->with('success', __('Status laporan kerja was updated successfully.'));
+    }
+
+    public function qr_layak($id)
+    {
+        $hightPaper = 207;
+        $width = 112;
+        $widthQR = 114;
+        $laporan = DB::table('laporans')
+            ->where('id', $id)
+            ->first();
+        $pdf = PDF::loadview('laporans.qr_layak', [
+            'laporan' => $laporan,
+            'widthQR' => $widthQR
+        ])->setPaper([0, 0, $hightPaper, $width], 'landscape');
+        return $pdf->stream();
+    }
+
+    public function qr_tidak_layak($id)
+    {
+        $hightPaper = 207;
+        $width = 112;
+        $widthQR = 114;
+        $laporan = DB::table('laporans')
+            ->where('id', $id)
+            ->first();
+        $pdf = PDF::loadview('laporans.qr_tidak_layak', [
+            'laporan' => $laporan,
+            'widthQR' => $widthQR
+        ])->setPaper([0, 0, $hightPaper,  $width], 'landscape');;
+        return $pdf->stream();
     }
 }

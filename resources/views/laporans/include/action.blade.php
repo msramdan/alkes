@@ -97,8 +97,8 @@
                                     </tr>
                                     <tr style="border-bottom: 1pt solid black;">
                                         <td style="text-align: center;">
-                                            <span style="font-size: 11px"><b>Date : 2023-06-30</b></span><br>
-                                            <span style="font-size: 11px"><b>Due : 2024-06-30</b></span>
+                                            <span style="font-size: 11px"><b>Date : {{date('d F Y', strtotime($model->tgl_laporan))}} </b></span><br>
+                                            <span style="font-size: 11px"><b>Due : {{date('d F Y', strtotime('+1 year', strtotime( $model->tgl_laporan )))}}</b></span>
                                         </td>
                                     </tr>
                                     <tr style="background-color: green;">
@@ -109,8 +109,8 @@
                                     </tr>
                                 </thead>
                             </table> <br>
-                            <button class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i>
-                                Cetak</button>
+                            <a href="{{ route('qr_layak', $model->id) }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i>
+                                Cetak</a>
                         </center>
 
                     </div>
@@ -142,8 +142,8 @@
                                     </tr>
                                     <tr style="border-bottom: 1pt solid black;">
                                         <td style="text-align: center;">
-                                            <span style="font-size: 11px"><b>Date : 2023-06-30</b></span><br>
-                                            <span style="font-size: 11px"><b>Due : 2024-06-30</b></span>
+                                            <span style="font-size: 11px"><b>Date : {{date('d F Y', strtotime($model->tgl_laporan))}} </b></span><br>
+                                            <span style="font-size: 11px"><b>Due : {{date('d F Y', strtotime('+1 year', strtotime( $model->tgl_laporan )))}}</b></span>
                                         </td>
                                     </tr>
                                     <tr style="background-color: red;">
@@ -154,8 +154,9 @@
                                     </tr>
                                 </thead>
                             </table> <br>
-                            <button class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i>
-                                Cetak</button>
+                            <a href="{{ route('qr_tidak_layak', $model->id) }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i>
+                                Cetak</a>
+
                         </center>
                     </div>
                 </div>
