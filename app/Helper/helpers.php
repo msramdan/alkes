@@ -33,6 +33,19 @@ function get_data_teknisi()
     return $cek;
 }
 
+function get_data_litsrik($no_laporan,$field,$where)
+{
+    $cek = DB::table('laporan_pengukuran_keselamatan_listrik')
+        ->where('no_laporan', $no_laporan )
+        ->where($field, $where )
+        ->first();
+    if(isset($cek->value)){
+        return $cek->value;
+    }else{
+        return '-';
+    }
+}
+
 function get_data_rs($id)
 {
     $cek = DB::table('faskes')
