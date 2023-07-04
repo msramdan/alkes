@@ -78,11 +78,13 @@ class LaporanLkController extends Controller
     public function submitLaporan(Request $request)
     {
         $laporan = Laporan::findOrFail($request->laporan_id);
+        $nomenklatur = Nomenklatur::findOrFail($request->nomenklatur_id);
         $data = [
             'tgl_laporan' => Carbon::now(),
             'status_laporan' => 'Need Review',
             'faskes_id' => $_POST['administrasi_faskes-pemilik'],
             'nomenklatur_id' => $request->nomenklatur_id,
+            'no_dokumen' => $nomenklatur->no_dokumen,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\info;
 
 use App\Http\Controllers\Controller;
+use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +12,10 @@ class InfoController extends Controller
 
     public function sertifikat($id)
     {
-        return view('info.sertifikat');
+        $laporan = Laporan::findOrFail($id);
+        return view('info.sertifikat',[
+            'laporan' =>  $laporan
+        ]);
     }
 
     public function info_inventaris($id)

@@ -23,18 +23,31 @@
                 <div class="col-md-offset-2 col-md-6 ">
                     <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
                         <div class="panel-body">
+                            @if ($laporan->status_laporan == 'Approved')
+                                <center>
+                                    <h4><b>Hi Welcome 👋</b> </h4>
+                                    <p>The certificate can be downloaded by clicking the button below</p>
+                                    <button class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i>
+                                        Download Certificate </button>
+                                    <p style="margin-top: 10px"><b>No Laporan : {{ $laporan->no_laporan }} </b></p>
+                                </center>
+                                <br>
+                                <br>
+                                <hr>
+                                Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
+                                    style="width: 40%;">
+                            @else
                             <center>
                                 <h4><b>Hi Welcome 👋</b> </h4>
-                                <p>The certificate can be downloaded by clicking the button below</p>
-                                <button class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                                    Download Certificate </button>
-                                <p style="margin-top: 10px"><b>Referenches : LK-202203-001 </b></p>
+                                <h4 style="color: red"> <b>Sorry, Certificate not available</b> </h4>
                             </center>
                             <br>
-                            <br>
-                            <hr>
-                            Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
-                                style="width: 40%;">
+                                <br>
+                                <hr>
+                                Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
+                                    style="width: 40%;">
+                            @endif
+
                         </div>
                     </div>
                 </div>
