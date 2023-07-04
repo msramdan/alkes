@@ -83,7 +83,7 @@
                     </center>
                 </h6>
                 <center>
-                    <span>{{ $nomenklaturs->no_dokumen }}</span>
+                    <span>{{ $laporan->no_dokumen }}</span>
                 </center>
             </td>
         </tr>
@@ -263,7 +263,7 @@
                 <tr>
                     <td style="text-align: justify">Ground - Netral</td>
                     <td style="text-align: justify">Vac</td>
-                    <td style="text-align: justify">≤ 5 Vac
+                    <td style="text-align: justify"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 5 Vac
                     </td>
                 </tr>
                 <tr>
@@ -273,23 +273,23 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
-                    <td style="text-align: justify;">Ω
+                    <td style="text-align: justify;"><img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
-                    <td style="text-align: justify;">≤ 200 mΩ
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 200 m<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
-                    <td style="text-align: justify;">Ω
+                    <td style="text-align: justify;"><img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
-                    <td style="text-align: justify;">≤ 300 mΩ
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 300 m<img src="../public/asset/ohm.png" style="width: 10px; margin-top:4px">
                     </td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
-                    <td style="text-align: justify">MΩ</td>
-                    <td style="text-align: justify">> 2Ω
+                    <td style="text-align: justify">M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">> 2<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
 
                     </td>
                 </tr>
@@ -303,7 +303,7 @@
                     <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
                     <td style="text-align: justify;">µA
                     </td>
-                    <td style="text-align: justify;">≤ 200 mΩ
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 500 µA
                     </td>
                 </tr>
             </tbody>
@@ -372,12 +372,14 @@
                 <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
                 </td>
                 <td colspan="2" style="text-align: center">
-                    {!! QrCode::size(100)->generate('ramdan') !!}
-                    <span>Muhammad Saeful Ramdan</span>
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px" src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
+                    <span>{{ $laporan->nama_teknisi}}</span>
                 </td>
                 <td style="text-align: center">
-                    {!! QrCode::size(100)->generate('ramdan') !!}
-                    <span>Muhammad Saeful Ramdan</span>
+                    @if (isset($laporan->name_user))
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px" src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
+                    <span>{{$laporan->name_user}}</span>
+                    @endif
                 </td>
             </tr>
         </tbody>

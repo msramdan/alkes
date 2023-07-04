@@ -225,7 +225,13 @@ class LaporanController extends Controller
 
     public function pdf_lk($id)
     {
-        $laporan = Laporan::find($id);
+        $laporan = DB::table('laporans')
+            ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
+            ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
+            ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi','users.name as name_user')
+            ->where('laporans.id', $id)
+            ->first();
+
         $nomenklaturs = Nomenklatur::find($laporan->nomenklatur_id);
         $laporan_pendataan_administrasi =
             DB::table('laporan_pendataan_administrasi')
@@ -262,6 +268,7 @@ class LaporanController extends Controller
             ->get();
         $count_laporan_pengukuran_keselamatan_listrik = count($laporan_pengukuran_keselamatan_listrik);
         $pdf = PDF::loadview('laporans.pdf_lk', [
+            'laporan' => $laporan,
             'nomenklaturs' => $nomenklaturs,
             'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
             'dataAwal' => $dataAwal,
@@ -317,6 +324,8 @@ class LaporanController extends Controller
         $laporan = Laporan::findOrFail($request->id);
         $laporan->update([
             'catatan' => $request->catatan,
+            'user_review' => auth()->user()->id,
+            'tgl_review' => date('Y-m-d H:i:s'),
             'status_laporan' => $request->status_laporan,
         ]);
         return redirect()
