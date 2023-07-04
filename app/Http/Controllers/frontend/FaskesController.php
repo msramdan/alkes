@@ -22,7 +22,7 @@ class FaskesController extends Controller
 
         $alljenis_faskes = DB::table('jenis_faskes')->select('nama_jenis_faskes')->get();
         $allkabkots = DB::table('kabkots')->select('kabupaten_kota')->get();
-        
+
         return view('frontend.faskes', [
             'faskesdata' =>  $faskesdata,
             'alljenis_faskes' =>  $alljenis_faskes,
@@ -43,17 +43,14 @@ class FaskesController extends Controller
             'kabkot:id,kabupaten_kota','kecamatan:id,kecamatan','kelurahan:id,kelurahan')
             ->orderBy('faskes.nama_faskes', $short);
         }
-        
-        // $selected_short = old('short') ?? $short;
-        
         if ($jenisfaskes != "alljenisfaskes") {
             $getid_jenisfaskes = DB::table('jenis_faskes')->select('id')->where('nama_jenis_faskes', $jenisfaskes)->get();
             $id_jenisfaskesjson = strval($getid_jenisfaskes);
             $id_jenisfaskesjsondata = json_decode($id_jenisfaskesjson, true);
             $id_jenisfaskes = $id_jenisfaskesjsondata[0]['id'];
-    
+
             // $selected_jenisfaskes = old('jenisfaskes') ?? $jenisfaskes;
-    
+
             $faskesdata->where('faskes.jenis_faskes_id', $id_jenisfaskes);
         }
         if ($kabkot != "allkabkot") {
@@ -61,12 +58,8 @@ class FaskesController extends Controller
             $id_kabkotjson = strval($getid_kabkot);
             $id_kabkotjsondata = json_decode($id_kabkotjson, true);
             $id_kabkot = $id_kabkotjsondata[0]['id'];
-    
-            // $selected_kabkot = old('kabkot') ?? $kabkot;
-    
             $faskesdata->where('faskes.kabkot_id', $id_kabkot);
         }
-
         return $faskesdata->orderBy('faskes.nama_faskes', $short == "def" ? "ASC" : $short)->paginate(5);
 
     }
@@ -76,16 +69,10 @@ class FaskesController extends Controller
         $nama_jenisfaskes = request()->query('nama_jenisfaskes') ?? 'alljenisfaskes';
         $nama_kabkot = request()->query('nama_kabkot') ?? 'allkabkot';
         $nama_short = request()->query('sorting') ?? 'def';
-        
-
-        // dd($nama_short);
-
-        // dd($nama_jenisfaskes, $nama_kabkot);
-
-        $faskesdata = $this->getFaskes($nama_jenisfaskes, $nama_kabkot, $nama_short);      
+        $faskesdata = $this->getFaskes($nama_jenisfaskes, $nama_kabkot, $nama_short);
         $alljenis_faskes = DB::table('jenis_faskes')->select('nama_jenis_faskes')->get();
         $allkabkots = DB::table('kabkots')->select('kabupaten_kota')->get();
-        
+
         return view('frontend.faskes', [
             'faskesdata' =>  $faskesdata,
             'alljenis_faskes' =>  $alljenis_faskes,

@@ -47,8 +47,6 @@ class LaporanController extends Controller
                 ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
                 ->leftjoin('nomenklaturs', 'laporans.nomenklatur_id', '=', 'nomenklaturs.id')
                 ->select('laporans.*', 'pelaksana_teknisis.nama', 'faskes.nama_faskes', 'users.name', 'nomenklaturs.nama_nomenklatur');
-
-
             if (isset($start_date) && !empty($start_date)) {
                 $from = date("Y-m-d H:i:s", substr($request->query('start_date'), 0, 10));
                 $laporans = $laporans->where('tgl_laporan', '>=', $from);

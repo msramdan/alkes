@@ -95,9 +95,7 @@
 
                 var urlfull = url + '?nama_jenisfaskes=' + nama_jenisfaskes + '&nama_kabkot=' +
                     nama_kabkot + '&sorting=' + sorting;
-
                 console.log(urlfull);
-
                 window.location.href = urlfull;
             });
 

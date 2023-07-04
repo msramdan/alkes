@@ -36,6 +36,7 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/create_laporan_lk', [LaporanLkController::class, 'create'])->name('web-create_laporan_lk');
     Route::post('/submit-laporan', [LaporanLkController::class, 'submitLaporan'])->name('web-submit-laporan');
     Route::get('/history_laporan', [HistoryLaporanLkController::class, 'index'])->name('web-history_laporan');
+    Route::get('/laporan/filter', [HistoryLaporanLkController::class, 'filter']);
     Route::get('/history_laporan/delete/{nolaporan}', [HistoryLaporanLkController::class, 'deleteLaporan'])->name('web-history_laporan.delete');
     Route::get('/history_laporan/pendataan_administrasi/{nolaporan}', [HistoryLaporanLkController::class, 'pendataanAdministrasi'])->name('web-history_laporan.pendataanAdministrasi');
     Route::post('/history_laporan/pendataan_administrasi', [HistoryLaporanLkController::class, 'updatePendataanAdministrasi'])->name('web-history_laporan.updatePendataanAdministrasi');
