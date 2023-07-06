@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Kabkot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FaskeController extends Controller
 {
@@ -180,9 +181,16 @@ class FaskeController extends Controller
 
     public function updatePin(Request $request)
     {
+        $satu = $request->satu;
+        $dua = $request->dua;
+        $tiga = $request->tiga;
+        $empat = $request->empat;
+        $lima = $request->lima;
+        $enam = $request->enam;
+        $fix = $satu.''.$dua.''.$tiga.''.$empat.''.$lima.''.$enam;
         $faskes = Faske::findOrFail($request->id);
         $faskes->update([
-            'pin' => $request->pin,
+            'pin' => $fix,
         ]);
         return redirect()
             ->route('faskes.index')

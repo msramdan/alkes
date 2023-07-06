@@ -14,6 +14,43 @@
     <link href="{{ asset('template_sertifikat') }}/assets/css/style-responsive.min.css" rel="stylesheet" />
     <link href="{{ asset('template_sertifikat') }}/assets/plugins/font-awesome/css/font-awesome.min.css"
         rel="stylesheet" />
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .border-pin {
+            display: flex;
+        }
+
+        .num {
+            color: #000;
+            background-color: transparent;
+            width: 17%;
+            height: 60px;
+            text-align: center;
+            outline: none;
+            padding: 1rem 1rem;
+            margin: 0 1px;
+            font-size: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: .5rem;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .num:focus,
+        .num:valid {
+            box-shadow: 0 0 .5rem rgba(20, 3, 255, 0.5);
+            inset 0 0 .5rem rgba(20, 3, 255, 0.5);
+            border-color: rgba(20, 3, 255, 0.5);
+        }
+    </style>
 </head>
 
 <body>
@@ -27,8 +64,50 @@
                                 <center>
                                     <h4><b>Hi Welcome 👋</b> </h4>
                                     <p>The certificate can be downloaded by clicking the button below</p>
-                                    <button class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                                        Download Certificate </button>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal"><i class="fa fa-download" aria-hidden="true"></i>
+                                        Download Certificate
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Enter PIN</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <div class="border-pin">
+                                                            <input type="text" name="satu" class="num"
+                                                                autocomplete="off" maxlength="1" required>
+                                                            <input type="text" name="dua" class="num"
+                                                                autocomplete="off" maxlength="1" required>
+                                                            <input type="text" name="tiga" class="num"
+                                                                autocomplete="off" maxlength="1" required>
+                                                            <input type="text" name="empat" class="num"
+                                                                autocomplete="off" maxlength="1" required>
+                                                            <input type="text" name="lima" class="num"
+                                                                autocomplete="off" maxlength="1" required>
+                                                            <input type="text" name="enam" class="num"
+                                                                autocomplete="off" maxlength="1" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <p style="margin-top: 10px"><b>No Laporan : {{ $laporan->no_laporan }} </b></p>
                                 </center>
                                 <br>
@@ -37,11 +116,11 @@
                                 Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
                                     style="width: 40%;">
                             @else
-                            <center>
-                                <h4><b>Hi Welcome 👋</b> </h4>
-                                <h4 style="color: red"> <b>Sorry, Certificate not available</b> </h4>
-                            </center>
-                            <br>
+                                <center>
+                                    <h4><b>Hi Welcome 👋</b> </h4>
+                                    <h4 style="color: red"> <b>Sorry, Certificate not available</b> </h4>
+                                </center>
+                                <br>
                                 <br>
                                 <hr>
                                 Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
@@ -64,3 +143,11 @@
 </body>
 
 </html>
+
+<script>
+    $(".num").keyup(function() {
+        if (this.value.length == this.maxLength) {
+            $(this).next('.num').focus();
+        }
+    });
+</script>

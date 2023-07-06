@@ -99,6 +99,42 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.css" />
     <link href="{{ asset('frontend/css/select2.css') }}" rel="stylesheet" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .border-pin {
+            display: flex;
+        }
+
+        .num {
+            color: #000;
+            background-color: transparent;
+            width: 17%;
+            height: 90px;
+            text-align: center;
+            outline: none;
+            padding: 1rem 1rem;
+            margin: 0 1px;
+            font-size: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: .5rem;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .num:focus,
+        .num:valid {
+            box-shadow: 0 0 .5rem rgba(20, 3, 255, 0.5);
+            inset 0 0 .5rem rgba(20, 3, 255, 0.5);
+            border-color: rgba(20, 3, 255, 0.5);
+        }
+    </style>
 @endpush
 
 @push('js')
@@ -259,5 +295,13 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        $(".num").keyup(function() {
+            if (this.value.length == this.maxLength) {
+                $(this).next('.num').focus();
+            }
+        });
     </script>
 @endpush
