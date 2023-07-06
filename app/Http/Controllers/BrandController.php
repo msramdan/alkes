@@ -53,9 +53,7 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
-
         Brand::create($request->validated());
-
         return redirect()
             ->route('brands.index')
             ->with('success', __('The brand was created successfully.'));

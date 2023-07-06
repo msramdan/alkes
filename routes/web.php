@@ -114,12 +114,10 @@ Route::resource('nomenklaturs', App\Http\Controllers\NomenklaturController::clas
 Route::post('/nomenklatur/pemeriksaan_fisik_fungsi', [App\Http\Controllers\NomenklaturController::class, 'deletePemeriksaan'])->name('nomenklatur.pemeriksaan.delete');
 Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment_type'])->name('save_equipment_type');
 
-
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
 Route::get('inventarisSertifikat/{id}', [App\Http\Controllers\InventariController::class, 'inventarisSertifikat'])->name('inventarisSertifikat')->middleware('auth');
 Route::post('inventarisSertifikatSave', [App\Http\Controllers\InventariController::class, 'inventarisSertifikatSave'])->name('inventarisSertifikatSave')->middleware('auth');
 Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariController::class, 'ThermohygrometerDelete'])->name('ThermohygrometerDelete')->middleware('auth');
-
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
 Route::post('updateStatus', [App\Http\Controllers\LaporanController::class, 'updateStatus'])->name('updateStatus')->middleware('auth');
@@ -130,4 +128,5 @@ Route::get('qr_layak/{id}', [App\Http\Controllers\LaporanController::class, 'qr_
 Route::get('qr_tidak_layak/{id}', [App\Http\Controllers\LaporanController::class, 'qr_tidak_layak'])->name('qr_tidak_layak')->middleware('auth');
 // =========================================================================================================
 Route::get('e_sertifikat/{id}', [InfoController::class, 'sertifikat'])->name('e_sertifikat');
+Route::post('download_e_sertifikat', [InfoController::class, 'download_e_sertifikat'])->name('download_e_sertifikat');
 Route::get('info_inventaris/{id}', [InfoController::class, 'info_inventaris'])->name('info_inventaris');

@@ -64,13 +64,10 @@
                                 <center>
                                     <h4><b>Hi Welcome 👋</b> </h4>
                                     <p>The certificate can be downloaded by clicking the button below</p>
-                                    <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#exampleModal"><i class="fa fa-download" aria-hidden="true"></i>
                                         Download Certificate
                                     </button>
-
-                                    <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-sm" role="document">
@@ -82,29 +79,43 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <div class="border-pin">
-                                                            <input type="text" name="satu" class="num"
-                                                                autocomplete="off" maxlength="1" required>
-                                                            <input type="text" name="dua" class="num"
-                                                                autocomplete="off" maxlength="1" required>
-                                                            <input type="text" name="tiga" class="num"
-                                                                autocomplete="off" maxlength="1" required>
-                                                            <input type="text" name="empat" class="num"
-                                                                autocomplete="off" maxlength="1" required>
-                                                            <input type="text" name="lima" class="num"
-                                                                autocomplete="off" maxlength="1" required>
-                                                            <input type="text" name="enam" class="num"
-                                                                autocomplete="off" maxlength="1" required>
+                                                <form action="{{ route('download_e_sertifikat') }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <div class="border-pin">
+                                                                <input type="hidden" name="laporan_id"
+                                                                    value="{{ $laporan->id }}">
+                                                                <input type="hidden" name="faskes_id"
+                                                                    value="{{ $laporan->faskes_id }}">
+
+                                                                <input type="text" name="satu" class="num"
+                                                                    autocomplete="off" maxlength="1" required>
+                                                                <input type="text" name="dua" class="num"
+                                                                    autocomplete="off" maxlength="1" required
+                                                                    onkeypress="return onlyNumberKey(event)">
+                                                                <input type="text" name="tiga" class="num"
+                                                                    autocomplete="off" maxlength="1" required
+                                                                    onkeypress="return onlyNumberKey(event)">
+                                                                <input type="text" name="empat" class="num"
+                                                                    autocomplete="off" maxlength="1" required
+                                                                    onkeypress="return onlyNumberKey(event)">
+                                                                <input type="text" name="lima" class="num"
+                                                                    autocomplete="off" maxlength="1" required
+                                                                    onkeypress="return onlyNumberKey(event)">
+                                                                <input type="text" name="enam" class="num"
+                                                                    autocomplete="off" maxlength="1" required
+                                                                    onkeypress="return onlyNumberKey(event)">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Submit</button>
-                                                </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -122,11 +133,13 @@
                                 </center>
                                 <br>
                                 <br>
+                                <div class="alert alert-danger" role="alert">
+                                    This is a danger alert—check it out!
+                                </div>
                                 <hr>
                                 Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
                                     style="width: 40%;">
                             @endif
-
                         </div>
                     </div>
                 </div>
@@ -140,14 +153,22 @@
     <script src="{{ asset('template_sertifikat') }}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="{{ asset('template_sertifikat') }}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
     <script src="{{ asset('template_sertifikat') }}/assets/js/apps.min.js"></script>
+    @include('sweetalert::alert')
 </body>
-
 </html>
-
 <script>
     $(".num").keyup(function() {
         if (this.value.length == this.maxLength) {
             $(this).next('.num').focus();
         }
     });
+</script>
+
+<script>
+    function onlyNumberKey(evt) {
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
 </script>
