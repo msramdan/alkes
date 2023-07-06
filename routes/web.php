@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    DashboardController,
     NomenklaturController,
     UserController,
     ProfileController,
@@ -17,8 +18,6 @@ use App\Http\Controllers\frontend\MetodeKerjaController;
 use App\Http\Controllers\frontend\HistoryLaporanLkController;
 use App\Http\Controllers\frontend\ShowHistoryLaporanController;
 use App\Http\Controllers\info\InfoController;
-
-
 
 //
 // ROUTE FRONT END TEKNISI
@@ -84,11 +83,13 @@ Route::post('reset-password', [AuthWebController::class, 'submitResetForm'])->na
 // =================================================================================================
 // ROUTE CMS ADMIN
 Route::middleware(['auth', 'web'])->group(function () {
-    Route::get('/', fn () => view('dashboard'));
-    Route::get('/dashboard', fn () => view('dashboard'));
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', ProfileController::class)->name('profile');
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleAndPermissionController::class);
+});
+Route::get('/dashboard', function () {
+    return redirect()->route('dashboard');
 });
 Route::get('kota/{provinsiId}', [WilayahController::class, 'kota'])->name('api.kota');
 Route::get('kecamatan/{kotaId}', [WilayahController::class, 'kecamatan'])->name('api.kecamatan');

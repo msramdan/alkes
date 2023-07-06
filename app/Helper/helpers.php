@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Laporan;
 use Illuminate\Support\Facades\DB;
 
 
@@ -81,4 +82,11 @@ function is_required($nomenklatur_id, $field, $value, $table)
     }else{
         return 'none';
     }
+}
+
+function totalLaporan($status)
+{
+    $totalStatus = Laporan::where('status_laporan', $status)
+        ->get();
+    return  $totalStatus->count();
 }
