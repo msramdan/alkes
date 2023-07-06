@@ -64,6 +64,7 @@
                                 <center>
                                     <h4><b>Hi Welcome 👋</b> </h4>
                                     <p>The certificate can be downloaded by clicking the button below</p>
+                                    <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#exampleModal"><i class="fa fa-download" aria-hidden="true"></i>
                                         Download Certificate
@@ -122,7 +123,7 @@
                                     <p style="margin-top: 10px"><b>No Laporan : {{ $laporan->no_laporan }} </b></p>
                                 </center>
                                 <br>
-                                <br>
+
                                 <hr>
                                 Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
                                     style="width: 40%;">
