@@ -14,7 +14,7 @@ class Faske extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['nama_faskes', 'jenis_faskes_id', 'provinsi_id', 'kabkot_id', 'kecamatan_id', 'kelurahan_id', 'alamat', 'zip_kode'];
+    protected $fillable = ['nama_faskes', 'jenis_faskes_id', 'provinsi_id', 'kabkot_id', 'kecamatan_id', 'kelurahan_id', 'alamat', 'zip_kode','pin'];
 
 
     public function jenis_faske()

@@ -177,4 +177,15 @@ class FaskeController extends Controller
         $nameFile = 'Report_faskes' . $date;
         return Excel::download(new FaskesExport($jenisFaskes, $kabkots), $nameFile . '.xlsx');
     }
+
+    public function updatePin(Request $request)
+    {
+        $faskes = Faske::findOrFail($request->id);
+        $faskes->update([
+            'pin' => $request->pin,
+        ]);
+        return redirect()
+            ->route('faskes.index')
+            ->with('success', __('Update pin updated successfully.'));
+    }
 }

@@ -79,6 +79,7 @@
                                             <th>{{ __('Kecamatan') }}</th>
                                             <th>{{ __('Kelurahan') }}</th>
                                             <th>{{ __('Alamat') }}</th>
+                                            <th>{{ __('PIN') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -143,6 +144,10 @@
             {
                 data: 'alamat',
                 name: 'alamat',
+            },
+            {
+                data: 'pin',
+                name: 'pin',
             },
             {
                 data: 'action',

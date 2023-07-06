@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('kelurahan_id')->nullable()->constrained('kelurahans')->restrictOnUpdate()->nullOnDelete();
             $table->string('zip_kode', 10);
             $table->longText('alamat');
+            $table->integer('pin')->default('123456');
             $table->timestamps();
         });
     }
