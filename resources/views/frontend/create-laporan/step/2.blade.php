@@ -4,6 +4,7 @@
             @php
                 $inventaris = DB::table('inventaris')
                     ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
+                    ->select('inventaris.*', 'brands.nama_merek')
                     ->where('jenis_alat_id', $row->type_id)
                     ->get();
             @endphp

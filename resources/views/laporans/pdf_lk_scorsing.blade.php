@@ -64,6 +64,10 @@
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
     }
+
+    thead {
+        display: table-row-group;
+    }
 </style>
 
 
@@ -194,7 +198,7 @@
                         style="float: right">&deg;C</span></td>
                 <td>{{ ($laporan_kondisi_lingkungan->suhu_awal + $laporan_kondisi_lingkungan->suhu_akhir) / 2 }}
                 </td>
-                <td>{{ ($laporan_kondisi_lingkungan->intercept_suhu + $laporan_kondisi_lingkungan->x_variable_suhu) * (($laporan_kondisi_lingkungan->suhu_awal + $laporan_kondisi_lingkungan->suhu_akhir) / 2) }}
+                <td>{{ round($laporan_kondisi_lingkungan->intercept_suhu + $laporan_kondisi_lingkungan->x_variable_suhu * (($laporan_kondisi_lingkungan->suhu_awal + $laporan_kondisi_lingkungan->suhu_akhir) / 2), 2) }}
                 </td>
                 <td>{{ $laporan_kondisi_lingkungan->uc_suhu }}</td>
             </tr>
@@ -208,7 +212,7 @@
                         style="float: right">%RH</span>
                 </td>
                 <td>{{ ($laporan_kondisi_lingkungan->kelembapan_ruangan_awal + $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir) / 2 }}
-                <td>{{ ($laporan_kondisi_lingkungan->intercept_kelembapan + $laporan_kondisi_lingkungan->x_variable_kelembapan) * (($laporan_kondisi_lingkungan->kelembapan_ruangan_awal + $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir) / 2) }}
+                <td>{{ round($laporan_kondisi_lingkungan->intercept_kelembapan + $laporan_kondisi_lingkungan->x_variable_kelembapan * 56, 2) }}
                 </td>
                 <td>{{ $laporan_kondisi_lingkungan->uc_kelembapan }}</td>
             </tr>
@@ -223,26 +227,32 @@
             <tr>
                 <th style="width: 4%;text-align: center;">No</th>
                 <th style="width: 24%;text-align: center;">Bagian Alat</th>
-                <th style="width: 52%;text-align: center;">Hasil Pemeriksaan</th>
+                {{-- <th style="width: 52%;text-align: center;">Hasil Pemeriksaan</th> --}}
                 <th style="width: 20%;text-align: center;">Hasil Pengamatan</th>
+                <th style="width: 20%;text-align: center;">Skorsing</th>
+                <th style="width: 20%;text-align: center;">Pernyataan Penilaian
+                </th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($kondisi_fisik_fungsi as $row)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td style="text-align: justify">{{ $row->field_parameter_fisik_fungsi }}</td>
-                    <td style="text-align: justify">{{ $row->field_batas_pemeriksaan }}</td>
-                    <td style="text-align: justify"> <b>{{ $row->value == 'baik' ? 'Baik' : 'Tidak Baik' }}</b> </td>
-                </tr>
-            @empty
-                <tr>
-                    <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">-</td>
-                </tr>
-            @endforelse
+            <?php
+                $i =1;
+                foreach ($kondisi_fisik_fungsi as $row) { ?>
+            <tr>
+                <td>{{ $i++ }}</td>
+                <td style="text-align: justify">{{ $row->field_parameter_fisik_fungsi }}</td>
+                {{-- <td style="text-align: justify">{{ $row->field_batas_pemeriksaan }}</td> --}}
+                <td style="text-align: justify"> <b>{{ $row->value == 'baik' ? 'Baik' : 'Tidak Baik' }}</b> </td>
+                <?php if ($i == 2) { ?>
+                <td rowspan="{{ $count_kondisi_fisik_fungsi }}"
+                    style="width: 20%;text-align: center;vertical-align: middle;"><b> {{ $score_fisik }} </b> </td>
+                <td rowspan="{{ $count_kondisi_fisik_fungsi }}"
+                    style="width: 20%;text-align: center;vertical-align: middle;">
+                    <b>{{ $score_fisik >= 7 ? 'Baik' : 'Tidak Baik' }}</b>
+                </td>
+                <?php } ?>
+            </tr>
+            <?php } ?>
         </tbody>
     </table>
     @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
@@ -251,10 +261,14 @@
             style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
             <thead>
                 <tr>
-                    <th style="width: 4%;text-align: center;">No</th>
-                    <th colspan="2" style="width: 24%;text-align: center;">Parameter</th>
-                    <th style="width: 20%;text-align: center;">Terukur</th>
-                    <th style="width: 20%;text-align: center;">Ambang Batas</th>
+                    <th style="width: 5%;text-align: center;">No</th>
+                    <th colspan="2" style="width: 30%;text-align: center;">Parameter</th>
+                    <th style="width: 10%;text-align: center;">Terukur</th>
+                    <th style="width: 15%;text-align: center;">Ambang Batas</th>
+                    <th style="width: 8%;text-align: center;">Koreksi sertifikat</th>
+                    <th style="width: 10%;text-align: center;">Hasil</th>
+                    <th style="width: 8%;text-align: center;">Skorsing</th>
+                    <th style="width: 8%;text-align: center;">Pernyataan Penilaian</th>
                 </tr>
             </thead>
             <tbody>
@@ -262,68 +276,109 @@
                     <td rowspan="3">1</td>
                     <td rowspan="3" style="text-align: justify">Tegangan Input (Main Voltage)</td>
                     <td style="text-align: justify">Phase - Netral</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','phase-netral')}} Vac</td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral') }}
+                        Vac</td>
                     <td style="text-align: justify">220 ± 10% Vac
                     </td>
+                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify" rowspan="9">-</td>
+                    <td style="text-align: justify" rowspan="9">-</td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Phase - Ground</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','phase-ground')}} Vac</td>
-                    <td style="text-align: justify">220 ± 10% Vac
-                    </td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground') }}
+                        Vac</td>
+                    <td style="text-align: justify">220 ± 10% Vac</td>
+                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify">-</td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Ground - Netral</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','ground-netral')}} Vac</td>
-                    <td style="text-align: justify"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 5 Vac
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral') }}
+                        Vac</td>
+                    <td style="text-align: justify"><img src="../public/asset/kurang.png"
+                            style="width: 6px; margin-top:3px"> 5 Vac
                     </td>
+                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify">-</td>
                 </tr>
                 <tr>
                     <td rowspan="3">2</td>
                     <td colspan="2" style="text-align: justify">Resistansi pembumian protektif</td>
-                    <td colspan="2" style="text-align: justify;background-color: gray"></td>
+                    <td colspan="4" style="text-align: justify;background-color: gray"></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
-                    <td style="text-align: justify;">{{ get_data_litsrik($laporan->no_laporan,'slug','kabel-dapat-dilepas-dps')}} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    <td style="text-align: justify;">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
+                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
-                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 200 m<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png"
+                            style="width: 6px; margin-top:3px"> 0.2 <img src="../public/asset/ohm.png"
+                            style="width: 10px; margin-top:3px">
                     </td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
+                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') <= 0.2 ? 'lulus' : 'Tidak Lulus' }}</td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
-                    <td style="text-align: justify;">{{ get_data_litsrik($laporan->no_laporan,'slug','kabel-tidak-dapat-dilepas-nps')}} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    <td style="text-align: justify;">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
+                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
-                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 300 m<img src="../public/asset/ohm.png" style="width: 10px; margin-top:4px">
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png"
+                            style="width: 6px; margin-top:3px"> 0.3 <img src="../public/asset/ohm.png"
+                            style="width: 10px; margin-top:4px">
                     </td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
+                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') <= 0.3 ? 'lulus' : 'Tidak Lulus' }}</td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','resistansi-isolasi')}} M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
-                    <td style="text-align: justify">> 2<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
+                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
+                    <td style="text-align: justify">> 2 M<img src="../public/asset/ohm.png"
+                            style="width: 10px; margin-top:3px">
 
                     </td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
+                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">-</td>
                 </tr>
                 <tr>
                     <td rowspan="2">4</td>
-                    <td colspan="2" style="text-align: justify">Arus bocor peralatan metode langsung/diferensial
+                    <td colspan="2" style="text-align: justify">Arus Bocor Pada peralatan
                     </td>
-                    <td colspan="2" style="text-align: justify;background-color: gray"></td>
+                    <td colspan="4" style="text-align: justify;background-color: gray"></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
-                    <td style="text-align: justify;">{{ get_data_litsrik($laporan->no_laporan,'slug','kelas-i-tipe-bbfcf')}} µA
+                    <td style="text-align: justify;">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA
                     </td>
-                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 500 µA
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png"
+                            style="width: 6px; margin-top:3px"> 500 µA
                     </td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA</td>
+                    <td style="text-align: justify">-</td>
                 </tr>
             </tbody>
         </table>
     @endif
 
-    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN KINERJA</b></p>
-    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH TEKNIS</b></p>
+    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
+            KINERJA</b></p>
+    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
+            TEKNIS</b></p>
     <table class="table table-bordered table-sm"
         style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
         <tbody>
@@ -384,13 +439,15 @@
                 <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
                 </td>
                 <td colspan="2" style="text-align: center">
-                    <img style="width: 80px;margin-top:5px;margin-bottom:3px" src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
-                    <span>{{ $laporan->nama_teknisi}}</span>
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                        src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
+                    <span>{{ $laporan->nama_teknisi }}</span>
                 </td>
                 <td style="text-align: center">
                     @if (isset($laporan->name_user))
-                    <img style="width: 80px;margin-top:5px;margin-bottom:3px" src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
-                    <span>{{$laporan->name_user}}</span>
+                        <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                            src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
+                        <span>{{ $laporan->name_user }}</span>
                     @endif
                 </td>
             </tr>

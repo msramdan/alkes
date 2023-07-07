@@ -136,20 +136,19 @@ class LaporanLkController extends Controller
         }
 
         //Create Laporan kondisi lingkungan
-
         DB::table('laporan_kondisi_lingkungan')->insert([
             'no_laporan' => $laporan->no_laporan,
             'suhu_awal' => $request->lingkungan_suhu_awal ?: null,
             'suhu_akhir' => $request->lingkungan_suhu_akhir ?: null,
             'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal ? $request->lingkungan_kelembapan_ruangan_awal :  null,
             'kelembapan_ruangan_akhir' => $request->lingkungan_kelembapan_ruangan_akhir ? $request->lingkungan_kelembapan_ruangan_akhir : null,
-            'tahun' => isset($sertifikat->tahun),
-            'uc_suhu' => isset($sertifikat->uc_suhu),
-            'intercept_suhu' => isset($sertifikat->intercept_suhu),
-            'x_variable_suhu' => isset($sertifikat->x_variable_suhu),
-            'uc_kelembapan' => isset($sertifikat->uc_kelembapan),
-            'intercept_kelembapan' => isset($sertifikat->intercept_kelembapan),
-            'x_variable_kelembapan' => isset($sertifikat->x_variable_kelembapan),
+            'tahun' => $sertifikat->tahun,
+            'uc_suhu' => $sertifikat->uc_suhu,
+            'intercept_suhu' => $sertifikat->intercept_suhu,
+            'x_variable_suhu' => $sertifikat->x_variable_suhu,
+            'uc_kelembapan' => $sertifikat->uc_kelembapan,
+            'intercept_kelembapan' => $sertifikat->intercept_kelembapan,
+            'x_variable_kelembapan' => $sertifikat->x_variable_kelembapan,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

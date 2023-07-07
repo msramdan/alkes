@@ -318,6 +318,15 @@ class LaporanController extends Controller
             ->first();
         $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
+        $count_kondisi_fisik_fungsi = count($kondisi_fisik_fungsi);
+
+        $kondisi_fisik_fungsi_baik = DB::table('laporan_kondisi_fisik_fungsi')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->where('value', 'baik')->get();
+        $score_fisik = (count($kondisi_fisik_fungsi_baik) / count($kondisi_fisik_fungsi)) * 10;
+
+
+
         $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
             ->select('*')
             ->where('no_laporan', $laporan->no_laporan)
@@ -334,6 +343,8 @@ class LaporanController extends Controller
             'laporan_telaah_teknis' => $laporan_telaah_teknis,
             'laporan_kesimpulan_telaah_teknis' => $laporan_kesimpulan_telaah_teknis,
             'laporan_pengukuran_keselamatan_listrik' => $laporan_pengukuran_keselamatan_listrik,
+            'count_kondisi_fisik_fungsi' => $count_kondisi_fisik_fungsi,
+            'score_fisik' => round($score_fisik, 2),
             'count_laporan_pengukuran_keselamatan_listrik' => $count_laporan_pengukuran_keselamatan_listrik
         ]);
         return $pdf->stream();
