@@ -125,6 +125,8 @@ Route::post('updateStatus', [App\Http\Controllers\LaporanController::class, 'upd
 Route::get('export-data-lk/{start_date}/{end_date}/{teknisi}/{faskes}/{status}', [App\Http\Controllers\LaporanController::class, 'export'])->name('exportReportLk')->middleware('auth');
 Route::get('pdf_lk/{id}', [App\Http\Controllers\LaporanController::class, 'pdf_lk'])->name('pdf_lk')->middleware('auth');
 Route::get('pdf_lk_scorsing/{id}', [App\Http\Controllers\LaporanController::class, 'pdf_lk_scorsing'])->name('pdf_lk_scorsing')->middleware('auth');
+Route::get('pdf_lk_laporan/{id}', [App\Http\Controllers\LaporanController::class, 'pdf_lk_laporan'])->name('pdf_lk_laporan')->middleware('auth');
+
 Route::get('qr_layak/{id}', [App\Http\Controllers\LaporanController::class, 'qr_layak'])->name('qr_layak')->middleware('auth');
 Route::get('qr_tidak_layak/{id}', [App\Http\Controllers\LaporanController::class, 'qr_tidak_layak'])->name('qr_tidak_layak')->middleware('auth');
 // =========================================================================================================

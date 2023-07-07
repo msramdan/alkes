@@ -281,7 +281,13 @@ class LaporanController extends Controller
 
     public function pdf_lk_scorsing($id)
     {
-        $laporan = Laporan::find($id);
+        $laporan = DB::table('laporans')
+            ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
+            ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
+            ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi', 'users.name as name_user')
+            ->where('laporans.id', $id)
+            ->first();
+
         $nomenklaturs = Nomenklatur::find($laporan->nomenklatur_id);
         $laporan_pendataan_administrasi =
             DB::table('laporan_pendataan_administrasi')
@@ -300,15 +306,95 @@ class LaporanController extends Controller
             ->select('inventaris.*', 'brands.nama_merek', 'types.jenis_alat')
             ->where('no_laporan', $laporan->no_laporan)
             ->get();
+        $laporan_telaah_teknis =
+            DB::table('laporan_telaah_teknis')
+            ->select('laporan_telaah_teknis.*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $laporan_kesimpulan_telaah_teknis =
+            DB::table('laporan_kesimpulan_telaah_teknis')
+            ->select('laporan_kesimpulan_telaah_teknis.*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->first();
         $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
+        $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
+            ->select('*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $count_laporan_pengukuran_keselamatan_listrik = count($laporan_pengukuran_keselamatan_listrik);
         $pdf = PDF::loadview('laporans.pdf_lk_scorsing', [
+            'laporan' => $laporan,
             'nomenklaturs' => $nomenklaturs,
             'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
             'dataAwal' => $dataAwal,
             'laporan_daftar_alat_ukur' => $laporan_daftar_alat_ukur,
             'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
-            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan
+            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan,
+            'laporan_telaah_teknis' => $laporan_telaah_teknis,
+            'laporan_kesimpulan_telaah_teknis' => $laporan_kesimpulan_telaah_teknis,
+            'laporan_pengukuran_keselamatan_listrik' => $laporan_pengukuran_keselamatan_listrik,
+            'count_laporan_pengukuran_keselamatan_listrik' => $count_laporan_pengukuran_keselamatan_listrik
+        ]);
+        return $pdf->stream();
+    }
+
+    public function pdf_lk_laporan($id)
+    {
+        $laporan = DB::table('laporans')
+            ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
+            ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
+            ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi', 'users.name as name_user')
+            ->where('laporans.id', $id)
+            ->first();
+
+        $nomenklaturs = Nomenklatur::find($laporan->nomenklatur_id);
+        $laporan_pendataan_administrasi =
+            DB::table('laporan_pendataan_administrasi')
+            ->join('nomenklatur_pendataan_administrasi', 'laporan_pendataan_administrasi.slug', '=', 'nomenklatur_pendataan_administrasi.slug')
+            ->select('laporan_pendataan_administrasi.*', 'nomenklatur_pendataan_administrasi.satuan',)
+            ->where('no_laporan', $laporan->no_laporan)
+            ->where('nomenklatur_id', $laporan->nomenklatur_id)
+            ->get();
+
+        $dataAwal = ceil(count($laporan_pendataan_administrasi) / 2);
+        $laporan_daftar_alat_ukur =
+            DB::table('laporan_daftar_alat_ukur')
+            ->join('inventaris', 'laporan_daftar_alat_ukur.inventaris_id', '=', 'inventaris.id')
+            ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
+            ->join('types', 'inventaris.jenis_alat_id', '=', 'types.id')
+            ->select('inventaris.*', 'brands.nama_merek', 'types.jenis_alat')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $laporan_telaah_teknis =
+            DB::table('laporan_telaah_teknis')
+            ->select('laporan_telaah_teknis.*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $laporan_kesimpulan_telaah_teknis =
+            DB::table('laporan_kesimpulan_telaah_teknis')
+            ->select('laporan_kesimpulan_telaah_teknis.*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->first();
+        $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
+        $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
+        $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
+            ->select('*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
+        $count_laporan_pengukuran_keselamatan_listrik = count($laporan_pengukuran_keselamatan_listrik);
+        $pdf = PDF::loadview('laporans.pdf_laporan', [
+            'laporan' => $laporan,
+            'nomenklaturs' => $nomenklaturs,
+            'laporan_pendataan_administrasi' => $laporan_pendataan_administrasi,
+            'dataAwal' => $dataAwal,
+            'laporan_daftar_alat_ukur' => $laporan_daftar_alat_ukur,
+            'kondisi_fisik_fungsi' => $kondisi_fisik_fungsi,
+            'laporan_kondisi_lingkungan' => $laporan_kondisi_lingkungan,
+            'laporan_telaah_teknis' => $laporan_telaah_teknis,
+            'laporan_kesimpulan_telaah_teknis' => $laporan_kesimpulan_telaah_teknis,
+            'laporan_pengukuran_keselamatan_listrik' => $laporan_pengukuran_keselamatan_listrik,
+            'count_laporan_pengukuran_keselamatan_listrik' => $count_laporan_pengukuran_keselamatan_listrik
         ]);
         return $pdf->stream();
         // return $pdf->download('Lembar-Kerja');

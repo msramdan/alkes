@@ -175,10 +175,10 @@
         </button>
         <div class="dropdown-menu" style="">
             @if ($model->status_laporan != 'Initial')
-                <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">LK Input</a>
+                {{-- <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">LK Input</a> --}}
                 <a href="{{ route('pdf_lk_scorsing', $model->id) }}" target="_blank" class="dropdown-item">LK
                     Skorsing</a>
-                <a href="{{ route('pdf_lk', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
+                <a href="{{ route('pdf_lk_laporan', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
                 <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
                     data-bs-target="#modalQr{{ $model->id }}">E-Sertifikat
                 </a>

@@ -14,6 +14,56 @@
         border-bottom: 1px solid black;
         margin-top: 7px
     }
+
+    .new {
+        padding: 50px;
+    }
+
+    .form-group {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .form-group input {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+    }
+
+    .form-group label {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .form-group label:before {
+        content: '';
+        -webkit-appearance: none;
+        background-color: transparent;
+        border: 1px solid #000000;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+        padding: 5px;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    .form-group input:checked+label:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -5px;
+        left: 5px;
+        width: 6px;
+        height: 12px;
+        border: solid #000000;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
 </style>
 
 
@@ -33,7 +83,7 @@
                     </center>
                 </h6>
                 <center>
-                    <span>{{ $nomenklaturs->no_dokumen }}</span>
+                    <span>{{ $laporan->no_dokumen }}</span>
                 </center>
             </td>
         </tr>
@@ -123,8 +173,7 @@
     </table>
 
     <p style="font-size: 14px"><b>C. PENGUKURAN KONDISI LINGKUNGAN </b></p>
-    <table class="table table-bordered table-sm"
-        style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px;padding-right:18px">
+    <table class="table table-bordered table-sm" style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px;">
         <thead>
             <tr>
                 <th style="width: 4%;text-align: center;">No</th>
@@ -194,6 +243,157 @@
                     <td style="text-align: center;">-</td>
                 </tr>
             @endforelse
+        </tbody>
+    </table>
+    @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
+        <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b></p>
+        <table class="table table-bordered table-sm"
+            style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+            <thead>
+                <tr>
+                    <th style="width: 4%;text-align: center;">No</th>
+                    <th colspan="2" style="width: 24%;text-align: center;">Parameter</th>
+                    <th style="width: 20%;text-align: center;">Terukur</th>
+                    <th style="width: 20%;text-align: center;">Ambang Batas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3">1</td>
+                    <td rowspan="3" style="text-align: justify">Tegangan Input (Main Voltage)</td>
+                    <td style="text-align: justify">Phase - Netral</td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','phase-netral')}} Vac</td>
+                    <td style="text-align: justify">220 ± 10% Vac
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: justify">Phase - Ground</td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','phase-ground')}} Vac</td>
+                    <td style="text-align: justify">220 ± 10% Vac
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: justify">Ground - Netral</td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','ground-netral')}} Vac</td>
+                    <td style="text-align: justify"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 5 Vac
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">2</td>
+                    <td colspan="2" style="text-align: justify">Resistansi pembumian protektif</td>
+                    <td colspan="2" style="text-align: justify;background-color: gray"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
+                    <td style="text-align: justify;">{{ get_data_litsrik($laporan->no_laporan,'slug','kabel-dapat-dilepas-dps')}} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 200 m<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
+                    <td style="text-align: justify;">{{ get_data_litsrik($laporan->no_laporan,'slug','kabel-tidak-dapat-dilepas-nps')}} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 300 m<img src="../public/asset/ohm.png" style="width: 10px; margin-top:4px">
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan,'slug','resistansi-isolasi')}} M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">> 2<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">4</td>
+                    <td colspan="2" style="text-align: justify">Arus bocor peralatan metode langsung/diferensial
+                    </td>
+                    <td colspan="2" style="text-align: justify;background-color: gray"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
+                    <td style="text-align: justify;">{{ get_data_litsrik($laporan->no_laporan,'slug','kelas-i-tipe-bbfcf')}} µA
+                    </td>
+                    <td style="text-align: justify;"><img src="../public/asset/kurang.png" style="width: 6px; margin-top:3px"> 500 µA
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    @endif
+
+    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN KINERJA</b></p>
+    <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH TEKNIS</b></p>
+    <table class="table table-bordered table-sm"
+        style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+        <tbody>
+            @forelse ($laporan_telaah_teknis as $row)
+                <tr>
+                    <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
+                    <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
+                    <td>
+                        <div class="form-group" style="margin: 0px">
+                            <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
+                            <label>Baik</label>
+                        </div>
+                        <div class="form-group" style="margin: 0px">
+                            <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
+                            <label>Tidak Baik</label>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+    <table class="table table-bordered table-sm"
+        style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+        <tbody>
+            <tr>
+                <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-sm"
+        style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+        <tbody>
+            <tr>
+                <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
+                    hasil kalibrasi, alat ini dinyatakan </td>
+                <td style="width: 20%;text-align: center;vertical-align: middle;">
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" checked>
+                        <label><b style="font-size: 12px">LAIK PAKAI</b></label>
+                    </div>
+                </td>
+                <td style="width: 20%;text-align: center;vertical-align: middle;">
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox">
+                        <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
+                    </div>
+                </td>
+                <td style="width: 20%;text-align: center;vertical-align: middle;"><b
+                        style="font-size: 12px">PENYELIA</b> </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
+                </td>
+                <td colspan="2" style="text-align: center">
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px" src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
+                    <span>{{ $laporan->nama_teknisi}}</span>
+                </td>
+                <td style="text-align: center">
+                    @if (isset($laporan->name_user))
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px" src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
+                    <span>{{$laporan->name_user}}</span>
+                    @endif
+                </td>
+            </tr>
         </tbody>
     </table>
 </body>
