@@ -21,6 +21,7 @@ return array(
     'App\\Http\\Controllers\\BannerManagementController' => $baseDir . '/app/Http/Controllers/BannerManagementController.php',
     'App\\Http\\Controllers\\BrandController' => $baseDir . '/app/Http/Controllers/BrandController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
     'App\\Http\\Controllers\\FaskeController' => $baseDir . '/app/Http/Controllers/FaskeController.php',
     'App\\Http\\Controllers\\InventariController' => $baseDir . '/app/Http/Controllers/InventariController.php',
     'App\\Http\\Controllers\\JenisFaskeController' => $baseDir . '/app/Http/Controllers/JenisFaskeController.php',

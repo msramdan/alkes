@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('laporan_pengukuran_keselamatan_listrik', function (Blueprint $table) {
+        Schema::create('sertifikat_electrical_safety_analyzer', function (Blueprint $table) {
             $table->id();
-            $table->string('no_laporan', 100);
-            $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
-            $table->string('field_keselamatan_listrik')->nullable();
-            $table->string('slug')->nullable();
-            $table->string('value')->nullable();
+            $table->foreignId('inventaris_id')->constrained('inventaris')->restrictOnUpdate()->cascadeOnDelete();
             $table->string('tahun', 4);
             // LIVE TO NETRAL
             $table->double('intercept1', 15, 9)->nullable();
@@ -30,7 +26,7 @@ return new class extends Migration
             // LIVE TO EARTH
             $table->double('intercept3', 15, 9)->nullable();
             $table->double('x_variable3', 15, 9)->nullable();
-
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -42,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laporan_pengukuran_keselamatan_listrik');
+        Schema::dropIfExists('sertifikat_electrical_safety_analyzer');
     }
 };

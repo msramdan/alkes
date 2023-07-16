@@ -683,6 +683,7 @@ class ComposerStaticInit9729285d7bc0c4b62d06bd7f76f42dbe
         'App\\Http\\Controllers\\BannerManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/BannerManagementController.php',
         'App\\Http\\Controllers\\BrandController' => __DIR__ . '/../..' . '/app/Http/Controllers/BrandController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\FaskeController' => __DIR__ . '/../..' . '/app/Http/Controllers/FaskeController.php',
         'App\\Http\\Controllers\\InventariController' => __DIR__ . '/../..' . '/app/Http/Controllers/InventariController.php',
         'App\\Http\\Controllers\\JenisFaskeController' => __DIR__ . '/../..' . '/app/Http/Controllers/JenisFaskeController.php',

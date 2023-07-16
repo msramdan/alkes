@@ -321,9 +321,12 @@
                             style="width: 6px; margin-top:3px"> 0.2 <img src="../public/asset/ohm.png"
                             style="width: 10px; margin-top:3px">
                     </td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
-                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') <= 0.2 ? 'lulus' : 'Tidak Lulus' }}</td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
+                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') <= 0.2 ? 'Lulus' : 'Tidak Lulus' }}
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
@@ -335,9 +338,12 @@
                             style="width: 6px; margin-top:3px"> 0.3 <img src="../public/asset/ohm.png"
                             style="width: 10px; margin-top:4px">
                     </td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
-                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') <= 0.3 ? 'lulus' : 'Tidak Lulus' }}</td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
+                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') <= 0.3 ? 'Lulus' : 'Tidak Lulus' }}
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
@@ -350,9 +356,12 @@
                             style="width: 10px; margin-top:3px">
 
                     </td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
-                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
-                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
+                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') > 2 ? 'Lulus' : 'Tidak Lulus' }}
+                    </td>
                 </tr>
                 <tr>
                     <td rowspan="2">4</td>
@@ -368,8 +377,11 @@
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 500 µA
                     </td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA</td>
-                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA</td>
+                    <td style="text-align: justify">
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') <= 500 ? 'Lulus' : 'Tidak Lulus' }}
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -201,8 +201,8 @@ class InventariController extends Controller
         $data = Inventari::where('id', $inventaris_id)->first();
         if ($data->jenis_alat_id == 39) {
             return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
-        } else {
-            return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
+        } else if ($data->jenis_alat_id == 5) {
+            return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
         }
     }
 
@@ -226,6 +226,23 @@ class InventariController extends Controller
                     'file' =>  $file->hashName(),
                 ]
             );
+        } else if ($data->jenis_alat_id == 5) {
+            //upload file
+            $file = $request->file('file');
+            $file->storeAs('public/sertifikat/sertifikat_electrical_safety_analyzer', $file->hashName());
+            DB::table('sertifikat_electrical_safety_analyzer')->insert(
+                [
+                    'inventaris_id' => $request->inventaris_id,
+                    'tahun' => $request->tahun,
+                    'intercept1' => $request->intercept1,
+                    'x_variable1' => $request->x_variable1,
+                    'intercept2' => $request->intercept2,
+                    'x_variable2' => $request->x_variable2,
+                    'intercept3' => $request->intercept3,
+                    'x_variable3' => $request->x_variable3,
+                    'file' =>  $file->hashName(),
+                ]
+            );
         } else {
             die();
         }
@@ -239,6 +256,16 @@ class InventariController extends Controller
         $data = DB::table('sertifikat_thermohygrometer')->where('id', $id)->first();
         Storage::delete('public/sertifikat/Thermohygrometer/' . $data->file);
         DB::table('sertifikat_thermohygrometer')->where('id', $id)->delete();
+        return redirect()
+            ->back()
+            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
+    }
+
+    public function EsaDelete($id)
+    {
+        $data = DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->first();
+        Storage::delete('public/sertifikat/sertifikat_electrical_safety_analyzer/' . $data->file);
+        DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->delete();
         return redirect()
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil dihapus'));

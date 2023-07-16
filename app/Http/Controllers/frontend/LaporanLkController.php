@@ -119,11 +119,14 @@ class LaporanLkController extends Controller
             $nomenklatur_type = DB::table('nomenklatur_type')
                 ->where('id', $nomenklatur_type_id[1])
                 ->first();
-            // Thermohygrometer
             if ($nomenklatur_type->type_id == 39) {
-                // get detail $sertifikat
+                // get detail $sertifikat Thermohygrometer
                 $inventaris_id = $request->{$alat};
                 $sertifikat = DB::table('sertifikat_thermohygrometer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+            } else if ($nomenklatur_type->type_id == 5) {
+                // get detail $sertifikat  ElectricalSafetyAnalyzer
+                $inventaris_id = $request->{$alat};
+                $ElectricalSafetyAnalyzer = DB::table('sertifikat_electrical_safety_analyzer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
             }
 
             DB::table('laporan_daftar_alat_ukur')->insert([
@@ -189,6 +192,13 @@ class LaporanLkController extends Controller
                 'field_keselamatan_listrik' => $nomenklatur_keselamatan_listrik->field_keselamatan_listrik,
                 'value' => $request->{$listrik},
                 'slug' => Str::slug($nomenklatur_keselamatan_listrik->field_keselamatan_listrik),
+                'tahun' => $ElectricalSafetyAnalyzer->tahun,
+                'intercept1' => $ElectricalSafetyAnalyzer->intercept1,
+                'x_variable1' => $ElectricalSafetyAnalyzer->x_variable1,
+                'intercept2' => $ElectricalSafetyAnalyzer->intercept2,
+                'x_variable2' => $ElectricalSafetyAnalyzer->x_variable2,
+                'intercept3' => $ElectricalSafetyAnalyzer->intercept3,
+                'x_variable3' => $ElectricalSafetyAnalyzer->x_variable3,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
