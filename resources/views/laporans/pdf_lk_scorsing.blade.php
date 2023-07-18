@@ -212,7 +212,7 @@
                         style="float: right">%RH</span>
                 </td>
                 <td>{{ ($laporan_kondisi_lingkungan->kelembapan_ruangan_awal + $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir) / 2 }}
-                <td>{{ round($laporan_kondisi_lingkungan->intercept_kelembapan + $laporan_kondisi_lingkungan->x_variable_kelembapan * 56, 2) }}
+                <td>{{ round($laporan_kondisi_lingkungan->intercept_kelembapan + $laporan_kondisi_lingkungan->x_variable_kelembapan * (($laporan_kondisi_lingkungan->kelembapan_ruangan_awal + $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir) / 2), 2) }}
                 </td>
                 <td>{{ $laporan_kondisi_lingkungan->uc_kelembapan }}</td>
             </tr>
@@ -277,34 +277,36 @@
                     <td rowspan="3" style="text-align: justify">Tegangan Input (Main Voltage)</td>
                     <td style="text-align: justify">Phase - Netral</td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral') }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value }}
                         Vac</td>
                     <td style="text-align: justify">220 ± 10% Vac
                     </td>
-                    <td style="text-align: justify">-</td>
-                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify">
+                        {{ $hitungPhaseNetral =  round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral'))->value), 2) }}
+                    </td>
+                    <td style="text-align: justify">{{ $hitungPhaseNetral > 198 ? 'Lulus' : 'Tidak Lulus' }}</td>
                     <td style="text-align: justify" rowspan="9">-</td>
                     <td style="text-align: justify" rowspan="9">-</td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Phase - Ground</td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground') }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value }}
                         Vac</td>
                     <td style="text-align: justify">220 ± 10% Vac</td>
-                    <td style="text-align: justify">-</td>
-                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify"> {{ $hitungPhaseGround =  round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground'))->value), 2) }}</td>
+                    <td style="text-align: justify">{{ $hitungPhaseGround > 198 ? 'Lulus' : 'Tidak Lulus' }}</td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Ground - Netral</td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral') }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value }}
                         Vac</td>
                     <td style="text-align: justify"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 5 Vac
                     </td>
-                    <td style="text-align: justify">-</td>
-                    <td style="text-align: justify">-</td>
+                    <td style="text-align: justify"> {{ $hitungGroundNetral =  round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + (get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * (get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral'))->value), 2) }}</td>
+                    <td style="text-align: justify">{{ $hitungGroundNetral < 5 ? 'Lulus' : 'Tidak Lulus' }}</td>
                 </tr>
                 <tr>
                     <td rowspan="3">2</td>
@@ -314,7 +316,7 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
                     <td style="text-align: justify;">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value }} <img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
@@ -322,16 +324,16 @@
                             style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value }} <img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') <= 0.2 ? 'Lulus' : 'Tidak Lulus' }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value <= 0.2 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
                     <td style="text-align: justify;">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value }} <img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
@@ -339,17 +341,17 @@
                             style="width: 10px; margin-top:4px">
                     </td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value }} <img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') <= 0.3 ? 'Lulus' : 'Tidak Lulus' }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value <= 0.3 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value }} M<img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify">> 2 M<img src="../public/asset/ohm.png"
@@ -357,10 +359,10 @@
 
                     </td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value }} M<img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') > 2 ? 'Lulus' : 'Tidak Lulus' }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value > 2 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
                 </tr>
                 <tr>
@@ -372,15 +374,15 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
                     <td style="text-align: justify;">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value }} µA
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 500 µA
                     </td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA</td>
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value }} µA</td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') <= 500 ? 'Lulus' : 'Tidak Lulus' }}
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value <= 500 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
                 </tr>
             </tbody>

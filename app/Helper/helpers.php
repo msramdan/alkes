@@ -40,8 +40,8 @@ function get_data_litsrik($no_laporan,$field,$where)
         ->where('no_laporan', $no_laporan )
         ->where($field, $where )
         ->first();
-    if(isset($cek->value)){
-        return $cek->value;
+    if(isset($cek)){
+        return $cek;
     }else{
         return '-';
     }
