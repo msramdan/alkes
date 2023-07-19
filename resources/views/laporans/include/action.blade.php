@@ -179,9 +179,8 @@
                 <a href="{{ route('pdf_lk_scorsing', $model->id) }}" target="_blank" class="dropdown-item">LK
                     Skorsing</a>
                 <a href="{{ route('pdf_lk_laporan', $model->id) }}" target="_blank" class="dropdown-item">Laporan Hasil</a>
-                <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
-                    data-bs-target="#modalQr{{ $model->id }}">E-Sertifikat
-                </a>
+                <a href="{{ route('pdf_sertifikat', $model->id) }}" target="_blank" class="dropdown-item">E-Sertifikat
+                </a></a>
             @endif
             <a href="#" type="button" class="dropdown-item" data-bs-toggle="modal"
                 data-bs-target="#modalQr{{ $model->id }}">Qr Code
