@@ -682,6 +682,7 @@ class ComposerStaticInit9729285d7bc0c4b62d06bd7f76f42dbe
         'App\\Helper\\StringHelper' => __DIR__ . '/../..' . '/app/Helper/StringHelper.php',
         'App\\Http\\Controllers\\BannerManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/BannerManagementController.php',
         'App\\Http\\Controllers\\BrandController' => __DIR__ . '/../..' . '/app/Http/Controllers/BrandController.php',
+        'App\\Http\\Controllers\\CertificateController' => __DIR__ . '/../..' . '/app/Http/Controllers/CertificateController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\FaskeController' => __DIR__ . '/../..' . '/app/Http/Controllers/FaskeController.php',
