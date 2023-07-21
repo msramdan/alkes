@@ -134,9 +134,6 @@
                                 </center>
                                 <br>
                                 <br>
-                                <div class="alert alert-danger" role="alert">
-                                    This is a danger alert—check it out!
-                                </div>
                                 <hr>
                                 Powered by : <img src="{{ asset('frontend/img/logo.png') }}" alt=""
                                     style="width: 40%;">

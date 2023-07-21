@@ -254,21 +254,21 @@
                     <td rowspan="3">1</td>
                     <td rowspan="3" style="text-align: justify">Tegangan Input (Main Voltage)</td>
                     <td style="text-align: justify">Phase - Netral</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral') }}
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value }}
                         Vac</td>
                     <td style="text-align: justify">220 ± 10% Vac
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Phase - Ground</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground') }}
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value }}
                         Vac</td>
                     <td style="text-align: justify">220 ± 10% Vac
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Ground - Netral</td>
-                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral') }}
+                    <td style="text-align: justify">{{ get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value }}
                         Vac</td>
                     <td style="text-align: justify"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 5 Vac
@@ -282,7 +282,7 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
                     <td style="text-align: justify;">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps') }} <img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value }} <img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
@@ -293,7 +293,7 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
                     <td style="text-align: justify;">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps') }} <img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value }} <img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
@@ -305,7 +305,7 @@
                     <td>3</td>
                     <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
                     <td style="text-align: justify">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi') }} M<img
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value }} M<img
                             src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
                     <td style="text-align: justify">> 2<img src="../public/asset/ohm.png"
                             style="width: 10px; margin-top:3px">
@@ -321,7 +321,7 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
                     <td style="text-align: justify;">
-                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf') }} µA
+                        {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value }} µA
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 500 µA
