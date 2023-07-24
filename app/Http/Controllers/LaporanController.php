@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 use Illuminate\Support\Facades\Validator;
 use App\Helper\StringHelper;
-
+use Alert;
 
 class LaporanController extends Controller
 {
@@ -413,16 +413,21 @@ class LaporanController extends Controller
 
     public function pdf_sertifikat($id)
     {
-        $pdf = Pdf::loadview('laporans/sertifikat');
-        // set paper size
-        $pdf->setPaper([0, 0, 595.28, 935.43], 'potrait');
-        // set padding and margin to 0
-        $pdf->setOption('margin-top', 0);
-        $pdf->setOption('margin-right', 0);
-        $pdf->setOption('margin-bottom', 0);
-        $pdf->setOption('margin-left', 0);
-
-        return $pdf->download('laporan-sertifikat.pdf');
+        $getLaporan = Laporan::find($id);
+        if ($getLaporan->status_laporan == 'Approved') {
+            $pdf = Pdf::loadview('laporans/sertifikat');
+            // set paper size
+            $pdf->setPaper([0, 0, 595.28, 935.43], 'potrait');
+            // set padding and margin to 0
+            $pdf->setOption('margin-top', 0);
+            $pdf->setOption('margin-right', 0);
+            $pdf->setOption('margin-bottom', 0);
+            $pdf->setOption('margin-left', 0);
+            return $pdf->stream('laporan-sertifikat.pdf');
+        } else {
+            alert()->error('Error', 'The certificate is not yet available if the status is Need Review and Rejected.');
+            return back();
+        }
     }
 
     public function updateStatus(Request $request)

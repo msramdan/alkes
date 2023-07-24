@@ -122,8 +122,6 @@ Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariCon
 Route::delete('/EsaDelete/{id}', [App\Http\Controllers\InventariController::class, 'EsaDelete'])->name('EsaDelete')->middleware('auth');
 Route::get('/getDownload/{inventaris_id}/{id}', [App\Http\Controllers\InventariController::class, 'getDownload'])->name('getDownload')->middleware('auth');
 
-
-
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
 Route::resource('laporans', App\Http\Controllers\LaporanController::class)->middleware('auth');
 Route::post('updateStatus', [App\Http\Controllers\LaporanController::class, 'updateStatus'])->name('updateStatus')->middleware('auth');
