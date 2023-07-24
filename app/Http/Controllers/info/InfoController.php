@@ -8,7 +8,7 @@ use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
-Use Alert;
+use Alert;
 
 class InfoController extends Controller
 {
@@ -47,9 +47,17 @@ class InfoController extends Controller
         $enam = $request->enam;
         $fix = $satu . '' . $dua . '' . $tiga . '' . $empat . '' . $lima . '' . $enam;
         if ($faskes->pin == $fix) {
-            $pdf = PDF::loadview('info.download_sertifikat', []);
-            return $pdf->stream();
-        }else{
+            $getLaporan = Laporan::find($request->laporan_id);
+            $pdf = Pdf::loadview('laporans/sertifikat',[
+                'laporan' =>  $getLaporan
+            ]);
+            $pdf->setPaper([0, 0, 595.28, 935.43], 'potrait');
+            $pdf->setOption('margin-top', 0);
+            $pdf->setOption('margin-right', 0);
+            $pdf->setOption('margin-bottom', 0);
+            $pdf->setOption('margin-left', 0);
+            return $pdf->stream('laporan-sertifikat.pdf');
+        } else {
             Alert::error('Error', 'The pin you entered is wrong');
             return redirect()->back();
         }

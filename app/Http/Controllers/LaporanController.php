@@ -415,7 +415,9 @@ class LaporanController extends Controller
     {
         $getLaporan = Laporan::find($id);
         if ($getLaporan->status_laporan == 'Approved') {
-            $pdf = Pdf::loadview('laporans/sertifikat');
+            $pdf = Pdf::loadview('laporans/sertifikat',[
+                'laporan' =>  $getLaporan
+            ]);
             // set paper size
             $pdf->setPaper([0, 0, 595.28, 935.43], 'potrait');
             // set padding and margin to 0

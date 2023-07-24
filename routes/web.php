@@ -51,7 +51,6 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::post('/history_laporan/telaah-teknis', [HistoryLaporanLkController::class, 'telaahTeknis'])->name('web-history_laporan.updateTelaahTeknis');
     Route::get('/history_laporan/kesimpulan-telaah_teknis/{nolaporan}', [HistoryLaporanLkController::class, 'kesimpulanTelaahTeknis'])->name('web-history_laporan.kesimpulanTelaahTeknis');
     Route::post('/history_laporan/kesimpulan-telaah_teknis', [HistoryLaporanLkController::class, 'updateKesimpulanTelaahTeknis'])->name('web-history_laporan.updateKesimpulanTelaahTeknis');
-
     Route::get('/show/history_laporan/{nolaporan}', [ShowHistoryLaporanController::class, 'show'])->name('web-show-history_laporan.show');
     Route::get('/show/history_laporan/pendataan_administrasi/{nolaporan}', [ShowHistoryLaporanController::class, 'pendataanAdministrasi'])->name('web-show-history_laporan.pendataanAdministrasi');
     Route::get('/show/history_laporan/daftar_alat_ukur/{nolaporan}', [ShowHistoryLaporanController::class, 'daftarAlatUkur'])->name('web-show-history_laporan.daftarAlatUkur');
@@ -60,13 +59,10 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/show/history_laporan/keselamatan-listrik/{nolaporan}', [ShowHistoryLaporanController::class, 'keselamatanListrik'])->name('web-show-history_laporan.keselamatanListrik');
     Route::get('/show/history_laporan/telaah-teknis/{nolaporan}', [ShowHistoryLaporanController::class, 'telaahTeknis'])->name('web-show-history_laporan.telaahTeknis');
     Route::get('/show/history_laporan/kesimpulan-telaah_teknis/{nolaporan}', [ShowHistoryLaporanController::class, 'kesimpulanTelaahTeknis'])->name('web-show-history_laporan.kesimpulanTelaahTeknis');
-
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/faskes/filter', [FaskesController::class, 'filter']);
-
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
     Route::get('/inventaris/filter', [InventarisController::class, 'filter']);
-
     Route::get('/listmetodekerja', [MetodeKerjaController::class, 'index'])->name('web-listmetodekerja');
     Route::get('/listmetodekerja/filter', [MetodeKerjaController::class, 'filter']);
     Route::get('/listmetodekerja/download/{file}/{name}', [MetodeKerjaController::class, 'getDownload'])->name('web-listmetodekerja-download');
