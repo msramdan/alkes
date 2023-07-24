@@ -141,7 +141,7 @@
                                                 <td>{{ $row->x_variable2 }}</td>
                                                 <td>{{ $row->intercept3 }}</td>
                                                 <td>{{ $row->x_variable3 }}</td>
-                                                <td><a href=""><i class="ace-icon fa fa-file"></i> Download</a>
+                                                <td><a href="{{ route('getDownload' , ['inventaris_id' => $row->inventaris_id, 'id' => $row->id])}}"><i class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
                                                     <form action="{{ route('EsaDelete', $row->id) }}" method="post"

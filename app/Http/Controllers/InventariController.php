@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Response;
 
 class InventariController extends Controller
 {
@@ -269,5 +270,24 @@ class InventariController extends Controller
         return redirect()
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil dihapus'));
+    }
+    public function getDownload($inventaris_id, $id)
+    {
+        $getInventaris = Inventari::find($inventaris_id);
+        if ($getInventaris->jenis_alat_id == 39) {
+            $data = DB::table('sertifikat_thermohygrometer')->where('id', $id)->first();
+            $file = public_path() . "/storage/sertifikat/Thermohygrometer/" . $data->file;
+            $tahun = $data->tahun;
+            $nama = 'Sertifikat Thermohygrometer ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
+        } else if ($getInventaris->jenis_alat_id == 5) {
+            $data = DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->first();
+            $file = public_path() . "/storage/sertifikat/sertifikat_electrical_safety_analyzer/" . $data->file;
+            $tahun = $data->tahun;
+            $nama = 'Sertifikat ESA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
+        }
+        $headers = array(
+            'Content-Type' => 'application/vnd.ms-excel',
+        );
+        return Response::download($file, $nama, $headers);
     }
 }

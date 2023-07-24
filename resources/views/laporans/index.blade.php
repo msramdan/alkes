@@ -86,7 +86,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('sertifikat.pdf') }}" class="btn btn-primary">Lihat Serifipikat</a>
                             </div>
                             <hr>
                             <div class="table-responsive p-1">

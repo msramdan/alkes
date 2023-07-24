@@ -120,6 +120,8 @@ Route::get('inventarisSertifikat/{id}', [App\Http\Controllers\InventariControlle
 Route::post('inventarisSertifikatSave', [App\Http\Controllers\InventariController::class, 'inventarisSertifikatSave'])->name('inventarisSertifikatSave')->middleware('auth');
 Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariController::class, 'ThermohygrometerDelete'])->name('ThermohygrometerDelete')->middleware('auth');
 Route::delete('/EsaDelete/{id}', [App\Http\Controllers\InventariController::class, 'EsaDelete'])->name('EsaDelete')->middleware('auth');
+Route::get('/getDownload/{inventaris_id}/{id}', [App\Http\Controllers\InventariController::class, 'getDownload'])->name('getDownload')->middleware('auth');
+
 
 
 Route::get('export-data/{ruangan}/{merek}/{jenis_alat}/{vendor}', [App\Http\Controllers\InventariController::class, 'export'])->name('exportReportInventory')->middleware('auth');
@@ -133,8 +135,6 @@ Route::get('pdf_sertifikat/{id}', [App\Http\Controllers\LaporanController::class
 
 Route::get('qr_layak/{id}', [App\Http\Controllers\LaporanController::class, 'qr_layak'])->name('qr_layak')->middleware('auth');
 Route::get('qr_tidak_layak/{id}', [App\Http\Controllers\LaporanController::class, 'qr_tidak_layak'])->name('qr_tidak_layak')->middleware('auth');
-
-Route::get('sertifikat', [App\Http\Controllers\CertificateController::class, 'show'])->name('sertifikat.pdf')->middleware('auth');
 // =========================================================================================================
 Route::get('e_sertifikat/{id}', [InfoController::class, 'sertifikat'])->name('e_sertifikat');
 Route::post('download_e_sertifikat', [InfoController::class, 'download_e_sertifikat'])->name('download_e_sertifikat');

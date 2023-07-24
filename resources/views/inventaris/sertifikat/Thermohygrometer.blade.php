@@ -118,7 +118,7 @@
                                                 <td>{{ $row->uc_kelembapan }}</td>
                                                 <td>{{ $row->intercept_kelembapan }}</td>
                                                 <td>{{ $row->x_variable_kelembapan }}</td>
-                                                <td><a href=""><i class="ace-icon fa fa-file"></i> Download</a>
+                                                <td><a href="{{ route('getDownload' , ['inventaris_id' => $row->inventaris_id, 'id' => $row->id])}}"><i class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
                                                     <form action="{{ route('ThermohygrometerDelete', $row->id) }}"
