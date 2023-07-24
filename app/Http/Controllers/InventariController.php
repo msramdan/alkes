@@ -198,12 +198,16 @@ class InventariController extends Controller
     {
         /*
         39 = Thermohygrometer
+        5 = Electrical Safety Analyzer
+        46 = Infusion Device Analyzer
         ==========================================================================*/
         $data = Inventari::where('id', $inventaris_id)->first();
         if ($data->jenis_alat_id == 39) {
             return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
         } else if ($data->jenis_alat_id == 5) {
             return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
+        }else if ($data->jenis_alat_id == 46) {
+            return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
         }
     }
 

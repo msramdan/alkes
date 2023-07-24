@@ -446,34 +446,6 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6>PENGUKURAN KINERJA</h6> <span style="color: red"> Template Pengukuran kinerja automatis
-                                    Nomenklaturs
-                                    sesuai
-                                    terpilih</span>
-                                </span>
-                                <hr>
-                                <div class="row">
-                                    <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}" readonly>
-                                    @foreach ($nomenklaturs as $row)
-                                        <div class="col-md-3">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-text">
-                                                    <input class="form-check-input mt-0" type="checkbox" name="type_id[]"
-                                                        disabled value="{{ $row->id }}" {{-- {{ checked_box($nomenklatur->id, $row->id) }} --}}
-                                                        aria-label="Checkbox for following text input">
-                                                </div>
-                                                <input type="text" readonly class="form-control"
-                                                    value="{{ $row->nama_nomenklatur }}" aria-label="">
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
                                 <h6>TELAAH TEKNIS</h6>
                                 <hr>
                                 <div class="row">
