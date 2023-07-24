@@ -34,15 +34,15 @@ function get_data_teknisi()
     return $cek;
 }
 
-function get_data_litsrik($no_laporan,$field,$where)
+function get_data_litsrik($no_laporan, $field, $where)
 {
     $cek = DB::table('laporan_pengukuran_keselamatan_listrik')
-        ->where('no_laporan', $no_laporan )
-        ->where($field, $where )
+        ->where('no_laporan', $no_laporan)
+        ->where($field, $where)
         ->first();
-    if(isset($cek)){
+    if (isset($cek)) {
         return $cek;
-    }else{
+    } else {
         return '-';
     }
 }
@@ -51,9 +51,9 @@ function get_data_rs($id)
 {
     $cek = DB::table('faskes')
         ->where('id', $id)->first();
-    if(isset($cek->nama_faskes)){
+    if (isset($cek->nama_faskes)) {
         return $cek->nama_faskes;
-    }else{
+    } else {
         return '-';
     }
 }
@@ -66,7 +66,7 @@ function is_show($nomenklatur_id, $field, $value, $table)
         ->where($field, $value)->first();
     if ($cek) {
         return 'show';
-    }else{
+    } else {
         return 'none';
     }
 }
@@ -79,7 +79,7 @@ function is_required($nomenklatur_id, $field, $value, $table)
         ->where($field, $value)->first();
     if ($cek) {
         return 'show';
-    }else{
+    } else {
         return 'none';
     }
 }
@@ -89,4 +89,25 @@ function totalLaporan($status)
     $totalStatus = Laporan::where('status_laporan', $status)
         ->get();
     return  $totalStatus->count();
+}
+
+function tanggal_indonesia($tanggal)
+{
+    $bulan = array(
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+
+    $pecahkan = explode('-', $tanggal);
+    return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
 }

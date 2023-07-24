@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use Alert;
+use App\Models\Nomenklatur;
 
 class InfoController extends Controller
 {
@@ -48,8 +49,23 @@ class InfoController extends Controller
         $fix = $satu . '' . $dua . '' . $tiga . '' . $empat . '' . $lima . '' . $enam;
         if ($faskes->pin == $fix) {
             $getLaporan = Laporan::find($request->laporan_id);
-            $pdf = Pdf::loadview('laporans/sertifikat',[
-                'laporan' =>  $getLaporan
+            $nomenklatur = Nomenklatur::findOrFail($getLaporan->nomenklatur_id);
+            $merk = DB::table('laporan_pendataan_administrasi')
+                ->where('no_laporan', $getLaporan->no_laporan)
+                ->where('field_pendataan_administrasi', 'Merk')
+                ->first();
+            $sn = DB::table('laporan_pendataan_administrasi')
+                ->where('no_laporan', $getLaporan->no_laporan)
+                ->where('field_pendataan_administrasi', 'Nomor Seri')
+                ->first();
+            $pdf = Pdf::loadview('laporans/sertifikat', [
+                'laporan' =>  $getLaporan,
+                'faskes' =>  $faskes,
+                'nomenklatur' =>  $nomenklatur,
+                'merk' =>  $merk->value,
+                'sn' =>  $sn->value,
+                'tgl' => substr($getLaporan->tgl_review, 0,10),
+
             ]);
             $pdf->setPaper([0, 0, 595.28, 935.43], 'potrait');
             $pdf->setOption('margin-top', 0);

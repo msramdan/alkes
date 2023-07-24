@@ -414,9 +414,26 @@ class LaporanController extends Controller
     public function pdf_sertifikat($id)
     {
         $getLaporan = Laporan::find($id);
+
         if ($getLaporan->status_laporan == 'Approved') {
-            $pdf = Pdf::loadview('laporans/sertifikat',[
-                'laporan' =>  $getLaporan
+            $faskes = Faske::findOrFail($getLaporan->faskes_id);
+            $nomenklatur = Nomenklatur::findOrFail($getLaporan->nomenklatur_id);
+            $merk = DB::table('laporan_pendataan_administrasi')
+                ->where('no_laporan', $getLaporan->no_laporan)
+                ->where('field_pendataan_administrasi', 'Merk')
+                ->first();
+            $sn = DB::table('laporan_pendataan_administrasi')
+                ->where('no_laporan', $getLaporan->no_laporan)
+                ->where('field_pendataan_administrasi', 'Nomor Seri')
+                ->first();
+
+            $pdf = Pdf::loadview('laporans/sertifikat', [
+                'laporan' =>  $getLaporan,
+                'faskes' =>  $faskes,
+                'nomenklatur' =>  $nomenklatur,
+                'merk' =>  $merk->value,
+                'sn' =>  $sn->value,
+                'tgl' => substr($getLaporan->tgl_review, 0, 10),
             ]);
             // set paper size
             $pdf->setPaper([0, 0, 595.28, 935.43], 'potrait');
