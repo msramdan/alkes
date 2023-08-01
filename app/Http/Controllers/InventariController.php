@@ -215,7 +215,6 @@ class InventariController extends Controller
     {
         $data = Inventari::where('id', $request->inventaris_id)->first();
         if ($data->jenis_alat_id == 39) {
-            //upload file
             $file = $request->file('file');
             $file->storeAs('public/sertifikat/Thermohygrometer', $file->hashName());
             DB::table('sertifikat_thermohygrometer')->insert(
@@ -232,7 +231,6 @@ class InventariController extends Controller
                 ]
             );
         } else if ($data->jenis_alat_id == 5) {
-            //upload file
             $file = $request->file('file');
             $file->storeAs('public/sertifikat/sertifikat_electrical_safety_analyzer', $file->hashName());
             DB::table('sertifikat_electrical_safety_analyzer')->insert(
@@ -247,6 +245,29 @@ class InventariController extends Controller
                     'x_variable3' => $request->x_variable3,
                     'file' =>  $file->hashName(),
                 ]
+            );
+        // IDA
+        }else if ($data->jenis_alat_id == 46) {
+            $file = $request->file('file');
+            $file->storeAs('public/sertifikat/sertifikat_ida', $file->hashName());
+            DB::table('sertifikat_ida')->insert(
+                [
+                    'inventaris_id' => $request->inventaris_id,
+                    'tahun' => $request->tahun,
+                    'slope_1' => $request->slope_1,
+                    'intercept_1' => $request->intercept_1,
+                    'slope_2' => $request->slope_2,
+                    'intercept_2' => $request->intercept_2,
+                    'drift10_1' => $request->drift10_1,
+                    'drift50_1' => $request->drift50_1,
+                    'drift100_1' => $request->drift100_1,
+                    'drift500_1' => $request->drift500_1,
+                    'drift10_2' => $request->drift10_2,
+                    'drift50_2' => $request->drift50_2,
+                    'drift100_2' => $request->drift100_2,
+                    'drift500_2' => $request->drift500_2,
+                    'file' =>  $file->hashName(),
+                ],
             );
         } else {
             die();
@@ -275,6 +296,16 @@ class InventariController extends Controller
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil dihapus'));
     }
+
+    public function IdaDelete($id)
+    {
+        $data = DB::table('sertifikat_ida')->where('id', $id)->first();
+        Storage::delete('public/sertifikat/sertifikat_ida/' . $data->file);
+        DB::table('sertifikat_ida')->where('id', $id)->delete();
+        return redirect()
+            ->back()
+            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
+    }
     public function getDownload($inventaris_id, $id)
     {
         $getInventaris = Inventari::find($inventaris_id);
@@ -288,6 +319,12 @@ class InventariController extends Controller
             $file = public_path() . "/storage/sertifikat/sertifikat_electrical_safety_analyzer/" . $data->file;
             $tahun = $data->tahun;
             $nama = 'Sertifikat ESA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
+             // IDA
+        } else if ($getInventaris->jenis_alat_id == 46) {
+            $data = DB::table('sertifikat_ida')->where('id', $id)->first();
+            $file = public_path() . "/storage/sertifikat/sertifikat_ida/" . $data->file;
+            $tahun = $data->tahun;
+            $nama = 'Sertifikat IDA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
         }
         $headers = array(
             'Content-Type' => 'application/vnd.ms-excel',

@@ -20,7 +20,6 @@ return array(
     'App\\Helper\\StringHelper' => $baseDir . '/app/Helper/StringHelper.php',
     'App\\Http\\Controllers\\BannerManagementController' => $baseDir . '/app/Http/Controllers/BannerManagementController.php',
     'App\\Http\\Controllers\\BrandController' => $baseDir . '/app/Http/Controllers/BrandController.php',
-    'App\\Http\\Controllers\\CertificateController' => $baseDir . '/app/Http/Controllers/CertificateController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
     'App\\Http\\Controllers\\FaskeController' => $baseDir . '/app/Http/Controllers/FaskeController.php',
