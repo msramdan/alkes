@@ -43,11 +43,11 @@
                                         <label for="uc_suhu">{{ __('Channel 1') }}</label>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" step="0.000000001" class="form-control"
+                                                <input type="number" step="0.000000001" class="form-control"
                                                     placeholder="Slope" name="slope_1" required>
                                             </div>
                                             <div class="col">
-                                                <input type="text" step="0.000000001" class="form-control"
+                                                <input type="number" step="0.000000001" class="form-control"
                                                     placeholder="Intersept" name="intercept_1" required>
                                             </div>
                                         </div>
@@ -56,11 +56,11 @@
                                         <label for="uc_suhu">{{ __('Channel 2') }}</label>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" step="0.000000001" class="form-control"
+                                                <input type="number" step="0.000000001" class="form-control"
                                                     placeholder="Slope" name="slope_2" required>
                                             </div>
                                             <div class="col">
-                                                <input type="text" step="0.000000001" class="form-control"
+                                                <input type="number" step="0.000000001" class="form-control"
                                                     placeholder="Intersept" name="intercept_2" required>
                                             </div>
                                         </div>
@@ -83,30 +83,30 @@
                                             <tbody>
                                                 <tr>
                                                     <th>10</th>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift10_1" required></td>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift10_2" required></td>
                                                 </tr>
                                                 <tr>
                                                     <th>50</th>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift50_1" required></td>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift50_2" required></td>
                                                 </tr>
                                                 <tr>
                                                     <th>100</th>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift100_1" required></td>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift100_2" required></td>
                                                 </tr>
                                                 <tr>
                                                     <th>500</th>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift500_1" required></td>
-                                                    <td><input type="text" step="0.000000001" class="form-control"
+                                                    <td><input type="number" step="0.000000001" class="form-control"
                                                             placeholder="" name="drift500_2" required></td>
                                                 </tr>
                                             </tbody>

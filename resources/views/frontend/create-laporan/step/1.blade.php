@@ -196,8 +196,12 @@
                 'show')
             <div class="col">
                 <label for="" style=" font-size: 12px;">Channel IDA</label>
-                <input type="text" class="form-control" value="" id="" placeholder=""
-                    name="administrasi_channel-ida" required>
+                <select class="form-control select2" name="administrasi_channel-ida"
+                    required style="width: 100%;" required>
+                    <option selected disabled value="">-- Pilih --</option>
+                    <option value="1">Chanel 1 </option>
+                    <option value="2">Chanel 2 </option>
+                </select>
                 <div class="valid-feedback">
                     Okay !
                 </div>
