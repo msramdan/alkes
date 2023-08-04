@@ -177,7 +177,7 @@
     </table>
 
     <p style="font-size: 14px"><b>C. PENGUKURAN KONDISI LINGKUNGAN </b></p>
-    <table class="table table-bordered table-sm" style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px;">
+    <table class="table table-bordered table-sm" style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
         <thead>
             <tr>
                 <th style="width: 4%;text-align: center;">No</th>
@@ -256,12 +256,12 @@
         </tbody>
     </table>
     @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
-    <?php
-        $hitungPhaseNetral =  round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral'))->value), 2);
+        <?php
+        $hitungPhaseNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
 
-        $hitungPhaseGround =  round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * (get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground'))->value), 2);
+        $hitungPhaseGround = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
 
-        $hitungGroundNetral =  round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + (get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * (get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral'))->value), 2);
+        $hitungGroundNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
 
         $dps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value;
         $nps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value;
@@ -269,30 +269,30 @@
         $bf = get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value;
 
         $lulus = 0;
-        if($hitungPhaseNetral > 198){
+        if ($hitungPhaseNetral > 198) {
             $lulus = $lulus + 1;
         }
 
-        if($hitungPhaseGround > 198){
+        if ($hitungPhaseGround > 198) {
             $lulus = $lulus + 1;
         }
-        if($hitungPhaseNetral < 5){
+        if ($hitungPhaseNetral < 5) {
             $lulus = $lulus + 1;
         }
-        if($dps <= 0.2){
+        if ($dps <= 0.2) {
             $lulus = $lulus + 1;
         }
-        if($nps <= 0.3){
+        if ($nps <= 0.3) {
             $lulus = $lulus + 1;
         }
-        if($isolasi > 2){
+        if ($isolasi > 2) {
             $lulus = $lulus + 1;
         }
-        if($bf <= 500){
+        if ($bf <= 500) {
             $lulus = $lulus + 1;
         }
-        $point =round(($lulus / 7) * 40);
-    ?>
+        $point = round(($lulus / 7) * 40);
+        ?>
         <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b></p>
         <table class="table table-bordered table-sm"
             style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
@@ -319,11 +319,12 @@
                     <td style="text-align: justify">220 ± 10% Vac
                     </td>
                     <td style="text-align: justify">
-                        {{ $hitungPhaseNetral  }}
+                        {{ $hitungPhaseNetral }}
                     </td>
                     <td style="text-align: justify">{{ $hitungPhaseNetral > 198 ? 'Lulus' : 'Tidak Lulus' }}</td>
-                    <td style="text-align: center;vertical-align: middle;" rowspan="9"> {{ $point}} </td>
-                    <td style="text-align: center;vertical-align: middle;" rowspan="9">{{ $point < 40 ? 'Tidak Aman' : 'Aman' }}</td>
+                    <td style="text-align: center;vertical-align: middle;" rowspan="9"> {{ $point }} </td>
+                    <td style="text-align: center;vertical-align: middle;" rowspan="9">
+                        {{ $point < 40 ? 'Tidak Aman' : 'Aman' }}</td>
                 </tr>
                 <tr>
                     <td style="text-align: justify">Phase - Ground</td>
@@ -331,7 +332,7 @@
                         {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value }}
                         Vac</td>
                     <td style="text-align: justify">220 ± 10% Vac</td>
-                    <td style="text-align: justify"> {{ $hitungPhaseGround  }}</td>
+                    <td style="text-align: justify"> {{ $hitungPhaseGround }}</td>
                     <td style="text-align: justify">{{ $hitungPhaseGround > 198 ? 'Lulus' : 'Tidak Lulus' }}</td>
                 </tr>
                 <tr>
@@ -353,16 +354,15 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
                     <td style="text-align: justify;">
-                        {{$dps}} <img
-                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                        {{ $dps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 0.2 <img src="../public/asset/ohm.png"
                             style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify">
-                        {{$dps}} <img
-                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                        {{ $dps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
                     <td style="text-align: justify">
                         {{ $dps <= 0.2 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
@@ -370,16 +370,15 @@
                 <tr>
                     <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
                     <td style="text-align: justify;">
-                        {{ $nps }} <img
-                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                        {{ $nps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify;"><img src="../public/asset/kurang.png"
                             style="width: 6px; margin-top:3px"> 0.3 <img src="../public/asset/ohm.png"
                             style="width: 10px; margin-top:4px">
                     </td>
                     <td style="text-align: justify">
-                        {{ $nps }} <img
-                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                        {{ $nps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
                     <td style="text-align: justify">
                         {{ $nps <= 0.3 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
@@ -388,18 +387,17 @@
                     <td>3</td>
                     <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
                     <td style="text-align: justify">
-                        {{  $isolasi }} M<img
-                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                        {{ $isolasi }} M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                     </td>
                     <td style="text-align: justify">> 2 M<img src="../public/asset/ohm.png"
                             style="width: 10px; margin-top:3px">
 
                     </td>
                     <td style="text-align: justify">
-                        {{  $isolasi }} M<img
-                            src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                        {{ $isolasi }} M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    </td>
                     <td style="text-align: justify">
-                        {{  $isolasi > 2 ? 'Lulus' : 'Tidak Lulus' }}
+                        {{ $isolasi > 2 ? 'Lulus' : 'Tidak Lulus' }}
                     </td>
                 </tr>
                 <tr>
@@ -428,6 +426,67 @@
 
     <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
             KINERJA</b></p>
+    @if ($nomenklaturs->id == 10 || $nomenklaturs->id == 11)
+        <?php
+        $laporan_occlusion = DB::table('laporan_occlusion')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->first();
+        ?>
+        <p style="font-size: 12px;margin-left:18px"><b>OCCLUSION</b></p>
+        <table class="table table-bordered table-sm"
+            style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+            <thead>
+                <tr>
+                    <th style="text-align: center;vertical-align: middle;">Setting Alat</th>
+                    <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Standar (mbar)
+                    </th>
+                    <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
+                    <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
+                    <th rowspan="2" style="text-align: center;vertical-align: middle;">Hasil</th>
+                    <th rowspan="2" style="text-align: center;vertical-align: middle;">Skorsing</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;vertical-align: middle;">(mL/h)</th>
+                    <th style="text-align: center;vertical-align: middle;">1</th>
+                    <th style="text-align: center;vertical-align: middle;">2</th>
+                    <th style="text-align: center;vertical-align: middle;">3</th>
+                    <th style="text-align: center;vertical-align: middle;">4</th>
+                    <th style="text-align: center;vertical-align: middle;">5</th>
+                    <th style="text-align: center;vertical-align: middle;">6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;vertical-align: middle;">100</td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $satu = $laporan_occlusion->percobaan_1 * 0.0145 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $dua = $laporan_occlusion->percobaan_2 * 0.0145 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $tiga = $laporan_occlusion->percobaan_3 * 0.0145 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $empat = $laporan_occlusion->percobaan_4 * 0.0145 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $lima = $laporan_occlusion->percobaan_5 * 0.0145 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $enam = $laporan_occlusion->percobaan_6 * 0.0145 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $mean =  round(($satu + $dua + $tiga + $empat + $lima + $enam) / 6, 2) }}</td>
+                    <td style="text-align: center;vertical-align: middle;"><img src="../public/asset/kurang.png"
+                            style="width: 6px; margin-top:3px"> 1379 mbar (20 psi)</td>
+                    <td style="text-align: center;vertical-align: middle;">{{ $mean < 20 ? 'Lulus' : 'Tidak Lulus' }}</td>
+                    <td style="text-align: center;vertical-align: middle;">{{ $mean < 20 ? 100 : 0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    @endif
+
     <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
             TEKNIS</b></p>
     <table class="table table-bordered table-sm"

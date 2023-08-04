@@ -195,13 +195,9 @@
         @if (is_show($nomenklatur_id, 'field_pendataan_administrasi', 'Channel IDA', 'nomenklatur_pendataan_administrasi') ==
                 'show')
             <div class="col">
-                <label for="" style=" font-size: 12px;">Channel IDA</label>
-                <select class="form-control select2" name="administrasi_channel-ida"
-                    required style="width: 100%;" required>
-                    <option selected disabled value="">-- Pilih --</option>
-                    <option value="1">Chanel 1 </option>
-                    <option value="2">Chanel 2 </option>
-                </select>
+                <label for="" style=" font-size: 12px;">Channel IDA <span style="color: red">( Input Channel 1 / 2 )</span></label>
+                <input type="number" class="form-control" value="" id="" placeholder="" required
+                    name="administrasi_channel-ida" min="1" max="2">
                 <div class="valid-feedback">
                     Okay !
                 </div>

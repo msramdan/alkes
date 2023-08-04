@@ -77,6 +77,7 @@ class LaporanLkController extends Controller
 
     public function submitLaporan(Request $request)
     {
+
         $laporan = Laporan::findOrFail($request->laporan_id);
         $nomenklatur = Nomenklatur::findOrFail($request->nomenklatur_id);
         $data = [
@@ -98,8 +99,6 @@ class LaporanLkController extends Controller
 
             $field_administrasi = DB::table('nomenklatur_pendataan_administrasi')
                 ->where('slug', $slug_administrasi[1])->first();
-
-
             DB::table('laporan_pendataan_administrasi')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'field_pendataan_administrasi' => $field_administrasi->field_pendataan_administrasi,
@@ -204,6 +203,19 @@ class LaporanLkController extends Controller
             ]);
         }
 
+        // create laporan kinerja
+        // INFUSION PUMP & SYRINGE PUMP
+        if ($request->nomenklatur_id == 10 || $request->nomenklatur_id == 11) {
+            DB::table('laporan_occlusion')->insert([
+                'no_laporan' => $laporan->no_laporan,
+                'percobaan_1' => $request->percobaan_1,
+                'percobaan_2' => $request->percobaan_2,
+                'percobaan_3' => $request->percobaan_3,
+                'percobaan_4' => $request->percobaan_4,
+                'percobaan_5' => $request->percobaan_5,
+                'percobaan_6' => $request->percobaan_6,
+            ]);
+        }
         //Create Laporan Telaah Teknis
         $telaah_teknis = $this->preg_grep_keys('/^telaah_teknis-+(?:.+)/m', $request->input());
         $telaah_teknis_key = array_keys($telaah_teknis);

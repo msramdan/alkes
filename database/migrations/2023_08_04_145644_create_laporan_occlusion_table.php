@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('laporan_kondisi_fisik_fungsi', function (Blueprint $table) {
+        Schema::create('laporan_occlusion', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan', 100);
             $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
-            $table->string('field_parameter_fisik_fungsi')->nullable();
-            $table->string('slug')->nullable();
-            $table->longText('field_batas_pemeriksaan')->nullable();
-            $table->string('value');
+            $table->double('percobaan_1', 15, 9)->nullable();
+            $table->double('percobaan_2', 15, 9)->nullable();
+            $table->double('percobaan_3', 15, 9)->nullable();
+            $table->double('percobaan_4', 15, 9)->nullable();
+            $table->double('percobaan_5', 15, 9)->nullable();
+            $table->double('percobaan_6', 15, 9)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laporan_kondisi_fisik_fungsi');
+        Schema::dropIfExists('laporan_occlusion');
     }
 };

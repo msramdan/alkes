@@ -333,6 +333,63 @@
 
     <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
             KINERJA</b></p>
+            @if ($nomenklaturs->id == 10 || $nomenklaturs->id == 11)
+            <?php
+            $laporan_occlusion = DB::table('laporan_occlusion')
+                ->where('no_laporan', $laporan->no_laporan)
+                ->first();
+            ?>
+            <p style="font-size: 12px;margin-left:18px"><b>OCCLUSION</b></p>
+            <table class="table table-bordered table-sm"
+                style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;vertical-align: middle;">Setting Alat</th>
+                        <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Standar (mbar)
+                        </th>
+                        <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
+                        <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center;vertical-align: middle;">(mL/h)</th>
+                        <th style="text-align: center;vertical-align: middle;">1</th>
+                        <th style="text-align: center;vertical-align: middle;">2</th>
+                        <th style="text-align: center;vertical-align: middle;">3</th>
+                        <th style="text-align: center;vertical-align: middle;">4</th>
+                        <th style="text-align: center;vertical-align: middle;">5</th>
+                        <th style="text-align: center;vertical-align: middle;">6</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;vertical-align: middle;">100</td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $satu = $laporan_occlusion->percobaan_1 * 0.0145 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $dua = $laporan_occlusion->percobaan_2 * 0.0145 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $tiga = $laporan_occlusion->percobaan_3 * 0.0145 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $empat = $laporan_occlusion->percobaan_4 * 0.0145 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $lima = $laporan_occlusion->percobaan_5 * 0.0145 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $enam = $laporan_occlusion->percobaan_6 * 0.0145 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $mean =  round(($satu + $dua + $tiga + $empat + $lima + $enam) / 6, 2) }}</td>
+                        <td style="text-align: center;vertical-align: middle;"><img src="../public/asset/kurang.png"
+                                style="width: 6px; margin-top:3px"> 1379 mbar (20 psi)</td>
+                    </tr>
+                </tbody>
+            </table>
+        @endif
+
     <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
             TEKNIS</b></p>
     <table class="table table-bordered table-sm"
