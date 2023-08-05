@@ -67,14 +67,14 @@
                                                     class="fa fa-eye" aria-hidden="true"></i>
                                                 View</a>&nbsp;
 
-                                            @if ($row->status_laporan == 'Need Review')
+                                            {{-- @if ($row->status_laporan == 'Need Review')
                                                 <a class="btn btn-success btn-sm"
                                                     href="{{ url('/web/history_laporan/' . $row->no_laporan) }}"><i
                                                         class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
                                             @else
                                                 <button class="btn btn-success btn-sm" disabled><i class="fa fa-pencil"
                                                         aria-hidden="true"></i> Edit</button>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                 </div>

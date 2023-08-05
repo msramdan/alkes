@@ -60,7 +60,7 @@
                     <li class="list-group-item">
                         <nav class="navbar bg-body-tertiary">
                             <div class="container-fluid d-flex">
-                                <a class="navbar-brand" href="#">Pengukuran Kinerja</a>
+                                <a class="navbar-brand" href="{{ url('/web/show/history_laporan/pengukuran-kinerja/' . $laporan->no_laporan) }}">Pengukuran Kinerja</a>
                                 <i class="fa-solid fa-angle-right ms-auto"></i>
                             </div>
                         </nav>

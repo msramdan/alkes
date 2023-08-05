@@ -109,4 +109,16 @@ class ShowHistoryLaporanController extends Controller
 
         return view('frontend.history-laporan.show.telaah_teknis', compact('laporan', 'telaah_teknis','kesimpulan_telaah_teknis'));
     }
+
+    public function pengukuranKinerja($nolaporan)
+    {
+        $laporan = Laporan::where('no_laporan', $nolaporan)->first();
+        if($laporan->nomenklatur_id ==10 || $laporan->nomenklatur_id ==11 ){
+            $laporan_occlusion = DB::table('laporan_occlusion')
+            ->where('no_laporan', $nolaporan)
+            ->first();
+        }
+        return view('frontend.history-laporan.show.pengukuran_kinjera', compact('laporan', 'laporan_occlusion'));
+    }
+
 }

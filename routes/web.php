@@ -59,6 +59,8 @@ Route::prefix('web')->middleware(['IsLoginTeknisi'])->group(function () {
     Route::get('/show/history_laporan/keselamatan-listrik/{nolaporan}', [ShowHistoryLaporanController::class, 'keselamatanListrik'])->name('web-show-history_laporan.keselamatanListrik');
     Route::get('/show/history_laporan/telaah-teknis/{nolaporan}', [ShowHistoryLaporanController::class, 'telaahTeknis'])->name('web-show-history_laporan.telaahTeknis');
     Route::get('/show/history_laporan/kesimpulan-telaah_teknis/{nolaporan}', [ShowHistoryLaporanController::class, 'kesimpulanTelaahTeknis'])->name('web-show-history_laporan.kesimpulanTelaahTeknis');
+    Route::get('/show/history_laporan/pengukuran-kinerja/{nolaporan}', [ShowHistoryLaporanController::class, 'pengukuranKinerja'])->name('web-show-history_laporan.pengukuranKinerja');
+
     Route::get('/faskes', [FaskesController::class, 'index'])->name('web-faskes');
     Route::get('/faskes/filter', [FaskesController::class, 'filter']);
     Route::get('/inventaris', [InventarisController::class, 'index'])->name('web-inventaris');
