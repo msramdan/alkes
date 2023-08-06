@@ -19,7 +19,11 @@
         ->first();
 
     if ($ida->value == 1) {
-
+        $slope = $flow_rate->slope_1;
+        $intercept = $flow_rate->intercept_1 ;
+    }else{
+        $slope = $flow_rate->slope_2;
+        $intercept = $flow_rate->intercept_2;
     }
     ?>
     <p style="font-size: 11px;margin-left:18px"><b>OCCLUSION</b></p>
@@ -128,15 +132,38 @@
                     {{ $enam1 = $flow_rate->percobaan1_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2) }}
+                    {{ $mean1 = round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2) }}
                 </td>
-                @if ($ida->value == 1)
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2) }}
-                    </td>
-                @else
-                @endif
-
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi1 =  round($intercept + ($slope*$mean1),2)  }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi1 - 10 }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    1
+                </td>
+                <td rowspan="4" style="text-align: center;vertical-align: middle;">
+                    10 %
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td rowspan="4" style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td rowspan="4" style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
             </tr>
             <tr>
                 <td style="text-align: center;vertical-align: middle;">50</td>
@@ -159,7 +186,28 @@
                     {{ $enam2 = $flow_rate->percobaan2_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6, 2) }}
+                    {{ $mean2 = round(($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6, 2) }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi2 = round($intercept + ($slope*$mean2),2)  }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi2 - 50 }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    5
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
                 </td>
             </tr>
             <tr>
@@ -183,7 +231,28 @@
                     {{ $enam3 = $flow_rate->percobaan3_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6, 2) }}
+                    {{$mean3 = round(($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6, 2) }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi3 = round($intercept + ($slope*$mean3),2)  }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi3 - 100 }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    10
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
                 </td>
             </tr>
             <tr>
@@ -207,7 +276,28 @@
                     {{ $enam4 = $flow_rate->percobaan4_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2) }}
+                    {{ $mean4= round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2) }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi4 = round($intercept + ($slope*$mean4),2)  }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $meanTerkoreksi4 - 500 }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    50
+                </td>
+                <td style="text-align: center;vertical-align: middle;">
+                    -
                 </td>
             </tr>
         </tbody>
