@@ -15,11 +15,11 @@ class ShowHistoryLaporanController extends Controller
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
 
         $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
-        ->select('*')
-        ->where('no_laporan', $laporan->no_laporan)
-        ->get();
+            ->select('*')
+            ->where('no_laporan', $laporan->no_laporan)
+            ->get();
         $count_laporan_pengukuran_keselamatan_listrik = count($laporan_pengukuran_keselamatan_listrik);
-        return view('frontend.history-laporan.show', compact('laporan','count_laporan_pengukuran_keselamatan_listrik'));
+        return view('frontend.history-laporan.show', compact('laporan', 'count_laporan_pengukuran_keselamatan_listrik'));
     }
 
     public function pendataanAdministrasi($nolaporan)
@@ -107,18 +107,20 @@ class ShowHistoryLaporanController extends Controller
             ->where('no_laporan', $nolaporan)
             ->first();
 
-        return view('frontend.history-laporan.show.telaah_teknis', compact('laporan', 'telaah_teknis','kesimpulan_telaah_teknis'));
+        return view('frontend.history-laporan.show.telaah_teknis', compact('laporan', 'telaah_teknis', 'kesimpulan_telaah_teknis'));
     }
 
     public function pengukuranKinerja($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
-        if($laporan->nomenklatur_id ==10 || $laporan->nomenklatur_id ==11 ){
+        if ($laporan->nomenklatur_id == 10 || $laporan->nomenklatur_id == 11) {
             $laporan_occlusion = DB::table('laporan_occlusion')
-            ->where('no_laporan', $nolaporan)
-            ->first();
+                ->where('no_laporan', $nolaporan)
+                ->first();
+            $flow_rate = DB::table('laporan_flow_rate')
+                ->where('no_laporan', $nolaporan)
+                ->first();
         }
-        return view('frontend.history-laporan.show.pengukuran_kinjera', compact('laporan', 'laporan_occlusion'));
+        return view('frontend.history-laporan.show.pengukuran_kinjera', compact('laporan', 'laporan_occlusion','flow_rate'));
     }
-
 }

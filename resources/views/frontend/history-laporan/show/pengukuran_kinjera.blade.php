@@ -90,27 +90,27 @@
                                 <td>10</td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan1_1 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan1_2 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan1_3 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan1_4 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan1_5 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan1_6 }}">
                                 </td>
                                 <td rowspan="4">± 10%</td>
                             </tr>
@@ -118,81 +118,81 @@
                                 <td>50</td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan2_1 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan2_2 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan2_3 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan2_4 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan2_5 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan2_6 }}">
                                 </td>
                             </tr>
                             <tr>
                                 <td>100</td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan3_1 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan3_2 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan3_3 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan3_4 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan3_5 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan3_6 }}">
                                 </td>
                             </tr>
                             <tr>
                                 <td>500</td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan4_1 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan4_2 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan4_3 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan4_4 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan4_5 }}">
                                 </td>
                                 <td>
                                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                        name="slope_1" readonly>
+                                        name="" readonly value="{{ $flow_rate->percobaan4_6 }}">
                                 </td>
                             </tr>
 
