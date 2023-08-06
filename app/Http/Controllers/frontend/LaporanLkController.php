@@ -118,16 +118,26 @@ class LaporanLkController extends Controller
             $nomenklatur_type = DB::table('nomenklatur_type')
                 ->where('id', $nomenklatur_type_id[1])
                 ->first();
+                $inventaris_id = $request->{$alat};
             if ($nomenklatur_type->type_id == 39) {
                 // get detail $sertifikat Thermohygrometer
-                $inventaris_id = $request->{$alat};
                 $sertifikat = DB::table('sertifikat_thermohygrometer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if(!$sertifikat){
+                    dd('Thermohygrometer IDA belum diisi');
+                }
             } else if ($nomenklatur_type->type_id == 5) {
                 // get detail $sertifikat  ElectricalSafetyAnalyzer
-                $inventaris_id = $request->{$alat};
                 $ElectricalSafetyAnalyzer = DB::table('sertifikat_electrical_safety_analyzer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if(!$ElectricalSafetyAnalyzer){
+                    dd('Sertifikat ElectricalSafetyAnalyzer belum diisi');
+                }
+            } else if ($nomenklatur_type->type_id == 46) {
+                // get detail $sertifikat  Infusion Device Analyzer
+                $sertifikatIda = DB::table('sertifikat_ida')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if(!$sertifikatIda){
+                    dd('Sertifikat IDA belum diisi');
+                }
             }
-
             DB::table('laporan_daftar_alat_ukur')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'type_id' => $nomenklatur_type->type_id,
@@ -224,27 +234,38 @@ class LaporanLkController extends Controller
                 'percobaan1_4' => $request->percobaan1_4,
                 'percobaan1_5' => $request->percobaan1_5,
                 'percobaan1_6' => $request->percobaan1_6,
-
                 'percobaan2_1' => $request->percobaan2_1,
                 'percobaan2_2' => $request->percobaan2_2,
                 'percobaan2_3' => $request->percobaan2_3,
                 'percobaan2_4' => $request->percobaan2_4,
                 'percobaan2_5' => $request->percobaan2_5,
                 'percobaan2_6' => $request->percobaan2_6,
-
                 'percobaan3_1' => $request->percobaan3_1,
                 'percobaan3_2' => $request->percobaan3_2,
                 'percobaan3_3' => $request->percobaan3_3,
                 'percobaan3_4' => $request->percobaan3_4,
                 'percobaan3_5' => $request->percobaan3_5,
                 'percobaan3_6' => $request->percobaan3_6,
-
                 'percobaan4_1' => $request->percobaan4_1,
                 'percobaan4_2' => $request->percobaan4_2,
                 'percobaan4_3' => $request->percobaan4_3,
                 'percobaan4_4' => $request->percobaan4_4,
                 'percobaan4_5' => $request->percobaan4_5,
                 'percobaan4_6' => $request->percobaan4_6,
+                // sertifikat ida
+                'tahun' => $sertifikatIda->tahun,
+                'slope_1' => $sertifikatIda->slope_1,
+                'intercept_1' => $sertifikatIda->intercept_1,
+                'slope_2' => $sertifikatIda->slope_2,
+                'intercept_2' => $sertifikatIda->intercept_2,
+                'drift10_1' => $sertifikatIda->drift10_1,
+                'drift50_1' => $sertifikatIda->drift50_1,
+                'drift100_1' => $sertifikatIda->drift100_1,
+                'drift500_1' => $sertifikatIda->drift500_1,
+                'drift10_2' => $sertifikatIda->drift10_2,
+                'drift50_2' => $sertifikatIda->drift50_2,
+                'drift100_2' => $sertifikatIda->drift100_2,
+                'drift500_2' => $sertifikatIda->drift500_2,
             ]);
         }
         //Create Laporan Telaah Teknis

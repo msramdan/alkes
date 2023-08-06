@@ -45,6 +45,19 @@ return new class extends Migration
             $table->double('percobaan4_5', 15, 9)->nullable();
             $table->double('percobaan4_6', 15, 9)->nullable();
 
+            $table->string('tahun', 4);
+            $table->double('slope_1', 15, 9)->nullable();
+            $table->double('intercept_1', 15, 9)->nullable();
+            $table->double('slope_2', 15, 9)->nullable();
+            $table->double('intercept_2', 15, 9)->nullable();
+            $table->double('drift10_1', 15, 9)->nullable();
+            $table->double('drift50_1', 15, 9)->nullable();
+            $table->double('drift100_1', 15, 9)->nullable();
+            $table->double('drift500_1', 15, 9)->nullable();
+            $table->double('drift10_2', 15, 9)->nullable();
+            $table->double('drift50_2', 15, 9)->nullable();
+            $table->double('drift100_2', 15, 9)->nullable();
+            $table->double('drift500_2', 15, 9)->nullable();
 
             $table->timestamps();
         });

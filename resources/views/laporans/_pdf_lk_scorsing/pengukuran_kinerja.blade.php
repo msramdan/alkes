@@ -8,6 +8,19 @@
     $flow_rate = DB::table('laporan_flow_rate')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
+    // get chanel IDA
+    $ida = DB::table('laporan_pendataan_administrasi')
+        ->where('no_laporan', $laporan->no_laporan)
+        ->where('slug', 'channel-ida')
+        ->first();
+    // get sertifikat ida
+    $sertifikat_ida = DB::table('sertifikat_ida')
+        ->where('inventaris_id', $laporan->no_laporan)
+        ->first();
+
+    if ($ida->value == 1) {
+
+    }
     ?>
     <p style="font-size: 11px;margin-left:18px"><b>OCCLUSION</b></p>
     <table class="table table-bordered table-sm"
@@ -97,97 +110,104 @@
             <tr>
                 <td style="text-align: center;vertical-align: middle;">10</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu1 = $flow_rate->percobaan1_1  }}
+                    {{ $satu1 = $flow_rate->percobaan1_1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua1 = $flow_rate->percobaan1_2  }}
+                    {{ $dua1 = $flow_rate->percobaan1_2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga1 = $flow_rate->percobaan1_3  }}
+                    {{ $tiga1 = $flow_rate->percobaan1_3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $empat1 = $flow_rate->percobaan1_4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima1 = $flow_rate->percobaan1_5}}
+                    {{ $lima1 = $flow_rate->percobaan1_5 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $enam1 = $flow_rate->percobaan1_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(( $satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6,2)  }}
+                    {{ round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2) }}
                 </td>
+                @if ($ida->value == 1)
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2) }}
+                    </td>
+                @else
+                @endif
+
             </tr>
             <tr>
                 <td style="text-align: center;vertical-align: middle;">50</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu2 = $flow_rate->percobaan2_1  }}
+                    {{ $satu2 = $flow_rate->percobaan2_1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua2 = $flow_rate->percobaan2_2  }}
+                    {{ $dua2 = $flow_rate->percobaan2_2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga2 = $flow_rate->percobaan2_3  }}
+                    {{ $tiga2 = $flow_rate->percobaan2_3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $empat2 = $flow_rate->percobaan2_4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima2 = $flow_rate->percobaan2_5}}
+                    {{ $lima2 = $flow_rate->percobaan2_5 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $enam2 = $flow_rate->percobaan2_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(( $satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6,2)  }}
+                    {{ round(($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6, 2) }}
                 </td>
             </tr>
             <tr>
                 <td style="text-align: center;vertical-align: middle;">100</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu3 = $flow_rate->percobaan3_1  }}
+                    {{ $satu3 = $flow_rate->percobaan3_1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua3 = $flow_rate->percobaan3_2  }}
+                    {{ $dua3 = $flow_rate->percobaan3_2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga3 = $flow_rate->percobaan3_3  }}
+                    {{ $tiga3 = $flow_rate->percobaan3_3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $empat3 = $flow_rate->percobaan3_4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima3 = $flow_rate->percobaan3_5}}
+                    {{ $lima3 = $flow_rate->percobaan3_5 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $enam3 = $flow_rate->percobaan3_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(( $satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6,2)  }}
+                    {{ round(($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6, 2) }}
                 </td>
             </tr>
             <tr>
                 <td style="text-align: center;vertical-align: middle;">500</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu4 = $flow_rate->percobaan4_1  }}
+                    {{ $satu4 = $flow_rate->percobaan4_1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua4 = $flow_rate->percobaan4_2  }}
+                    {{ $dua4 = $flow_rate->percobaan4_2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga4 = $flow_rate->percobaan4_3  }}
+                    {{ $tiga4 = $flow_rate->percobaan4_3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $empat4 = $flow_rate->percobaan4_4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima4 = $flow_rate->percobaan4_5}}
+                    {{ $lima4 = $flow_rate->percobaan4_5 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $enam4 = $flow_rate->percobaan4_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(( $satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6,2)  }}
+                    {{ round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2) }}
                 </td>
             </tr>
         </tbody>
