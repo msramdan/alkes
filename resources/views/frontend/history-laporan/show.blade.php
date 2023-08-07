@@ -1,6 +1,7 @@
 @extends('layouts.master-frontend')
 @section('title', 'History Laporan')
 @section('content')
+
     <div class="page-content-wrapper">
         <div class="py-3">
             <div class="container">

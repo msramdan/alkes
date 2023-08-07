@@ -111,3 +111,12 @@ function tanggal_indonesia($tanggal)
     $pecahkan = explode('-', $tanggal);
     return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
 }
+
+function standard_deviation($sample)
+{
+    if (is_array($sample)) {
+        $mean = array_sum($sample) / count($sample);
+        foreach ($sample as $key => $num) $devs[$key] = pow($num - $mean, 2);
+        return sqrt(array_sum($devs) / (count($devs) - 1));
+    }
+}

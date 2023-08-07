@@ -20,8 +20,8 @@
 
     if ($ida->value == 1) {
         $slope = $flow_rate->slope_1;
-        $intercept = $flow_rate->intercept_1 ;
-    }else{
+        $intercept = $flow_rate->intercept_1;
+    } else {
         $slope = $flow_rate->slope_2;
         $intercept = $flow_rate->intercept_2;
     }
@@ -111,43 +111,70 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                // 1
+                $satu1 = $flow_rate->percobaan1_1;
+                $dua1 = $flow_rate->percobaan1_2;
+                $tiga1 = $flow_rate->percobaan1_3;
+                $empat1 = $flow_rate->percobaan1_4;
+                $lima1 = $flow_rate->percobaan1_5;
+                $enam1 = $flow_rate->percobaan1_6;
+                $mean1 = round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2);
+                $meanTerkoreksi1 = round($intercept + $slope * $mean1, 2);
+                $arr = [];
+                array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
+                $koreksi = $meanTerkoreksi1 - 10;
+                $u95 = 100;
+                $absU95 = abs($koreksi) + $u95;
+                $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
+                // 2
+                $satu2 = $flow_rate->percobaan2_1;
+                $dua2 = $flow_rate->percobaan2_2;
+                $tiga2 = $flow_rate->percobaan2_3;
+                $empat2 = $flow_rate->percobaan2_4;
+                $lima2 = $flow_rate->percobaan2_5;
+                $enam2 = $flow_rate->percobaan2_6;
+                // 3
+                // 4
+            @endphp
             <tr>
                 <td style="text-align: center;vertical-align: middle;">10</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu1 = $flow_rate->percobaan1_1 }}
+                    {{ $satu1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua1 = $flow_rate->percobaan1_2 }}
+                    {{ $dua1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga1 = $flow_rate->percobaan1_3 }}
+                    {{ $tiga1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $empat1 = $flow_rate->percobaan1_4 }}
+                    {{ $empat1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima1 = $flow_rate->percobaan1_5 }}
+                    {{ $lima1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $enam1 = $flow_rate->percobaan1_6 }}
+                    {{ $enam1 }}
+                </td>
+
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $mean1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean1 = round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2) }}
+                    {{ $meanTerkoreksi1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi1 =  round($intercept + ($slope*$mean1),2)  }}
+                    {{ round(standard_deviation($arr), 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $koreksi }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi1 - 10 }}
+                    {{ $u95 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     1
@@ -156,7 +183,7 @@
                     10 %
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $score }}
                 </td>
                 <td rowspan="4" style="text-align: center;vertical-align: middle;">
                     -
@@ -168,46 +195,50 @@
             <tr>
                 <td style="text-align: center;vertical-align: middle;">50</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu2 = $flow_rate->percobaan2_1 }}
+                    {{ $satu2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua2 = $flow_rate->percobaan2_2 }}
+                    {{ $dua2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga2 = $flow_rate->percobaan2_3 }}
+                    {{ $tiga2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $empat2 = $flow_rate->percobaan2_4 }}
+                    {{ $empat2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima2 = $flow_rate->percobaan2_5 }}
+                    {{ $lima2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $enam2 = $flow_rate->percobaan2_6 }}
+                    {{ $enam2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $mean2 = round(($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi2 = round($intercept + ($slope*$mean2),2)  }}
+                    {{ $meanTerkoreksi2 = round($intercept + $slope * $mean2, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    @php
+                        $arr2 = [];
+                        array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
+                    @endphp
+                    {{ round(standard_deviation($arr2), 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi2 - 50 }}
+                    {{ $koreksi = $meanTerkoreksi2 - 50 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $u95 = 100 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 = abs($koreksi) + $u95 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     5
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 < 5 ? 'Lulus' : 'Tidak' }}
                 </td>
             </tr>
             <tr>
@@ -231,28 +262,32 @@
                     {{ $enam3 = $flow_rate->percobaan3_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{$mean3 = round(($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6, 2) }}
+                    {{ $mean3 = round(($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi3 = round($intercept + ($slope*$mean3),2)  }}
+                    {{ $meanTerkoreksi3 = round($intercept + $slope * $mean3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    @php
+                        $arr3 = [];
+                        array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
+                    @endphp
+                    {{ round(standard_deviation($arr3), 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi3 - 100 }}
+                    {{ $koreksi = $meanTerkoreksi3 - 100 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $u95 = 100 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 = abs($koreksi) + $u95 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     10
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 < 10 ? 'Lulus' : 'Tidak' }}
                 </td>
             </tr>
             <tr>
@@ -276,28 +311,32 @@
                     {{ $enam4 = $flow_rate->percobaan4_6 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean4= round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2) }}
+                    {{ $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi4 = round($intercept + ($slope*$mean4),2)  }}
+                    {{ $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    @php
+                        $arr4 = [];
+                        array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+                    @endphp
+                    {{ round(standard_deviation($arr4), 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi4 - 500 }}
+                    {{ $koreksi = $meanTerkoreksi4 - 500 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $u95 = 100 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 = abs($koreksi) + $u95 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     50
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    -
+                    {{ $absU95 < 50 ? 'Lulus' : 'Tidak' }}
                 </td>
             </tr>
         </tbody>
