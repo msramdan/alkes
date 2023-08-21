@@ -13,6 +13,10 @@
         ->where('no_laporan', $laporan->no_laporan)
         ->where('slug', 'channel-ida')
         ->first();
+    $resolusi = DB::table('laporan_pendataan_administrasi')
+        ->where('no_laporan', $laporan->no_laporan)
+        ->where('slug', 'resolusi')
+        ->first();
     // get sertifikat ida
     $sertifikat_ida = DB::table('sertifikat_ida')
         ->where('inventaris_id', $laporan->no_laporan)
@@ -123,8 +127,17 @@
                 $meanTerkoreksi1 = round($intercept + $slope * $mean1, 2);
                 $arr = [];
                 array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
+                // stdev
+                $stdev =  round(standard_deviation($arr), 2);
                 $koreksi = $meanTerkoreksi1 - 10;
-                $u95 = 100;
+
+                // hitung uncertainty
+                $u95 = hitung_uncertainty(10,$resolusi->value,$stdev);
+
+
+
+
+
                 $absU95 = abs($koreksi) + $u95;
                 $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
                 // 2
@@ -138,6 +151,8 @@
                 $meanTerkoreksi2 = round($intercept + $slope * $mean2, 2);
                 $arr2 = [];
                 array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
+                // stdev
+                $stdev2 =  round(standard_deviation($arr2), 2);
                 $koreksi2 = $meanTerkoreksi2 - 50;
                 $u952 = 100;
                 $absU952 = abs($koreksi2) + $u952;
@@ -153,6 +168,8 @@
                 $meanTerkoreksi3 = round($intercept + $slope * $mean3, 2);
                 $arr3 = [];
                 array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
+                // stdev
+                $stdev3 =  round(standard_deviation($arr3), 2);
                 $koreksi3 = $meanTerkoreksi3 - 100;
                 $u953 = 100;
                 $absU953 = abs($koreksi3) + $u953;
@@ -168,6 +185,7 @@
                 $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
                 $arr4 = [];
                 array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+                $stdev4 =  round(standard_deviation($arr4), 2);
                 $koreksi4 = $meanTerkoreksi4 - 500;
                 $u954 = 100;
                 $absU954 = abs($koreksi4) + $u954;
@@ -217,7 +235,7 @@
                     {{ $meanTerkoreksi1 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(standard_deviation($arr), 2) }}
+                    {{ $stdev }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $koreksi }}
@@ -271,7 +289,7 @@
                     {{ $meanTerkoreksi2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(standard_deviation($arr2), 2) }}
+                    {{ $stdev2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $koreksi2 }}
@@ -316,7 +334,7 @@
                     {{ $meanTerkoreksi3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(standard_deviation($arr3), 2) }}
+                    {{ $stdev3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $koreksi3 }}
@@ -361,7 +379,7 @@
                     {{ $meanTerkoreksi4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round(standard_deviation($arr4), 2) }}
+                    {{ $stdev4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ $koreksi4 }}

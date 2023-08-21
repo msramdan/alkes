@@ -120,3 +120,61 @@ function standard_deviation($sample)
         return sqrt(array_sum($devs) / (count($devs) - 1));
     }
 }
+
+function hitung_uncertainty($titik_ukur, $resolusi_uut, $stdev)
+{
+    // $pembacaan_berulang
+    $n = 6;
+    $stdev = $stdev;
+    $pembagi = round(sqrt($n), 3); //2.45
+    $v = $n - 1; //5
+    $u = round($stdev / $pembagi, 3); // 10.36
+    $c = 1;
+    $uc =  $u * $c; //10.367
+    $uc_1 = round($uc * $uc, 3);  //107.475
+    $ucv_1 = ($uc_1 * $uc_1) / $v;
+
+    // sertifikat Standar
+    $stdev2 = 0.65;
+    $pembagi2 = 2;
+    $v2 = 50;
+    $u2 = round($stdev2 / $pembagi2, 3); // 0.325
+    $c2 = 1;
+    $uc2 =  $u2 * $c2; // 0.325
+    $uc_2 = round($uc2 * $uc2, 3);  //0.106
+    $ucv_2 = ($uc_2 * $uc_2) / $v2;
+
+    // Drift
+    $stdev3 = 0.01;
+    $pembagi3 = sqrt(3);
+    $v3 = 50;
+    $u3 = round($stdev3 / $pembagi3, 3); // 0.006
+    $c3 = 1;
+    $uc3 = $u3 * $c3; // 0.006
+    $uc_3 = round($uc3 * $uc3, 3);  // 0
+    $ucv_3 = ($uc_3 * $uc_3) / $v2;
+
+    // resolusi UUT
+    $stdev4 = 0.5 * $titik_ukur ;
+    $pembagi4 = sqrt(3);
+    $v4 = 50;
+    $u4 = round($stdev4 / $pembagi4, 3); // 2.887
+    $c4 = 1;
+    $uc4 = $u4 * $c4; // 2.887
+    $uc_4 = round($uc4 * $uc4, 3);  // 8.335
+    $ucv_4 = ($uc_4 * $uc_4) / $v4;
+    // ==============================================
+    $jumlah_uc =  $uc_1  + $uc_2 + $uc_3 + $uc_4;
+    $jumlah_ucv =  $ucv_1  + $ucv_2 + $ucv_3 + $ucv_4;
+    $ketidakpastian_baku_gabungan =sqrt($jumlah_uc);
+    $derajat_kebebasan_efektif = ($ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan) /  $jumlah_ucv;
+    $faktor_cakupan = TINV(0.05,$derajat_kebebasan_efektif);
+
+    var_dump($faktor_cakupan);
+    die();
+
+    $ketidakpastian_bentangan = $faktor_cakupan * $ketidakpastian_baku_gabungan;
+
+
+    return $ketidakpastian_bentangan;
+}
