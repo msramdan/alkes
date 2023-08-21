@@ -215,7 +215,7 @@ class TableTSeeder extends Seeder
             199 => 1.97196,
             200 => 1.97190
         ];
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 200; $i++) {
             DB::table('table_t')->insert([
                 [
                     'df' => $i,

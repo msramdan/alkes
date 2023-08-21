@@ -121,7 +121,7 @@ function standard_deviation($sample)
     }
 }
 
-function hitung_uncertainty($titik_ukur, $resolusi_uut, $stdev)
+function hitung_uncertainty($resolusi_uut, $stdev)
 {
     // $pembacaan_berulang
     $n = 6;
@@ -133,7 +133,6 @@ function hitung_uncertainty($titik_ukur, $resolusi_uut, $stdev)
     $uc =  $u * $c; //10.367
     $uc_1 = round($uc * $uc, 3);  //107.475
     $ucv_1 = ($uc_1 * $uc_1) / $v;
-
     // sertifikat Standar
     $stdev2 = 0.65;
     $pembagi2 = 2;
@@ -155,7 +154,7 @@ function hitung_uncertainty($titik_ukur, $resolusi_uut, $stdev)
     $ucv_3 = ($uc_3 * $uc_3) / $v2;
 
     // resolusi UUT
-    $stdev4 = 0.5 * $titik_ukur ;
+    $stdev4 = 0.5 * $resolusi_uut ;
     $pembagi4 = sqrt(3);
     $v4 = 50;
     $u4 = round($stdev4 / $pembagi4, 3); // 2.887
@@ -168,13 +167,13 @@ function hitung_uncertainty($titik_ukur, $resolusi_uut, $stdev)
     $jumlah_ucv =  $ucv_1  + $ucv_2 + $ucv_3 + $ucv_4;
     $ketidakpastian_baku_gabungan =sqrt($jumlah_uc);
     $derajat_kebebasan_efektif = ($ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan) /  $jumlah_ucv;
-    $faktor_cakupan = TINV(0.05,$derajat_kebebasan_efektif);
-
-    var_dump($faktor_cakupan);
-    die();
-
+    $faktor_cakupan = tinv(0.05,floor($derajat_kebebasan_efektif));
     $ketidakpastian_bentangan = $faktor_cakupan * $ketidakpastian_baku_gabungan;
-
-
     return $ketidakpastian_bentangan;
+}
+
+function tinv($probability , $df)
+{
+    $table_t = DB::table('table_t')->where('df', $df)->first();
+    return $table_t->value;
 }
