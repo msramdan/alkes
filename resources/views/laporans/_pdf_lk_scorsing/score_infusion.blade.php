@@ -37,7 +37,6 @@
     </tbody>
 </table>
 
-
 {{-- pengukuran_keselamatan_listrik --}}
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
@@ -59,8 +58,9 @@
 
     if ($hitungPhaseGround > 198) {
         $lulus = $lulus + 1;
+
     }
-    if ($hitungPhaseNetral < 5) {
+    if ($hitungGroundNetral < 5) {
         $lulus = $lulus + 1;
     }
     if ($dps <= 0.2) {
@@ -75,6 +75,7 @@
     if ($bf <= 500) {
         $lulus = $lulus + 1;
     }
+
     $point = round(($lulus / 7) * 40);
     ?>
     <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b> </p>

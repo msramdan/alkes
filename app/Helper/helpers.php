@@ -153,8 +153,7 @@ function hitung_uncertainty($resolusi_uut, $stdev)
     $uc_3 = round($uc3 * $uc3, 3);  // 0
     $ucv_3 = ($uc_3 * $uc_3) / $v2;
 
-    // resolusi UUT
-    $stdev4 = 0.5 * $resolusi_uut ;
+    $stdev4 = 0.5 * $resolusi_uut;
     $pembagi4 = sqrt(3);
     $v4 = 50;
     $u4 = round($stdev4 / $pembagi4, 3); // 2.887
