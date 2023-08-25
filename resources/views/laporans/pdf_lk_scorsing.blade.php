@@ -93,20 +93,10 @@
         </tr>
     </table>
     <hr class="s1">
-    {{-- Pendataan Administrasi --}}
     @include('laporans._pdf_lk_scorsing.pendataan_administrasi')
-    {{-- Daftar Alat --}}
     @include('laporans._pdf_lk_scorsing.daftar_alat')
-    {{-- PENGUKURAN KONDISI LINGKUNGAN --}}
     @include('laporans._pdf_lk_scorsing.pengukuran_kondisi_fisik')
-    {{-- PEMERIKSAAAN KONDISI FISIK DAN FUNGSI --}}
-    @include('laporans._pdf_lk_scorsing.kondisi_fisik_dan_fungsi')
-    {{-- PENGUKURAN KESELAMATAN LISTRIK --}}
-    @include('laporans._pdf_lk_scorsing.pengukuran_keselamatan_listrik')
-    {{-- PENGUKURAN KINERJA --}}
-    @include('laporans._pdf_lk_scorsing.pengukuran_kinerja')
-    {{-- TELAAH TEKNIS --}}
-    @include('laporans._pdf_lk_scorsing.telaah_teknis')
+    @include('laporans._pdf_lk_scorsing.score_infusion')
 </body>
 
 </html>

@@ -27,11 +27,6 @@ class LaporanController extends Controller
         $this->middleware('permission:laporan create')->only('create', 'store');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (request()->ajax()) {
@@ -40,7 +35,6 @@ class LaporanController extends Controller
             $teknisi = $request->query('teknisi');
             $faskes = intval($request->query('faskes'));
             $status = $request->query('status');
-
             $laporans = DB::table('laporans')
                 ->leftjoin('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
                 ->leftjoin('faskes', 'laporans.faskes_id', '=', 'faskes.id')
