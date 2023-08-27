@@ -414,7 +414,6 @@
                     $initScore = $initScore + 25;
                 }
                 $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
-
             @endphp
             <tr>
                 <td style="text-align: center;vertical-align: middle;">10</td>
