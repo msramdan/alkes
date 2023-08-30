@@ -1,7 +1,7 @@
-
 <style>
-    .page_break { page-break-before: always; }
-
+    .page_break {
+        page-break-before: always;
+    }
 </style>
 <p style="font-size: 14px"><b>D. PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</b></p>
 <table class="table table-bordered table-sm"
@@ -58,7 +58,6 @@
 
     if ($hitungPhaseGround > 198) {
         $lulus = $lulus + 1;
-
     }
     if ($hitungGroundNetral < 5) {
         $lulus = $lulus + 1;
@@ -290,7 +289,8 @@
                     {{ $mean_occlusion = round(($satu + $dua + $tiga + $empat + $lima + $enam) / 6, 2) }}</td>
                 <td style="text-align: center;vertical-align: middle;"><img src="../public/asset/kurang.png"
                         style="width: 6px; margin-top:3px"> 1379 mbar (20 psi)</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $mean_occlusion < 20 ? 'Lulus' : 'Tidak Lulus' }}</td>
+                <td style="text-align: center;vertical-align: middle;">
+                    {{ $mean_occlusion < 20 ? 'Lulus' : 'Tidak Lulus' }}</td>
                 <td style="text-align: center;vertical-align: middle;">{{ $mean_occlusion < 20 ? 100 : 0 }}</td>
             </tr>
         </tbody>
@@ -337,7 +337,6 @@
                 $enam1 = $flow_rate->percobaan1_6;
                 $mean1 = round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2);
 
-
                 $meanTerkoreksi1 = round($intercept + $slope * $mean1, 2);
                 $arr = [];
                 array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
@@ -382,37 +381,57 @@
                 $u953 = round(hitung_uncertainty($resolusi->value, $stdev3), 3);
                 $absU953 = abs($koreksi3) + $u953;
                 $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
-                // 4
-                $satu4 = $flow_rate->percobaan4_1;
-                $dua4 = $flow_rate->percobaan4_2;
-                $tiga4 = $flow_rate->percobaan4_3;
-                $empat4 = $flow_rate->percobaan4_4;
-                $lima4 = $flow_rate->percobaan4_5;
-                $enam4 = $flow_rate->percobaan4_6;
-                $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
-                $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
-                $arr4 = [];
-                array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
-                $stdev4 = round(standard_deviation($arr4), 2);
-                $koreksi4 = $meanTerkoreksi4 - 500;
-                $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
-                $absU954 = abs($koreksi4) + $u954;
-                $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+                // 4 sini
 
-                // Hitung score
-                $initScore = 0;
-                if ($score == 'Lulus') {
-                    $initScore = $initScore + 25;
+                if ($nomenklaturs->id == 10) {
+                    $satu4 = $flow_rate->percobaan4_1;
+                    $dua4 = $flow_rate->percobaan4_2;
+                    $tiga4 = $flow_rate->percobaan4_3;
+                    $empat4 = $flow_rate->percobaan4_4;
+                    $lima4 = $flow_rate->percobaan4_5;
+                    $enam4 = $flow_rate->percobaan4_6;
+                    $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
+                    $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
+                    $arr4 = [];
+                    array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+                    $stdev4 = round(standard_deviation($arr4), 2);
+                    $koreksi4 = $meanTerkoreksi4 - 500;
+                    $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
+                    $absU954 = abs($koreksi4) + $u954;
+                    $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
                 }
-                if ($score2 == 'Lulus') {
-                    $initScore = $initScore + 25;
+
+                if ($nomenklaturs->id == 10) {
+                    $pembagi = 4;
+                    $initScore = 0;
+                    if ($score == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score2 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score3 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score4 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    $initScore =   ($initScore / $pembagi) * 100;
+                } elseif ($nomenklaturs->id == 11) {
+                    $pembagi = 3;
+                    $initScore = 0;
+                    if ($score == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score2 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score3 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    $initScore =   ($initScore / $pembagi) * 100;
                 }
-                if ($score3 == 'Lulus') {
-                    $initScore = $initScore + 25;
-                }
-                if ($score4 == 'Lulus') {
-                    $initScore = $initScore + 25;
-                }
+
                 $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
             @endphp
             <tr>
@@ -560,51 +579,54 @@
                     {{ $score3 }}
                 </td>
             </tr>
-            <tr>
-                <td style="text-align: center;vertical-align: middle;">500</td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $satu4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $dua4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $tiga4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $empat4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $lima4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $enam4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $stdev4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $koreksi4 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $u954 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $absU954 }}
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    50
-                </td>
-                <td style="text-align: center;vertical-align: middle;">
-                    {{ $score4 }}
-                </td>
-            </tr>
+            @if ($nomenklaturs->id == 10)
+                <tr>
+                    <td style="text-align: center;vertical-align: middle;">500</td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $satu4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $dua4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $tiga4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $empat4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $lima4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $enam4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $mean4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $meanTerkoreksi4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $stdev4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $koreksi4 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $u954 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $absU954 }}
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        50
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;">
+                        {{ $score4 }}
+                    </td>
+                </tr>
+            @endif
+
         </tbody>
     </table>
 @endif
@@ -655,8 +677,9 @@
             <td style="text-align: center;">1</td>
             <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
             <td style="text-align: center;">{{ $score_fisik }}</td>
-            {{ $scoreOcc =  $mean_occlusion < 20 ? 100 : 0 }}
-            <td style="text-align: center;vertical-align: middle;" rowspan="3">{{ $totalAll =  $score_fisik + $point + ((($kinerja = $scoreOcc + $initScore)/2)/2) }}</td>
+            {{ $scoreOcc = $mean_occlusion < 20 ? 100 : 0 }}
+            <td style="text-align: center;vertical-align: middle;" rowspan="3">
+                {{ $totalAll = $score_fisik + $point + ($kinerja = $scoreOcc + $initScore) / 2 / 2 }}</td>
         </tr>
         <tr>
             <td style="text-align: center;">2</td>
@@ -666,7 +689,7 @@
         <tr>
             <td style="text-align: center;">3</td>
             <td style="text-align: center;">PENGUKURAN KINERJA</td>
-            <td style="text-align: center;">{{ (($scoreOcc + $initScore)/2)/2 }}</td>
+            <td style="text-align: center;">{{ ($scoreOcc + $initScore) / 2 / 2 }}</td>
         </tr>
     </tbody>
 </table>
@@ -688,7 +711,7 @@
                 hasil kalibrasi, alat ini dinyatakan </td>
             <td style="width: 20%;text-align: center;vertical-align: middle;">
                 <div class="form-group" style="margin: 0px">
-                    <input type="checkbox"  {{ $totalAll >= 70 ? 'checked' : '' }}>
+                    <input type="checkbox" {{ $totalAll >= 70 ? 'checked' : '' }}>
                     <label><b style="font-size: 12px">LAIK PAKAI</b></label>
                 </div>
             </td>

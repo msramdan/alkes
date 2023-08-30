@@ -549,36 +549,57 @@
                 $absU953 = abs($koreksi3) + $u953;
                 $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
                 // 4
-                $satu4 = $flow_rate->percobaan4_1;
-                $dua4 = $flow_rate->percobaan4_2;
-                $tiga4 = $flow_rate->percobaan4_3;
-                $empat4 = $flow_rate->percobaan4_4;
-                $lima4 = $flow_rate->percobaan4_5;
-                $enam4 = $flow_rate->percobaan4_6;
-                $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
-                $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
-                $arr4 = [];
-                array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
-                $stdev4 = round(standard_deviation($arr4), 2);
-                $koreksi4 = $meanTerkoreksi4 - 500;
-                $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
-                $absU954 = abs($koreksi4) + $u954;
-                $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+
+                if ($nomenklaturs->id == 10) {
+                    $satu4 = $flow_rate->percobaan4_1;
+                    $dua4 = $flow_rate->percobaan4_2;
+                    $tiga4 = $flow_rate->percobaan4_3;
+                    $empat4 = $flow_rate->percobaan4_4;
+                    $lima4 = $flow_rate->percobaan4_5;
+                    $enam4 = $flow_rate->percobaan4_6;
+                    $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
+                    $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
+                    $arr4 = [];
+                    array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+                    $stdev4 = round(standard_deviation($arr4), 2);
+                    $koreksi4 = $meanTerkoreksi4 - 500;
+                    $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
+                    $absU954 = abs($koreksi4) + $u954;
+                    $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+                }
 
                 // Hitung score
-                $initScore = 0;
-                if ($score == 'Lulus') {
-                    $initScore = $initScore + 25;
+                if ($nomenklaturs->id == 10) {
+                    $pembagi = 4;
+                    $initScore = 0;
+                    if ($score == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score2 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score3 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score4 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    $initScore = ($initScore / $pembagi) * 100;
+                } elseif ($nomenklaturs->id == 11) {
+                    $pembagi = 3;
+                    $initScore = 0;
+                    if ($score == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score2 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score3 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    $initScore = ($initScore / $pembagi) * 100;
                 }
-                if ($score2 == 'Lulus') {
-                    $initScore = $initScore + 25;
-                }
-                if ($score3 == 'Lulus') {
-                    $initScore = $initScore + 25;
-                }
-                if ($score4 == 'Lulus') {
-                    $initScore = $initScore + 25;
-                }
+
                 $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
                 ?>
                 <tr>
@@ -711,48 +732,51 @@
                         10
                     </td>
                 </tr>
-                <tr>
-                    <td style="text-align: center;vertical-align: middle;">500</td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $satu4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $dua4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $tiga4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $empat4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $lima4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $enam4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $mean4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $meanTerkoreksi4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $stdev4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $koreksi4 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $u954 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        {{ $absU954 }}
-                    </td>
-                    <td style="text-align: center;vertical-align: middle;">
-                        50
-                    </td>
-                </tr>
+
+                @if ($nomenklaturs->id == 10)
+                    <tr>
+                        <td style="text-align: center;vertical-align: middle;">500</td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $satu4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $dua4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $tiga4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $empat4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $lima4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $enam4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $mean4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $meanTerkoreksi4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $stdev4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $koreksi4 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $u954 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            {{ $absU954 }}
+                        </td>
+                        <td style="text-align: center;vertical-align: middle;">
+                            50
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     @endif
@@ -806,10 +830,10 @@
                     DAN ATAU
                     KALIBRASI ALAT KESEHATAN, KEMENTERIAN KESEHATAN RI. Maka peralatan ini dinyatakan :
                     <?php
-                        $scoreOcc = $mean_occlusion < 20 ? 100 : 0;
-                        $totalAll = $score_fisik + $point + ($kinerja = $scoreOcc + $initScore) / 2 / 2
+                    $scoreOcc = $mean_occlusion < 20 ? 100 : 0;
+                    $totalAll = $score_fisik + $point + ($kinerja = $scoreOcc + $initScore) / 2 / 2;
                     ?>
-                    <b>ALAT DINYATAKAN <?php echo $totalAll >= 70 ? 'LAIK PAKAI' : 'TIDAK LAIK PAKAI' ?></b>
+                    <b>ALAT DINYATAKAN <?php echo $totalAll >= 70 ? 'LAIK PAKAI' : 'TIDAK LAIK PAKAI'; ?></b>
                 </td>
             </tr>
         </tbody>

@@ -143,36 +143,55 @@
     $u953 = round(hitung_uncertainty($resolusi->value, $stdev3), 3);
     $absU953 = abs($koreksi3) + $u953;
     $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
-    // 4
-    $satu4 = $flow_rate->percobaan4_1;
-    $dua4 = $flow_rate->percobaan4_2;
-    $tiga4 = $flow_rate->percobaan4_3;
-    $empat4 = $flow_rate->percobaan4_4;
-    $lima4 = $flow_rate->percobaan4_5;
-    $enam4 = $flow_rate->percobaan4_6;
-    $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
-    $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
-    $arr4 = [];
-    array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
-    $stdev4 = round(standard_deviation($arr4), 2);
-    $koreksi4 = $meanTerkoreksi4 - 500;
-    $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
-    $absU954 = abs($koreksi4) + $u954;
-    $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
 
-    // Hitung score
-    $initScore = 0;
-    if ($score == 'Lulus') {
-        $initScore = $initScore + 25;
+    if ($nomenklatur->id == 10) {
+        // 4
+        $satu4 = $flow_rate->percobaan4_1;
+        $dua4 = $flow_rate->percobaan4_2;
+        $tiga4 = $flow_rate->percobaan4_3;
+        $empat4 = $flow_rate->percobaan4_4;
+        $lima4 = $flow_rate->percobaan4_5;
+        $enam4 = $flow_rate->percobaan4_6;
+        $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
+        $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
+        $arr4 = [];
+        array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+        $stdev4 = round(standard_deviation($arr4), 2);
+        $koreksi4 = $meanTerkoreksi4 - 500;
+        $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
+        $absU954 = abs($koreksi4) + $u954;
+        $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
     }
-    if ($score2 == 'Lulus') {
-        $initScore = $initScore + 25;
-    }
-    if ($score3 == 'Lulus') {
-        $initScore = $initScore + 25;
-    }
-    if ($score4 == 'Lulus') {
-        $initScore = $initScore + 25;
+
+    if ($nomenklatur->id == 10) {
+        $pembagi = 4;
+        $initScore = 0;
+        if ($score == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        if ($score2 == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        if ($score3 == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        if ($score4 == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        $initScore = ($initScore / $pembagi) * 100;
+    } elseif ($nomenklatur->id == 11) {
+        $pembagi = 3;
+        $initScore = 0;
+        if ($score == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        if ($score2 == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        if ($score3 == 'Lulus') {
+            $initScore = $initScore + 1;
+        }
+        $initScore = ($initScore / $pembagi) * 100;
     }
     ?>
 @endif
@@ -267,7 +286,7 @@
                             <br>berlaku s/d :
                             {{ tanggal_indonesia(date('Y-m-d', strtotime('+1 year', strtotime($tgl)))) }}
                         @else
-                           <span style="color: red">TIDAK LAIK PAKAI</span>
+                            <span style="color: red">TIDAK LAIK PAKAI</span>
                         @endif
                     </td>
                 </tr>

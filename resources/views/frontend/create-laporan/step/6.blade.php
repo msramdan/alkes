@@ -13,8 +13,8 @@
 </style>
 <div id="step-6" class="tab-pane" role="tabpanel" aria-labelledby="step-6">
     <form id="form-6">
-        {{-- INFUSION PUMP & SYRINGE PUMP--}}
-        @if ($nomenklatur_id == 10 || $nomenklatur_id == 11 )
+        {{-- INFUSION PUMP & SYRINGE PUMP --}}
+        @if ($nomenklatur_id == 10 || $nomenklatur_id == 11)
             <b>A. OCCLUSION</b>
             <table class="table table-bordered" style="border-color: black">
                 <thead>
@@ -166,33 +166,35 @@
                                 name="percobaan3_6" required>
                         </td>
                     </tr>
-                    <tr>
-                        <td>500</td>
-                        <td>
-                            <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                name="percobaan4_1" required>
-                        </td>
-                        <td>
-                            <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                name="percobaan4_2" required>
-                        </td>
-                        <td>
-                            <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                name="percobaan4_3" required>
-                        </td>
-                        <td>
-                            <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                name="percobaan4_4" required>
-                        </td>
-                        <td>
-                            <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                name="percobaan4_5" required>
-                        </td>
-                        <td>
-                            <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                                name="percobaan4_6" required>
-                        </td>
-                    </tr>
+                    @if ($nomenklatur_id == 10)
+                        <tr>
+                            <td>500</td>
+                            <td>
+                                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                                    name="percobaan4_1" required>
+                            </td>
+                            <td>
+                                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                                    name="percobaan4_2" required>
+                            </td>
+                            <td>
+                                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                                    name="percobaan4_3" required>
+                            </td>
+                            <td>
+                                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                                    name="percobaan4_4" required>
+                            </td>
+                            <td>
+                                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                                    name="percobaan4_5" required>
+                            </td>
+                            <td>
+                                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                                    name="percobaan4_6" required>
+                            </td>
+                        </tr>
+                    @endif
 
                 </tbody>
             </table>
