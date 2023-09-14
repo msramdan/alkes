@@ -419,7 +419,6 @@
                                 name="percobaan250_3_turun" required>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         @endif

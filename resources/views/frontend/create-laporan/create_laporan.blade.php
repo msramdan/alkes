@@ -147,15 +147,27 @@
                 [...form5].forEach((item) => {
                     $('#form-laporan').append(item.cloneNode(true));
                 });
+
+                var form6 = document.getElementById('form-6').elements;
+                [...form6].forEach((item) => {
+                    $('#form-laporan').append(item.cloneNode(true));
+                });
+                var form7 = document.getElementById('form-7').elements;
+                [...form7].forEach((item) => {
+                    $('#form-laporan').append(item.cloneNode(true));
+                });
+
+            }else{
+                var form5 = document.getElementById('form-5').elements;
+                [...form5].forEach((item) => {
+                    $('#form-laporan').append(item.cloneNode(true));
+                });
+                var form6 = document.getElementById('form-6').elements;
+                [...form6].forEach((item) => {
+                    $('#form-laporan').append(item.cloneNode(true));
+                });
             }
-            var form6 = document.getElementById('form-6').elements;
-            [...form6].forEach((item) => {
-                $('#form-laporan').append(item.cloneNode(true));
-            });
-            var form7 = document.getElementById('form-7').elements;
-            [...form7].forEach((item) => {
-                $('#form-laporan').append(item.cloneNode(true));
-            });
+
             $('#form-laporan').submit();
         }
 

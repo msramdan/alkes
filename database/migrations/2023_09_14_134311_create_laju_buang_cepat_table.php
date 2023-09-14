@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('laju_buang_cepat', function (Blueprint $table) {
+        Schema::create('laporan_laju_buang_cepat', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan', 100);
             $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
