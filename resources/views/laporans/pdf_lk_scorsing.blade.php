@@ -93,10 +93,15 @@
         </tr>
     </table>
     <hr class="s1">
-    @include('laporans._pdf_lk_scorsing.pendataan_administrasi')
-    @include('laporans._pdf_lk_scorsing.daftar_alat')
-    @include('laporans._pdf_lk_scorsing.pengukuran_kondisi_fisik')
-    @include('laporans._pdf_lk_scorsing.score_infusion')
+    @include('laporans._pdf_lk_scorsing._partial.pendataan_administrasi')
+    @include('laporans._pdf_lk_scorsing._partial.daftar_alat')
+    @include('laporans._pdf_lk_scorsing._partial.pengukuran_kondisi_fisik')
+    @if ($nomenklaturs->id == 10 || $nomenklaturs->id == 11)
+        @include('laporans._pdf_lk_scorsing.score_infusion')
+    @elseif ($nomenklaturs->id == 9)
+        @include('laporans._pdf_lk_scorsing.score_sphygmomanometer')
+    @endif
+
 </body>
 
 </html>
