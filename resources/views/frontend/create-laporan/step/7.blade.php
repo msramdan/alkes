@@ -1,5 +1,5 @@
-<div id="step-7" class="tab-pane" role="tabpanel" aria-labelledby="step-7">
-    <form id="form-7">
+<div id="step-{{$count_nomenklatur_keselamatan_listrik > 0 ? '7' : '6'}}" class="tab-pane" role="tabpanel" aria-labelledby="step-{{$count_nomenklatur_keselamatan_listrik > 0 ? '7' : '6'}}">
+    <form id="form-{{$count_nomenklatur_keselamatan_listrik > 0 ? '7' : '6'}}">
         @foreach ($nomeklatur_telaah_teknis as $res)
         <div class="col mb-2">
             <label for="" style=" font-size: 12px;">{{ $res->field_telaah_teknis }}</label>
