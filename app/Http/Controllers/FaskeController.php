@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Exports\FaskesExport;
+use App\FormatImport\GenerateFaskesFormat;
 use App\Models\Faske;
 use App\Models\JenisFaske;
-use App\Http\Requests\{StoreFaskeRequest, UpdateFaskeRequest};
+use App\Http\Requests\{StoreFaskeRequest, UpdateFaskeRequest,ImportFaskesRequest};
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Kabkot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\FaskesImport;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FaskeController extends Controller
 {
@@ -33,11 +36,11 @@ class FaskeController extends Controller
         if (request()->ajax()) {
             $faskes
                 = DB::table('faskes')
-                ->join('jenis_faskes', 'faskes.jenis_faskes_id', '=', 'jenis_faskes.id')
-                ->join('provinces', 'faskes.provinsi_id', '=', 'provinces.id')
-                ->join('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
-                ->join('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
-                ->join('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
+                ->leftjoin('jenis_faskes', 'faskes.jenis_faskes_id', '=', 'jenis_faskes.id')
+                ->leftjoin('provinces', 'faskes.provinsi_id', '=', 'provinces.id')
+                ->leftjoin('kabkots', 'faskes.kabkot_id', '=', 'kabkots.id')
+                ->leftjoin('kecamatans', 'faskes.kecamatan_id', '=', 'kecamatans.id')
+                ->leftjoin('kelurahans', 'faskes.kelurahan_id', '=', 'kelurahans.id')
                 ->select('faskes.*', 'jenis_faskes.nama_jenis_faskes', 'provinces.provinsi', 'kabkots.kabupaten_kota', 'kecamatans.kecamatan', 'kelurahans.kelurahan');
             $jenisFaskes = intval($request->query('jenisFaskes'));
             $kabkots = intval($request->query('kabkots'));
@@ -195,5 +198,19 @@ class FaskeController extends Controller
         return redirect()
             ->route('faskes.index')
             ->with('success', __('Update pin updated successfully.'));
+    }
+
+    public function formatImport()
+    {
+        $date = date('d-m-Y');
+        $nameFile = 'import_vendor' . $date;
+        return Excel::download(new GenerateFaskesFormat(), $nameFile . '.xlsx');
+    }
+
+    public function import(ImportFaskesRequest $request)
+    {
+        Excel::import(new FaskesImport, $request->file('import_faskes'));
+        Alert::success('Faskes berhasil di import', 'success');
+        return back();
     }
 }

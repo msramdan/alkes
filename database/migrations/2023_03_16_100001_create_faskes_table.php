@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('kabkot_id')->nullable()->constrained('kabkots')->restrictOnUpdate()->nullOnDelete();
             $table->foreignId('kecamatan_id')->nullable()->constrained('kecamatans')->restrictOnUpdate()->nullOnDelete();
             $table->foreignId('kelurahan_id')->nullable()->constrained('kelurahans')->restrictOnUpdate()->nullOnDelete();
-            $table->string('zip_kode', 10);
+            $table->string('zip_kode', 10)->nullable();
             $table->longText('alamat');
             $table->integer('pin')->default('123456');
             $table->timestamps();

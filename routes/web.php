@@ -99,6 +99,9 @@ Route::resource('kabkots', App\Http\Controllers\KabkotController::class)->middle
 Route::resource('kecamatans', App\Http\Controllers\KecamatanController::class)->middleware('auth');
 Route::resource('kelurahans', App\Http\Controllers\KelurahanController::class)->middleware('auth');
 Route::resource('faskes', App\Http\Controllers\FaskeController::class)->middleware('auth');
+Route::get('download-format-faskes', [App\Http\Controllers\FaskeController::class, 'formatImport'])->name('download-format-faskes')->middleware('auth');
+Route::post('import-faskes', [App\Http\Controllers\FaskeController::class, 'import'])->name('action-import-faskes')->middleware('auth');
+
 Route::post('updatePin', [App\Http\Controllers\FaskeController::class, 'updatePin'])->name('updatePin')->middleware('auth');
 Route::get('export-data-faskes/{jenisFaskes}/{kabkots}', [App\Http\Controllers\FaskeController::class, 'export'])->name('exportReportFaskes')->middleware('auth');
 Route::resource('pelaksana-teknis', App\Http\Controllers\PelaksanaTeknisiController::class)->middleware('auth');
