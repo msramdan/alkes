@@ -200,6 +200,7 @@ class InventariController extends Controller
         39 = Thermohygrometer
         5 = Electrical Safety Analyzer
         46 = Infusion Device Analyzer
+        3 = Digital Stop Watch
         ==========================================================================*/
         $data = Inventari::where('id', $inventaris_id)->first();
         if ($data->jenis_alat_id == 39) {
@@ -208,6 +209,8 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
         }else if ($data->jenis_alat_id == 46) {
             return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
+        }else if ($data->jenis_alat_id == 3) {
+            return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
         }
     }
 
@@ -269,6 +272,18 @@ class InventariController extends Controller
                     'file' =>  $file->hashName(),
                 ],
             );
+        }else if ($data->jenis_alat_id == 3) {
+            $file = $request->file('file');
+            $file->storeAs('public/sertifikat/sertifikat_digital_stop_watch', $file->hashName());
+            DB::table('sertifikat_digital_stop_watch')->insert(
+                [
+                    'inventaris_id' => $request->inventaris_id,
+                    'tahun' => $request->tahun,
+                    'intercept' => $request->intercept,
+                    'x_variable' => $request->x_variable,
+                    'file' =>  $file->hashName(),
+                ],
+            );
         } else {
             die();
         }
@@ -306,6 +321,16 @@ class InventariController extends Controller
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil dihapus'));
     }
+
+    public function StopWatchDelete($id)
+    {
+        $data = DB::table('sertifikat_digital_stop_watch')->where('id', $id)->first();
+        Storage::delete('public/sertifikat/sertifikat_digital_stop_watch/' . $data->file);
+        DB::table('sertifikat_digital_stop_watch')->where('id', $id)->delete();
+        return redirect()
+            ->back()
+            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
+    }
     public function getDownload($inventaris_id, $id)
     {
         $getInventaris = Inventari::find($inventaris_id);
@@ -325,6 +350,11 @@ class InventariController extends Controller
             $file = public_path() . "/storage/sertifikat/sertifikat_ida/" . $data->file;
             $tahun = $data->tahun;
             $nama = 'Sertifikat IDA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
+        }else if ($getInventaris->jenis_alat_id == 3) {
+            $data = DB::table('sertifikat_digital_stop_watch')->where('id', $id)->first();
+            $file = public_path() . "/storage/sertifikat/sertifikat_digital_stop_watch/" . $data->file;
+            $tahun = $data->tahun;
+            $nama = 'Sertifikat Stop Watch ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
         }
         $headers = array(
             'Content-Type' => 'application/vnd.ms-excel',

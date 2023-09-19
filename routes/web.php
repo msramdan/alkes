@@ -122,6 +122,7 @@ Route::post('inventarisSertifikatSave', [App\Http\Controllers\InventariControlle
 Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariController::class, 'ThermohygrometerDelete'])->name('ThermohygrometerDelete')->middleware('auth');
 Route::delete('/EsaDelete/{id}', [App\Http\Controllers\InventariController::class, 'EsaDelete'])->name('EsaDelete')->middleware('auth');
 Route::delete('/IdaDelete/{id}', [App\Http\Controllers\InventariController::class, 'IdaDelete'])->name('IdaDelete')->middleware('auth');
+Route::delete('/StopWatchDelete/{id}', [App\Http\Controllers\InventariController::class, 'StopWatchDelete'])->name('StopWatchDelete')->middleware('auth');
 
 
 Route::get('/getDownload/{inventaris_id}/{id}', [App\Http\Controllers\InventariController::class, 'getDownload'])->name('getDownload')->middleware('auth');
