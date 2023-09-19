@@ -37,6 +37,7 @@
         <?php } ?>
     </tbody>
 </table>
+<div class="page_break"></div>
 
 {{-- pengukuran_keselamatan_listrik --}}
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
@@ -219,6 +220,13 @@ $laporan_kebocoran_tekanan = DB::table('laporan_kebocoran_tekanan')
     ->first();
 $tekananHasil = $laporan_kebocoran_tekanan->value <= 15 ? 'Lulus' : 'Tidak Lulus';
 $scoreTekananHasil = $tekananHasil== 'Lulus' ? 20 : 0;
+// =====================
+$laporan_laju_buang_cepat = DB::table('laporan_laju_buang_cepat')
+    ->where('no_laporan', $laporan->no_laporan)
+    ->first();
+$hitungLajuHasil = round($laporan_laju_buang_cepat->intercept_timer + ($laporan_laju_buang_cepat->x_variable_timer * $laporan_laju_buang_cepat->value ), 2);
+$lajuHasil = $hitungLajuHasil <= 10 ? 'Lulus' : 'Tidak Lulus';
+$scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
 
 
 ?>
@@ -239,7 +247,8 @@ $scoreTekananHasil = $tekananHasil== 'Lulus' ? 20 : 0;
         <tr>
             <td style="vertical-align: middle;text-align: center">250</td>
             <td style="vertical-align: middle;text-align: center">{{$laporan_kebocoran_tekanan->value}}</td>
-            <td style="vertical-align: middle;text-align: center">< 15 mmHg/menit</td>
+            <td style="vertical-align: middle;text-align: center"><img src="../public/asset/kurang.png"
+                style="width: 6px; margin-top:3px"> 15 mmHg/menit</td>
             <td style="vertical-align: middle;text-align: center">{{$tekananHasil}}</td>
             <td style="vertical-align: middle;text-align: center">{{$scoreTekananHasil}}</td>
         </tr>
@@ -261,10 +270,11 @@ $scoreTekananHasil = $tekananHasil== 'Lulus' ? 20 : 0;
     <tbody>
         <tr>
             <td style="vertical-align: middle;text-align: center">260</td>
-            <td style="vertical-align: middle;text-align: center">{{$laporan_kebocoran_tekanan->value}}</td>
-            <td style="vertical-align: middle;text-align: center"> < 10 detik</td>
-            <td style="vertical-align: middle;text-align: center">{{$tekananHasil}}</td>
-            <td style="vertical-align: middle;text-align: center">{{$scoreTekananHasil}}</td>
+            <td style="vertical-align: middle;text-align: center">{{$hitungLajuHasil}}</td>
+            <td style="vertical-align: middle;text-align: center"> <img src="../public/asset/kurang.png"
+                style="width: 6px; margin-top:3px"> 10 detik</td>
+            <td style="vertical-align: middle;text-align: center">{{$lajuHasil}}</td>
+            <td style="vertical-align: middle;text-align: center">{{$scoreLajuHasil}}</td>
         </tr>
     </tbody>
 </table>

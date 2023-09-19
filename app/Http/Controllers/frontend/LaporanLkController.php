@@ -79,6 +79,8 @@ class LaporanLkController extends Controller
     {
         $laporan = Laporan::findOrFail($request->laporan_id);
         $nomenklatur = Nomenklatur::findOrFail($request->nomenklatur_id);
+
+
         $data = [
             'tgl_laporan' => Carbon::now(),
             'status_laporan' => 'Need Review',
@@ -135,6 +137,12 @@ class LaporanLkController extends Controller
                 $sertifikatIda = DB::table('sertifikat_ida')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                 if(!$sertifikatIda){
                     dd('Sertifikat IDA belum diisi');
+                }
+            }else if ($nomenklatur_type->type_id == 3) {
+                // get detail $sertifikat  Digital Stop Watch
+                $sertifikatDigitalStopWatch = DB::table('sertifikat_digital_stop_watch')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if(!$sertifikatDigitalStopWatch){
+                    dd('Digital Stop Watch belum diisi');
                 }
             }
             DB::table('laporan_daftar_alat_ukur')->insert([
@@ -276,6 +284,8 @@ class LaporanLkController extends Controller
             DB::table('laporan_laju_buang_cepat')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'value' => $request->laju_buang_cepat,
+                'intercept_timer' => $sertifikatDigitalStopWatch->intercept,
+                'x_variable_timer' => $sertifikatDigitalStopWatch->x_variable,
             ]);
             // simpan KALIBRASI AKURASI TEKANAN
             DB::table('laporan_akurasi_tekanan')->insert([
