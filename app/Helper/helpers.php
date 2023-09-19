@@ -4,6 +4,7 @@ use App\Models\Laporan;
 use Illuminate\Support\Facades\DB;
 
 
+
 function is_checked($nomenklatur_id, $field, $value, $table)
 {
     $cek = DB::table($table)
@@ -164,15 +165,30 @@ function hitung_uncertainty($resolusi_uut, $stdev)
     // ==============================================
     $jumlah_uc =  $uc_1  + $uc_2 + $uc_3 + $uc_4;
     $jumlah_ucv =  $ucv_1  + $ucv_2 + $ucv_3 + $ucv_4;
-    $ketidakpastian_baku_gabungan =sqrt($jumlah_uc);
+    $ketidakpastian_baku_gabungan = sqrt($jumlah_uc);
     $derajat_kebebasan_efektif = ($ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan) /  $jumlah_ucv;
-    $faktor_cakupan = tinv(0.05,floor($derajat_kebebasan_efektif));
+    $faktor_cakupan = tinv(0.05, floor($derajat_kebebasan_efektif));
     $ketidakpastian_bentangan = $faktor_cakupan * $ketidakpastian_baku_gabungan;
     return $ketidakpastian_bentangan;
 }
 
-function tinv($probability , $df)
+function tinv($probability, $df)
 {
     $table_t = DB::table('table_t')->where('df', $df)->first();
     return $table_t->value;
+}
+
+function generateKode($prefix)
+{
+    $tahun = date('Y');
+    $sql = Laporan::orderBy('no_laporan', 'desc')->where(DB::raw('substr(no_laporan, 5, 4)'), '=', $tahun)->first();
+    if ($sql) {
+        $tmp = substr($sql->no_laporan, 9, 5) ;
+        $x = ((int)$tmp) + 1;
+        $lastKode = sprintf("%05s", $x);
+        $kd = $prefix . '-' . $tahun . '-' . $lastKode;
+    } else {
+        $kd = $prefix . '-' . $tahun . '-' . "00001";
+    }
+    return $kd;
 }

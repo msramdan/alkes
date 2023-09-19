@@ -1,11 +1,11 @@
 <div class="row mb-2">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="no-laporan">{{ __('No Laporan') }}</label>
-            <input type="text" name="no_laporan" id="no-laporan" readonly
-                class="form-control @error('no_laporan') is-invalid @enderror" value="{{ $no_laporan }}"
-                placeholder="{{ __('No Laporan') }}" required />
-            @error('no_laporan')
+            <label for="no-laporan">{{ __('Jumah Laporan') }}</label>
+            <input type="number" name="jumlah_laporan" id="no-laporan"
+                class="form-control @error('jumlah_laporan') is-invalid @enderror" value=""
+                placeholder="{{ __('Jumah Laporan') }}" required />
+            @error('jumlah_laporan')
                 <span class="text-danger">
                     {{ $message }}
                 </span>

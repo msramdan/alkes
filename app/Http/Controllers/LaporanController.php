@@ -126,21 +126,21 @@ class LaporanController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'no_laporan' => "required|unique:laporans,no_laporan",
+                'jumlah_laporan' => "required",
                 'user_created' => "required",
             ],
         );
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
-
-        DB::table('laporans')->insert([
-            'no_laporan' => $request->no_laporan,
-            'user_created' => $request->user_created,
-            'status_laporan' => "Initial",
-            'tgl_laporan' => date('Y-m-d H:i:s'),
-        ]);
-
+        for ($x = 1; $x <= $request->jumlah_laporan; $x++){
+            DB::table('laporans')->insert([
+                'no_laporan' => generateKode('MTA'),
+                'user_created' => $request->user_created,
+                'status_laporan' => "Initial",
+                'tgl_laporan' => date('Y-m-d H:i:s'),
+            ]);
+        }
         return redirect()
             ->route('laporans.index')
             ->with('success', __('Assign Laporan was created successfully.'));
