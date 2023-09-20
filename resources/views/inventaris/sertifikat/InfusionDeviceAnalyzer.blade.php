@@ -163,6 +163,9 @@
                                                 <td rowspan="5">{{ $row->intercept_1 }}</td>
                                                 <td rowspan="5">{{ $row->slope_2 }}</td>
                                                 <td rowspan="5">{{ $row->intercept_2 }}</td>
+
+                                            </tr>
+                                            <tr>
                                                 <td>10</td>
                                                 <td>{{ $row->drift10_1 }}</td>
                                                 <td>{{ $row->drift10_2 }}</td>

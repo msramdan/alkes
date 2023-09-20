@@ -2,6 +2,14 @@
     .page_break {
         page-break-before: always;
     }
+
+    .verticalTableHeader {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
 </style>
 
 <p style="font-size: 14px"><b>D. PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</b></p>
@@ -219,15 +227,80 @@ $laporan_kebocoran_tekanan = DB::table('laporan_kebocoran_tekanan')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
 $tekananHasil = $laporan_kebocoran_tekanan->value <= 15 ? 'Lulus' : 'Tidak Lulus';
-$scoreTekananHasil = $tekananHasil== 'Lulus' ? 20 : 0;
+$scoreTekananHasil = $tekananHasil == 'Lulus' ? 20 : 0;
 // =====================
 $laporan_laju_buang_cepat = DB::table('laporan_laju_buang_cepat')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
-$hitungLajuHasil = round($laporan_laju_buang_cepat->intercept_timer + ($laporan_laju_buang_cepat->x_variable_timer * $laporan_laju_buang_cepat->value ), 2);
+$hitungLajuHasil = round($laporan_laju_buang_cepat->intercept_timer + $laporan_laju_buang_cepat->x_variable_timer * $laporan_laju_buang_cepat->value, 2);
 $lajuHasil = $hitungLajuHasil <= 10 ? 'Lulus' : 'Tidak Lulus';
 $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
+// ======================
+$laporan_akurasi_tekanan = DB::table('laporan_akurasi_tekanan')
+    ->where('no_laporan', $laporan->no_laporan)
+    ->first();
+// naik
+$percobaan0_1_naik = $laporan_akurasi_tekanan->percobaan0_1_naik;
+$percobaan0_2_naik = $laporan_akurasi_tekanan->percobaan0_2_naik;
+$percobaan0_3_naik = $laporan_akurasi_tekanan->percobaan0_3_naik;
+$meanNaik0 = ($percobaan0_1_naik + $percobaan0_2_naik + $percobaan0_3_naik) / 3;
 
+$percobaan50_1_naik = $laporan_akurasi_tekanan->percobaan50_1_naik;
+$percobaan50_2_naik = $laporan_akurasi_tekanan->percobaan50_2_naik;
+$percobaan50_3_naik = $laporan_akurasi_tekanan->percobaan50_3_naik;
+$meanNaik50 = ($percobaan50_1_naik + $percobaan50_2_naik + $percobaan50_3_naik) / 3;
+
+$percobaan100_1_naik = $laporan_akurasi_tekanan->percobaan100_1_naik;
+$percobaan100_2_naik = $laporan_akurasi_tekanan->percobaan100_2_naik;
+$percobaan100_3_naik = $laporan_akurasi_tekanan->percobaan100_3_naik;
+$meanNaik100 = ($percobaan100_1_naik + $percobaan100_2_naik + $percobaan100_3_naik) / 3;
+
+$percobaan150_1_naik = $laporan_akurasi_tekanan->percobaan150_1_naik;
+$percobaan150_2_naik = $laporan_akurasi_tekanan->percobaan150_2_naik;
+$percobaan150_3_naik = $laporan_akurasi_tekanan->percobaan150_3_naik;
+$meanNaik150 = ($percobaan150_1_naik + $percobaan150_2_naik + $percobaan150_3_naik) / 3;
+
+
+$percobaan200_1_naik = $laporan_akurasi_tekanan->percobaan200_1_naik;
+$percobaan200_2_naik = $laporan_akurasi_tekanan->percobaan200_2_naik;
+$percobaan200_3_naik = $laporan_akurasi_tekanan->percobaan200_3_naik;
+$meanNaik200 = ($percobaan200_1_naik + $percobaan200_2_naik + $percobaan200_3_naik) / 3;
+
+$percobaan250_1_naik = $laporan_akurasi_tekanan->percobaan250_1_naik;
+$percobaan250_2_naik = $laporan_akurasi_tekanan->percobaan250_2_naik;
+$percobaan250_3_naik = $laporan_akurasi_tekanan->percobaan250_3_naik;
+$meanNaik250 = ($percobaan250_1_naik + $percobaan250_2_naik + $percobaan250_3_naik) / 3;
+
+// turun
+$percobaan0_1_turun = $laporan_akurasi_tekanan->percobaan0_1_turun;
+$percobaan0_2_turun = $laporan_akurasi_tekanan->percobaan0_2_turun;
+$percobaan0_3_turun = $laporan_akurasi_tekanan->percobaan0_3_turun;
+$meanTurun0 = ($percobaan0_1_turun + $percobaan0_2_turun + $percobaan0_3_turun) / 3;
+
+$percobaan50_1_turun = $laporan_akurasi_tekanan->percobaan50_1_turun;
+$percobaan50_2_turun = $laporan_akurasi_tekanan->percobaan50_2_turun;
+$percobaan50_3_turun = $laporan_akurasi_tekanan->percobaan50_3_turun;
+$meanTurun50 = ($percobaan50_1_turun + $percobaan50_2_turun + $percobaan50_3_turun) / 3;
+
+$percobaan100_1_turun = $laporan_akurasi_tekanan->percobaan100_1_turun;
+$percobaan100_2_turun = $laporan_akurasi_tekanan->percobaan100_2_turun;
+$percobaan100_3_turun = $laporan_akurasi_tekanan->percobaan100_3_turun;
+$meanTurun100 = ($percobaan100_1_turun + $percobaan100_2_turun + $percobaan100_3_turun) / 3;
+
+$percobaan150_1_turun = $laporan_akurasi_tekanan->percobaan150_1_turun;
+$percobaan150_2_turun = $laporan_akurasi_tekanan->percobaan150_2_turun;
+$percobaan150_3_turun = $laporan_akurasi_tekanan->percobaan150_3_turun;
+$meanTurun150 = ($percobaan150_1_turun + $percobaan150_2_turun + $percobaan150_3_turun) / 3;
+
+$percobaan200_1_turun = $laporan_akurasi_tekanan->percobaan200_1_turun;
+$percobaan200_2_turun = $laporan_akurasi_tekanan->percobaan200_2_turun;
+$percobaan200_3_turun = $laporan_akurasi_tekanan->percobaan200_3_turun;
+$meanTurun200 = ($percobaan200_1_turun + $percobaan200_2_turun + $percobaan200_3_turun) / 3;
+
+$percobaan250_1_turun = $laporan_akurasi_tekanan->percobaan250_1_turun;
+$percobaan250_2_turun = $laporan_akurasi_tekanan->percobaan250_2_turun;
+$percobaan250_3_turun = $laporan_akurasi_tekanan->percobaan250_3_turun;
+$meanTurun250 = ($percobaan250_1_turun + $percobaan250_2_turun + $percobaan250_3_turun) / 3;
 
 ?>
 
@@ -246,11 +319,11 @@ $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
     <tbody>
         <tr>
             <td style="vertical-align: middle;text-align: center">250</td>
-            <td style="vertical-align: middle;text-align: center">{{$laporan_kebocoran_tekanan->value}}</td>
+            <td style="vertical-align: middle;text-align: center">{{ $laporan_kebocoran_tekanan->value }}</td>
             <td style="vertical-align: middle;text-align: center"><img src="../public/asset/kurang.png"
-                style="width: 6px; margin-top:3px"> 15 mmHg/menit</td>
-            <td style="vertical-align: middle;text-align: center">{{$tekananHasil}}</td>
-            <td style="vertical-align: middle;text-align: center">{{$scoreTekananHasil}}</td>
+                    style="width: 6px; margin-top:3px"> 15 mmHg/menit</td>
+            <td style="vertical-align: middle;text-align: center">{{ $tekananHasil }}</td>
+            <td style="vertical-align: middle;text-align: center">{{ $scoreTekananHasil }}</td>
         </tr>
     </tbody>
 </table>
@@ -261,7 +334,8 @@ $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
     <thead>
         <tr>
             <th style="text-align: center;vertical-align: middle;width:10%">Setting (mmHg)</th>
-            <th style="text-align: center;vertical-align: middle;width:30%">Waktu Buang Cepat untuk membuang tekanan dari 260 ke 15 mmHg (dtk)</th>
+            <th style="text-align: center;vertical-align: middle;width:30%">Waktu Buang Cepat untuk membuang tekanan
+                dari 260 ke 15 mmHg (dtk)</th>
             <th style="text-align: center;vertical-align: middle;width:40%">Penyimpangan yang di ijinkan</th>
             <th style="text-align: center;vertical-align: middle;width:10%">Hasil</th>
             <th style="text-align: center;vertical-align: middle;width:10%">Skorsing</th>
@@ -270,11 +344,122 @@ $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
     <tbody>
         <tr>
             <td style="vertical-align: middle;text-align: center">260</td>
-            <td style="vertical-align: middle;text-align: center">{{$hitungLajuHasil}}</td>
+            <td style="vertical-align: middle;text-align: center">{{ $hitungLajuHasil }}</td>
             <td style="vertical-align: middle;text-align: center"> <img src="../public/asset/kurang.png"
-                style="width: 6px; margin-top:3px"> 10 detik</td>
-            <td style="vertical-align: middle;text-align: center">{{$lajuHasil}}</td>
-            <td style="vertical-align: middle;text-align: center">{{$scoreLajuHasil}}</td>
+                    style="width: 6px; margin-top:3px"> 10 detik</td>
+            <td style="vertical-align: middle;text-align: center">{{ $lajuHasil }}</td>
+            <td style="vertical-align: middle;text-align: center">{{ $scoreLajuHasil }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="font-size: 11px;margin-left:18px"><b>3. KALIBRASI AKURASI TEKANAN</b></p>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
+    <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;vertical-align: middle;">Setting (mmHg)</th>
+            <th colspan="3" style="text-align: center;vertical-align: middle;">Terukur Pada Standar (mmHg)</th>
+            <th style="text-align: center;vertical-align: middle;">Mean</th>
+            <th style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
+            <th style="text-align: center;vertical-align: middle;">Standar Deviasi </th>
+            <th style="text-align: center;vertical-align: middle;">Koreksi</th>
+            <th style="text-align: center;vertical-align: middle;">Ketidakpastian (U95)</th>
+            <th style="text-align: center;vertical-align: middle;">Koreksi + U95</th>
+            <th style="text-align: center;vertical-align: middle;">Toleransi ( + mmHg) </th>
+            <th style="text-align: center;vertical-align: middle;">Hasil </th>
+            <th style="text-align: center;vertical-align: middle;">Skorsing</th>
+            <th style="text-align: center;vertical-align: middle;">Pernyataan Penilaian </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="6" style="background-color:grey;text-align: center;vertical-align: middle;"> <span
+                    style="transform: rotate(-90deg);margin-top:60px; color:white"><b>Naik</b></span></td>
+            <td>0</td>
+            <td>{{ $percobaan0_1_naik }}</td>
+            <td>{{ $percobaan0_2_naik }}</td>
+            <td>{{ $percobaan0_3_naik }}</td>
+            <td>{{ round($meanNaik0,2) }}</td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td>{{ $percobaan50_1_naik }}</td>
+            <td>{{ $percobaan50_2_naik }}</td>
+            <td>{{ $percobaan50_3_naik }}</td>
+            <td>{{round($meanNaik50,2)}}</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>{{ $percobaan100_1_naik }}</td>
+            <td>{{ $percobaan100_2_naik }}</td>
+            <td>{{ $percobaan100_3_naik }}</td>
+            <td>{{round($meanNaik100,2)}}</td>
+        </tr>
+        <tr>
+            <td>150</td>
+            <td>{{ $percobaan150_1_naik }}</td>
+            <td>{{ $percobaan150_2_naik }}</td>
+            <td>{{ $percobaan150_3_naik }}</td>
+            <td>{{round($meanNaik150,2)}}</td>
+        </tr>
+        <tr>
+            <td>200</td>
+            <td>{{ $percobaan200_1_naik }}</td>
+            <td>{{ $percobaan200_2_naik }}</td>
+            <td>{{ $percobaan200_3_naik }}</td>
+            <td>{{round($meanNaik200,2)}}</td>
+        </tr>
+        <tr>
+            <td>250</td>
+            <td>{{ $percobaan250_1_naik }}</td>
+            <td>{{ $percobaan250_2_naik }}</td>
+            <td>{{ $percobaan250_3_naik }}</td>
+            <td>{{round($meanNaik250,2)}}</td>
+        </tr>
+        <tr>
+            <td rowspan="6" style="background-color:grey;text-align: center;vertical-align: middle;"> <span
+                    style="transform: rotate(-90deg);margin-top:60px; color:white"><b>Turun</b></span></td>
+            <td>0</td>
+            <td>{{ $percobaan0_1_turun }}</td>
+            <td>{{ $percobaan0_2_turun }}</td>
+            <td>{{ $percobaan0_3_turun }}</td>
+            <td>{{round($meanTurun0,2)}}</td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td>{{ $percobaan50_1_turun }}</td>
+            <td>{{ $percobaan50_2_turun }}</td>
+            <td>{{ $percobaan50_3_turun }}</td>
+            <td>{{round($meanTurun50,2)}}</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>{{ $percobaan100_1_turun }}</td>
+            <td>{{ $percobaan100_2_turun }}</td>
+            <td>{{ $percobaan100_3_turun }}</td>
+            <td>{{round($meanTurun100,2)}}</td>
+        </tr>
+        <tr>
+            <td>150</td>
+            <td>{{ $percobaan150_1_turun }}</td>
+            <td>{{ $percobaan150_2_turun }}</td>
+            <td>{{ $percobaan150_3_turun }}</td>
+            <td>{{round($meanTurun150,2)}}</td>
+        </tr>
+        <tr>
+            <td>200</td>
+            <td>{{ $percobaan200_1_turun }}</td>
+            <td>{{ $percobaan200_2_turun }}</td>
+            <td>{{ $percobaan200_3_turun }}</td>
+            <td>{{round($meanTurun200,2)}}</td>
+        </tr>
+        <tr>
+            <td>250</td>
+            <td>{{ $percobaan250_1_turun }}</td>
+            <td>{{ $percobaan250_2_turun }}</td>
+            <td>{{ $percobaan250_3_turun }}</td>
+            <td>{{round($meanTurun250,2)}}</td>
         </tr>
     </tbody>
 </table>
