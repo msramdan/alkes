@@ -124,6 +124,8 @@ Route::delete('/EsaDelete/{id}', [App\Http\Controllers\InventariController::clas
 Route::delete('/IdaDelete/{id}', [App\Http\Controllers\InventariController::class, 'IdaDelete'])->name('IdaDelete')->middleware('auth');
 Route::delete('/StopWatchDelete/{id}', [App\Http\Controllers\InventariController::class, 'StopWatchDelete'])->name('StopWatchDelete')->middleware('auth');
 
+Route::delete('/SertifikatDelete/{id}', [App\Http\Controllers\InventariController::class, 'SertifikatDelete'])->name('SertifikatDelete')->middleware('auth');
+
 
 Route::get('/getDownload/{inventaris_id}/{id}', [App\Http\Controllers\InventariController::class, 'getDownload'])->name('getDownload')->middleware('auth');
 

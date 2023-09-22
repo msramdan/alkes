@@ -59,7 +59,7 @@ return new class extends Migration
             $table->double('percobaan250_2_turun', 15, 9)->nullable();
             $table->double('percobaan250_3_naik', 15, 9)->nullable();
             $table->double('percobaan250_3_turun', 15, 9)->nullable();
-
+            $table->json('data_sertifikat');
             $table->timestamps();
         });
     }

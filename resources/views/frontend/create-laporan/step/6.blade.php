@@ -421,6 +421,8 @@
                     </tr>
                 </tbody>
             </table>
+        @elseif($nomenklatur_id == 12)
+
         @endif
     </form>
 </div>

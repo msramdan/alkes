@@ -207,10 +207,12 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
         } else if ($data->jenis_alat_id == 5) {
             return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
-        }else if ($data->jenis_alat_id == 46) {
+        } else if ($data->jenis_alat_id == 46) {
             return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
-        }else if ($data->jenis_alat_id == 3) {
+        } else if ($data->jenis_alat_id == 3) {
             return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
+        } else if ($data->jenis_alat_id == 45) {
+            return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
         }
     }
 
@@ -249,8 +251,8 @@ class InventariController extends Controller
                     'file' =>  $file->hashName(),
                 ]
             );
-        // IDA
-        }else if ($data->jenis_alat_id == 46) {
+            // IDA
+        } else if ($data->jenis_alat_id == 46) {
             $file = $request->file('file');
             $file->storeAs('public/sertifikat/sertifikat_ida', $file->hashName());
             DB::table('sertifikat_ida')->insert(
@@ -272,7 +274,7 @@ class InventariController extends Controller
                     'file' =>  $file->hashName(),
                 ],
             );
-        }else if ($data->jenis_alat_id == 3) {
+        } else if ($data->jenis_alat_id == 3) {
             $file = $request->file('file');
             $file->storeAs('public/sertifikat/sertifikat_digital_stop_watch', $file->hashName());
             DB::table('sertifikat_digital_stop_watch')->insert(
@@ -281,6 +283,23 @@ class InventariController extends Controller
                     'tahun' => $request->tahun,
                     'intercept' => $request->intercept,
                     'x_variable' => $request->x_variable,
+                    'file' =>  $file->hashName(),
+                ],
+            );
+        } else if ($data->jenis_alat_id == 45) {
+            $file = $request->file('file');
+            $file->storeAs('public/sertifikat', $file->hashName());
+            $data = [
+                'intercept_naik' => $request->intercept_naik,
+                'x_variable_naik' => $request->x_variable_naik,
+                'intercept_turun' => $request->intercept_turun,
+                'x_variable_turun' => $request->x_variable_turun,
+            ];
+            DB::table('sertifikat_inventaris')->insert(
+                [
+                    'inventaris_id' => $request->inventaris_id,
+                    'tahun' => $request->tahun,
+                    'data' => json_encode($data),
                     'file' =>  $file->hashName(),
                 ],
             );
@@ -331,6 +350,27 @@ class InventariController extends Controller
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil dihapus'));
     }
+
+    public function SertifikatDelete($id)
+    {
+        $sertifikat = DB::table('sertifikat_inventaris')
+            ->join('inventaris', 'sertifikat_inventaris.inventaris_id', '=', 'inventaris.id')
+            ->where('sertifikat_inventaris.id', $id)
+            ->select('sertifikat_inventaris.*', 'inventaris.jenis_alat_id')
+            ->first();
+        if ($sertifikat) {
+            Storage::delete('public/sertifikat/' . $sertifikat->file);
+            DB::table('sertifikat_inventaris')->where('id', $id)->delete();
+            return redirect()
+                ->back()
+                ->with('success', __('Sertifikat inventaris berhasil dihapus'));
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', __('Sertikat tidak ditemukan'));
+        }
+    }
+
     public function getDownload($inventaris_id, $id)
     {
         $getInventaris = Inventari::find($inventaris_id);
@@ -344,17 +384,22 @@ class InventariController extends Controller
             $file = public_path() . "/storage/sertifikat/sertifikat_electrical_safety_analyzer/" . $data->file;
             $tahun = $data->tahun;
             $nama = 'Sertifikat ESA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
-             // IDA
+            // IDA
         } else if ($getInventaris->jenis_alat_id == 46) {
             $data = DB::table('sertifikat_ida')->where('id', $id)->first();
             $file = public_path() . "/storage/sertifikat/sertifikat_ida/" . $data->file;
             $tahun = $data->tahun;
             $nama = 'Sertifikat IDA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
-        }else if ($getInventaris->jenis_alat_id == 3) {
+        } else if ($getInventaris->jenis_alat_id == 3) {
             $data = DB::table('sertifikat_digital_stop_watch')->where('id', $id)->first();
             $file = public_path() . "/storage/sertifikat/sertifikat_digital_stop_watch/" . $data->file;
             $tahun = $data->tahun;
             $nama = 'Sertifikat Stop Watch ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
+        } else if ($getInventaris->jenis_alat_id == 45) {
+            $data = DB::table('sertifikat_inventaris')->where('id', $id)->first();
+            $file = public_path() . "/storage/sertifikat/" . $data->file;
+            $tahun = $data->tahun;
+            $nama = 'Sertifikat DPM ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
         }
         $headers = array(
             'Content-Type' => 'application/vnd.ms-excel',
