@@ -119,6 +119,7 @@ Route::post('/nomenklaturs_type', [NomenklaturController::class, 'save_equipment
 Route::resource('inventaris', App\Http\Controllers\InventariController::class)->middleware('auth');
 Route::get('inventarisSertifikat/{id}', [App\Http\Controllers\InventariController::class, 'inventarisSertifikat'])->name('inventarisSertifikat')->middleware('auth');
 Route::post('inventarisSertifikatSave', [App\Http\Controllers\InventariController::class, 'inventarisSertifikatSave'])->name('inventarisSertifikatSave')->middleware('auth');
+Route::post('sertifikatSave', [App\Http\Controllers\InventariController::class, 'sertifikatSave'])->name('sertifikatSave')->middleware('auth');
 Route::delete('/ThermohygrometerDelete/{id}', [App\Http\Controllers\InventariController::class, 'ThermohygrometerDelete'])->name('ThermohygrometerDelete')->middleware('auth');
 Route::delete('/EsaDelete/{id}', [App\Http\Controllers\InventariController::class, 'EsaDelete'])->name('EsaDelete')->middleware('auth');
 Route::delete('/IdaDelete/{id}', [App\Http\Controllers\InventariController::class, 'IdaDelete'])->name('IdaDelete')->middleware('auth');

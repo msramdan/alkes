@@ -232,7 +232,8 @@ $scoreTekananHasil = $tekananHasil == 'Lulus' ? 20 : 0;
 $laporan_laju_buang_cepat = DB::table('laporan_laju_buang_cepat')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
-$hitungLajuHasil = round($laporan_laju_buang_cepat->intercept_timer + $laporan_laju_buang_cepat->x_variable_timer * $laporan_laju_buang_cepat->value, 2);
+$data_sertifikat = json_decode($laporan_laju_buang_cepat->data_sertifikat);
+$hitungLajuHasil = $data_sertifikat->intercept + $data_sertifikat->x_variable * $laporan_laju_buang_cepat->value;
 $lajuHasil = $hitungLajuHasil <= 10 ? 'Lulus' : 'Tidak Lulus';
 $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
 // ======================
@@ -344,7 +345,7 @@ $meanTurun250 = ($percobaan250_1_turun + $percobaan250_2_turun + $percobaan250_3
     <tbody>
         <tr>
             <td style="vertical-align: middle;text-align: center">260</td>
-            <td style="vertical-align: middle;text-align: center">{{ $hitungLajuHasil }}</td>
+            <td style="vertical-align: middle;text-align: center">{{ round($hitungLajuHasil,2)  }}</td>
             <td style="vertical-align: middle;text-align: center"> <img src="../public/asset/kurang.png"
                     style="width: 6px; margin-top:3px"> 10 detik</td>
             <td style="vertical-align: middle;text-align: center">{{ $lajuHasil }}</td>

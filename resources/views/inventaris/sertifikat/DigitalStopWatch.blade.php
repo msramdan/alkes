@@ -29,8 +29,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('inventarisSertifikatSave') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('sertifikatSave') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 {{-- form --}}
@@ -53,13 +52,13 @@
 
                                     <div class="form-group">
                                         <label for="intercept">{{ __('Intercept') }}</label>
-                                        <input type="number" step="0.000000001" name="intercept" id="intercept"
+                                        <input type="number" step="0.00000000000000001" name="intercept" id="intercept"
                                             class="form-control" value="" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="x_variable">{{ __('X Variable 1') }}</label>
-                                        <input type="number" step="0.000000001" name="x_variable" id="x_variable"
+                                        <input type="number" step="0.00000000000000001" name="x_variable" id="x_variable"
                                             class="form-control" value="" required />
                                     </div>
 
@@ -83,7 +82,7 @@
                         <div class="card-body">
                             <div class="table-responsive p-1">
                                 @php
-                                    $sertifikat_digital_stop_watch = DB::table('sertifikat_digital_stop_watch')
+                                    $sertifikat_digital_stop_watch = DB::table('sertifikat_inventaris')
                                         ->where('inventaris_id', $data->id)
                                         ->get();
                                 @endphp
@@ -99,16 +98,19 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($sertifikat_digital_stop_watch as $row)
+                                            @php
+                                                $data = json_decode($row->data);
+                                            @endphp
                                             <tr>
                                                 <td>{{ $row->tahun }}</td>
-                                                <td>{{ $row->intercept }}</td>
-                                                <td>{{ $row->x_variable }}</td>
+                                                <td>{{ $data->intercept }}</td>
+                                                <td>{{ $data->x_variable }}</td>
                                                 <td><a
                                                         href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i
                                                             class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('StopWatchDelete', $row->id) }}" method="post"
+                                                    <form action="{{ route('SertifikatDelete', $row->id) }}" method="post"
                                                         title="Hapus" class="d-inline"
                                                         onsubmit="return confirm('Yakin hapus data?')">
                                                         @csrf
@@ -164,4 +166,3 @@
         }
     </script>
 @endpush
-

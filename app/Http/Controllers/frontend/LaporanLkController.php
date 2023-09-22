@@ -140,8 +140,14 @@ class LaporanLkController extends Controller
                 }
             }else if ($nomenklatur_type->type_id == 3) {
                 // get detail $sertifikat  Digital Stop Watch
-                $sertifikatDigitalStopWatch = DB::table('sertifikat_digital_stop_watch')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                $sertifikatDigitalStopWatch = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                 if(!$sertifikatDigitalStopWatch){
+                    dd('Digital Stop Watch belum diisi');
+                }
+            }else if ($nomenklatur_type->type_id == 45) {
+                // get detail $sertifikat DPM
+                $sertifikatDpm = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if(!$sertifikatDpm){
                     dd('Digital Stop Watch belum diisi');
                 }
             }
@@ -284,8 +290,7 @@ class LaporanLkController extends Controller
             DB::table('laporan_laju_buang_cepat')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'value' => $request->laju_buang_cepat,
-                'intercept_timer' => $sertifikatDigitalStopWatch->intercept,
-                'x_variable_timer' => $sertifikatDigitalStopWatch->x_variable,
+                'data_sertifikat' => $sertifikatDigitalStopWatch->data,
             ]);
             // simpan KALIBRASI AKURASI TEKANAN
             DB::table('laporan_akurasi_tekanan')->insert([
@@ -331,6 +336,7 @@ class LaporanLkController extends Controller
                 'percobaan250_2_turun' => $request->percobaan250_2_turun,
                 'percobaan250_3_naik' => $request->percobaan250_3_naik,
                 'percobaan250_3_turun' => $request->percobaan250_3_turun,
+                'data_sertifikat' => $sertifikatDpm->data,
             ]);
         }
 

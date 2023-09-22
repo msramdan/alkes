@@ -29,8 +29,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('inventarisSertifikatSave') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('sertifikatSave') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 <div class="row mb-2">
@@ -102,22 +101,37 @@
                                 <table class="table table-bordered" id="data-table" width="100%">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: center">{{ __('Tahun') }}</th>
-                                            <th style="text-align: center">{{ __('File') }}</th>
-                                            <th style="text-align: center">{{ __('Action') }}</th>
+                                            <th style="text-align: center" rowspan="2">{{ __('Tahun') }}</th>
+                                            <th style="text-align: center" colspan="2">{{ __('Naik') }}</th>
+                                            <th style="text-align: center" colspan="2">{{ __('Turun') }}</th>
+                                            <th style="text-align: center" rowspan="2">{{ __('File') }}</th>
+                                            <th style="text-align: center" rowspan="2">{{ __('Action') }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align: center">{{ __('Intersept') }}</th>
+                                            <th style="text-align: center">{{ __('X Variable') }}</th>
+                                            <th style="text-align: center">{{ __('Intersept') }}</th>
+                                            <th style="text-align: center">{{ __('X Variable') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($sertifikat_inventaris as $row)
+                                            @php
+                                                $data = json_decode($row->data);
+                                            @endphp
                                             <tr>
                                                 <td>{{ $row->tahun }}</td>
+                                                <td>{{ $data->intercept_naik }}</td>
+                                                <td>{{ $data->intercept_turun }}</td>
+                                                <td>{{ $data->x_variable_naik }}</td>
+                                                <td>{{ $data->x_variable_turun }}</td>
                                                 <td><a
                                                         href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i
                                                             class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('SertifikatDelete', $row->id) }}" method="post"
-                                                        title="Hapus" class="d-inline"
+                                                    <form action="{{ route('SertifikatDelete', $row->id) }}"
+                                                        method="post" title="Hapus" class="d-inline"
                                                         onsubmit="return confirm('Yakin hapus data?')">
                                                         @csrf
                                                         @method('delete')

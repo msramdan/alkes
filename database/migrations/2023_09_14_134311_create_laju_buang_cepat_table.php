@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('no_laporan', 100);
             $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
             $table->double('value', 15, 9)->nullable();
-            $table->double('intercept_timer', 15, 9)->nullable();
-            $table->double('x_variable_timer', 15, 9)->nullable();
+            $table->json('data_sertifikat');
             $table->timestamps();
         });
     }
