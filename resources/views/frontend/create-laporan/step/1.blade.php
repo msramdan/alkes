@@ -49,7 +49,7 @@
             <div class="col">
                 <label for="" style=" font-size: 12px;">Resolusi</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="" id="administrasi_resolusi"
+                    <input type="number" class="form-control" placeholder="" id="administrasi_resolusi"
                         name="administrasi_resolusi" value="" required>
                     <span class="input-group-text" id=""
                         style="width: 70px">{{ cek_satuan($nomenklatur_id, 'Resolusi') }}</span>

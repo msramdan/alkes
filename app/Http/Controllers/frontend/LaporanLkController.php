@@ -134,7 +134,7 @@ class LaporanLkController extends Controller
                 }
             } else if ($nomenklatur_type->type_id == 46) {
                 // get detail $sertifikat  Infusion Device Analyzer
-                $sertifikatIda = DB::table('sertifikat_ida')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                $sertifikatIda = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                 if(!$sertifikatIda){
                     dd('Sertifikat IDA belum diisi');
                 }
@@ -266,19 +266,20 @@ class LaporanLkController extends Controller
                 'percobaan4_5' => $request->percobaan4_5,
                 'percobaan4_6' => $request->percobaan4_6,
                 // sertifikat ida
-                'tahun' => $sertifikatIda->tahun,
-                'slope_1' => $sertifikatIda->slope_1,
-                'intercept_1' => $sertifikatIda->intercept_1,
-                'slope_2' => $sertifikatIda->slope_2,
-                'intercept_2' => $sertifikatIda->intercept_2,
-                'drift10_1' => $sertifikatIda->drift10_1,
-                'drift50_1' => $sertifikatIda->drift50_1,
-                'drift100_1' => $sertifikatIda->drift100_1,
-                'drift500_1' => $sertifikatIda->drift500_1,
-                'drift10_2' => $sertifikatIda->drift10_2,
-                'drift50_2' => $sertifikatIda->drift50_2,
-                'drift100_2' => $sertifikatIda->drift100_2,
-                'drift500_2' => $sertifikatIda->drift500_2,
+                'data_sertifikat' => $sertifikatIda->data,
+                // 'tahun' => $sertifikatIda->tahun,
+                // 'slope_1' => $sertifikatIda->slope_1,
+                // 'intercept_1' => $sertifikatIda->intercept_1,
+                // 'slope_2' => $sertifikatIda->slope_2,
+                // 'intercept_2' => $sertifikatIda->intercept_2,
+                // 'drift10_1' => $sertifikatIda->drift10_1,
+                // 'drift50_1' => $sertifikatIda->drift50_1,
+                // 'drift100_1' => $sertifikatIda->drift100_1,
+                // 'drift500_1' => $sertifikatIda->drift500_1,
+                // 'drift10_2' => $sertifikatIda->drift10_2,
+                // 'drift50_2' => $sertifikatIda->drift50_2,
+                // 'drift100_2' => $sertifikatIda->drift100_2,
+                // 'drift500_2' => $sertifikatIda->drift500_2,
             ]);
         }else if($request->nomenklatur_id == 9){
             // simpan KEBOCORAN TEKANAN

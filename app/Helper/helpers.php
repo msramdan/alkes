@@ -122,7 +122,7 @@ function standard_deviation($sample)
     }
 }
 
-function hitung_uncertainty($resolusi_uut, $stdev)
+function hitung_uncertainty($resolusi_uut, $stdev, $uncert)
 {
     // $pembacaan_berulang
     $n = 6;
@@ -135,8 +135,7 @@ function hitung_uncertainty($resolusi_uut, $stdev)
     $uc_1 = round($uc * $uc, 3);  //107.475
     $ucv_1 = ($uc_1 * $uc_1) / $v;
     // sertifikat Standar
-    // harusnya dari sertifikat IDA
-    $stdev2 = 0.65;
+    $stdev2 = $uncert;
     $pembagi2 = 2;
     $v2 = 50;
     $u2 = round($stdev2 / $pembagi2, 3); // 0.325
@@ -184,7 +183,7 @@ function generateKode($prefix)
     $tahun = date('Y');
     $sql = Laporan::orderBy('no_laporan', 'desc')->where(DB::raw('substr(no_laporan, 5, 4)'), '=', $tahun)->first();
     if ($sql) {
-        $tmp = substr($sql->no_laporan, 9, 5) ;
+        $tmp = substr($sql->no_laporan, 9, 5);
         $x = ((int)$tmp) + 1;
         $lastKode = sprintf("%05s", $x);
         $kd = $prefix . '-' . $tahun . '-' . $lastKode;
