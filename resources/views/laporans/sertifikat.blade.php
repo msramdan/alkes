@@ -57,6 +57,7 @@
     $flow_rate = DB::table('laporan_flow_rate')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
+    $dataFlowRate = json_decode($flow_rate->data_sertifikat);
 
     // get chanel IDA
     $ida = DB::table('laporan_pendataan_administrasi')
@@ -67,17 +68,14 @@
         ->where('no_laporan', $laporan->no_laporan)
         ->where('slug', 'resolusi')
         ->first();
-    // get sertifikat ida
-    $sertifikat_ida = DB::table('sertifikat_ida')
-        ->where('inventaris_id', $laporan->no_laporan)
-        ->first();
-
     if ($ida->value == 1) {
-        $slope = $flow_rate->slope_1;
-        $intercept = $flow_rate->intercept_1;
+        $slope = $dataFlowRate->slope_1;
+        $intercept = $dataFlowRate->intercept_1;
+        $uncert = $dataFlowRate->uc_1;
     } else {
-        $slope = $flow_rate->slope_2;
-        $intercept = $flow_rate->intercept_2;
+        $slope = $dataFlowRate->slope_2;
+        $intercept = $dataFlowRate->intercept_2;
+        $uncert = $dataFlowRate->uc_2;
     }
 
     $satu = $laporan_occlusion->percobaan_1 * 0.0145;
@@ -106,7 +104,7 @@
     $stdev = round(standard_deviation($arr), 2);
     $koreksi = $meanTerkoreksi1 - 10;
     // hitung uncertainty
-    $u95 = round(hitung_uncertainty($resolusi->value, $stdev), 3);
+    $u95 = round(hitung_uncertainty($resolusi->value, $stdev,$uncert), 3);
     $absU95 = abs($koreksi) + $u95;
     $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
     // 2
@@ -123,7 +121,7 @@
     // stdev
     $stdev2 = round(standard_deviation($arr2), 2);
     $koreksi2 = $meanTerkoreksi2 - 50;
-    $u952 = round(hitung_uncertainty($resolusi->value, $stdev2), 3);
+    $u952 = round(hitung_uncertainty($resolusi->value, $stdev2,$uncert), 3);
     $absU952 = abs($koreksi2) + $u952;
     $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
     // 3
@@ -140,7 +138,7 @@
     // stdev
     $stdev3 = round(standard_deviation($arr3), 2);
     $koreksi3 = $meanTerkoreksi3 - 100;
-    $u953 = round(hitung_uncertainty($resolusi->value, $stdev3), 3);
+    $u953 = round(hitung_uncertainty($resolusi->value, $stdev3,$uncert), 3);
     $absU953 = abs($koreksi3) + $u953;
     $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
 
@@ -158,7 +156,7 @@
         array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
         $stdev4 = round(standard_deviation($arr4), 2);
         $koreksi4 = $meanTerkoreksi4 - 500;
-        $u954 = round(hitung_uncertainty($resolusi->value, $stdev4), 3);
+        $u954 = round(hitung_uncertainty($resolusi->value, $stdev4,$uncert), 3);
         $absU954 = abs($koreksi4) + $u954;
         $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
     }
