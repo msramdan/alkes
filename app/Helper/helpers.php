@@ -135,6 +135,7 @@ function hitung_uncertainty($resolusi_uut, $stdev)
     $uc_1 = round($uc * $uc, 3);  //107.475
     $ucv_1 = ($uc_1 * $uc_1) / $v;
     // sertifikat Standar
+    // harusnya dari sertifikat IDA
     $stdev2 = 0.65;
     $pembagi2 = 2;
     $v2 = 50;

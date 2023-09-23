@@ -251,29 +251,6 @@ class InventariController extends Controller
                     'file' =>  $file->hashName(),
                 ]
             );
-            // IDA
-        } else if ($data->jenis_alat_id == 46) {
-            $file = $request->file('file');
-            $file->storeAs('public/sertifikat/sertifikat_ida', $file->hashName());
-            DB::table('sertifikat_ida')->insert(
-                [
-                    'inventaris_id' => $request->inventaris_id,
-                    'tahun' => $request->tahun,
-                    'slope_1' => $request->slope_1,
-                    'intercept_1' => $request->intercept_1,
-                    'slope_2' => $request->slope_2,
-                    'intercept_2' => $request->intercept_2,
-                    'drift10_1' => $request->drift10_1,
-                    'drift50_1' => $request->drift50_1,
-                    'drift100_1' => $request->drift100_1,
-                    'drift500_1' => $request->drift500_1,
-                    'drift10_2' => $request->drift10_2,
-                    'drift50_2' => $request->drift50_2,
-                    'drift100_2' => $request->drift100_2,
-                    'drift500_2' => $request->drift500_2,
-                    'file' =>  $file->hashName(),
-                ],
-            );
         } else {
             die();
         }
@@ -288,17 +265,44 @@ class InventariController extends Controller
         $data = Inventari::where('id', $request->inventaris_id)->first();
         $file = $request->file('file');
         $file->storeAs('public/sertifikat', $file->hashName());
-        if($data->jenis_alat_id == 3){
+        if ($data->jenis_alat_id == 3) {
+            // Digital Stop Watch
             $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
                 'intercept' => $request->intercept,
                 'x_variable' => $request->x_variable,
             ];
-        }else if($data->jenis_alat_id == 45){
+        } else if ($data->jenis_alat_id == 45) {
+            // Digital Pressure Meter
             $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
                 'intercept_naik' => $request->intercept_naik,
                 'x_variable_naik' => $request->x_variable_naik,
                 'intercept_turun' => $request->intercept_turun,
                 'x_variable_turun' => $request->x_variable_turun,
+            ];
+
+        } else if ($data->jenis_alat_id == 46) {
+            // IDA
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope_1' => $request->slope_1,
+                'intercept_1' => $request->intercept_1,
+                'uc_1' => $request->uc_1,
+                'slope_2' => $request->slope_2,
+                'intercept_2' => $request->intercept_2,
+                'uc_2' => $request->uc_2,
+                'drift10_1' => $request->drift10_1,
+                'drift50_1' => $request->drift50_1,
+                'drift100_1' => $request->drift100_1,
+                'drift500_1' => $request->drift500_1,
+                'drift10_2' => $request->drift10_2,
+                'drift50_2' => $request->drift50_2,
+                'drift100_2' => $request->drift100_2,
+                'drift500_2' => $request->drift500_2,
             ];
         }
         DB::table('sertifikat_inventaris')->insert(
@@ -313,8 +317,6 @@ class InventariController extends Controller
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil disimpan'));
     }
-
-
 
     public function ThermohygrometerDelete($id)
     {
@@ -331,16 +333,6 @@ class InventariController extends Controller
         $data = DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->first();
         Storage::delete('public/sertifikat/sertifikat_electrical_safety_analyzer/' . $data->file);
         DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->delete();
-        return redirect()
-            ->back()
-            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
-    }
-
-    public function IdaDelete($id)
-    {
-        $data = DB::table('sertifikat_ida')->where('id', $id)->first();
-        Storage::delete('public/sertifikat/sertifikat_ida/' . $data->file);
-        DB::table('sertifikat_ida')->where('id', $id)->delete();
         return redirect()
             ->back()
             ->with('success', __('Sertifikat inventaris berhasil dihapus'));
@@ -380,12 +372,7 @@ class InventariController extends Controller
             $tahun = $data->tahun;
             $nama = 'Sertifikat ESA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
             // IDA
-        } else if ($getInventaris->jenis_alat_id == 46) {
-            $data = DB::table('sertifikat_ida')->where('id', $id)->first();
-            $file = public_path() . "/storage/sertifikat/sertifikat_ida/" . $data->file;
-            $tahun = $data->tahun;
-            $nama = 'Sertifikat IDA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
-        } else if ($getInventaris->jenis_alat_id == 45 || $getInventaris->jenis_alat_id == 3) {
+        } else if ($getInventaris->jenis_alat_id == 45 || $getInventaris->jenis_alat_id == 3 || $getInventaris->jenis_alat_id == 46) {
             $data = DB::table('sertifikat_inventaris')->where('id', $id)->first();
             $file = public_path() . "/storage/sertifikat/" . $data->file;
             $tahun = $data->tahun;
