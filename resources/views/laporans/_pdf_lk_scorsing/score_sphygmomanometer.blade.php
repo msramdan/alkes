@@ -226,6 +226,11 @@
 $laporan_kebocoran_tekanan = DB::table('laporan_kebocoran_tekanan')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
+$resolusi = DB::table('laporan_pendataan_administrasi')
+    ->where('no_laporan', $laporan->no_laporan)
+    ->where('slug', 'resolusi')
+    ->first();
+
 $tekananHasil = $laporan_kebocoran_tekanan->value <= 15 ? 'Lulus' : 'Tidak Lulus';
 $scoreTekananHasil = $tekananHasil == 'Lulus' ? 20 : 0;
 // =====================
@@ -252,6 +257,10 @@ $koreksi = $meanNaik0 - 0;
 $arr = [];
 array_push($arr, $percobaan0_1_naik, $percobaan0_2_naik, $percobaan0_3_naik);
 $stdev = standard_deviation($arr);
+// hitung uncertainty
+$u95 = hitung_uncertainty($resolusi->value, $stdev, $data_sertifikat_akurasi_tekanan->uc);
+$absU95 = abs($koreksi) + $u95;
+$score = $absU95 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan50_1_naik = $laporan_akurasi_tekanan->percobaan50_1_naik;
 $percobaan50_2_naik = $laporan_akurasi_tekanan->percobaan50_2_naik;
@@ -263,6 +272,10 @@ $arr2 = [];
 array_push($arr2, $percobaan50_1_naik, $percobaan50_2_naik, $percobaan50_3_naik);
 $stdev2 = standard_deviation($arr2);
 $koreksi2 = $meanNaik50 - 50;
+// hitung uncertainty
+$u952 = hitung_uncertainty($resolusi->value, $stdev2, $data_sertifikat_akurasi_tekanan->uc);
+$absU952 = abs($koreksi2) + $u952;
+$score2 = $absU952 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan100_1_naik = $laporan_akurasi_tekanan->percobaan100_1_naik;
 $percobaan100_2_naik = $laporan_akurasi_tekanan->percobaan100_2_naik;
@@ -274,6 +287,10 @@ $arr3 = [];
 array_push($arr3, $percobaan100_1_naik, $percobaan100_2_naik, $percobaan100_3_naik);
 $stdev3 = standard_deviation($arr3);
 $koreksi3 = $meanNaik100 - 100;
+// hitung uncertainty
+$u953 = hitung_uncertainty($resolusi->value, $stdev3, $data_sertifikat_akurasi_tekanan->uc);
+$absU953 = abs($koreksi3) + $u953;
+$score3 = $absU953 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan150_1_naik = $laporan_akurasi_tekanan->percobaan150_1_naik;
 $percobaan150_2_naik = $laporan_akurasi_tekanan->percobaan150_2_naik;
@@ -285,6 +302,10 @@ $arr4 = [];
 array_push($arr4, $percobaan150_1_naik, $percobaan150_2_naik, $percobaan150_3_naik);
 $stdev4 = standard_deviation($arr4);
 $koreksi4 = $meanNaik150 - 150;
+// hitung uncertainty
+$u954 = hitung_uncertainty($resolusi->value, $stdev4, $data_sertifikat_akurasi_tekanan->uc);
+$absU954 = abs($koreksi4) + $u954;
+$score4 = $absU954 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan200_1_naik = $laporan_akurasi_tekanan->percobaan200_1_naik;
 $percobaan200_2_naik = $laporan_akurasi_tekanan->percobaan200_2_naik;
@@ -296,6 +317,10 @@ $arr5 = [];
 array_push($arr5, $percobaan200_1_naik, $percobaan200_2_naik, $percobaan200_3_naik);
 $stdev5 = standard_deviation($arr5);
 $koreksi5 = $meanNaik200 - 200;
+// hitung uncertainty
+$u955 = hitung_uncertainty($resolusi->value, $stdev5, $data_sertifikat_akurasi_tekanan->uc);
+$absU955 = abs($koreksi5) + $u955;
+$score5 = $absU955 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan250_1_naik = $laporan_akurasi_tekanan->percobaan250_1_naik;
 $percobaan250_2_naik = $laporan_akurasi_tekanan->percobaan250_2_naik;
@@ -307,6 +332,10 @@ $arr6 = [];
 array_push($arr6, $percobaan250_1_naik, $percobaan250_2_naik, $percobaan250_3_naik);
 $stdev6 = standard_deviation($arr6);
 $koreksi6 = $meanNaik250 - 250;
+// hitung uncertainty
+$u956 = hitung_uncertainty($resolusi->value, $stdev6, $data_sertifikat_akurasi_tekanan->uc);
+$absU956 = abs($koreksi6) + $u956;
+$score6 = $absU956 < 4 ? 'Lulus' : 'Tidak';
 
 // turun
 $percobaan250_1_turun = $laporan_akurasi_tekanan->percobaan250_1_turun;
@@ -315,10 +344,14 @@ $percobaan250_3_turun = $laporan_akurasi_tekanan->percobaan250_3_turun;
 $meanTurun250 = ($percobaan250_1_turun + $percobaan250_2_turun + $percobaan250_3_turun) / 3;
 $meanterkoreksiTurun250 = $data_sertifikat_akurasi_tekanan->intercept_turun + $data_sertifikat_akurasi_tekanan->x_variable_turun * $meanTurun250;
 // stdev
-$arr7= [];
+$arr7 = [];
 array_push($arr7, $percobaan250_1_turun, $percobaan250_2_turun, $percobaan250_3_turun);
 $stdev7 = standard_deviation($arr7);
 $koreksi7 = $meanTurun250 - 250;
+// hitung uncertainty
+$u957 = hitung_uncertainty($resolusi->value, $stdev7, $data_sertifikat_akurasi_tekanan->uc);
+$absU957 = abs($koreksi7) + $u957;
+$score7 = $absU957 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan200_1_turun = $laporan_akurasi_tekanan->percobaan200_1_turun;
 $percobaan200_2_turun = $laporan_akurasi_tekanan->percobaan200_2_turun;
@@ -326,10 +359,14 @@ $percobaan200_3_turun = $laporan_akurasi_tekanan->percobaan200_3_turun;
 $meanTurun200 = ($percobaan200_1_turun + $percobaan200_2_turun + $percobaan200_3_turun) / 3;
 $meanterkoreksiTurun200 = $data_sertifikat_akurasi_tekanan->intercept_turun + $data_sertifikat_akurasi_tekanan->x_variable_turun * $meanTurun200;
 // stdev
-$arr8= [];
+$arr8 = [];
 array_push($arr8, $percobaan200_1_turun, $percobaan200_2_turun, $percobaan200_3_turun);
 $stdev8 = standard_deviation($arr8);
 $koreksi8 = $meanTurun200 - 200;
+// hitung uncertainty
+$u958 = hitung_uncertainty($resolusi->value, $stdev8, $data_sertifikat_akurasi_tekanan->uc);
+$absU958 = abs($koreksi8) + $u958;
+$score8 = $absU958 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan150_1_turun = $laporan_akurasi_tekanan->percobaan150_1_turun;
 $percobaan150_2_turun = $laporan_akurasi_tekanan->percobaan150_2_turun;
@@ -337,10 +374,14 @@ $percobaan150_3_turun = $laporan_akurasi_tekanan->percobaan150_3_turun;
 $meanTurun150 = ($percobaan150_1_turun + $percobaan150_2_turun + $percobaan150_3_turun) / 3;
 $meanterkoreksiTurun150 = $data_sertifikat_akurasi_tekanan->intercept_turun + $data_sertifikat_akurasi_tekanan->x_variable_turun * $meanTurun150;
 // stdev
-$arr9= [];
+$arr9 = [];
 array_push($arr9, $percobaan150_1_turun, $percobaan150_2_turun, $percobaan150_3_turun);
 $stdev9 = standard_deviation($arr9);
 $koreksi9 = $meanTurun150 - 150;
+// hitung uncertainty
+$u959 = hitung_uncertainty($resolusi->value, $stdev9, $data_sertifikat_akurasi_tekanan->uc);
+$absU959 = abs($koreksi9) + $u959;
+$score9 = $absU959 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan100_1_turun = $laporan_akurasi_tekanan->percobaan100_1_turun;
 $percobaan100_2_turun = $laporan_akurasi_tekanan->percobaan100_2_turun;
@@ -348,10 +389,14 @@ $percobaan100_3_turun = $laporan_akurasi_tekanan->percobaan100_3_turun;
 $meanTurun100 = ($percobaan100_1_turun + $percobaan100_2_turun + $percobaan100_3_turun) / 3;
 $meanterkoreksiTurun100 = $data_sertifikat_akurasi_tekanan->intercept_turun + $data_sertifikat_akurasi_tekanan->x_variable_turun * $meanTurun100;
 // stdev
-$arr10= [];
+$arr10 = [];
 array_push($arr10, $percobaan100_1_turun, $percobaan100_2_turun, $percobaan100_3_turun);
 $stdev10 = standard_deviation($arr10);
 $koreksi10 = $meanTurun100 - 100;
+// hitung uncertainty
+$u9510 = hitung_uncertainty($resolusi->value, $stdev10, $data_sertifikat_akurasi_tekanan->uc);
+$absU9510 = abs($koreksi10) + $u9510;
+$score10 = $absU9510 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan50_1_turun = $laporan_akurasi_tekanan->percobaan50_1_turun;
 $percobaan50_2_turun = $laporan_akurasi_tekanan->percobaan50_2_turun;
@@ -359,10 +404,14 @@ $percobaan50_3_turun = $laporan_akurasi_tekanan->percobaan50_3_turun;
 $meanTurun50 = ($percobaan50_1_turun + $percobaan50_2_turun + $percobaan50_3_turun) / 3;
 $meanterkoreksiTurun50 = $data_sertifikat_akurasi_tekanan->intercept_turun + $data_sertifikat_akurasi_tekanan->x_variable_turun * $meanTurun50;
 // stdev
-$arr11= [];
+$arr11 = [];
 array_push($arr11, $percobaan50_1_turun, $percobaan50_2_turun, $percobaan50_3_turun);
 $stdev11 = standard_deviation($arr11);
 $koreksi11 = $meanTurun50 - 50;
+// hitung uncertainty
+$u9511 = hitung_uncertainty($resolusi->value, $stdev11, $data_sertifikat_akurasi_tekanan->uc);
+$absU9511 = abs($koreksi11) + $u9511;
+$score11 = $absU9511 < 4 ? 'Lulus' : 'Tidak';
 
 $percobaan0_1_turun = $laporan_akurasi_tekanan->percobaan0_1_turun;
 $percobaan0_2_turun = $laporan_akurasi_tekanan->percobaan0_2_turun;
@@ -370,11 +419,14 @@ $percobaan0_3_turun = $laporan_akurasi_tekanan->percobaan0_3_turun;
 $meanTurun0 = ($percobaan0_1_turun + $percobaan0_2_turun + $percobaan0_3_turun) / 3;
 $meanterkoreksiTurun0 = $data_sertifikat_akurasi_tekanan->intercept_turun + $data_sertifikat_akurasi_tekanan->x_variable_turun * $meanTurun0;
 // stdev
-$arr12= [];
+$arr12 = [];
 array_push($arr12, $percobaan0_1_turun, $percobaan0_2_turun, $percobaan0_3_turun);
 $stdev12 = standard_deviation($arr12);
 $koreksi12 = $meanTurun0 - 00;
-
+// hitung uncertainty
+$u9512 = hitung_uncertainty($resolusi->value, $stdev12, $data_sertifikat_akurasi_tekanan->uc);
+$absU9512 = abs($koreksi12) + $u9512;
+$score12 = $absU9512 < 4 ? 'Lulus' : 'Tidak';
 
 ?>
 
@@ -456,11 +508,12 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan0_3_naik }}</td>
             <td>{{ round($meanNaik0, 2) }}</td>
             <td>{{ round($meanterkoreksi0, 2) }}</td>
-            <td>{{ round($stdev,2) }}</td>
-            <td>{{ round($koreksi,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev, 2) }}</td>
+            <td>{{ round($koreksi, 2) }}</td>
+            <td>{{ $u95 }}</td>
+            <td>{{ $absU95}}</td>
             <td rowspan="12" style="text-align: center;vertical-align: middle;">4</td>
+            <td>{{$score}}</td>
         </tr>
         <tr>
             <td>50</td>
@@ -469,10 +522,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan50_3_naik }}</td>
             <td>{{ round($meanNaik50, 2) }}</td>
             <td>{{ round($meanterkoreksi50, 2) }}</td>
-            <td>{{ round($stdev2,2) }}</td>
-            <td>{{ round($koreksi2,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev2, 2) }}</td>
+            <td>{{ round($koreksi2, 2) }}</td>
+            <td>{{ $u952 }}</td>
+            <td>{{ $absU952}}</td>
+            <td>{{$score2}}</td>
         </tr>
         <tr>
             <td>100</td>
@@ -481,10 +535,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan100_3_naik }}</td>
             <td>{{ round($meanNaik100, 2) }}</td>
             <td>{{ round($meanterkoreksi100, 2) }}</td>
-            <td>{{ round($stdev3,2) }}</td>
-            <td>{{ round($koreksi3,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev3, 2) }}</td>
+            <td>{{ round($koreksi3, 2) }}</td>
+            <td>{{ $u953 }}</td>
+            <td>{{ $absU953}}</td>
+            <td>{{$score2}}</td>
         </tr>
         <tr>
             <td>150</td>
@@ -493,10 +548,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan150_3_naik }}</td>
             <td>{{ round($meanNaik150, 2) }}</td>
             <td>{{ round($meanterkoreksi150, 2) }}</td>
-            <td>{{ round($stdev4,2) }}</td>
-            <td>{{ round($koreksi4,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev4, 2) }}</td>
+            <td>{{ round($koreksi4, 2) }}</td>
+            <td>{{ $u954 }}</td>
+            <td>{{ $absU954}}</td>
+            <td>{{$score4}}</td>
         </tr>
         <tr>
             <td>200</td>
@@ -505,10 +561,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan200_3_naik }}</td>
             <td>{{ round($meanNaik200, 2) }}</td>
             <td>{{ round($meanterkoreksi200, 2) }}</td>
-            <td>{{ round($stdev5,2) }}</td>
-            <td>{{ round($koreksi5,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev5, 2) }}</td>
+            <td>{{ round($koreksi5, 2) }}</td>
+            <td>{{ $u955 }}</td>
+            <td>{{ $absU955}}</td>
+            <td>{{$score5}}</td>
         </tr>
         <tr>
             <td>250</td>
@@ -517,10 +574,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan250_3_naik }}</td>
             <td>{{ round($meanNaik250, 2) }}</td>
             <td>{{ round($meanterkoreksi250, 2) }}</td>
-            <td>{{ round($stdev6,2) }}</td>
-            <td>{{ round($koreksi6,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev6, 2) }}</td>
+            <td>{{ round($koreksi6, 2) }}</td>
+            <td>{{ $u956 }}</td>
+            <td>{{ $absU956}}</td>
+            <td>{{$score6}}</td>
         </tr>
         <tr>
             <td rowspan="6" style="background-color:grey;text-align: center;vertical-align: middle;"> <span
@@ -531,10 +589,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan250_3_turun }}</td>
             <td>{{ round($meanTurun250, 2) }}</td>
             <td>{{ round($meanterkoreksiTurun250, 2) }}</td>
-            <td>{{ round($stdev7,2) }}</td>
-            <td>{{ round($koreksi7,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev7, 2) }}</td>
+            <td>{{ round($koreksi7, 2) }}</td>
+            <td>{{ $u957 }}</td>
+            <td>{{ $absU957}}</td>
+            <td>{{$score7}}</td>
         </tr>
         <tr>
             <td>200</td>
@@ -543,10 +602,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan200_3_turun }}</td>
             <td>{{ round($meanTurun200, 2) }}</td>
             <td>{{ round($meanterkoreksiTurun200, 2) }}</td>
-            <td>{{ round($stdev8,2) }}</td>
-            <td>{{ round($koreksi8,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev8, 2) }}</td>
+            <td>{{ round($koreksi8, 2) }}</td>
+            <td>{{ $u958 }}</td>
+            <td>{{ $absU958}}</td>
+            <td>{{$score8}}</td>
         </tr>
         <tr>
             <td>150</td>
@@ -555,10 +615,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan150_3_turun }}</td>
             <td>{{ round($meanTurun150, 2) }}</td>
             <td>{{ round($meanterkoreksiTurun150, 2) }}</td>
-            <td>{{ round($stdev9,2) }}</td>
-            <td>{{ round($koreksi9,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev9, 2) }}</td>
+            <td>{{ round($koreksi9, 2) }}</td>
+            <td>{{ $u959 }}</td>
+            <td>{{ $absU959}}</td>
+            <td>{{$score9}}</td>
         </tr>
         <tr>
             <td>100</td>
@@ -567,10 +628,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan100_3_turun }}</td>
             <td>{{ round($meanTurun100, 2) }}</td>
             <td>{{ round($meanterkoreksiTurun100, 2) }}</td>
-            <td>{{ round($stdev10,2) }}</td>
-            <td>{{ round($koreksi10,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev10, 2) }}</td>
+            <td>{{ round($koreksi10, 2) }}</td>
+            <td>{{ $u9510 }}</td>
+            <td>{{ $absU9510}}</td>
+            <td>{{$score10}}</td>
         </tr>
         <tr>
             <td>50</td>
@@ -579,10 +641,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan50_3_turun }}</td>
             <td>{{ round($meanTurun50, 2) }}</td>
             <td>{{ round($meanterkoreksiTurun50, 2) }}</td>
-            <td>{{ round($stdev11 ,2)}}</td>
-            <td>{{ round($koreksi11,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev11, 2) }}</td>
+            <td>{{ round($koreksi11, 2) }}</td>
+            <td>{{ $u9511 }}</td>
+            <td>{{ $absU9511}}</td>
+            <td>{{$score11}}</td>
         </tr>
         <tr>
 
@@ -592,10 +655,11 @@ $koreksi12 = $meanTurun0 - 00;
             <td>{{ $percobaan0_3_turun }}</td>
             <td>{{ round($meanTurun0, 2) }}</td>
             <td>{{ round($meanterkoreksiTurun0, 2) }}</td>
-            <td>{{ round($stdev12,2)  }}</td>
-            <td>{{ round($koreksi12,2) }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ round($stdev12, 2) }}</td>
+            <td>{{ round($koreksi12, 2) }}</td>
+            <td>{{ $u9512 }}</td>
+            <td>{{ $absU9512}}</td>
+            <td>{{$score12}}</td>
         </tr>
     </tbody>
 </table>

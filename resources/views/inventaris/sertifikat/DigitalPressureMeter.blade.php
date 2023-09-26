@@ -76,6 +76,99 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="file">{{ __('Uc') }}</label>
+                                        <input type="number" step="0.00000000000000001" class="form-control"
+                                                    placeholder="Uc" name="uc" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="uc_suhu">{{ __('Drift Channel') }}</label>
+                                        <table class="table table-xs table-bordered"
+                                            style="text-align: center; vertical-align: middle;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Setting</th>
+                                                    <th>Drift (naik)</th>
+                                                    <th>Drift (turun)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>0</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift0_naik" required>
+                                                    </td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift0_turun" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>50</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift50_naik" required>
+                                                    </td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift50_turun" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>100</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift100_naik"
+                                                            required></td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift100_turun"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>150</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift150_naik"
+                                                            required></td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift150_turun"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>200</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift200_naik"
+                                                            required></td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift200_turun"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>250</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift250_naik"
+                                                            required></td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift250_turun"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>300</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift300_naik"
+                                                            required></td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift300_turun"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>350</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift350_naik"
+                                                            required></td>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift350_turun"
+                                                            required></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="file">{{ __('File Excel') }}</label>
                                         <input type="file" name="file" id="file" class="form-control"
                                             value="" required onchange="return validasiEkstensi()" />

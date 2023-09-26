@@ -282,6 +282,23 @@ class InventariController extends Controller
                 'x_variable_naik' => $request->x_variable_naik,
                 'intercept_turun' => $request->intercept_turun,
                 'x_variable_turun' => $request->x_variable_turun,
+                'uc' => $request->uc,
+                'drift0_naik' => $request->drift0_naik,
+                'drift0_turun' => $request->drift0_turun,
+                'drift50_naik' => $request->drift50_naik,
+                'drift50_turun' => $request->drift50_turun,
+                'drift100_naik' => $request->drift100_naik,
+                'drift100_turun' => $request->drift100_turun,
+                'drift150_naik' => $request->drift150_naik,
+                'drift150_turun' => $request->drift150_turun,
+                'drift200_naik' => $request->drift200_naik,
+                'drift200_turun' => $request->drift200_turun,
+                'drift250_naik' => $request->drift250_naik,
+                'drift250_turun' => $request->drift250_turun,
+                'drift300_naik' => $request->drift300_naik,
+                'drift300_turun' => $request->drift300_turun,
+                'drift350_naik' => $request->drift350_naik,
+                'drift350_turun' => $request->drift350_turun,
             ];
 
         } else if ($data->jenis_alat_id == 46) {
