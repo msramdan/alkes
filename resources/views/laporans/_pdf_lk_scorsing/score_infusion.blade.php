@@ -235,10 +235,18 @@ if ($ida->value == 1) {
     $slope = $dataFlowRate->slope_1;
     $intercept = $dataFlowRate->intercept_1;
     $uncert = $dataFlowRate->uc_1;
+    $drift10 = $dataFlowRate->drift10_1;
+    $drift50 = $dataFlowRate->drift50_1;
+    $drift100 = $dataFlowRate->drift100_1;
+    $drift500 = $dataFlowRate->drift500_1;
 } else {
     $slope = $dataFlowRate->slope_2;
     $intercept = $dataFlowRate->intercept_2;
     $uncert = $dataFlowRate->uc_2;
+    $drift10 = $dataFlowRate->drift10_2;
+    $drift50 = $dataFlowRate->drift50_2;
+    $drift100 = $dataFlowRate->drift100_2;
+    $drift500 = $dataFlowRate->drift500_2;
 }
 ?>
 <p style="font-size: 11px;margin-left:18px"><b>OCCLUSION</b></p>
@@ -335,16 +343,16 @@ if ($ida->value == 1) {
             $empat1 = $flow_rate->percobaan1_4;
             $lima1 = $flow_rate->percobaan1_5;
             $enam1 = $flow_rate->percobaan1_6;
-            $mean1 = round(($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6, 2);
+            $mean1 = ($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6;
 
-            $meanTerkoreksi1 = round($intercept + $slope * $mean1, 2);
+            $meanTerkoreksi1 = $intercept + $slope * $mean1;
             $arr = [];
             array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
             // stdev
-            $stdev = round(standard_deviation($arr), 2);
+            $stdev = standard_deviation($arr);
             $koreksi = $meanTerkoreksi1 - 10;
             // hitung uncertainty
-            $u95 = round(hitung_uncertainty($resolusi->value, $stdev,$uncert), 3);
+            $u95 = hitung_uncertainty($resolusi->value, $stdev,$uncert,$drift10);
             $absU95 = abs($koreksi) + $u95;
             $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
             // 2
@@ -354,14 +362,14 @@ if ($ida->value == 1) {
             $empat2 = $flow_rate->percobaan2_4;
             $lima2 = $flow_rate->percobaan2_5;
             $enam2 = $flow_rate->percobaan2_6;
-            $mean2 = round(($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6, 2);
-            $meanTerkoreksi2 = round($intercept + $slope * $mean2, 2);
+            $mean2 = ($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6;
+            $meanTerkoreksi2 = $intercept + $slope * $mean2;
             $arr2 = [];
             array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
             // stdev
-            $stdev2 = round(standard_deviation($arr2), 2);
+            $stdev2 = standard_deviation($arr2);
             $koreksi2 = $meanTerkoreksi2 - 50;
-            $u952 = round(hitung_uncertainty($resolusi->value, $stdev2,$uncert), 3);
+            $u952 = hitung_uncertainty($resolusi->value, $stdev2,$uncert,$drift50);
             $absU952 = abs($koreksi2) + $u952;
             $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
             // 3
@@ -371,14 +379,14 @@ if ($ida->value == 1) {
             $empat3 = $flow_rate->percobaan3_4;
             $lima3 = $flow_rate->percobaan3_5;
             $enam3 = $flow_rate->percobaan3_6;
-            $mean3 = round(($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6, 2);
-            $meanTerkoreksi3 = round($intercept + $slope * $mean3, 2);
+            $mean3 = ($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6;
+            $meanTerkoreksi3 = $intercept + $slope * $mean3;
             $arr3 = [];
             array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
             // stdev
-            $stdev3 = round(standard_deviation($arr3), 2);
+            $stdev3 = standard_deviation($arr3);
             $koreksi3 = $meanTerkoreksi3 - 100;
-            $u953 = round(hitung_uncertainty($resolusi->value, $stdev3,$uncert), 3);
+            $u953 = hitung_uncertainty($resolusi->value, $stdev3,$uncert,$drift100);
             $absU953 = abs($koreksi3) + $u953;
             $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
             // 4 sini
@@ -390,13 +398,13 @@ if ($ida->value == 1) {
                 $empat4 = $flow_rate->percobaan4_4;
                 $lima4 = $flow_rate->percobaan4_5;
                 $enam4 = $flow_rate->percobaan4_6;
-                $mean4 = round(($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6, 2);
-                $meanTerkoreksi4 = round($intercept + $slope * $mean4, 2);
+                $mean4 = ($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6;
+                $meanTerkoreksi4 = $intercept + $slope * $mean4;
                 $arr4 = [];
                 array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
-                $stdev4 = round(standard_deviation($arr4), 2);
+                $stdev4 = standard_deviation($arr4);
                 $koreksi4 = $meanTerkoreksi4 - 500;
-                $u954 = round(hitung_uncertainty($resolusi->value, $stdev4,$uncert), 3);
+                $u954 = hitung_uncertainty($resolusi->value, $stdev4,$uncert,$drift500);
                 $absU954 = abs($koreksi4) + $u954;
                 $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
             }
