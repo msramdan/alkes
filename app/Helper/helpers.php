@@ -122,7 +122,7 @@ function standard_deviation($sample)
     }
 }
 
-function hitung_uncertainty($resolusi_uut, $stdev, $uncert)
+function hitung_uncertainty($resolusi_uut, $stdev, $uncert, $drift)
 {
     // $pembacaan_berulang
     $n = 6;
@@ -145,7 +145,7 @@ function hitung_uncertainty($resolusi_uut, $stdev, $uncert)
     $ucv_2 = ($uc_2 * $uc_2) / $v2;
 
     // Drift
-    $stdev3 = 0.01;
+    $stdev3 =  $drift;
     $pembagi3 = sqrt(3);
     $v3 = 50;
     $u3 = round($stdev3 / $pembagi3, 3); // 0.006
