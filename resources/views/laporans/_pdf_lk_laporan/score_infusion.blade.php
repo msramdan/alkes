@@ -283,111 +283,112 @@
         </thead>
         <tbody>
             @php
-                // 1
-                $satu1 = $flow_rate->percobaan1_1;
-                $dua1 = $flow_rate->percobaan1_2;
-                $tiga1 = $flow_rate->percobaan1_3;
-                $empat1 = $flow_rate->percobaan1_4;
-                $lima1 = $flow_rate->percobaan1_5;
-                $enam1 = $flow_rate->percobaan1_6;
-                $mean1 = ($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6;
+            // 1
+            $satu1 = $flow_rate->percobaan1_1;
+            $dua1 = $flow_rate->percobaan1_2;
+            $tiga1 = $flow_rate->percobaan1_3;
+            $empat1 = $flow_rate->percobaan1_4;
+            $lima1 = $flow_rate->percobaan1_5;
+            $enam1 = $flow_rate->percobaan1_6;
+            $mean1 = ($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6;
 
-                $meanTerkoreksi1 = $intercept + $slope * $mean1;
-                $arr = [];
-                array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
-                // stdev
-                $stdev = standard_deviation($arr);
-                $koreksi = $meanTerkoreksi1 - 10;
-                // hitung uncertainty
-                $u95 = hitung_uncertainty($resolusi->value, $stdev, $uncert, $drift10);
-                $absU95 = abs($koreksi) + $u95;
-                $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
-                // 2
-                $satu2 = $flow_rate->percobaan2_1;
-                $dua2 = $flow_rate->percobaan2_2;
-                $tiga2 = $flow_rate->percobaan2_3;
-                $empat2 = $flow_rate->percobaan2_4;
-                $lima2 = $flow_rate->percobaan2_5;
-                $enam2 = $flow_rate->percobaan2_6;
-                $mean2 = ($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6;
-                $meanTerkoreksi2 = $intercept + $slope * $mean2;
-                $arr2 = [];
-                array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
-                // stdev
-                $stdev2 = standard_deviation($arr2);
-                $koreksi2 = $meanTerkoreksi2 - 50;
-                $u952 = hitung_uncertainty($resolusi->value, $stdev2, $uncert, $drift50);
-                $absU952 = abs($koreksi2) + $u952;
-                $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
-                // 3
-                $satu3 = $flow_rate->percobaan3_1;
-                $dua3 = $flow_rate->percobaan3_2;
-                $tiga3 = $flow_rate->percobaan3_3;
-                $empat3 = $flow_rate->percobaan3_4;
-                $lima3 = $flow_rate->percobaan3_5;
-                $enam3 = $flow_rate->percobaan3_6;
-                $mean3 = ($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6;
-                $meanTerkoreksi3 = $intercept + $slope * $mean3;
-                $arr3 = [];
-                array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
-                // stdev
-                $stdev3 = standard_deviation($arr3);
-                $koreksi3 = $meanTerkoreksi3 - 100;
-                $u953 = hitung_uncertainty($resolusi->value, $stdev3, $uncert, $drift100);
-                $absU953 = abs($koreksi3) + $u953;
-                $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
-                // 4 sini
+            $meanTerkoreksi1 = $intercept + $slope * $mean1;
+            $arr = [];
+            array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
+            // stdev
+            $stdev = standard_deviation($arr);
+            $koreksi = $meanTerkoreksi1 - 10;
+            // hitung uncertainty
+            $u95 = hitung_uncertainty($resolusi->value, $stdev,$uncert,$drift10);
+            $absU95 = abs($koreksi) + $u95;
+            $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
+            // 2
+            $satu2 = $flow_rate->percobaan2_1;
+            $dua2 = $flow_rate->percobaan2_2;
+            $tiga2 = $flow_rate->percobaan2_3;
+            $empat2 = $flow_rate->percobaan2_4;
+            $lima2 = $flow_rate->percobaan2_5;
+            $enam2 = $flow_rate->percobaan2_6;
+            $mean2 = ($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6;
+            $meanTerkoreksi2 = $intercept + $slope * $mean2;
+            $arr2 = [];
+            array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
+            // stdev
+            $stdev2 = standard_deviation($arr2);
+            $koreksi2 = $meanTerkoreksi2 - 50;
+            $u952 = hitung_uncertainty($resolusi->value, $stdev2,$uncert,$drift50);
+            $absU952 = abs($koreksi2) + $u952;
+            $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
+            // 3
+            $satu3 = $flow_rate->percobaan3_1;
+            $dua3 = $flow_rate->percobaan3_2;
+            $tiga3 = $flow_rate->percobaan3_3;
+            $empat3 = $flow_rate->percobaan3_4;
+            $lima3 = $flow_rate->percobaan3_5;
+            $enam3 = $flow_rate->percobaan3_6;
+            $mean3 = ($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6;
+            $meanTerkoreksi3 = $intercept + $slope * $mean3;
+            $arr3 = [];
+            array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
+            // stdev
+            $stdev3 = standard_deviation($arr3);
+            $koreksi3 = $meanTerkoreksi3 - 100;
+            $u953 = hitung_uncertainty($resolusi->value, $stdev3,$uncert,$drift100);
+            $absU953 = abs($koreksi3) + $u953;
+            $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
+            // 4 sini
 
-                if ($nomenklaturs->id == 10) {
-                    $satu4 = $flow_rate->percobaan4_1;
-                    $dua4 = $flow_rate->percobaan4_2;
-                    $tiga4 = $flow_rate->percobaan4_3;
-                    $empat4 = $flow_rate->percobaan4_4;
-                    $lima4 = $flow_rate->percobaan4_5;
-                    $enam4 = $flow_rate->percobaan4_6;
-                    $mean4 = ($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6;
-                    $meanTerkoreksi4 = $intercept + $slope * $mean4;
-                    $arr4 = [];
-                    array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
-                    $stdev4 = standard_deviation($arr4);
-                    $koreksi4 = $meanTerkoreksi4 - 500;
-                    $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
-                    $absU954 = abs($koreksi4) + $u954;
-                    $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+            if ($nomenklaturs->id == 10) {
+                $satu4 = $flow_rate->percobaan4_1;
+                $dua4 = $flow_rate->percobaan4_2;
+                $tiga4 = $flow_rate->percobaan4_3;
+                $empat4 = $flow_rate->percobaan4_4;
+                $lima4 = $flow_rate->percobaan4_5;
+                $enam4 = $flow_rate->percobaan4_6;
+                $mean4 = ($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6;
+                $meanTerkoreksi4 = $intercept + $slope * $mean4;
+                $arr4 = [];
+                array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+                $stdev4 = standard_deviation($arr4);
+                $koreksi4 = $meanTerkoreksi4 - 500;
+                $u954 = hitung_uncertainty($resolusi->value, $stdev4,$uncert,$drift500);
+                $absU954 = abs($koreksi4) + $u954;
+                $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+            }
+
+            if ($nomenklaturs->id == 10) {
+                $pembagi = 4;
+                $initScore = 0;
+                if ($score == 'Lulus') {
+                    $initScore = $initScore + 1;
                 }
-
-                if ($nomenklaturs->id == 10) {
-                    $pembagi = 4;
-                    $initScore = 0;
-                    if ($score == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    if ($score2 == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    if ($score3 == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    if ($score4 == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    $initScore = ($initScore / $pembagi) * 100;
-                } elseif ($nomenklaturs->id == 11) {
-                    $pembagi = 3;
-                    $initScore = 0;
-                    if ($score == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    if ($score2 == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    if ($score3 == 'Lulus') {
-                        $initScore = $initScore + 1;
-                    }
-                    $initScore = ($initScore / $pembagi) * 100;
+                if ($score2 == 'Lulus') {
+                    $initScore = $initScore + 1;
                 }
-                $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
-            @endphp
+                if ($score3 == 'Lulus') {
+                    $initScore = $initScore + 1;
+                }
+                if ($score4 == 'Lulus') {
+                    $initScore = $initScore + 1;
+                }
+                $initScore = ($initScore / $pembagi) * 100;
+            } elseif ($nomenklaturs->id == 11) {
+                $pembagi = 3;
+                $initScore = 0;
+                if ($score == 'Lulus') {
+                    $initScore = $initScore + 1;
+                }
+                if ($score2 == 'Lulus') {
+                    $initScore = $initScore + 1;
+                }
+                if ($score3 == 'Lulus') {
+                    $initScore = $initScore + 1;
+                }
+                $initScore = ($initScore / $pembagi) * 100;
+            }
+
+            $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
+        @endphp
 
             <tr>
                 <td style="text-align: center;vertical-align: middle;">10</td>
@@ -612,7 +613,7 @@
     <tbody>
         <tr>
             <td style="height:70px" style="text-align: justify">Berdasarkan Metode Kerja
-                <b>064/MK-IP/MTA/III/2022</b> yang mengacu ke KEPUTUSAN
+                <b>{{ $laporan->no_dokumen }}</b> yang mengacu ke KEPUTUSAN
                 DIREKTUR JENDERAL PELAYANAN KESEHATAN NOMOR : <b>HK.02.02/V/0412/2020</b>, METODE KERJA PENGUJIAN
                 DAN ATAU
                 KALIBRASI ALAT KESEHATAN, KEMENTERIAN KESEHATAN RI. Maka peralatan ini dinyatakan :
