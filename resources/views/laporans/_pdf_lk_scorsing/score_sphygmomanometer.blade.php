@@ -469,6 +469,7 @@ if ($score12 == 'Lulus') {
     $initScore = $initScore + 1;
 }
 $initScore = (($initScore / $pembagi) * 100 / 2);
+$totalAll = $score_fisik + $scoreTekananHasil + $scoreLajuHasil + $initScore;
 ?>
 
 <p style="font-size: 11px;margin-left:18px"><b>1. CEK KEBOCORAN TEKANAN SETELAH 60 DETIK</b></p>
@@ -746,9 +747,6 @@ $initScore = (($initScore / $pembagi) * 100 / 2);
             <th style="width: 24%;text-align: center;">Parameter</th>
             <th style="width: 24%;text-align: center;">Skor</th>
             <th style="width: 24%;text-align: center;">Total</th>
-            @php
-                $totalAll = $score_fisik + $scoreTekananHasil + $scoreLajuHasil + $initScore;
-            @endphp
         </tr>
     </thead>
     <tbody>
