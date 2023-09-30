@@ -10,17 +10,17 @@
 
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
-    $hitungPhaseNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
+    $cek = json_decode(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->data_sertifikat);
+    $hitungPhaseNetral = round($cek->intercept1 + $cek->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
 
-    $hitungPhaseGround = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
+    $hitungPhaseGround = round($cek->intercept3 + $cek->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
 
-    $hitungGroundNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
+    $hitungGroundNetral = round($cek->intercept2 + $cek->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
 
     $dps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value;
     $nps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value;
     $isolasi = get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value;
     $bf = get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value;
-
     $lulus = 0;
     if ($hitungPhaseNetral > 198) {
         $lulus = $lulus + 1;
@@ -50,14 +50,20 @@
 @endif
 @if ($nomenklatur->id == 10 || $nomenklatur->id == 11)
     <?php
-    $laporan_occlusion = DB::table('laporan_occlusion')
+    $laporan_occlusion = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'laporan_occlusion')
+    ->where('no_laporan', $laporan->no_laporan)
+    ->first();
+    $flow_rate = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'laporan_flow_rate')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
-    $flow_rate = DB::table('laporan_flow_rate')
-        ->where('no_laporan', $laporan->no_laporan)
-        ->first();
+
     $dataFlowRate = json_decode($flow_rate->data_sertifikat);
-    $dataFlowRate = json_decode($flow_rate->data_sertifikat);
+    $flow_rate = json_decode($flow_rate->data_laporan);
+    $laporan_occlusion = json_decode($laporan_occlusion->data_laporan);
+
+
 
     // get chanel IDA
     $ida = DB::table('laporan_pendataan_administrasi')
