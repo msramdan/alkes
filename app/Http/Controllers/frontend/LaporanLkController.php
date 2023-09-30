@@ -119,35 +119,35 @@ class LaporanLkController extends Controller
             $nomenklatur_type = DB::table('nomenklatur_type')
                 ->where('id', $nomenklatur_type_id[1])
                 ->first();
-                $inventaris_id = $request->{$alat};
+            $inventaris_id = $request->{$alat};
             if ($nomenklatur_type->type_id == 39) {
                 // get detail $sertifikat Thermohygrometer
                 $sertifikat = DB::table('sertifikat_thermohygrometer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
-                if(!$sertifikat){
+                if (!$sertifikat) {
                     dd('Thermohygrometer IDA belum diisi');
                 }
             } else if ($nomenklatur_type->type_id == 5) {
                 // get detail $sertifikat  ElectricalSafetyAnalyzer
                 $ElectricalSafetyAnalyzer = DB::table('sertifikat_electrical_safety_analyzer')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
-                if(!$ElectricalSafetyAnalyzer){
+                if (!$ElectricalSafetyAnalyzer) {
                     dd('Sertifikat ElectricalSafetyAnalyzer belum diisi');
                 }
             } else if ($nomenklatur_type->type_id == 46) {
                 // get detail $sertifikat  Infusion Device Analyzer
                 $sertifikatIda = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
-                if(!$sertifikatIda){
+                if (!$sertifikatIda) {
                     dd('Sertifikat IDA belum diisi');
                 }
-            }else if ($nomenklatur_type->type_id == 3) {
+            } else if ($nomenklatur_type->type_id == 3) {
                 // get detail $sertifikat  Digital Stop Watch
                 $sertifikatDigitalStopWatch = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
-                if(!$sertifikatDigitalStopWatch){
+                if (!$sertifikatDigitalStopWatch) {
                     dd('Digital Stop Watch belum diisi');
                 }
-            }else if ($nomenklatur_type->type_id == 45) {
+            } else if ($nomenklatur_type->type_id == 45) {
                 // get detail $sertifikat DPM
                 $sertifikatDpm = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
-                if(!$sertifikatDpm){
+                if (!$sertifikatDpm) {
                     dd('Digital Stop Watch belum diisi');
                 }
             }
@@ -281,7 +281,7 @@ class LaporanLkController extends Controller
                 // 'drift100_2' => $sertifikatIda->drift100_2,
                 // 'drift500_2' => $sertifikatIda->drift500_2,
             ]);
-        }else if($request->nomenklatur_id == 9){
+        } else if ($request->nomenklatur_id == 9) {
             // simpan KEBOCORAN TEKANAN
             DB::table('laporan_kebocoran_tekanan')->insert([
                 'no_laporan' => $laporan->no_laporan,
@@ -337,6 +337,56 @@ class LaporanLkController extends Controller
                 'percobaan250_2_turun' => $request->percobaan250_2_turun,
                 'percobaan250_3_naik' => $request->percobaan250_3_naik,
                 'percobaan250_3_turun' => $request->percobaan250_3_turun,
+                'data_sertifikat' => $sertifikatDpm->data,
+            ]);
+        } else if ($request->nomenklatur_id == 12) {
+            $data_laporan = [
+                'percobaan0_1_naik' => $request->percobaan0_1_naik,
+                'percobaan0_1_turun' => $request->percobaan0_1_turun,
+                'percobaan0_2_naik' => $request->percobaan0_2_naik,
+                'percobaan0_2_turun' => $request->percobaan0_2_turun,
+                'percobaan0_3_naik' => $request->percobaan0_3_naik,
+                'percobaan0_3_turun' => $request->percobaan0_3_turun,
+
+                'percobaan50_1_naik' => $request->percobaan50_1_naik,
+                'percobaan50_1_turun' => $request->percobaan50_1_turun,
+                'percobaan50_2_naik' => $request->percobaan50_2_naik,
+                'percobaan50_2_turun' => $request->percobaan50_2_turun,
+                'percobaan50_3_naik' => $request->percobaan50_3_naik,
+                'percobaan50_3_turun' => $request->percobaan50_3_turun,
+
+                'percobaan100_1_naik' => $request->percobaan100_1_naik,
+                'percobaan100_1_turun' => $request->percobaan100_1_turun,
+                'percobaan100_2_naik' => $request->percobaan100_2_naik,
+                'percobaan100_2_turun' => $request->percobaan100_2_turun,
+                'percobaan100_3_naik' => $request->percobaan100_3_naik,
+                'percobaan100_3_turun' => $request->percobaan100_3_turun,
+
+                'percobaan150_1_naik' => $request->percobaan150_1_naik,
+                'percobaan150_1_turun' => $request->percobaan150_1_turun,
+                'percobaan150_2_naik' => $request->percobaan150_2_naik,
+                'percobaan150_2_turun' => $request->percobaan150_2_turun,
+                'percobaan150_3_naik' => $request->percobaan150_3_naik,
+                'percobaan150_3_turun' => $request->percobaan150_3_turun,
+
+                'percobaan200_1_naik' => $request->percobaan200_1_naik,
+                'percobaan200_1_turun' => $request->percobaan200_1_turun,
+                'percobaan200_2_naik' => $request->percobaan200_2_naik,
+                'percobaan200_2_turun' => $request->percobaan200_2_turun,
+                'percobaan200_3_naik' => $request->percobaan200_3_naik,
+                'percobaan200_3_turun' => $request->percobaan200_3_turun,
+
+                'percobaan250_1_naik' => $request->percobaan250_1_naik,
+                'percobaan250_1_turun' => $request->percobaan250_1_turun,
+                'percobaan250_2_naik' => $request->percobaan250_2_naik,
+                'percobaan250_2_turun' => $request->percobaan250_2_turun,
+                'percobaan250_3_naik' => $request->percobaan250_3_naik,
+                'percobaan250_3_turun' => $request->percobaan250_3_turun,
+
+            ];
+            DB::table('laporan_kinerja')->insert([
+                'no_laporan' => $laporan->no_laporan,
+                'data_laporan' => $data_laporan,
                 'data_sertifikat' => $sertifikatDpm->data,
             ]);
         }
