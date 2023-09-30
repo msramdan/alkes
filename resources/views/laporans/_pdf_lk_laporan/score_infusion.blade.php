@@ -438,7 +438,7 @@
                 <td style="text-align: center;vertical-align: middle;">
                     1
                 </td>
-                <td rowspan="4" style="text-align: center;vertical-align: middle;">
+                <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}" style="text-align: center;vertical-align: middle;">
                     10 %
                 </td>
             </tr>

@@ -491,16 +491,19 @@ if ($ida->value == 1) {
             <td style="text-align: center;vertical-align: middle;">
                 1
             </td>
-            <td rowspan="4" style="text-align: center;vertical-align: middle;">
+            <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                style="text-align: center;vertical-align: middle;">
                 10 %
             </td>
             <td style="text-align: center;vertical-align: middle;">
                 {{ $score }}
             </td>
-            <td rowspan="4" style="text-align: center;vertical-align: middle;">
+            <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                style="text-align: center;vertical-align: middle;">
                 {{ $initScore }}
             </td>
-            <td rowspan="4" style="text-align: center;vertical-align: middle;">
+            <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                style="text-align: center;vertical-align: middle;">
                 {{ $final }}
             </td>
         </tr>
@@ -576,7 +579,7 @@ if ($ida->value == 1) {
                 {{ round($meanTerkoreksi3, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{  round($stdev3, 2) }}
+                {{ round($stdev3, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
                 {{ round($koreksi3, 2) }}
@@ -616,13 +619,13 @@ if ($ida->value == 1) {
                     {{ $enam4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round($mean4, 2)  }}
+                    {{ round($mean4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ round($meanTerkoreksi4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ round($stdev4, 2)  }}
+                    {{ round($stdev4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ round($koreksi4, 2) }}
@@ -631,7 +634,7 @@ if ($ida->value == 1) {
                     {{ round($u954, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{  round($absU954, 2) }}
+                    {{ round($absU954, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     50
