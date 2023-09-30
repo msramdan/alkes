@@ -18,8 +18,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('inventarisSertifikatSave') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('sertifikatSave') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 <div class="row mb-2">
@@ -90,7 +89,7 @@
                         <div class="card-body">
                             <div class="table-responsive p-1">
                                 @php
-                                    $dataSertifikat = DB::table('sertifikat_thermohygrometer')
+                                    $dataSertifikat = DB::table('sertifikat_inventaris')
                                         ->where('inventaris_id', $data->id)
                                         ->get();
                                 @endphp
@@ -110,18 +109,23 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($dataSertifikat as $row)
+                                            @php
+                                                $data = json_decode($row->data);
+                                            @endphp
                                             <tr>
                                                 <td>{{ $row->tahun }}</td>
-                                                <td>{{ $row->uc_suhu }}</td>
-                                                <td>{{ $row->intercept_suhu }}</td>
-                                                <td>{{ $row->x_variable_suhu }}</td>
-                                                <td>{{ $row->uc_kelembapan }}</td>
-                                                <td>{{ $row->intercept_kelembapan }}</td>
-                                                <td>{{ $row->x_variable_kelembapan }}</td>
-                                                <td><a href="{{ route('getDownload' , ['inventaris_id' => $row->inventaris_id, 'id' => $row->id])}}"><i class="ace-icon fa fa-file"></i> Download</a>
+                                                <td>{{ $data->uc_suhu }}</td>
+                                                <td>{{ $data->intercept_suhu }}</td>
+                                                <td>{{ $data->x_variable_suhu }}</td>
+                                                <td>{{ $data->uc_kelembapan }}</td>
+                                                <td>{{ $data->intercept_kelembapan }}</td>
+                                                <td>{{ $data->x_variable_kelembapan }}</td>
+                                                <td><a
+                                                        href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i
+                                                            class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('ThermohygrometerDelete', $row->id) }}"
+                                                    <form action="{{ route('SertifikatDelete', $row->id) }}"
                                                         method="post" title="Hapus" class="d-inline"
                                                         onsubmit="return confirm('Yakin hapus data?')">
                                                         @csrf

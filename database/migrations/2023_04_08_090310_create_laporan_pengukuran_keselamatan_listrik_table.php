@@ -20,16 +20,7 @@ return new class extends Migration
             $table->string('field_keselamatan_listrik')->nullable();
             $table->string('slug')->nullable();
             $table->string('value')->nullable();
-            $table->string('tahun', 4);
-            // LIVE TO NETRAL
-            $table->double('intercept1', 15, 9)->nullable();
-            $table->double('x_variable1', 15, 9)->nullable();
-            // EARTH TO NETRAL
-            $table->double('intercept2', 15, 9)->nullable();
-            $table->double('x_variable2', 15, 9)->nullable();
-            // LIVE TO EARTH
-            $table->double('intercept3', 15, 9)->nullable();
-            $table->double('x_variable3', 15, 9)->nullable();
+            $table->json('data_sertifikat')->nullable();
 
             $table->timestamps();
         });

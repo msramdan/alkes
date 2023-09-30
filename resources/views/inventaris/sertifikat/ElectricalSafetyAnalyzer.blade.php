@@ -21,8 +21,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('inventarisSertifikatSave') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('sertifikatSave') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 <div class="row mb-2">
@@ -104,7 +103,7 @@
                         <div class="card-body">
                             <div class="table-responsive p-1">
                                 @php
-                                    $dataSertifikat = DB::table('sertifikat_electrical_safety_analyzer')
+                                    $dataSertifikat = DB::table('sertifikat_inventaris')
                                         ->where('inventaris_id', $data->id)
                                         ->get();
                                 @endphp
@@ -133,19 +132,24 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($dataSertifikat as $row)
+                                            @php
+                                                $data = json_decode($row->data);
+                                            @endphp
                                             <tr>
                                                 <td>{{ $row->tahun }}</td>
-                                                <td>{{ $row->intercept1 }}</td>
-                                                <td>{{ $row->x_variable1 }}</td>
-                                                <td>{{ $row->intercept2 }}</td>
-                                                <td>{{ $row->x_variable2 }}</td>
-                                                <td>{{ $row->intercept3 }}</td>
-                                                <td>{{ $row->x_variable3 }}</td>
-                                                <td><a href="{{ route('getDownload' , ['inventaris_id' => $row->inventaris_id, 'id' => $row->id])}}"><i class="ace-icon fa fa-file"></i> Download</a>
+                                                <td>{{ $data->intercept1 }}</td>
+                                                <td>{{ $data->x_variable1 }}</td>
+                                                <td>{{ $data->intercept2 }}</td>
+                                                <td>{{ $data->x_variable2 }}</td>
+                                                <td>{{ $data->intercept3 }}</td>
+                                                <td>{{ $data->x_variable3 }}</td>
+                                                <td><a
+                                                        href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i
+                                                            class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('EsaDelete', $row->id) }}" method="post"
-                                                        title="Hapus" class="d-inline"
+                                                    <form action="{{ route('SertifikatDelete', $row->id) }}"
+                                                        method="post" title="Hapus" class="d-inline"
                                                         onsubmit="return confirm('Yakin hapus data?')">
                                                         @csrf
                                                         @method('delete')

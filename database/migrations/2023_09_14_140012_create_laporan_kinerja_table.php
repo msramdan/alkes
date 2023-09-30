@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('no_laporan', 100);
             $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
+            $table->string('type_laporan_kinerja', 100);
             $table->json('data_laporan');
-            $table->json('data_sertifikat');
+            $table->json('data_sertifikat')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('akurasi_tekanan');
+        Schema::dropIfExists('laporan_kinerja');
     }
 };

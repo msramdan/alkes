@@ -192,3 +192,120 @@ function generateKode($prefix)
     }
     return $kd;
 }
+
+
+// =======================payload data kinerja===================
+
+function akurasi_tekanan($request)
+{
+    $data_laporan = [
+        'percobaan0_1_naik' => $request->percobaan0_1_naik,
+        'percobaan0_1_turun' => $request->percobaan0_1_turun,
+        'percobaan0_2_naik' => $request->percobaan0_2_naik,
+        'percobaan0_2_turun' => $request->percobaan0_2_turun,
+        'percobaan0_3_naik' => $request->percobaan0_3_naik,
+        'percobaan0_3_turun' => $request->percobaan0_3_turun,
+        'percobaan50_1_naik' => $request->percobaan50_1_naik,
+        'percobaan50_1_turun' => $request->percobaan50_1_turun,
+        'percobaan50_2_naik' => $request->percobaan50_2_naik,
+        'percobaan50_2_turun' => $request->percobaan50_2_turun,
+        'percobaan50_3_naik' => $request->percobaan50_3_naik,
+        'percobaan50_3_turun' => $request->percobaan50_3_turun,
+        'percobaan100_1_naik' => $request->percobaan100_1_naik,
+        'percobaan100_1_turun' => $request->percobaan100_1_turun,
+        'percobaan100_2_naik' => $request->percobaan100_2_naik,
+        'percobaan100_2_turun' => $request->percobaan100_2_turun,
+        'percobaan100_3_naik' => $request->percobaan100_3_naik,
+        'percobaan100_3_turun' => $request->percobaan100_3_turun,
+        'percobaan150_1_naik' => $request->percobaan150_1_naik,
+        'percobaan150_1_turun' => $request->percobaan150_1_turun,
+        'percobaan150_2_naik' => $request->percobaan150_2_naik,
+        'percobaan150_2_turun' => $request->percobaan150_2_turun,
+        'percobaan150_3_naik' => $request->percobaan150_3_naik,
+        'percobaan150_3_turun' => $request->percobaan150_3_turun,
+        'percobaan200_1_naik' => $request->percobaan200_1_naik,
+        'percobaan200_1_turun' => $request->percobaan200_1_turun,
+        'percobaan200_2_naik' => $request->percobaan200_2_naik,
+        'percobaan200_2_turun' => $request->percobaan200_2_turun,
+        'percobaan200_3_naik' => $request->percobaan200_3_naik,
+        'percobaan200_3_turun' => $request->percobaan200_3_turun,
+        'percobaan250_1_naik' => $request->percobaan250_1_naik,
+        'percobaan250_1_turun' => $request->percobaan250_1_turun,
+        'percobaan250_2_naik' => $request->percobaan250_2_naik,
+        'percobaan250_2_turun' => $request->percobaan250_2_turun,
+        'percobaan250_3_naik' => $request->percobaan250_3_naik,
+        'percobaan250_3_turun' => $request->percobaan250_3_turun,
+    ];
+    return json_encode($data_laporan);
+}
+
+function kebocoran_tekanan($request)
+{
+    $data_laporan = [
+        'value' => $request->kebocoran_tekanan,
+    ];
+    return json_encode($data_laporan);
+}
+
+function laju_buang_cepat($request)
+{
+    $data_laporan = [
+        'value' => $request->laju_buang_cepat,
+    ];
+    return json_encode($data_laporan);
+}
+
+function laporan_occlusion($request)
+{
+    $data_laporan = [
+        'percobaan_1' => $request->percobaan_1,
+        'percobaan_2' => $request->percobaan_2,
+        'percobaan_3' => $request->percobaan_3,
+        'percobaan_4' => $request->percobaan_4,
+        'percobaan_5' => $request->percobaan_5,
+        'percobaan_6' => $request->percobaan_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function laporan_flow_rate($request)
+{
+    $data_laporan = [
+        'percobaan1_1' => $request->percobaan1_1,
+        'percobaan1_2' => $request->percobaan1_2,
+        'percobaan1_3' => $request->percobaan1_3,
+        'percobaan1_4' => $request->percobaan1_4,
+        'percobaan1_5' => $request->percobaan1_5,
+        'percobaan1_6' => $request->percobaan1_6,
+        'percobaan2_1' => $request->percobaan2_1,
+        'percobaan2_2' => $request->percobaan2_2,
+        'percobaan2_3' => $request->percobaan2_3,
+        'percobaan2_4' => $request->percobaan2_4,
+        'percobaan2_5' => $request->percobaan2_5,
+        'percobaan2_6' => $request->percobaan2_6,
+        'percobaan3_1' => $request->percobaan3_1,
+        'percobaan3_2' => $request->percobaan3_2,
+        'percobaan3_3' => $request->percobaan3_3,
+        'percobaan3_4' => $request->percobaan3_4,
+        'percobaan3_5' => $request->percobaan3_5,
+        'percobaan3_6' => $request->percobaan3_6,
+        'percobaan4_1' => $request->percobaan4_1,
+        'percobaan4_2' => $request->percobaan4_2,
+        'percobaan4_3' => $request->percobaan4_3,
+        'percobaan4_4' => $request->percobaan4_4,
+        'percobaan4_5' => $request->percobaan4_5,
+        'percobaan4_6' => $request->percobaan4_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function laporan_kondisi_lingkungan($request)
+{
+    $data_laporan = [
+        'suhu_awal' => $request->lingkungan_suhu_awal ?: null,
+        'suhu_akhir' => $request->lingkungan_suhu_akhir ?: null,
+        'kelembapan_ruangan_awal' => $request->lingkungan_kelembapan_ruangan_awal ? $request->lingkungan_kelembapan_ruangan_awal :  null,
+        'kelembapan_ruangan_akhir' => $request->lingkungan_kelembapan_ruangan_akhir ? $request->lingkungan_kelembapan_ruangan_akhir : null,
+    ];
+    return json_encode($data_laporan);
+}
