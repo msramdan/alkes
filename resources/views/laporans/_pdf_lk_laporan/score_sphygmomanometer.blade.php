@@ -204,9 +204,11 @@
         KINERJA</b></p>
 <?php
 
-$laporan_kebocoran_tekanan = DB::table('laporan_kebocoran_tekanan')
+$laporan_kebocoran_tekanan = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'kebocoran_tekanan')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
+$laporan_kebocoran_tekanan = json_decode($laporan_kebocoran_tekanan->data_laporan);
 $resolusi = DB::table('laporan_pendataan_administrasi')
     ->where('no_laporan', $laporan->no_laporan)
     ->where('slug', 'resolusi')
@@ -215,18 +217,22 @@ $resolusi = DB::table('laporan_pendataan_administrasi')
 $tekananHasil = $laporan_kebocoran_tekanan->value <= 15 ? 'Lulus' : 'Tidak Lulus';
 $scoreTekananHasil = $tekananHasil == 'Lulus' ? 20 : 0;
 // =====================
-$laporan_laju_buang_cepat = DB::table('laporan_laju_buang_cepat')
+$laporan_laju_buang_cepat = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'laju_buang_cepat')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
 $data_sertifikat = json_decode($laporan_laju_buang_cepat->data_sertifikat);
+$laporan_laju_buang_cepat = json_decode($laporan_laju_buang_cepat->data_laporan);
 $hitungLajuHasil = $data_sertifikat->intercept + $data_sertifikat->x_variable * $laporan_laju_buang_cepat->value;
 $lajuHasil = $hitungLajuHasil <= 10 ? 'Lulus' : 'Tidak Lulus';
 $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
 // ======================
-$laporan_akurasi_tekanan = DB::table('laporan_akurasi_tekanan')
+$laporan_akurasi_tekanan = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'akurasi_tekanan')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
 $data_sertifikat_akurasi_tekanan = json_decode($laporan_akurasi_tekanan->data_sertifikat);
+$laporan_akurasi_tekanan = json_decode($laporan_akurasi_tekanan->data_laporan);
 // naik
 $percobaan0_1_naik = $laporan_akurasi_tekanan->percobaan0_1_naik;
 $percobaan0_2_naik = $laporan_akurasi_tekanan->percobaan0_2_naik;
