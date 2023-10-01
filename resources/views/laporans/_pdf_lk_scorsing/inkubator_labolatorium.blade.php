@@ -228,17 +228,129 @@ $data_sertifikat = json_decode($laporan_sensor_recorder->data_sertifikat);
 $data_laporan = json_decode($laporan_sensor_recorder->data_laporan);
 // start from Min
 // 1
+// Min
 $percobaan1_1_min = $data_laporan->percobaan1_1_min;
 $percobaan1_2_min = $data_laporan->percobaan1_2_min;
 $percobaan1_3_min = $data_laporan->percobaan1_3_min;
 $mean_1_min = ($percobaan1_1_min + $percobaan1_2_min + $percobaan1_3_min) / 3;
 $mean_terkoreksi_1_min = $data_sertifikat->intercept_1 + $data_sertifikat->slope_1 * $mean_1_min;
+// Max
+$percobaan1_1_max = $data_laporan->percobaan1_1_max;
+$percobaan1_2_max = $data_laporan->percobaan1_2_max;
+$percobaan1_3_max = $data_laporan->percobaan1_3_max;
+$mean_1_max = ($percobaan1_1_max + $percobaan1_2_max + $percobaan1_3_max) / 3;
+$mean_terkoreksi_1_max = $data_sertifikat->intercept_1 + $data_sertifikat->slope_1 * $mean_1_max;
 // 2
+// Min
 $percobaan2_1_min = $data_laporan->percobaan2_1_min;
 $percobaan2_2_min = $data_laporan->percobaan2_2_min;
 $percobaan2_3_min = $data_laporan->percobaan2_3_min;
 $mean_2_min = ($percobaan2_1_min + $percobaan2_2_min + $percobaan2_3_min) / 3;
-$mean_terkoreksi_2_min = $data_sertifikat->intercept_1 + $data_sertifikat->slope_1 * $mean_2_min;
+$mean_terkoreksi_2_min = $data_sertifikat->intercept_2 + $data_sertifikat->slope_2 * $mean_2_min;
+// Max
+$percobaan2_1_max = $data_laporan->percobaan2_1_max;
+$percobaan2_2_max = $data_laporan->percobaan2_2_max;
+$percobaan2_3_max = $data_laporan->percobaan2_3_max;
+$mean_2_max = ($percobaan2_1_max + $percobaan2_2_max + $percobaan2_3_max) / 3;
+$mean_terkoreksi_2_max = $data_sertifikat->intercept_2 + $data_sertifikat->slope_2 * $mean_2_max;
+
+// 3
+// Min
+$percobaan3_1_min = $data_laporan->percobaan3_1_min;
+$percobaan3_2_min = $data_laporan->percobaan3_2_min;
+$percobaan3_3_min = $data_laporan->percobaan3_3_min;
+$mean_3_min = ($percobaan3_1_min + $percobaan3_2_min + $percobaan3_3_min) / 3;
+$mean_terkoreksi_3_min = $data_sertifikat->intercept_3 + $data_sertifikat->slope_3 * $mean_3_min;
+// Max
+$percobaan3_1_max = $data_laporan->percobaan3_1_max;
+$percobaan3_2_max = $data_laporan->percobaan3_2_max;
+$percobaan3_3_max = $data_laporan->percobaan3_3_max;
+$mean_3_max = ($percobaan3_1_max + $percobaan3_2_max + $percobaan3_3_max) / 3;
+$mean_terkoreksi_3_max = $data_sertifikat->intercept_3 + $data_sertifikat->slope_3 * $mean_3_max;
+
+// 4
+// Min
+$percobaan4_1_min = $data_laporan->percobaan4_1_min;
+$percobaan4_2_min = $data_laporan->percobaan4_2_min;
+$percobaan4_3_min = $data_laporan->percobaan4_3_min;
+$mean_4_min = ($percobaan4_1_min + $percobaan4_2_min + $percobaan4_3_min) / 3;
+$mean_terkoreksi_4_min = $data_sertifikat->intercept_4 + $data_sertifikat->slope_4 * $mean_4_min;
+// Max
+$percobaan4_1_max = $data_laporan->percobaan4_1_max;
+$percobaan4_2_max = $data_laporan->percobaan4_2_max;
+$percobaan4_3_max = $data_laporan->percobaan4_3_max;
+$mean_4_max = ($percobaan4_1_max + $percobaan4_2_max + $percobaan4_3_max) / 3;
+$mean_terkoreksi_4_max = $data_sertifikat->intercept_4 + $data_sertifikat->slope_4 * $mean_4_max;
+
+// 5
+// Min
+$percobaan5_1_min = $data_laporan->percobaan5_1_min;
+$percobaan5_2_min = $data_laporan->percobaan5_2_min;
+$percobaan5_3_min = $data_laporan->percobaan5_3_min;
+$mean_5_min = ($percobaan5_1_min + $percobaan5_2_min + $percobaan5_3_min) / 3;
+$mean_terkoreksi_5_min = $data_sertifikat->intercept_5 + $data_sertifikat->slope_5 * $mean_5_min;
+// Max
+$percobaan5_1_max = $data_laporan->percobaan5_1_max;
+$percobaan5_2_max = $data_laporan->percobaan5_2_max;
+$percobaan5_3_max = $data_laporan->percobaan5_3_max;
+$mean_5_max = ($percobaan5_1_max + $percobaan5_2_max + $percobaan5_3_max) / 3;
+$mean_terkoreksi_5_max = $data_sertifikat->intercept_5 + $data_sertifikat->slope_5 * $mean_5_max;
+
+// 6
+// Min
+$percobaan6_1_min = $data_laporan->percobaan6_1_min;
+$percobaan6_2_min = $data_laporan->percobaan6_2_min;
+$percobaan6_3_min = $data_laporan->percobaan6_3_min;
+$mean_6_min = ($percobaan6_1_min + $percobaan6_2_min + $percobaan6_3_min) / 3;
+$mean_terkoreksi_6_min = $data_sertifikat->intercept_6 + $data_sertifikat->slope_6 * $mean_6_min;
+// Max
+$percobaan6_1_max = $data_laporan->percobaan6_1_max;
+$percobaan6_2_max = $data_laporan->percobaan6_2_max;
+$percobaan6_3_max = $data_laporan->percobaan6_3_max;
+$mean_6_max = ($percobaan6_1_max + $percobaan6_2_max + $percobaan6_3_max) / 3;
+$mean_terkoreksi_6_max = $data_sertifikat->intercept_6 + $data_sertifikat->slope_6 * $mean_6_max;
+
+// 7
+// Min
+$percobaan7_1_min = $data_laporan->percobaan7_1_min;
+$percobaan7_2_min = $data_laporan->percobaan7_2_min;
+$percobaan7_3_min = $data_laporan->percobaan7_3_min;
+$mean_7_min = ($percobaan7_1_min + $percobaan7_2_min + $percobaan7_3_min) / 3;
+$mean_terkoreksi_7_min = $data_sertifikat->intercept_7 + $data_sertifikat->slope_7 * $mean_7_min;
+// Max
+$percobaan7_1_max = $data_laporan->percobaan7_1_max;
+$percobaan7_2_max = $data_laporan->percobaan7_2_max;
+$percobaan7_3_max = $data_laporan->percobaan7_3_max;
+$mean_7_max = ($percobaan7_1_max + $percobaan7_2_max + $percobaan7_3_max) / 3;
+$mean_terkoreksi_7_max = $data_sertifikat->intercept_7 + $data_sertifikat->slope_7 * $mean_7_max;
+
+// 8
+// Min
+$percobaan8_1_min = $data_laporan->percobaan8_1_min;
+$percobaan8_2_min = $data_laporan->percobaan8_2_min;
+$percobaan8_3_min = $data_laporan->percobaan8_3_min;
+$mean_8_min = ($percobaan8_1_min + $percobaan8_2_min + $percobaan8_3_min) / 3;
+$mean_terkoreksi_8_min = $data_sertifikat->intercept_8 + $data_sertifikat->slope_8 * $mean_8_min;
+// Max
+$percobaan8_1_max = $data_laporan->percobaan8_1_max;
+$percobaan8_2_max = $data_laporan->percobaan8_2_max;
+$percobaan8_3_max = $data_laporan->percobaan8_3_max;
+$mean_8_max = ($percobaan8_1_max + $percobaan8_2_max + $percobaan8_3_max) / 3;
+$mean_terkoreksi_8_max = $data_sertifikat->intercept_8 + $data_sertifikat->slope_8 * $mean_8_max;
+
+// 9
+// Min
+$percobaan9_1_min = $data_laporan->percobaan9_1_min;
+$percobaan9_2_min = $data_laporan->percobaan9_2_min;
+$percobaan9_3_min = $data_laporan->percobaan9_3_min;
+$mean_9_min = ($percobaan9_1_min + $percobaan9_2_min + $percobaan9_3_min) / 3;
+$mean_terkoreksi_9_min = $data_sertifikat->intercept_9 + $data_sertifikat->slope_9 * $mean_9_min;
+// Max
+$percobaan9_1_max = $data_laporan->percobaan9_1_max;
+$percobaan9_2_max = $data_laporan->percobaan9_2_max;
+$percobaan9_3_max = $data_laporan->percobaan9_3_max;
+$mean_9_max = ($percobaan9_1_max + $percobaan9_2_max + $percobaan9_3_max) / 3;
+$mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope_9 * $mean_9_max;
 
 ?>
 <center>
@@ -275,18 +387,102 @@ $mean_terkoreksi_2_min = $data_sertifikat->intercept_1 + $data_sertifikat->slope
     <tbody>
         <tr>
             <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td>{{ $percobaan1_1_min }}</td>
+            <td>{{ $percobaan1_1_max }}</td>
+            <td>{{ $percobaan1_2_min }}</td>
+            <td>{{ $percobaan1_2_max }}</td>
+            <td>{{ $percobaan1_3_min }}</td>
+            <td>{{ $percobaan1_3_max }}</td>
+            <td>{{ round($mean_1_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_1_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>{{ $percobaan2_1_min }}</td>
+            <td>{{ $percobaan2_1_max }}</td>
+            <td>{{ $percobaan2_2_min }}</td>
+            <td>{{ $percobaan2_2_max }}</td>
+            <td>{{ $percobaan2_3_min }}</td>
+            <td>{{ $percobaan2_3_max }}</td>
+            <td>{{ round($mean_2_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_2_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>{{ $percobaan3_1_min }}</td>
+            <td>{{ $percobaan3_1_max }}</td>
+            <td>{{ $percobaan3_2_min }}</td>
+            <td>{{ $percobaan3_2_max }}</td>
+            <td>{{ $percobaan3_3_min }}</td>
+            <td>{{ $percobaan3_3_max }}</td>
+            <td>{{ round($mean_3_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_3_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>{{ $percobaan4_1_min }}</td>
+            <td>{{ $percobaan4_1_max }}</td>
+            <td>{{ $percobaan4_2_min }}</td>
+            <td>{{ $percobaan4_2_max }}</td>
+            <td>{{ $percobaan4_3_min }}</td>
+            <td>{{ $percobaan4_3_max }}</td>
+            <td>{{ round($mean_4_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_4_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>{{ $percobaan5_1_min }}</td>
+            <td>{{ $percobaan5_1_max }}</td>
+            <td>{{ $percobaan5_2_min }}</td>
+            <td>{{ $percobaan5_2_max }}</td>
+            <td>{{ $percobaan5_3_min }}</td>
+            <td>{{ $percobaan5_3_max }}</td>
+            <td>{{ round($mean_5_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_5_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>{{ $percobaan6_1_min }}</td>
+            <td>{{ $percobaan6_1_max }}</td>
+            <td>{{ $percobaan6_2_min }}</td>
+            <td>{{ $percobaan6_2_max }}</td>
+            <td>{{ $percobaan6_3_min }}</td>
+            <td>{{ $percobaan6_3_max }}</td>
+            <td>{{ round($mean_6_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_6_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>{{ $percobaan7_1_min }}</td>
+            <td>{{ $percobaan7_1_max }}</td>
+            <td>{{ $percobaan7_2_min }}</td>
+            <td>{{ $percobaan7_2_max }}</td>
+            <td>{{ $percobaan7_3_min }}</td>
+            <td>{{ $percobaan7_3_max }}</td>
+            <td>{{ round($mean_7_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_7_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>{{ $percobaan8_1_min }}</td>
+            <td>{{ $percobaan8_1_max }}</td>
+            <td>{{ $percobaan8_2_min }}</td>
+            <td>{{ $percobaan8_2_max }}</td>
+            <td>{{ $percobaan8_3_min }}</td>
+            <td>{{ $percobaan8_3_max }}</td>
+            <td>{{ round($mean_8_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_8_min, 2) }}</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>{{ $percobaan9_1_min }}</td>
+            <td>{{ $percobaan9_1_max }}</td>
+            <td>{{ $percobaan9_2_min }}</td>
+            <td>{{ $percobaan9_2_max }}</td>
+            <td>{{ $percobaan9_3_min }}</td>
+            <td>{{ $percobaan9_3_max }}</td>
+            <td>{{ round($mean_9_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_9_min, 2) }}</td>
         </tr>
     </tbody>
 </table>
