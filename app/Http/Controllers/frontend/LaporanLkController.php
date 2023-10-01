@@ -80,7 +80,6 @@ class LaporanLkController extends Controller
         $laporan = Laporan::findOrFail($request->laporan_id);
         $nomenklatur = Nomenklatur::findOrFail($request->nomenklatur_id);
 
-
         $data = [
             'tgl_laporan' => Carbon::now(),
             'status_laporan' => 'Need Review',
@@ -149,6 +148,13 @@ class LaporanLkController extends Controller
                     dd('Digital Pressure Meter belum diisi');
                 }
             }
+            else if ($nomenklatur_type->type_id == 37) {
+                // get detail Temperature Recorder
+                $sertifikatTemperatureRecorder = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if (!$sertifikatTemperatureRecorder) {
+                    dd('Digital Pressure Meter belum diisi');
+                }
+            }
             DB::table('laporan_daftar_alat_ukur')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'type_id' => $nomenklatur_type->type_id,
@@ -199,9 +205,7 @@ class LaporanLkController extends Controller
             ]);
         }
 
-        // create laporan kinerja
-        // INFUSION PUMP & SYRINGE PUMP
-        if ($request->nomenklatur_id == 10 || $request->nomenklatur_id == 11) {
+        if ($request->nomenklatur_id == config('nomenklatur.INFUSION_PUMP') || $request->nomenklatur_id == config('nomenklatur.SYRINGE_PUMP')) {
             DB::table('laporan_kinerja')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'type_laporan_kinerja' => 'laporan_occlusion',
@@ -215,7 +219,7 @@ class LaporanLkController extends Controller
                 'data_sertifikat' => $sertifikatIda->data,
             ]);
 
-        } else if ($request->nomenklatur_id == 9) {
+        } else if ($request->nomenklatur_id == config('nomenklatur.SPHYGMOMANOMETER')) {
             // simpan KEBOCORAN TEKANAN
             DB::table('laporan_kinerja')->insert([
                 'no_laporan' => $laporan->no_laporan,
@@ -236,51 +240,14 @@ class LaporanLkController extends Controller
                 'data_laporan' => akurasi_tekanan($request),
                 'data_sertifikat' => $sertifikatDpm->data,
             ]);
-        } else if ($request->nomenklatur_id == 12) {
-            $data_laporan = [
-                'percobaan0_1_naik' => $request->percobaan0_1_naik,
-                'percobaan0_1_turun' => $request->percobaan0_1_turun,
-                'percobaan0_2_naik' => $request->percobaan0_2_naik,
-                'percobaan0_2_turun' => $request->percobaan0_2_turun,
-                'percobaan0_3_naik' => $request->percobaan0_3_naik,
-                'percobaan0_3_turun' => $request->percobaan0_3_turun,
-                'percobaan50_1_naik' => $request->percobaan50_1_naik,
-                'percobaan50_1_turun' => $request->percobaan50_1_turun,
-                'percobaan50_2_naik' => $request->percobaan50_2_naik,
-                'percobaan50_2_turun' => $request->percobaan50_2_turun,
-                'percobaan50_3_naik' => $request->percobaan50_3_naik,
-                'percobaan50_3_turun' => $request->percobaan50_3_turun,
-                'percobaan100_1_naik' => $request->percobaan100_1_naik,
-                'percobaan100_1_turun' => $request->percobaan100_1_turun,
-                'percobaan100_2_naik' => $request->percobaan100_2_naik,
-                'percobaan100_2_turun' => $request->percobaan100_2_turun,
-                'percobaan100_3_naik' => $request->percobaan100_3_naik,
-                'percobaan100_3_turun' => $request->percobaan100_3_turun,
-                'percobaan150_1_naik' => $request->percobaan150_1_naik,
-                'percobaan150_1_turun' => $request->percobaan150_1_turun,
-                'percobaan150_2_naik' => $request->percobaan150_2_naik,
-                'percobaan150_2_turun' => $request->percobaan150_2_turun,
-                'percobaan150_3_naik' => $request->percobaan150_3_naik,
-                'percobaan150_3_turun' => $request->percobaan150_3_turun,
-                'percobaan200_1_naik' => $request->percobaan200_1_naik,
-                'percobaan200_1_turun' => $request->percobaan200_1_turun,
-                'percobaan200_2_naik' => $request->percobaan200_2_naik,
-                'percobaan200_2_turun' => $request->percobaan200_2_turun,
-                'percobaan200_3_naik' => $request->percobaan200_3_naik,
-                'percobaan200_3_turun' => $request->percobaan200_3_turun,
-                'percobaan250_1_naik' => $request->percobaan250_1_naik,
-                'percobaan250_1_turun' => $request->percobaan250_1_turun,
-                'percobaan250_2_naik' => $request->percobaan250_2_naik,
-                'percobaan250_2_turun' => $request->percobaan250_2_turun,
-                'percobaan250_3_naik' => $request->percobaan250_3_naik,
-                'percobaan250_3_turun' => $request->percobaan250_3_turun,
-
-            ];
+        } else if ($request->nomenklatur_id == config('nomenklatur.INKUBATOR_LABORATORIUM')) {
             DB::table('laporan_kinerja')->insert([
                 'no_laporan' => $laporan->no_laporan,
-                'data_laporan' => $data_laporan,
-                'data_sertifikat' => $sertifikatDpm->data,
+                'type_laporan_kinerja' => 'sensor_recorder',
+                'data_laporan' => sensor_recorder($request),
+                'data_sertifikat' => $sertifikatTemperatureRecorder->data,
             ]);
+
         }
 
         //Create Laporan Telaah Teknis

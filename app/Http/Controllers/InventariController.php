@@ -199,6 +199,7 @@ class InventariController extends Controller
         /*
         3 = Digital Stop Watch
         5 = Electrical Safety Analyzer
+        37 = Thermocouple type K / Temperature Recorder
         39 = Thermohygrometer
         45 = DPM
         46 = Infusion Device Analyzer
@@ -206,14 +207,16 @@ class InventariController extends Controller
         $data = Inventari::where('id', $inventaris_id)->first();
         if ($data->jenis_alat_id == 39) {
             return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
-        } else if ($data->jenis_alat_id == 5) {
-            return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
-        } else if ($data->jenis_alat_id == 46) {
-            return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
         } else if ($data->jenis_alat_id == 3) {
             return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
+        } else if ($data->jenis_alat_id == 5) {
+            return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == 37) {
+            return view('inventaris.sertifikat.TemperatureRecorder', compact('data'));
         } else if ($data->jenis_alat_id == 45) {
             return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
+        } else if ($data->jenis_alat_id == 46) {
+            return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
         }
     }
 
@@ -241,6 +244,43 @@ class InventariController extends Controller
                 'x_variable2' => $request->x_variable2,
                 'intercept3' => $request->intercept3,
                 'x_variable3' => $request->x_variable3,
+            ];
+        } else if ($data->jenis_alat_id == 37) {
+            // Thermohygrometer
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope_1' => $request->slope_1,
+                'intercept_1' => $request->intercept_1,
+                'uc_1' => $request->uc_1,
+                'slope_2' => $request->slope_2,
+                'intercept_2' => $request->intercept_2,
+                'uc_2' => $request->uc_2,
+                'slope_3' => $request->slope_3,
+                'intercept_3' => $request->intercept_3,
+                'uc_3' => $request->uc_3,
+                'slope_4' => $request->slope_4,
+                'intercept_4' => $request->intercept_4,
+                'uc_4' => $request->uc_4,
+                'slope_5' => $request->slope_5,
+                'intercept_5' => $request->intercept_5,
+                'uc_5' => $request->uc_5,
+
+                'slope_6' => $request->slope_6,
+                'intercept_6' => $request->intercept_6,
+                'uc_6' => $request->uc_6,
+                'slope_7' => $request->slope_7,
+                'intercept_7' => $request->intercept_7,
+                'uc_7' => $request->uc_7,
+                'slope_8' => $request->slope_8,
+                'intercept_8' => $request->intercept_8,
+                'uc_8' => $request->uc_8,
+                'slope_9' => $request->slope_9,
+                'intercept_9' => $request->intercept_9,
+                'uc_9' => $request->uc_9,
+                'slope_10' => $request->slope_10,
+                'intercept_10' => $request->intercept_10,
+                'uc_10' => $request->uc_10,
             ];
         } else if ($data->jenis_alat_id == 39) {
             // Thermohygrometer

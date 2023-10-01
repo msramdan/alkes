@@ -29,6 +29,7 @@ class NomenklaturController extends Controller
      */
     public function index()
     {
+
         if (request()->ajax()) {
             $nomenklaturs = Nomenklatur::orderBy('id', 'DESC')->get();
 
@@ -437,14 +438,13 @@ class NomenklaturController extends Controller
                     ]);
                 } else {
                     $fisik_dan_fungsi = DB::table('nomenklatur_kondisi_fisik_fungsi')
-                                        ->where('id', $pemeriksaan_id[$i])
-                                        ->update([
-                                            'nomenklatur_id' => $nomenklatur_id,
-                                            'field_parameter' => $parameter_pemeriksaan[$i],
-                                            'field_batas_pemeriksaan' => $batas_pemeriksaan[$i],
-                                        ]);
+                        ->where('id', $pemeriksaan_id[$i])
+                        ->update([
+                            'nomenklatur_id' => $nomenklatur_id,
+                            'field_parameter' => $parameter_pemeriksaan[$i],
+                            'field_batas_pemeriksaan' => $batas_pemeriksaan[$i],
+                        ]);
                 }
-
             }
         }
 
@@ -462,10 +462,11 @@ class NomenklaturController extends Controller
             ->with('success', __('Jenis alat untuk nomenklatur berhasil diupdate'));
     }
 
-    public function deletePemeriksaan(Request $request) {
+    public function deletePemeriksaan(Request $request)
+    {
         $pemeriksaan = DB::table('nomenklatur_kondisi_fisik_fungsi')
-                        ->where('id', $request->pemeriksaan_id)
-                        ->delete();
+            ->where('id', $request->pemeriksaan_id)
+            ->delete();
         if ($pemeriksaan) {
             return response()->json([
                 'success' => true,
