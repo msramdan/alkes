@@ -197,68 +197,28 @@ class InventariController extends Controller
     public function inventarisSertifikat($inventaris_id)
     {
         /*
-        39 = Thermohygrometer
-        5 = Electrical Safety Analyzer
-        46 = Infusion Device Analyzer
         3 = Digital Stop Watch
+        5 = Electrical Safety Analyzer
+        37 = Thermocouple type K / Temperature Recorder
+        39 = Thermohygrometer
+        45 = DPM
+        46 = Infusion Device Analyzer
         ==========================================================================*/
         $data = Inventari::where('id', $inventaris_id)->first();
         if ($data->jenis_alat_id == 39) {
             return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
-        } else if ($data->jenis_alat_id == 5) {
-            return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
-        } else if ($data->jenis_alat_id == 46) {
-            return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
         } else if ($data->jenis_alat_id == 3) {
             return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
+        } else if ($data->jenis_alat_id == 5) {
+            return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == 37) {
+            return view('inventaris.sertifikat.TemperatureRecorder', compact('data'));
         } else if ($data->jenis_alat_id == 45) {
             return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
+        } else if ($data->jenis_alat_id == 46) {
+            return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
         }
     }
-
-    public function inventarisSertifikatSave(Request $request)
-    {
-        $data = Inventari::where('id', $request->inventaris_id)->first();
-        if ($data->jenis_alat_id == 39) {
-            $file = $request->file('file');
-            $file->storeAs('public/sertifikat/Thermohygrometer', $file->hashName());
-            DB::table('sertifikat_thermohygrometer')->insert(
-                [
-                    'inventaris_id' => $request->inventaris_id,
-                    'tahun' => $request->tahun,
-                    'uc_suhu' => $request->uc_suhu,
-                    'intercept_suhu' => $request->intercept_suhu,
-                    'x_variable_suhu' => $request->x_variable_suhu,
-                    'uc_kelembapan' => $request->uc_kelembapan,
-                    'intercept_kelembapan' => $request->intercept_kelembapan,
-                    'x_variable_kelembapan' => $request->x_variable_kelembapan,
-                    'file' =>  $file->hashName(),
-                ]
-            );
-        } else if ($data->jenis_alat_id == 5) {
-            $file = $request->file('file');
-            $file->storeAs('public/sertifikat/sertifikat_electrical_safety_analyzer', $file->hashName());
-            DB::table('sertifikat_electrical_safety_analyzer')->insert(
-                [
-                    'inventaris_id' => $request->inventaris_id,
-                    'tahun' => $request->tahun,
-                    'intercept1' => $request->intercept1,
-                    'x_variable1' => $request->x_variable1,
-                    'intercept2' => $request->intercept2,
-                    'x_variable2' => $request->x_variable2,
-                    'intercept3' => $request->intercept3,
-                    'x_variable3' => $request->x_variable3,
-                    'file' =>  $file->hashName(),
-                ]
-            );
-        } else {
-            die();
-        }
-        return redirect()
-            ->back()
-            ->with('success', __('Sertifikat inventaris berhasil disimpan'));
-    }
-
 
     public function sertifikatSave(Request $request)
     {
@@ -272,6 +232,67 @@ class InventariController extends Controller
                 'tahun' => $request->tahun,
                 'intercept' => $request->intercept,
                 'x_variable' => $request->x_variable,
+            ];
+        } else if ($data->jenis_alat_id == 5) {
+            // Electrical Safety Analyzer
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'intercept1' => $request->intercept1,
+                'x_variable1' => $request->x_variable1,
+                'intercept2' => $request->intercept2,
+                'x_variable2' => $request->x_variable2,
+                'intercept3' => $request->intercept3,
+                'x_variable3' => $request->x_variable3,
+            ];
+        } else if ($data->jenis_alat_id == 37) {
+            // Thermohygrometer
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope_1' => $request->slope_1,
+                'intercept_1' => $request->intercept_1,
+                'uc_1' => $request->uc_1,
+                'slope_2' => $request->slope_2,
+                'intercept_2' => $request->intercept_2,
+                'uc_2' => $request->uc_2,
+                'slope_3' => $request->slope_3,
+                'intercept_3' => $request->intercept_3,
+                'uc_3' => $request->uc_3,
+                'slope_4' => $request->slope_4,
+                'intercept_4' => $request->intercept_4,
+                'uc_4' => $request->uc_4,
+                'slope_5' => $request->slope_5,
+                'intercept_5' => $request->intercept_5,
+                'uc_5' => $request->uc_5,
+
+                'slope_6' => $request->slope_6,
+                'intercept_6' => $request->intercept_6,
+                'uc_6' => $request->uc_6,
+                'slope_7' => $request->slope_7,
+                'intercept_7' => $request->intercept_7,
+                'uc_7' => $request->uc_7,
+                'slope_8' => $request->slope_8,
+                'intercept_8' => $request->intercept_8,
+                'uc_8' => $request->uc_8,
+                'slope_9' => $request->slope_9,
+                'intercept_9' => $request->intercept_9,
+                'uc_9' => $request->uc_9,
+                'slope_10' => $request->slope_10,
+                'intercept_10' => $request->intercept_10,
+                'uc_10' => $request->uc_10,
+            ];
+        } else if ($data->jenis_alat_id == 39) {
+            // Thermohygrometer
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'uc_suhu' => $request->uc_suhu,
+                'intercept_suhu' => $request->intercept_suhu,
+                'x_variable_suhu' => $request->x_variable_suhu,
+                'uc_kelembapan' => $request->uc_kelembapan,
+                'intercept_kelembapan' => $request->intercept_kelembapan,
+                'x_variable_kelembapan' => $request->x_variable_kelembapan,
             ];
         } else if ($data->jenis_alat_id == 45) {
             // Digital Pressure Meter
@@ -300,7 +321,6 @@ class InventariController extends Controller
                 'drift350_naik' => $request->drift350_naik,
                 'drift350_turun' => $request->drift350_turun,
             ];
-
         } else if ($data->jenis_alat_id == 46) {
             // IDA
             $data = [
@@ -335,26 +355,6 @@ class InventariController extends Controller
             ->with('success', __('Sertifikat inventaris berhasil disimpan'));
     }
 
-    public function ThermohygrometerDelete($id)
-    {
-        $data = DB::table('sertifikat_thermohygrometer')->where('id', $id)->first();
-        Storage::delete('public/sertifikat/Thermohygrometer/' . $data->file);
-        DB::table('sertifikat_thermohygrometer')->where('id', $id)->delete();
-        return redirect()
-            ->back()
-            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
-    }
-
-    public function EsaDelete($id)
-    {
-        $data = DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->first();
-        Storage::delete('public/sertifikat/sertifikat_electrical_safety_analyzer/' . $data->file);
-        DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->delete();
-        return redirect()
-            ->back()
-            ->with('success', __('Sertifikat inventaris berhasil dihapus'));
-    }
-
     public function SertifikatDelete($id)
     {
         $sertifikat = DB::table('sertifikat_inventaris')
@@ -378,23 +378,10 @@ class InventariController extends Controller
     public function getDownload($inventaris_id, $id)
     {
         $getInventaris = Inventari::find($inventaris_id);
-        if ($getInventaris->jenis_alat_id == 39) {
-            $data = DB::table('sertifikat_thermohygrometer')->where('id', $id)->first();
-            $file = public_path() . "/storage/sertifikat/Thermohygrometer/" . $data->file;
-            $tahun = $data->tahun;
-            $nama = 'Sertifikat Thermohygrometer ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
-        } else if ($getInventaris->jenis_alat_id == 5) {
-            $data = DB::table('sertifikat_electrical_safety_analyzer')->where('id', $id)->first();
-            $file = public_path() . "/storage/sertifikat/sertifikat_electrical_safety_analyzer/" . $data->file;
-            $tahun = $data->tahun;
-            $nama = 'Sertifikat ESA ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
-            // IDA
-        } else if ($getInventaris->jenis_alat_id == 45 || $getInventaris->jenis_alat_id == 3 || $getInventaris->jenis_alat_id == 46) {
-            $data = DB::table('sertifikat_inventaris')->where('id', $id)->first();
-            $file = public_path() . "/storage/sertifikat/" . $data->file;
-            $tahun = $data->tahun;
-            $nama = 'Sertifikat ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
-        }
+        $data = DB::table('sertifikat_inventaris')->where('id', $id)->first();
+        $file = public_path() . "/storage/sertifikat/" . $data->file;
+        $tahun = $data->tahun;
+        $nama = 'Sertifikat ' . $getInventaris->serial_number . '-' . $tahun . '.xlsx';
         $headers = array(
             'Content-Type' => 'application/vnd.ms-excel',
         );

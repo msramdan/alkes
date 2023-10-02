@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('laporan_pengukuran_keselamatan_listrik', function (Blueprint $table) {
+        Schema::create('laporan_kinerja', function (Blueprint $table) {
             $table->id();
             $table->string('no_laporan', 100);
             $table->foreign('no_laporan')->references('no_laporan')->on('laporans')->cascadeOnDelete();
-            $table->string('field_keselamatan_listrik')->nullable();
-            $table->string('slug')->nullable();
-            $table->string('value')->nullable();
+            $table->string('type_laporan_kinerja', 100);
+            $table->json('data_laporan');
             $table->json('data_sertifikat')->nullable();
-
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laporan_pengukuran_keselamatan_listrik');
+        Schema::dropIfExists('laporan_kinerja');
     }
 };

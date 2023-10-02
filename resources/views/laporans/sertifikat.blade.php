@@ -10,17 +10,17 @@
 
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
-    $hitungPhaseNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
+    $cek = json_decode(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->data_sertifikat);
+    $hitungPhaseNetral = round($cek->intercept1 + $cek->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
 
-    $hitungPhaseGround = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
+    $hitungPhaseGround = round($cek->intercept3 + $cek->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
 
-    $hitungGroundNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
+    $hitungGroundNetral = round($cek->intercept2 + $cek->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
 
     $dps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value;
     $nps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value;
     $isolasi = get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value;
     $bf = get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value;
-
     $lulus = 0;
     if ($hitungPhaseNetral > 198) {
         $lulus = $lulus + 1;
@@ -50,14 +50,20 @@
 @endif
 @if ($nomenklatur->id == 10 || $nomenklatur->id == 11)
     <?php
-    $laporan_occlusion = DB::table('laporan_occlusion')
+    $laporan_occlusion = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'laporan_occlusion')
+    ->where('no_laporan', $laporan->no_laporan)
+    ->first();
+    $flow_rate = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'laporan_flow_rate')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
-    $flow_rate = DB::table('laporan_flow_rate')
-        ->where('no_laporan', $laporan->no_laporan)
-        ->first();
+
     $dataFlowRate = json_decode($flow_rate->data_sertifikat);
-    $dataFlowRate = json_decode($flow_rate->data_sertifikat);
+    $flow_rate = json_decode($flow_rate->data_laporan);
+    $laporan_occlusion = json_decode($laporan_occlusion->data_laporan);
+
+
 
     // get chanel IDA
     $ida = DB::table('laporan_pendataan_administrasi')
@@ -201,9 +207,11 @@
 @elseif ($nomenklatur->id == 9)
     <?php
 
-    $laporan_kebocoran_tekanan = DB::table('laporan_kebocoran_tekanan')
+    $laporan_kebocoran_tekanan = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'kebocoran_tekanan')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
+    $laporan_kebocoran_tekanan = json_decode($laporan_kebocoran_tekanan->data_laporan);
     $resolusi = DB::table('laporan_pendataan_administrasi')
         ->where('no_laporan', $laporan->no_laporan)
         ->where('slug', 'resolusi')
@@ -212,18 +220,23 @@
     $tekananHasil = $laporan_kebocoran_tekanan->value <= 15 ? 'Lulus' : 'Tidak Lulus';
     $scoreTekananHasil = $tekananHasil == 'Lulus' ? 20 : 0;
     // =====================
-    $laporan_laju_buang_cepat = DB::table('laporan_laju_buang_cepat')
+    $laporan_laju_buang_cepat = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'laju_buang_cepat')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
     $data_sertifikat = json_decode($laporan_laju_buang_cepat->data_sertifikat);
+    $laporan_laju_buang_cepat = json_decode($laporan_laju_buang_cepat->data_laporan);
+
     $hitungLajuHasil = $data_sertifikat->intercept + $data_sertifikat->x_variable * $laporan_laju_buang_cepat->value;
     $lajuHasil = $hitungLajuHasil <= 10 ? 'Lulus' : 'Tidak Lulus';
     $scoreLajuHasil = $lajuHasil == 'Lulus' ? 20 : 0;
     // ======================
-    $laporan_akurasi_tekanan = DB::table('laporan_akurasi_tekanan')
+    $laporan_akurasi_tekanan = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'akurasi_tekanan')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
     $data_sertifikat_akurasi_tekanan = json_decode($laporan_akurasi_tekanan->data_sertifikat);
+    $laporan_akurasi_tekanan = json_decode($laporan_akurasi_tekanan->data_laporan);
     // naik
     $percobaan0_1_naik = $laporan_akurasi_tekanan->percobaan0_1_naik;
     $percobaan0_2_naik = $laporan_akurasi_tekanan->percobaan0_2_naik;

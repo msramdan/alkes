@@ -29,11 +29,12 @@
 </table>
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
-    $hitungPhaseNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
+    $cek = json_decode(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->data_sertifikat);
+    $hitungPhaseNetral = round($cek->intercept1 + $cek->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
 
-    $hitungPhaseGround = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
+    $hitungPhaseGround = round($cek->intercept3 + $cek->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
 
-    $hitungGroundNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
+    $hitungGroundNetral = round($cek->intercept2 + $cek->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
 
     $dps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value;
     $nps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value;
@@ -167,14 +168,19 @@
         KINERJA</b></p>
 @if ($nomenklaturs->id == 10 || $nomenklaturs->id == 11)
     <?php
-    $laporan_occlusion = DB::table('laporan_occlusion')
+    $laporan_occlusion = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'laporan_occlusion')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
-    $flow_rate = DB::table('laporan_flow_rate')
+    $flow_rate = DB::table('laporan_kinerja')
+        ->where('type_laporan_kinerja', 'laporan_flow_rate')
         ->where('no_laporan', $laporan->no_laporan)
         ->first();
+
     $dataFlowRate = json_decode($flow_rate->data_sertifikat);
-    $dataFlowRate = json_decode($flow_rate->data_sertifikat);
+    $flow_rate = json_decode($flow_rate->data_laporan);
+    $laporan_occlusion = json_decode($laporan_occlusion->data_laporan);
+
     // get chanel IDA
     $ida = DB::table('laporan_pendataan_administrasi')
         ->where('no_laporan', $laporan->no_laporan)
@@ -283,112 +289,112 @@
         </thead>
         <tbody>
             @php
-            // 1
-            $satu1 = $flow_rate->percobaan1_1;
-            $dua1 = $flow_rate->percobaan1_2;
-            $tiga1 = $flow_rate->percobaan1_3;
-            $empat1 = $flow_rate->percobaan1_4;
-            $lima1 = $flow_rate->percobaan1_5;
-            $enam1 = $flow_rate->percobaan1_6;
-            $mean1 = ($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6;
+                // 1
+                $satu1 = $flow_rate->percobaan1_1;
+                $dua1 = $flow_rate->percobaan1_2;
+                $tiga1 = $flow_rate->percobaan1_3;
+                $empat1 = $flow_rate->percobaan1_4;
+                $lima1 = $flow_rate->percobaan1_5;
+                $enam1 = $flow_rate->percobaan1_6;
+                $mean1 = ($satu1 + $dua1 + $tiga1 + $empat1 + $lima1 + $enam1) / 6;
 
-            $meanTerkoreksi1 = $intercept + $slope * $mean1;
-            $arr = [];
-            array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
-            // stdev
-            $stdev = standard_deviation($arr);
-            $koreksi = $meanTerkoreksi1 - 10;
-            // hitung uncertainty
-            $u95 = hitung_uncertainty($resolusi->value, $stdev,$uncert,$drift10);
-            $absU95 = abs($koreksi) + $u95;
-            $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
-            // 2
-            $satu2 = $flow_rate->percobaan2_1;
-            $dua2 = $flow_rate->percobaan2_2;
-            $tiga2 = $flow_rate->percobaan2_3;
-            $empat2 = $flow_rate->percobaan2_4;
-            $lima2 = $flow_rate->percobaan2_5;
-            $enam2 = $flow_rate->percobaan2_6;
-            $mean2 = ($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6;
-            $meanTerkoreksi2 = $intercept + $slope * $mean2;
-            $arr2 = [];
-            array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
-            // stdev
-            $stdev2 = standard_deviation($arr2);
-            $koreksi2 = $meanTerkoreksi2 - 50;
-            $u952 = hitung_uncertainty($resolusi->value, $stdev2,$uncert,$drift50);
-            $absU952 = abs($koreksi2) + $u952;
-            $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
-            // 3
-            $satu3 = $flow_rate->percobaan3_1;
-            $dua3 = $flow_rate->percobaan3_2;
-            $tiga3 = $flow_rate->percobaan3_3;
-            $empat3 = $flow_rate->percobaan3_4;
-            $lima3 = $flow_rate->percobaan3_5;
-            $enam3 = $flow_rate->percobaan3_6;
-            $mean3 = ($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6;
-            $meanTerkoreksi3 = $intercept + $slope * $mean3;
-            $arr3 = [];
-            array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
-            // stdev
-            $stdev3 = standard_deviation($arr3);
-            $koreksi3 = $meanTerkoreksi3 - 100;
-            $u953 = hitung_uncertainty($resolusi->value, $stdev3,$uncert,$drift100);
-            $absU953 = abs($koreksi3) + $u953;
-            $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
-            // 4 sini
+                $meanTerkoreksi1 = $intercept + $slope * $mean1;
+                $arr = [];
+                array_push($arr, $satu1, $dua1, $tiga1, $empat1, $lima1, $enam1);
+                // stdev
+                $stdev = standard_deviation($arr);
+                $koreksi = $meanTerkoreksi1 - 10;
+                // hitung uncertainty
+                $u95 = hitung_uncertainty($resolusi->value, $stdev, $uncert, $drift10);
+                $absU95 = abs($koreksi) + $u95;
+                $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
+                // 2
+                $satu2 = $flow_rate->percobaan2_1;
+                $dua2 = $flow_rate->percobaan2_2;
+                $tiga2 = $flow_rate->percobaan2_3;
+                $empat2 = $flow_rate->percobaan2_4;
+                $lima2 = $flow_rate->percobaan2_5;
+                $enam2 = $flow_rate->percobaan2_6;
+                $mean2 = ($satu2 + $dua2 + $tiga2 + $empat2 + $lima2 + $enam2) / 6;
+                $meanTerkoreksi2 = $intercept + $slope * $mean2;
+                $arr2 = [];
+                array_push($arr2, $satu2, $dua2, $tiga2, $empat2, $lima2, $enam2);
+                // stdev
+                $stdev2 = standard_deviation($arr2);
+                $koreksi2 = $meanTerkoreksi2 - 50;
+                $u952 = hitung_uncertainty($resolusi->value, $stdev2, $uncert, $drift50);
+                $absU952 = abs($koreksi2) + $u952;
+                $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
+                // 3
+                $satu3 = $flow_rate->percobaan3_1;
+                $dua3 = $flow_rate->percobaan3_2;
+                $tiga3 = $flow_rate->percobaan3_3;
+                $empat3 = $flow_rate->percobaan3_4;
+                $lima3 = $flow_rate->percobaan3_5;
+                $enam3 = $flow_rate->percobaan3_6;
+                $mean3 = ($satu3 + $dua3 + $tiga3 + $empat3 + $lima3 + $enam3) / 6;
+                $meanTerkoreksi3 = $intercept + $slope * $mean3;
+                $arr3 = [];
+                array_push($arr3, $satu3, $dua3, $tiga3, $empat3, $lima3, $enam3);
+                // stdev
+                $stdev3 = standard_deviation($arr3);
+                $koreksi3 = $meanTerkoreksi3 - 100;
+                $u953 = hitung_uncertainty($resolusi->value, $stdev3, $uncert, $drift100);
+                $absU953 = abs($koreksi3) + $u953;
+                $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
+                // 4 sini
 
-            if ($nomenklaturs->id == 10) {
-                $satu4 = $flow_rate->percobaan4_1;
-                $dua4 = $flow_rate->percobaan4_2;
-                $tiga4 = $flow_rate->percobaan4_3;
-                $empat4 = $flow_rate->percobaan4_4;
-                $lima4 = $flow_rate->percobaan4_5;
-                $enam4 = $flow_rate->percobaan4_6;
-                $mean4 = ($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6;
-                $meanTerkoreksi4 = $intercept + $slope * $mean4;
-                $arr4 = [];
-                array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
-                $stdev4 = standard_deviation($arr4);
-                $koreksi4 = $meanTerkoreksi4 - 500;
-                $u954 = hitung_uncertainty($resolusi->value, $stdev4,$uncert,$drift500);
-                $absU954 = abs($koreksi4) + $u954;
-                $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
-            }
+                if ($nomenklaturs->id == 10) {
+                    $satu4 = $flow_rate->percobaan4_1;
+                    $dua4 = $flow_rate->percobaan4_2;
+                    $tiga4 = $flow_rate->percobaan4_3;
+                    $empat4 = $flow_rate->percobaan4_4;
+                    $lima4 = $flow_rate->percobaan4_5;
+                    $enam4 = $flow_rate->percobaan4_6;
+                    $mean4 = ($satu4 + $dua4 + $tiga4 + $empat4 + $lima4 + $enam4) / 6;
+                    $meanTerkoreksi4 = $intercept + $slope * $mean4;
+                    $arr4 = [];
+                    array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
+                    $stdev4 = standard_deviation($arr4);
+                    $koreksi4 = $meanTerkoreksi4 - 500;
+                    $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
+                    $absU954 = abs($koreksi4) + $u954;
+                    $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+                }
 
-            if ($nomenklaturs->id == 10) {
-                $pembagi = 4;
-                $initScore = 0;
-                if ($score == 'Lulus') {
-                    $initScore = $initScore + 1;
+                if ($nomenklaturs->id == 10) {
+                    $pembagi = 4;
+                    $initScore = 0;
+                    if ($score == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score2 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score3 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score4 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    $initScore = ($initScore / $pembagi) * 100;
+                } elseif ($nomenklaturs->id == 11) {
+                    $pembagi = 3;
+                    $initScore = 0;
+                    if ($score == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score2 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    if ($score3 == 'Lulus') {
+                        $initScore = $initScore + 1;
+                    }
+                    $initScore = ($initScore / $pembagi) * 100;
                 }
-                if ($score2 == 'Lulus') {
-                    $initScore = $initScore + 1;
-                }
-                if ($score3 == 'Lulus') {
-                    $initScore = $initScore + 1;
-                }
-                if ($score4 == 'Lulus') {
-                    $initScore = $initScore + 1;
-                }
-                $initScore = ($initScore / $pembagi) * 100;
-            } elseif ($nomenklaturs->id == 11) {
-                $pembagi = 3;
-                $initScore = 0;
-                if ($score == 'Lulus') {
-                    $initScore = $initScore + 1;
-                }
-                if ($score2 == 'Lulus') {
-                    $initScore = $initScore + 1;
-                }
-                if ($score3 == 'Lulus') {
-                    $initScore = $initScore + 1;
-                }
-                $initScore = ($initScore / $pembagi) * 100;
-            }
 
-            $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
-        @endphp
+                $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
+            @endphp
 
             <tr>
                 <td style="text-align: center;vertical-align: middle;">10</td>
@@ -412,27 +418,27 @@
                 </td>
 
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean1 }}
+                    {{ round($mean1, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi1 }}
+                    {{ round($meanTerkoreksi1, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $stdev }}
+                    {{ round($stdev, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $koreksi }}
+                    {{ round($koreksi, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $u95 }}
+                    {{ round($u95, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $absU95 }}
+                    {{ round($absU95, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     1
                 </td>
-                <td rowspan="4" style="text-align: center;vertical-align: middle;">
+                <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}" style="text-align: center;vertical-align: middle;">
                     10 %
                 </td>
             </tr>
@@ -457,22 +463,22 @@
                     {{ $enam2 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean2 }}
+                    {{ round($mean2, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi2 }}
+                    {{ round($meanTerkoreksi2, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $stdev2 }}
+                    {{ round($stdev2, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $koreksi2 }}
+                    {{ round($koreksi2, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $u952 }}
+                    {{ round($u952, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $absU952 }}
+                    {{ round($absU952, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     5
@@ -499,22 +505,23 @@
                     {{ $enam3 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean3 }}
+                    {{ round($mean3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi3 }}
+                    {{ round($meanTerkoreksi3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $stdev3 }}
+                    {{  round($stdev3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $koreksi3 }}
+                    {{ round($koreksi3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $u953 }}
+                    {{ round($u953, 2) }}
                 </td>
+
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $absU953 }}
+                    {{ round($absU953, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     10
@@ -543,22 +550,22 @@
                         {{ $enam4 }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ $mean4 }}
+                        {{ round($mean4, 2)  }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ $meanTerkoreksi4 }}
+                        {{ round($meanTerkoreksi4, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ $stdev4 }}
+                        {{ round($stdev4, 2)  }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ $koreksi4 }}
+                        {{ round($koreksi4, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ $u954 }}
+                        {{ round($u954, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ $absU954 }}
+                        {{  round($absU954, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
                         50

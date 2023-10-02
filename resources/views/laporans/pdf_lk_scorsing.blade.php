@@ -96,10 +96,12 @@
     @include('laporans._pdf_lk_scorsing._partial.pendataan_administrasi')
     @include('laporans._pdf_lk_scorsing._partial.daftar_alat')
     @include('laporans._pdf_lk_scorsing._partial.pengukuran_kondisi_fisik')
-    @if ($nomenklaturs->id == 10 || $nomenklaturs->id == 11)
+    @if ($nomenklaturs->id == config('nomenklatur.INFUSION_PUMP') || $nomenklaturs->id == config('nomenklatur.SYRINGE_PUMP'))
         @include('laporans._pdf_lk_scorsing.score_infusion')
-    @elseif ($nomenklaturs->id == 9)
+    @elseif ($nomenklaturs->id == config('nomenklatur.SPHYGMOMANOMETER'))
         @include('laporans._pdf_lk_scorsing.score_sphygmomanometer')
+    @elseif ($nomenklaturs->id == config('nomenklatur.INKUBATOR_LABORATORIUM'))
+        @include('laporans._pdf_lk_scorsing.inkubator_labolatorium')
     @endif
 
 </body>

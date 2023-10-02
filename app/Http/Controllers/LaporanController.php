@@ -133,7 +133,7 @@ class LaporanController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
-        for ($x = 1; $x <= $request->jumlah_laporan; $x++){
+        for ($x = 1; $x <= $request->jumlah_laporan; $x++) {
             DB::table('laporans')->insert([
                 'no_laporan' => generateKode('MTA'),
                 'user_created' => $request->user_created,
@@ -220,7 +220,6 @@ class LaporanController extends Controller
             ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi', 'users.name as name_user')
             ->where('laporans.id', $id)
             ->first();
-
         $nomenklaturs = Nomenklatur::find($laporan->nomenklatur_id);
         $laporan_pendataan_administrasi =
             DB::table('laporan_pendataan_administrasi')
@@ -249,7 +248,9 @@ class LaporanController extends Controller
             ->select('laporan_kesimpulan_telaah_teknis.*')
             ->where('no_laporan', $laporan->no_laporan)
             ->first();
-        $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
+        $laporan_kondisi_lingkungan = DB::table('laporan_kinerja')
+            ->where('type_laporan_kinerja', 'laporan_kondisi_lingkungan')
+            ->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
         $count_kondisi_fisik_fungsi = count($kondisi_fisik_fungsi);
 
@@ -257,8 +258,6 @@ class LaporanController extends Controller
             ->where('no_laporan', $laporan->no_laporan)
             ->where('value', 'baik')->get();
         $score_fisik = (count($kondisi_fisik_fungsi_baik) / count($kondisi_fisik_fungsi)) * 10;
-
-
 
         $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
             ->select('*')
@@ -320,7 +319,9 @@ class LaporanController extends Controller
             ->select('laporan_kesimpulan_telaah_teknis.*')
             ->where('no_laporan', $laporan->no_laporan)
             ->first();
-        $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
+        $laporan_kondisi_lingkungan = DB::table('laporan_kinerja')
+            ->where('type_laporan_kinerja', 'laporan_kondisi_lingkungan')
+            ->where('no_laporan', $laporan->no_laporan)->first();
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
         $count_kondisi_fisik_fungsi = count($kondisi_fisik_fungsi);
         $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
@@ -357,11 +358,11 @@ class LaporanController extends Controller
     public function pdf_sertifikat($id)
     {
         $laporan = DB::table('laporans')
-                ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
-                ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
-                ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi', 'users.name as name_user')
-                ->where('laporans.id', $id)
-                ->first();
+            ->join('pelaksana_teknisis', 'laporans.user_created', '=', 'pelaksana_teknisis.id')
+            ->leftjoin('users', 'laporans.user_review', '=', 'users.id')
+            ->select('laporans.*', 'pelaksana_teknisis.nama as nama_teknisi', 'users.name as name_user')
+            ->where('laporans.id', $id)
+            ->first();
 
         if ($laporan->status_laporan == 'Approved') {
             $faskes = Faske::findOrFail($laporan->faskes_id);
@@ -402,7 +403,9 @@ class LaporanController extends Controller
                 ->select('laporan_kesimpulan_telaah_teknis.*')
                 ->where('no_laporan', $laporan->no_laporan)
                 ->first();
-            $laporan_kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')->where('no_laporan', $laporan->no_laporan)->first();
+            $laporan_kondisi_lingkungan = DB::table('laporan_kinerja')
+                ->where('type_laporan_kinerja', 'laporan_kondisi_lingkungan')
+                ->where('no_laporan', $laporan->no_laporan)->first();
             $kondisi_fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')->where('no_laporan', $laporan->no_laporan)->get();
             $laporan_pengukuran_keselamatan_listrik = DB::table('laporan_pengukuran_keselamatan_listrik')
                 ->select('*')

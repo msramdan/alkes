@@ -14,29 +14,33 @@
         <tr>
             <td>1</td>
             <td>Thermohygrometer</td>
-            <td>Awal : <b>{{ $laporan_kondisi_lingkungan->suhu_awal }}</b> <span style="float: right">&deg;C</span>
+            @php
+                $data_laporan = json_decode($laporan_kondisi_lingkungan->data_laporan);
+                $data_sertifikat = json_decode($laporan_kondisi_lingkungan->data_sertifikat);
+            @endphp
+            <td>Awal : <b>{{ $data_laporan->suhu_awal }}</b> <span style="float: right">&deg;C</span>
             </td>
-            <td>Akhir : <b>{{ $laporan_kondisi_lingkungan->suhu_akhir }}</b> <span
+            <td>Akhir : <b>{{ $data_laporan->suhu_akhir }}</b> <span
                     style="float: right">&deg;C</span></td>
-            <td>{{ ($laporan_kondisi_lingkungan->suhu_awal + $laporan_kondisi_lingkungan->suhu_akhir) / 2 }}
+            <td>{{ ($data_laporan->suhu_awal + $data_laporan->suhu_akhir) / 2 }}
             </td>
-            <td>{{ round($laporan_kondisi_lingkungan->intercept_suhu + $laporan_kondisi_lingkungan->x_variable_suhu * (($laporan_kondisi_lingkungan->suhu_awal + $laporan_kondisi_lingkungan->suhu_akhir) / 2), 2) }}
+            <td>{{ round($data_sertifikat->intercept_suhu + $data_sertifikat->x_variable_suhu * (($data_laporan->suhu_awal + $data_laporan->suhu_akhir) / 2), 2) }}
             </td>
-            <td>{{ $laporan_kondisi_lingkungan->uc_suhu }}</td>
+            <td>{{ $data_sertifikat->uc_suhu }}</td>
         </tr>
         <tr>
             <td>2</td>
             <td>Kelembaban Ruangan </td>
-            <td>Awal : <b>{{ $laporan_kondisi_lingkungan->kelembapan_ruangan_awal }}</b> <span
+            <td>Awal : <b>{{ $data_laporan->kelembapan_ruangan_awal }}</b> <span
                     style="float: right">%RH</span>
             </td>
-            <td>Akhir : <b>{{ $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir }}</b> <span
+            <td>Akhir : <b>{{ $data_laporan->kelembapan_ruangan_akhir }}</b> <span
                     style="float: right">%RH</span>
             </td>
-            <td>{{ ($laporan_kondisi_lingkungan->kelembapan_ruangan_awal + $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir) / 2 }}
-            <td>{{ round($laporan_kondisi_lingkungan->intercept_kelembapan + $laporan_kondisi_lingkungan->x_variable_kelembapan * (($laporan_kondisi_lingkungan->kelembapan_ruangan_awal + $laporan_kondisi_lingkungan->kelembapan_ruangan_akhir) / 2), 2) }}
+            <td>{{ ($data_laporan->kelembapan_ruangan_awal + $data_laporan->kelembapan_ruangan_akhir) / 2 }}
+            <td>{{ round($data_sertifikat->intercept_kelembapan + $data_sertifikat->x_variable_kelembapan * (($data_laporan->kelembapan_ruangan_awal + $data_laporan->kelembapan_ruangan_akhir) / 2), 2) }}
             </td>
-            <td>{{ $laporan_kondisi_lingkungan->uc_kelembapan }}</td>
+            <td>{{ $data_sertifikat->uc_kelembapan }}</td>
         </tr>
 
     </tbody>

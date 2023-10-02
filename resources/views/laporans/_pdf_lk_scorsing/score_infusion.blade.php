@@ -41,11 +41,13 @@
 {{-- pengukuran_keselamatan_listrik --}}
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
-    $hitungPhaseNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->intercept1 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
+    $cek = json_decode(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->data_sertifikat);
 
-    $hitungPhaseGround = round(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->intercept3 + get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
+    $hitungPhaseNetral = round($cek->intercept1 + $cek->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
 
-    $hitungGroundNetral = round(get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->intercept2 + get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
+    $hitungPhaseGround = round($cek->intercept3 + $cek->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
+
+    $hitungGroundNetral = round($cek->intercept2 + $cek->x_variable2 * get_data_litsrik($laporan->no_laporan, 'slug', 'ground-netral')->value, 2);
 
     $dps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value;
     $nps = get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value;
@@ -213,13 +215,18 @@
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
         KINERJA</b></p>
 <?php
-$laporan_occlusion = DB::table('laporan_occlusion')
+$laporan_occlusion = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'laporan_occlusion')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
-$flow_rate = DB::table('laporan_flow_rate')
+$flow_rate = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'laporan_flow_rate')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
+
 $dataFlowRate = json_decode($flow_rate->data_sertifikat);
+$flow_rate = json_decode($flow_rate->data_laporan);
+$laporan_occlusion = json_decode($laporan_occlusion->data_laporan);
 
 // get chanel IDA
 $ida = DB::table('laporan_pendataan_administrasi')
@@ -352,7 +359,7 @@ if ($ida->value == 1) {
             $stdev = standard_deviation($arr);
             $koreksi = $meanTerkoreksi1 - 10;
             // hitung uncertainty
-            $u95 = hitung_uncertainty($resolusi->value, $stdev,$uncert,$drift10);
+            $u95 = hitung_uncertainty($resolusi->value, $stdev, $uncert, $drift10);
             $absU95 = abs($koreksi) + $u95;
             $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
             // 2
@@ -369,7 +376,7 @@ if ($ida->value == 1) {
             // stdev
             $stdev2 = standard_deviation($arr2);
             $koreksi2 = $meanTerkoreksi2 - 50;
-            $u952 = hitung_uncertainty($resolusi->value, $stdev2,$uncert,$drift50);
+            $u952 = hitung_uncertainty($resolusi->value, $stdev2, $uncert, $drift50);
             $absU952 = abs($koreksi2) + $u952;
             $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
             // 3
@@ -386,7 +393,7 @@ if ($ida->value == 1) {
             // stdev
             $stdev3 = standard_deviation($arr3);
             $koreksi3 = $meanTerkoreksi3 - 100;
-            $u953 = hitung_uncertainty($resolusi->value, $stdev3,$uncert,$drift100);
+            $u953 = hitung_uncertainty($resolusi->value, $stdev3, $uncert, $drift100);
             $absU953 = abs($koreksi3) + $u953;
             $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
             // 4 sini
@@ -404,7 +411,7 @@ if ($ida->value == 1) {
                 array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
                 $stdev4 = standard_deviation($arr4);
                 $koreksi4 = $meanTerkoreksi4 - 500;
-                $u954 = hitung_uncertainty($resolusi->value, $stdev4,$uncert,$drift500);
+                $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
                 $absU954 = abs($koreksi4) + $u954;
                 $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
             }
@@ -464,36 +471,39 @@ if ($ida->value == 1) {
             </td>
 
             <td style="text-align: center;vertical-align: middle;">
-                {{ $mean1 }}
+                {{ round($mean1, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $meanTerkoreksi1 }}
+                {{ round($meanTerkoreksi1, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $stdev }}
+                {{ round($stdev, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $koreksi }}
+                {{ round($koreksi, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $u95 }}
+                {{ round($u95, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $absU95 }}
+                {{ round($absU95, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
                 1
             </td>
-            <td rowspan="4" style="text-align: center;vertical-align: middle;">
+            <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                style="text-align: center;vertical-align: middle;">
                 10 %
             </td>
             <td style="text-align: center;vertical-align: middle;">
                 {{ $score }}
             </td>
-            <td rowspan="4" style="text-align: center;vertical-align: middle;">
+            <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                style="text-align: center;vertical-align: middle;">
                 {{ $initScore }}
             </td>
-            <td rowspan="4" style="text-align: center;vertical-align: middle;">
+            <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                style="text-align: center;vertical-align: middle;">
                 {{ $final }}
             </td>
         </tr>
@@ -518,22 +528,22 @@ if ($ida->value == 1) {
                 {{ $enam2 }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $mean2 }}
+                {{ round($mean2, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $meanTerkoreksi2 }}
+                {{ round($meanTerkoreksi2, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $stdev2 }}
+                {{ round($stdev2, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $koreksi2 }}
+                {{ round($koreksi2, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $u952 }}
+                {{ round($u952, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $absU952 }}
+                {{ round($absU952, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
                 5
@@ -563,22 +573,22 @@ if ($ida->value == 1) {
                 {{ $enam3 }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $mean3 }}
+                {{ round($mean3, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $meanTerkoreksi3 }}
+                {{ round($meanTerkoreksi3, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $stdev3 }}
+                {{ round($stdev3, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $koreksi3 }}
+                {{ round($koreksi3, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $u953 }}
+                {{ round($u953, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
-                {{ $absU953 }}
+                {{ round($absU953, 2) }}
             </td>
             <td style="text-align: center;vertical-align: middle;">
                 10
@@ -609,22 +619,22 @@ if ($ida->value == 1) {
                     {{ $enam4 }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $mean4 }}
+                    {{ round($mean4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $meanTerkoreksi4 }}
+                    {{ round($meanTerkoreksi4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $stdev4 }}
+                    {{ round($stdev4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $koreksi4 }}
+                    {{ round($koreksi4, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $u954 }}
+                    {{ round($u954, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{ $absU954 }}
+                    {{ round($absU954, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     50
@@ -637,7 +647,6 @@ if ($ida->value == 1) {
 
     </tbody>
 </table>
-
 
 {{-- telaah_teknis --}}
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
