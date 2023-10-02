@@ -240,6 +240,8 @@ $percobaan1_2_max = $data_laporan->percobaan1_2_max;
 $percobaan1_3_max = $data_laporan->percobaan1_3_max;
 $mean_1_max = ($percobaan1_1_max + $percobaan1_2_max + $percobaan1_3_max) / 3;
 $mean_terkoreksi_1_max = $data_sertifikat->intercept_1 + $data_sertifikat->slope_1 * $mean_1_max;
+$t1 =$mean_terkoreksi_1_max - $mean_terkoreksi_1_min;
+$mid1 =($mean_terkoreksi_1_max + $mean_terkoreksi_1_min)/2;
 // 2
 // Min
 $percobaan2_1_min = $data_laporan->percobaan2_1_min;
@@ -253,6 +255,8 @@ $percobaan2_2_max = $data_laporan->percobaan2_2_max;
 $percobaan2_3_max = $data_laporan->percobaan2_3_max;
 $mean_2_max = ($percobaan2_1_max + $percobaan2_2_max + $percobaan2_3_max) / 3;
 $mean_terkoreksi_2_max = $data_sertifikat->intercept_2 + $data_sertifikat->slope_2 * $mean_2_max;
+$t2 =$mean_terkoreksi_2_max - $mean_terkoreksi_2_min;
+$mid2 =($mean_terkoreksi_2_max + $mean_terkoreksi_2_min)/2;
 
 // 3
 // Min
@@ -267,6 +271,8 @@ $percobaan3_2_max = $data_laporan->percobaan3_2_max;
 $percobaan3_3_max = $data_laporan->percobaan3_3_max;
 $mean_3_max = ($percobaan3_1_max + $percobaan3_2_max + $percobaan3_3_max) / 3;
 $mean_terkoreksi_3_max = $data_sertifikat->intercept_3 + $data_sertifikat->slope_3 * $mean_3_max;
+$t3 =$mean_terkoreksi_3_max - $mean_terkoreksi_3_min;
+$mid3 =($mean_terkoreksi_3_max + $mean_terkoreksi_3_min)/2;
 
 // 4
 // Min
@@ -281,6 +287,8 @@ $percobaan4_2_max = $data_laporan->percobaan4_2_max;
 $percobaan4_3_max = $data_laporan->percobaan4_3_max;
 $mean_4_max = ($percobaan4_1_max + $percobaan4_2_max + $percobaan4_3_max) / 3;
 $mean_terkoreksi_4_max = $data_sertifikat->intercept_4 + $data_sertifikat->slope_4 * $mean_4_max;
+$t4 =$mean_terkoreksi_4_max - $mean_terkoreksi_4_min;
+$mid4 =($mean_terkoreksi_4_max + $mean_terkoreksi_4_min)/2;
 
 // 5
 // Min
@@ -295,6 +303,8 @@ $percobaan5_2_max = $data_laporan->percobaan5_2_max;
 $percobaan5_3_max = $data_laporan->percobaan5_3_max;
 $mean_5_max = ($percobaan5_1_max + $percobaan5_2_max + $percobaan5_3_max) / 3;
 $mean_terkoreksi_5_max = $data_sertifikat->intercept_5 + $data_sertifikat->slope_5 * $mean_5_max;
+$t5 =$mean_terkoreksi_5_max - $mean_terkoreksi_5_min;
+$mid5 =($mean_terkoreksi_5_max + $mean_terkoreksi_5_min)/2;
 
 // 6
 // Min
@@ -309,6 +319,8 @@ $percobaan6_2_max = $data_laporan->percobaan6_2_max;
 $percobaan6_3_max = $data_laporan->percobaan6_3_max;
 $mean_6_max = ($percobaan6_1_max + $percobaan6_2_max + $percobaan6_3_max) / 3;
 $mean_terkoreksi_6_max = $data_sertifikat->intercept_6 + $data_sertifikat->slope_6 * $mean_6_max;
+$t6 =$mean_terkoreksi_6_max - $mean_terkoreksi_6_min;
+$mid6 =($mean_terkoreksi_6_max + $mean_terkoreksi_6_min)/2;
 
 // 7
 // Min
@@ -323,6 +335,8 @@ $percobaan7_2_max = $data_laporan->percobaan7_2_max;
 $percobaan7_3_max = $data_laporan->percobaan7_3_max;
 $mean_7_max = ($percobaan7_1_max + $percobaan7_2_max + $percobaan7_3_max) / 3;
 $mean_terkoreksi_7_max = $data_sertifikat->intercept_7 + $data_sertifikat->slope_7 * $mean_7_max;
+$t7 =$mean_terkoreksi_7_max - $mean_terkoreksi_7_min;
+$mid7 =($mean_terkoreksi_7_max + $mean_terkoreksi_7_min)/2;
 
 // 8
 // Min
@@ -337,6 +351,8 @@ $percobaan8_2_max = $data_laporan->percobaan8_2_max;
 $percobaan8_3_max = $data_laporan->percobaan8_3_max;
 $mean_8_max = ($percobaan8_1_max + $percobaan8_2_max + $percobaan8_3_max) / 3;
 $mean_terkoreksi_8_max = $data_sertifikat->intercept_8 + $data_sertifikat->slope_8 * $mean_8_max;
+$t8 =$mean_terkoreksi_8_max - $mean_terkoreksi_8_min;
+$mid8 =($mean_terkoreksi_8_max + $mean_terkoreksi_8_min)/2;
 
 // 9
 // Min
@@ -351,6 +367,8 @@ $percobaan9_2_max = $data_laporan->percobaan9_2_max;
 $percobaan9_3_max = $data_laporan->percobaan9_3_max;
 $mean_9_max = ($percobaan9_1_max + $percobaan9_2_max + $percobaan9_3_max) / 3;
 $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope_9 * $mean_9_max;
+$t9 =$mean_terkoreksi_9_max - $mean_terkoreksi_9_min;
+$mid9 =($mean_terkoreksi_9_max + $mean_terkoreksi_9_min)/2;
 
 ?>
 <center>
@@ -394,7 +412,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan1_3_min }}</td>
             <td>{{ $percobaan1_3_max }}</td>
             <td>{{ round($mean_1_min, 2) }}</td>
+            <td>{{ round($mean_1_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_1_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_1_max, 2) }}</td>
+            <td>{{ round($t1, 2) }}</td>
+            <td>{{ round($mid1, 2) }}</td>
         </tr>
         <tr>
             <td>2</td>
@@ -405,7 +427,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan2_3_min }}</td>
             <td>{{ $percobaan2_3_max }}</td>
             <td>{{ round($mean_2_min, 2) }}</td>
+            <td>{{ round($mean_2_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_2_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_2_max, 2) }}</td>
+            <td>{{ round($t2, 2) }}</td>
+            <td>{{ round($mid2, 2) }}</td>
         </tr>
         <tr>
             <td>3</td>
@@ -416,7 +442,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan3_3_min }}</td>
             <td>{{ $percobaan3_3_max }}</td>
             <td>{{ round($mean_3_min, 2) }}</td>
+            <td>{{ round($mean_3_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_3_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_3_max, 2) }}</td>
+            <td>{{ round($t3, 2) }}</td>
+            <td>{{ round($mid3, 2) }}</td>
         </tr>
         <tr>
             <td>4</td>
@@ -427,7 +457,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan4_3_min }}</td>
             <td>{{ $percobaan4_3_max }}</td>
             <td>{{ round($mean_4_min, 2) }}</td>
+            <td>{{ round($mean_4_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_4_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_4_max, 2) }}</td>
+            <td>{{ round($t4, 2) }}</td>
+            <td>{{ round($mid4, 2) }}</td>
         </tr>
         <tr>
             <td>5</td>
@@ -438,7 +472,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan5_3_min }}</td>
             <td>{{ $percobaan5_3_max }}</td>
             <td>{{ round($mean_5_min, 2) }}</td>
+            <td>{{ round($mean_5_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_5_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_5_max, 2) }}</td>
+            <td>{{ round($t5, 2) }}</td>
+            <td>{{ round($mid5, 2) }}</td>
         </tr>
         <tr>
             <td>6</td>
@@ -449,7 +487,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan6_3_min }}</td>
             <td>{{ $percobaan6_3_max }}</td>
             <td>{{ round($mean_6_min, 2) }}</td>
+            <td>{{ round($mean_6_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_6_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_6_max, 2) }}</td>
+            <td>{{ round($t6, 2) }}</td>
+            <td>{{ round($mid6, 2) }}</td>
         </tr>
         <tr>
             <td>7</td>
@@ -460,7 +502,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan7_3_min }}</td>
             <td>{{ $percobaan7_3_max }}</td>
             <td>{{ round($mean_7_min, 2) }}</td>
+            <td>{{ round($mean_7_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_7_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_7_max, 2) }}</td>
+            <td>{{ round($t7, 2) }}</td>
+            <td>{{ round($mid7, 2) }}</td>
         </tr>
         <tr>
             <td>8</td>
@@ -471,7 +517,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan8_3_min }}</td>
             <td>{{ $percobaan8_3_max }}</td>
             <td>{{ round($mean_8_min, 2) }}</td>
+            <td>{{ round($mean_8_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_8_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_8_max, 2) }}</td>
+            <td>{{ round($t8, 2) }}</td>
+            <td>{{ round($mid8, 2) }}</td>
         </tr>
         <tr>
             <td>9</td>
@@ -482,7 +532,11 @@ $mean_terkoreksi_9_max = $data_sertifikat->intercept_9 + $data_sertifikat->slope
             <td>{{ $percobaan9_3_min }}</td>
             <td>{{ $percobaan9_3_max }}</td>
             <td>{{ round($mean_9_min, 2) }}</td>
+            <td>{{ round($mean_9_max, 2) }}</td>
             <td>{{ round($mean_terkoreksi_9_min, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_9_max, 2) }}</td>
+            <td>{{ round($t9, 2) }}</td>
+            <td>{{ round($mid9, 2) }}</td>
         </tr>
     </tbody>
 </table>
