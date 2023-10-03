@@ -314,6 +314,7 @@ function laporan_kondisi_lingkungan($request)
 function sensor_recorder($request)
 {
     $data_laporan = [
+        'posisi_sensor' => $request->posisi_sensor,
         'percobaan1_1_min' => $request->percobaan1_1_min,
         'percobaan1_1_max' => $request->percobaan1_1_max,
         'percobaan1_2_min' => $request->percobaan1_2_min,
