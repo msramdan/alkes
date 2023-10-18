@@ -168,7 +168,7 @@
         $koreksi4 = $meanTerkoreksi4 - 500;
         $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
         $absU954 = abs($koreksi4) + $u954;
-        $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+        $score4 = $absU954 < 50 ? 'Lulus' : 'Tidak';
     }
 
     if ($nomenklatur->id == 10) {

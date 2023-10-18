@@ -372,3 +372,50 @@ function sensor_recorder($request)
     ];
     return json_encode($data_laporan);
 }
+
+function suction_pump($request)
+{
+    $data_laporan = [
+        'percobaan100_1_naik' => $request->percobaan100_1_naik,
+        'percobaan100_1_turun' => $request->percobaan100_1_turun,
+        'percobaan100_2_naik' => $request->percobaan100_2_naik,
+        'percobaan100_2_turun' => $request->percobaan100_2_turun,
+        'percobaan100_3_naik' => $request->percobaan100_3_naik,
+        'percobaan100_3_turun' => $request->percobaan100_3_turun,
+        'percobaan200_1_naik' => $request->percobaan200_1_naik,
+        'percobaan200_1_turun' => $request->percobaan200_1_turun,
+        'percobaan200_2_naik' => $request->percobaan200_2_naik,
+        'percobaan200_2_turun' => $request->percobaan200_2_turun,
+        'percobaan200_3_naik' => $request->percobaan200_3_naik,
+        'percobaan200_3_turun' => $request->percobaan200_3_turun,
+        'percobaan300_1_naik' => $request->percobaan300_1_naik,
+        'percobaan300_1_turun' => $request->percobaan300_1_turun,
+        'percobaan300_2_naik' => $request->percobaan300_2_naik,
+        'percobaan300_2_turun' => $request->percobaan300_2_turun,
+        'percobaan300_3_naik' => $request->percobaan300_3_naik,
+        'percobaan300_3_turun' => $request->percobaan300_3_turun,
+        'percobaan400_1_naik' => $request->percobaan400_1_naik,
+        'percobaan400_1_turun' => $request->percobaan400_1_turun,
+        'percobaan400_2_naik' => $request->percobaan400_2_naik,
+        'percobaan400_2_turun' => $request->percobaan400_2_turun,
+        'percobaan400_3_naik' => $request->percobaan400_3_naik,
+        'percobaan400_3_turun' => $request->percobaan400_3_turun,
+        'percobaan500_1_naik' => $request->percobaan500_1_naik,
+        'percobaan500_1_turun' => $request->percobaan500_1_turun,
+        'percobaan500_2_naik' => $request->percobaan500_2_naik,
+        'percobaan500_2_turun' => $request->percobaan500_2_turun,
+        'percobaan500_3_naik' => $request->percobaan500_3_naik,
+        'percobaan500_3_turun' => $request->percobaan500_3_turun,
+        'percobaan600_1_naik' => $request->percobaan600_1_naik,
+        'percobaan600_1_turun' => $request->percobaan600_1_turun,
+        'percobaan600_2_naik' => $request->percobaan600_2_naik,
+        'percobaan600_2_turun' => $request->percobaan600_2_turun,
+        'percobaan600_3_naik' => $request->percobaan600_3_naik,
+        'percobaan600_3_turun' => $request->percobaan600_3_turun,
+        'nilai_max' => $request->nilai_max,
+        'max1' => $request->max1,
+        'max2' => $request->max2,
+        'max3' => $request->max3,
+    ];
+    return json_encode($data_laporan);
+}

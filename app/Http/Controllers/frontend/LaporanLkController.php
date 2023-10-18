@@ -248,6 +248,13 @@ class LaporanLkController extends Controller
                 'data_sertifikat' => $sertifikatTemperatureRecorder->data,
             ]);
 
+        }else if ($request->nomenklatur_id == config('nomenklatur.SUCTION_PUMP')){
+            DB::table('laporan_kinerja')->insert([
+                'no_laporan' => $laporan->no_laporan,
+                'type_laporan_kinerja' => 'suction_pump',
+                'data_laporan' => suction_pump($request),
+                'data_sertifikat' => $sertifikatDpm->data,
+            ]);
         }
 
         //Create Laporan Telaah Teknis

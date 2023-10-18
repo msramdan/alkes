@@ -359,7 +359,7 @@
                     $koreksi4 = $meanTerkoreksi4 - 500;
                     $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
                     $absU954 = abs($koreksi4) + $u954;
-                    $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+                    $score4 = $absU954 < 50 ? 'Lulus' : 'Tidak';
                 }
 
                 if ($nomenklaturs->id == 10) {
@@ -392,7 +392,13 @@
                     }
                     $initScore = ($initScore / $pembagi) * 100;
                 }
-
+                $scoreOcc = $mean_occlusion < 20 ? 100 : 0;
+                $init = ($scoreOcc + $initScore) / 2;
+                if ($init < 70) {
+                    $scoreKinerja = 0;
+                } else {
+                    $scoreKinerja = 0.25 * ($scoreOcc + $initScore);
+                }
                 $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
             @endphp
 
@@ -438,7 +444,8 @@
                 <td style="text-align: center;vertical-align: middle;">
                     1
                 </td>
-                <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}" style="text-align: center;vertical-align: middle;">
+                <td rowspan="{{ $nomenklaturs->id == 10 ? '4' : '3' }}"
+                    style="text-align: center;vertical-align: middle;">
                     10 %
                 </td>
             </tr>
@@ -511,7 +518,7 @@
                     {{ round($meanTerkoreksi3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
-                    {{  round($stdev3, 2) }}
+                    {{ round($stdev3, 2) }}
                 </td>
                 <td style="text-align: center;vertical-align: middle;">
                     {{ round($koreksi3, 2) }}
@@ -550,13 +557,13 @@
                         {{ $enam4 }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ round($mean4, 2)  }}
+                        {{ round($mean4, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
                         {{ round($meanTerkoreksi4, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{ round($stdev4, 2)  }}
+                        {{ round($stdev4, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
                         {{ round($koreksi4, 2) }}
@@ -565,7 +572,7 @@
                         {{ round($u954, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
-                        {{  round($absU954, 2) }}
+                        {{ round($absU954, 2) }}
                     </td>
                     <td style="text-align: center;vertical-align: middle;">
                         50
@@ -625,8 +632,7 @@
                 DAN ATAU
                 KALIBRASI ALAT KESEHATAN, KEMENTERIAN KESEHATAN RI. Maka peralatan ini dinyatakan :
                 <?php
-                $scoreOcc = $mean_occlusion < 20 ? 100 : 0;
-                $totalAll = $score_fisik + $point + ($kinerja = $scoreOcc + $initScore) / 2 / 2;
+                $totalAll = $score_fisik + $point + $scoreKinerja;
                 ?>
                 <b>ALAT DINYATAKAN <?php echo $totalAll >= 70 ? 'LAIK PAKAI' : 'TIDAK LAIK PAKAI'; ?></b>
             </td>

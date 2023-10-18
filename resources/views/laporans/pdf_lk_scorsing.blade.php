@@ -102,6 +102,8 @@
         @include('laporans._pdf_lk_scorsing.score_sphygmomanometer')
     @elseif ($nomenklaturs->id == config('nomenklatur.INKUBATOR_LABORATORIUM'))
         @include('laporans._pdf_lk_scorsing.inkubator_labolatorium')
+    @elseif ($nomenklaturs->id == config('nomenklatur.SUCTION_PUMP'))
+        @include('laporans._pdf_lk_scorsing.score_suction_pump')
     @endif
 
 </body>

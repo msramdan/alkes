@@ -413,7 +413,7 @@ if ($ida->value == 1) {
                 $koreksi4 = $meanTerkoreksi4 - 500;
                 $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
                 $absU954 = abs($koreksi4) + $u954;
-                $score4 = $absU95 < 50 ? 'Lulus' : 'Tidak';
+                $score4 = $absU954 < 50 ? 'Lulus' : 'Tidak';
             }
 
             if ($nomenklaturs->id == 10) {
@@ -431,6 +431,7 @@ if ($ida->value == 1) {
                 if ($score4 == 'Lulus') {
                     $initScore = $initScore + 1;
                 }
+
                 $initScore = ($initScore / $pembagi) * 100;
             } elseif ($nomenklaturs->id == 11) {
                 $pembagi = 3;
@@ -445,6 +446,13 @@ if ($ida->value == 1) {
                     $initScore = $initScore + 1;
                 }
                 $initScore = ($initScore / $pembagi) * 100;
+            }
+            $scoreOcc = $mean_occlusion < 20 ? 100 : 0;
+            $init = ($scoreOcc + $initScore) / 2;
+            if($init < 70){
+                $scoreKinerja = 0;
+            }else{
+                $scoreKinerja = 0.25 *($scoreOcc + $initScore);
             }
 
             $final = $initScore >= 70 ? 'Lulus' : 'Tidak';
@@ -694,9 +702,9 @@ if ($ida->value == 1) {
             <td style="text-align: center;">1</td>
             <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
             <td style="text-align: center;">{{ $score_fisik }}</td>
-            {{ $scoreOcc = $mean_occlusion < 20 ? 100 : 0 }}
             <td style="text-align: center;vertical-align: middle;" rowspan="3">
-                {{ $totalAll = $score_fisik + $point + ($kinerja = $scoreOcc + $initScore) / 2 / 2 }}</td>
+                {{ $totalAll = $score_fisik + $point + $scoreKinerja }}
+            </td>
         </tr>
         <tr>
             <td style="text-align: center;">2</td>
@@ -706,7 +714,7 @@ if ($ida->value == 1) {
         <tr>
             <td style="text-align: center;">3</td>
             <td style="text-align: center;">PENGUKURAN KINERJA</td>
-            <td style="text-align: center;">{{ ($scoreOcc + $initScore) / 2 / 2 }}</td>
+            <td style="text-align: center;">{{ $scoreKinerja }}</td>
         </tr>
     </tbody>
 </table>
