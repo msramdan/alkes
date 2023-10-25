@@ -227,11 +227,12 @@ $data_sertifikat = json_decode($laporan_suction_pump->data_sertifikat);
 $data_laporan = json_decode($laporan_suction_pump->data_laporan);
 
 $arr = [100, 200, 300, 400, 500, 600];
-$myArray = [];
+$myArrayNaik = [];
+
+$initScoreNaik = 0;
+$initScoreTurun = 0;
+$pembagi = 6;
 foreach ($arr as $value) {
-    // $percobaan100_1_naik = $data_laporan->percobaan100_1_naik;
-    // $percobaan100_2_naik = $data_laporan->percobaan100_2_naik;
-    // $percobaan100_3_naik = $data_laporan->percobaan100_3_naik;
     $naik_1 = 'percobaan' . $value . '_1_naik';
     $a = 'percobaan' . $value . '_1_naik';
     $$naik_1 = $data_laporan->$a;
@@ -250,33 +251,129 @@ foreach ($arr as $value) {
 
     // mean terkoreksi
     $mean_terkoreksi = 'mean_terkoreksi_' . $value . '_naik';
-    $$mean_terkoreksi =  $data_sertifikat->intercept_naik + ($data_sertifikat->x_variable_turun * $$mean);
+    $$mean_terkoreksi = $data_sertifikat->intercept_naik + $data_sertifikat->x_variable_naik * $$mean;
 
-    // $mean_100_naik = ($percobaan100_1_naik + $percobaan100_2_naik + $percobaan100_3_naik) / 3;
-    // $mean_terkoreksi_100_naik = $data_sertifikat->intercept_1 + $data_sertifikat->slope_1 * $mean_100_naik;
-    // Turun
-    // $percobaan100_1_turun = $data_laporan->percobaan100_1_turun;
-    // $percobaan100_2_turun = $data_laporan->percobaan100_2_turun;
-    // $percobaan100_3_turun = $data_laporan->percobaan100_3_turun;
-    // $mean_100_turun = ($percobaan100_1_turun + $percobaan100_2_turun + $percobaan100_3_turun) / 3;
-    // $mean_terkoreksi_1_max = $data_sertifikat->intercept_1 + $data_sertifikat->slope_1 * $mean_100_turun;
+    // stdev
+    $arrNaik = [];
+    array_push($arrNaik, $$naik_1, $$naik_2, $$naik_3);
+    $stdev = standard_deviation($arrNaik);
+    $var_stdev = 'stdev' . $value . '_naik';
+    $$var_stdev = $stdev;
+
+    // koreksi
+    $koreksi = 'koreksi_' . $value . '_naik';
+    $$koreksi = $$mean_terkoreksi + $value;
+
+    // U95
+    $u95 = 'u95' . $value . '_naik';
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat->uc, $data_sertifikat->drift50_naik, 3);
+
+    // cu95
+    $cu95 = 'abs95' . $value . '_naik';
+    $$cu95 = abs($$koreksi) + $$u95;
+
+    // cu95
+    $toleransi = 'toleransi' . $value . '_naik';
+    $$toleransi = 0.1 * $value;
+
+    // hasil
+    $hasil = 'hasil' . $value . '_naik';
+    $$hasil = $$cu95 > $$toleransi ? 'Lulus' : 'Tidak';
+    if ($$hasil == 'Lulus') {
+        $initScoreNaik = $initScoreNaik + 1;
+    }
     $data = [
         'percobaan_1' => $$naik_1,
         'percobaan_2' => $$naik_2,
         'percobaan_3' => $$naik_3,
         'mean' => $$mean,
         'mean_terkoreksi' => $$mean_terkoreksi,
+        'stdev' => $$var_stdev,
+        'koreksi' => $$koreksi,
+        'u95' => $$u95,
+        'cu95' => $$cu95,
+        'toleransi' => $$toleransi,
+        'hasil' => $$hasil,
     ];
-    $myArray[$value] = $data;
+    $myArrayNaik[$value] = $data;
+    $arrNaik = [];
 }
 
-// var_dump($percobaan100_1_naik);
-// var_dump($percobaan100_2_naik);
-// var_dump($percobaan100_3_naik);
-// var_dump($myArray);
-// exit();
+foreach ($arr as $value) {
+    $turun_1 = 'percobaan' . $value . '_1_turun';
+    $a = 'percobaan' . $value . '_1_turun';
+    $$turun_1 = $data_laporan->$a;
 
+    $turun_2 = 'percobaan' . $value . '_2_turun';
+    $b = 'percobaan' . $value . '_2_turun';
+    $$turun_2 = $data_laporan->$b;
+
+    $turun_3 = 'percobaan' . $value . '_3_turun';
+    $c = 'percobaan' . $value . '_3_turun';
+    $$turun_3 = $data_laporan->$c;
+
+    // mean
+    $mean = 'mean_' . $value . '_turun';
+    $$mean = ($$turun_1 + $$turun_2 + $$turun_3) / 3;
+
+    // mean terkoreksi
+    $mean_terkoreksi = 'mean_terkoreksi_' . $value . '_turun';
+    $$mean_terkoreksi = $data_sertifikat->intercept_turun + $data_sertifikat->x_variable_turun * $$mean;
+
+    // stdev
+    $arrTurun = [];
+    array_push($arrTurun, $$turun_1, $$turun_2, $$turun_3);
+    $stdev = standard_deviation($arrTurun);
+    $var_stdev = 'stdev' . $value . '_turun';
+    $$var_stdev = $stdev;
+
+    // koreksi
+    $koreksi = 'koreksi_' . $value . '_turun';
+    $$koreksi = $$mean_terkoreksi + $value;
+
+    // U95
+    $u95 = 'u95' . $value . '_turun';
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat->uc, $data_sertifikat->drift50_turun, 3);
+
+    // cu95
+    $cu95 = 'abs95' . $value . '_turun';
+    $$cu95 = abs($$koreksi) + $$u95;
+
+    // cu95
+    $toleransi = 'toleransi' . $value . '_turun';
+    $$toleransi = 0.1 * $value;
+
+    // hasil
+    $hasil = 'hasil' . $value . '_turun';
+    $$hasil = $$cu95 > $$toleransi ? 'Lulus' : 'Tidak';
+    if ($$hasil == 'Lulus') {
+        $initScoreTurun = $initScoreTurun + 1;
+    }
+    $data = [
+        'percobaan_1' => $$turun_1,
+        'percobaan_2' => $$turun_2,
+        'percobaan_3' => $$turun_3,
+        'mean' => $$mean,
+        'mean_terkoreksi' => $$mean_terkoreksi,
+        'stdev' => $$var_stdev,
+        'koreksi' => $$koreksi,
+        'u95' => $$u95,
+        'cu95' => $$cu95,
+        'toleransi' => $$toleransi,
+        'hasil' => $$hasil,
+    ];
+    $myArrayTurun[$value] = $data;
+    $arrTurun = [];
+}
 ?>
+
+@php
+    // dd($myArrayNaik);
+    $scoreNaik = ($initScoreNaik / $pembagi) * 100;
+    $scoreTurun = ($initScoreTurun / $pembagi) * 100;
+    $persyaratan = ($scoreNaik + $scoreTurun) / 2 > 70 ? 'Lulus' : 'Tidak';
+@endphp
+
 <p style="font-size: 11px;margin-left:18px"><b>VACCUM</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
@@ -303,26 +400,52 @@ foreach ($arr as $value) {
         </tr>
     </thead>
     <tbody>
-        @foreach ($myArray as $key => $value)
+        <tr>
+            <td colspan="13" style="text-align: center;vertical-align: middle;background-color:grey"><b>Naik</b>
+            </td>
+            <td rowspan="14" style="text-align: center;vertical-align: middle">{{ $persyaratan }}</td>
+        </tr>
+        @foreach ($myArrayNaik as $key => $value)
             <tr>
                 <td>-{{ $key }}</td>
-                <td>{{  $value['percobaan_1'] }}</td>
-                <td>{{  $value['percobaan_2'] }}</td>
-                <td>{{  $value['percobaan_3'] }}</td>
-                <td>{{  $value['mean'] }}</td>
-                <td>{{  $value['mean'] }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $value['percobaan_1'] }}</td>
+                <td>{{ $value['percobaan_2'] }}</td>
+                <td>{{ $value['percobaan_3'] }}</td>
+                <td>{{ round($value['mean'], 2) }}</td>
+                <td>{{ round($value['mean_terkoreksi'], 2) }}</td>
+                <td>{{ round($value['stdev'], 2) }}</td>
+                <td>{{ round($value['koreksi'], 2) }}</td>
+                <td>{{ round($value['u95'], 2) }}</td>
+                <td>{{ round($value['cu95'], 2) }}</td>
+                <td>- {{ $value['toleransi'] }}</td>
+                <td>{{ $value['hasil'] }}</td>
+                @if ($key == 100)
+                    <td style="text-align: center;vertical-align: middle;" rowspan="6">{{ $scoreNaik }}</td>
+                @endif
             </tr>
         @endforeach
-
+        <tr>
+            <td colspan="13" style="text-align: center;vertical-align: middle;background-color:grey"><b>Turun</b>
+            </td>
+        </tr>
+        @foreach ($myArrayTurun as $key => $value)
+            <tr>
+                <td>-{{ $key }}</td>
+                <td>{{ $value['percobaan_1'] }}</td>
+                <td>{{ $value['percobaan_2'] }}</td>
+                <td>{{ $value['percobaan_3'] }}</td>
+                <td>{{ round($value['mean'], 2) }}</td>
+                <td>{{ round($value['mean_terkoreksi'], 2) }}</td>
+                <td>{{ round($value['stdev'], 2) }}</td>
+                <td>{{ round($value['koreksi'], 2) }}</td>
+                <td>{{ round($value['u95'], 2) }}</td>
+                <td>{{ round($value['cu95'], 2) }}</td>
+                <td>- {{ $value['toleransi'] }}</td>
+                <td>{{ $value['hasil'] }}</td>
+                @if ($key == 100)
+                    <td style="text-align: center;vertical-align: middle;" rowspan="6">{{ $scoreTurun }}</td>
+                @endif
+            </tr>
+        @endforeach
     </tbody>
-
 </table>

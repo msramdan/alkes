@@ -122,10 +122,10 @@ function standard_deviation($sample)
     }
 }
 
-function hitung_uncertainty($resolusi_uut, $stdev, $uncert, $drift)
+function hitung_uncertainty($resolusi_uut, $stdev, $uncert, $drift, $n)
 {
     // $pembacaan_berulang
-    $n = 6;
+    // $n = 6;
     $stdev = $stdev;
     $pembagi = round(sqrt($n), 3); //2.45
     $v = $n - 1; //5
