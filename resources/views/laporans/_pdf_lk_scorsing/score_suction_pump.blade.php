@@ -278,7 +278,7 @@ foreach ($arr as $value) {
 
     // hasil
     $hasil = 'hasil' . $value . '_naik';
-    $$hasil = $$cu95 > $$toleransi ? 'Lulus' : 'Tidak';
+    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
         $initScoreNaik = $initScoreNaik + 1;
     }
@@ -345,7 +345,7 @@ foreach ($arr as $value) {
 
     // hasil
     $hasil = 'hasil' . $value . '_turun';
-    $$hasil = $$cu95 > $$toleransi ? 'Lulus' : 'Tidak';
+    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
         $initScoreTurun = $initScoreTurun + 1;
     }
@@ -365,6 +365,20 @@ foreach ($arr as $value) {
     $myArrayTurun[$value] = $data;
     $arrTurun = [];
 }
+
+// MAX
+$meanMax = ($data_laporan->max1 + $data_laporan->max2 + $data_laporan->max3) / 3;
+$mean_terkoreksi_max = $data_sertifikat->intercept_naik + $data_sertifikat->x_variable_naik * $meanMax;
+$arrMax = [];
+array_push($arrMax, $data_laporan->max1, $data_laporan->max2, $data_laporan->max3);
+$stdevMax = standard_deviation($arrMax);
+$koreksi_max = $mean_terkoreksi_max - $data_laporan->nilai_max;
+$u95_max = hitung_uncertainty($resolusi->value, $stdevMax, $data_sertifikat->uc, $data_sertifikat->drift350_naik, 3);
+$cu95_max = abs($koreksi_max) + $u95_max;
+$toleransi_max = 0.1 * $data_laporan->nilai_max;
+$hasil_max = $cu95_max <= $toleransi ? 'Lulus' : 'Tidak';
+$score_max = $hasil_max == 'Lulus' ? 100 : 0;
+
 ?>
 
 @php
@@ -372,6 +386,8 @@ foreach ($arr as $value) {
     $scoreNaik = ($initScoreNaik / $pembagi) * 100;
     $scoreTurun = ($initScoreTurun / $pembagi) * 100;
     $persyaratan = ($scoreNaik + $scoreTurun) / 2 > 70 ? 'Lulus' : 'Tidak';
+    $scoreKinerja = ($scoreNaik + $scoreTurun + $score_max) / 6;
+    $totalAll = $score_fisik + $point + $scoreKinerja;
 @endphp
 
 <p style="font-size: 11px;margin-left:18px"><b>VACCUM</b></p>
@@ -380,7 +396,7 @@ foreach ($arr as $value) {
     <thead>
         <tr>
             <th style="text-align: center;vertical-align: middle;">Skala Vaccum</th>
-            <th colspan="3" style="text-align: center;vertical-align: middle;">Naik</th>
+            <th colspan="3" style="text-align: center;vertical-align: middle;">Penunjukan Standar</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdv</th>
@@ -449,3 +465,164 @@ foreach ($arr as $value) {
         @endforeach
     </tbody>
 </table>
+
+<p style="font-size: 11px;margin-left:18px"><b>Nilai Max : {{ $data_laporan->nilai_max }} mmHg </b></p>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
+    <thead>
+        <tr>
+            <th style="text-align: center;vertical-align: middle;">Skala Vaccum</th>
+            <th colspan="3" style="text-align: center;vertical-align: middle;">Penunjukan Standar</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdv</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Koreksi</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">U95</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">C + U95</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Hasil</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Score</th>
+            <th rowspan="2" style="text-align: center;vertical-align: middle;">Persyaratan</th>
+        </tr>
+        <tr>
+            <th style="text-align: center;vertical-align: middle;">mmHg</th>
+            <th style="text-align: center;vertical-align: middle;">1</th>
+            <th style="text-align: center;vertical-align: middle;">2</th>
+            <th style="text-align: center;vertical-align: middle;">3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>MAX</td>
+            <td>{{ $data_laporan->max1 }}</td>
+            <td>{{ $data_laporan->max2 }}</td>
+            <td>{{ $data_laporan->max3 }}</td>
+            <td>{{ round($meanMax, 2) }}</td>
+            <td>{{ round($mean_terkoreksi_max, 2) }}</td>
+            <td>{{ round($stdevMax, 2) }}</td>
+            <td>{{ round($koreksi_max, 2) }}</td>
+            <td>{{ round($u95_max, 2) }}</td>
+            <td>{{ round($cu95_max, 2) }}</td>
+            <td>{{ round($toleransi_max, 2) }}</td>
+            <td>{{ $hasil_max }}</td>
+            <td>{{ $score_max }}</td>
+            <td>{{ $hasil_max }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{-- telaah_teknis --}}
+<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
+        TEKNIS</b></p>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        @forelse ($laporan_telaah_teknis as $row)
+            <tr>
+                <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
+                <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
+                <td>
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
+                        <label>Baik</label>
+                    </div>
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
+                        <label>Tidak Baik</label>
+                    </div>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+<div class="page_break"></div>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <thead>
+        <tr>
+            <th style="width: 4%;text-align: center;">No</th>
+            <th style="width: 24%;text-align: center;">Parameter</th>
+            <th style="width: 24%;text-align: center;">Skor</th>
+            <th style="width: 24%;text-align: center;">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: center;">1</td>
+            <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
+            <td style="text-align: center;">{{ $score_fisik }}</td>
+            <td style="text-align: center;vertical-align: middle;" rowspan="3">
+                {{ $totalAll }}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">2</td>
+            <td style="text-align: center;">Pengukuran Keselamatan Listrik
+            </td>
+            <td style="text-align: center;">
+                {{ $point }}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">3</td>
+            <td style="text-align: center;">Hasil Pengukuran Kinerja</td>
+            <td style="text-align: center;">
+                {{ $scoreKinerja}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
+                hasil kalibrasi, alat ini dinyatakan </td>
+            <td style="width: 20%;text-align: center;vertical-align: middle;">
+                <div class="form-group" style="margin: 0px">
+                    <input type="checkbox" {{ $totalAll >= 70 ? 'checked' : '' }}>
+                    <label><b style="font-size: 12px">LAIK PAKAI</b></label>
+                </div>
+            </td>
+            <td style="width: 20%;text-align: center;vertical-align: middle;">
+                <div class="form-group" style="margin: 0px">
+                    <input type="checkbox" {{ $totalAll < 70 ? 'checked' : '' }}>
+                    <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
+                </div>
+            </td>
+            <td style="width: 20%;text-align: center;vertical-align: middle;"><b style="font-size: 12px">PENYELIA</b>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
+            </td>
+            <td colspan="2" style="text-align: center">
+                <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                    src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
+                <span>{{ $laporan->nama_teknisi }}</span>
+            </td>
+            <td style="text-align: center">
+                @if (isset($laporan->name_user))
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                        src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
+                    <span>{{ $laporan->name_user }}</span>
+                @endif
+            </td>
+        </tr>
+    </tbody>
+</table>
+
