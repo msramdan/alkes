@@ -338,17 +338,14 @@ $cu95_max = abs($koreksi_max) + $u95_max;
 $toleransi_max = 0.1 * $data_laporan->nilai_max;
 $hasil_max = $cu95_max <= $toleransi ? 'Lulus' : 'Tidak';
 $score_max = $hasil_max == 'Lulus' ? 100 : 0;
+$scoreNaik = ($initScoreNaik / $pembagi) * 100;
+$scoreTurun = ($initScoreTurun / $pembagi) * 100;
+$persyaratan = ($scoreNaik + $scoreTurun) / 2 > 70 ? 'Lulus' : 'Tidak';
+$scoreKinerja = ($scoreNaik + $scoreTurun + $score_max) / 6;
+$totalAll = $score_fisik + $point + $scoreKinerja;
 
 ?>
 
-@php
-    // dd($myArrayNaik);
-    $scoreNaik = ($initScoreNaik / $pembagi) * 100;
-    $scoreTurun = ($initScoreTurun / $pembagi) * 100;
-    $persyaratan = ($scoreNaik + $scoreTurun) / 2 > 70 ? 'Lulus' : 'Tidak';
-    $scoreKinerja = ($scoreNaik + $scoreTurun + $score_max) / 6;
-    $totalAll = $score_fisik + $point + $scoreKinerja;
-@endphp
 
 <p style="font-size: 11px;margin-left:18px"><b>VACCUM</b></p>
 <table class="table table-bordered table-sm"
