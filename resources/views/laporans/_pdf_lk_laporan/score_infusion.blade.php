@@ -305,7 +305,7 @@
                 $stdev = standard_deviation($arr);
                 $koreksi = $meanTerkoreksi1 - 10;
                 // hitung uncertainty
-                $u95 = hitung_uncertainty($resolusi->value, $stdev, $uncert, $drift10);
+                $u95 = hitung_uncertainty($resolusi->value, $stdev, $uncert, $drift10,6);
                 $absU95 = abs($koreksi) + $u95;
                 $score = $absU95 < 1 ? 'Lulus' : 'Tidak';
                 // 2
@@ -322,7 +322,7 @@
                 // stdev
                 $stdev2 = standard_deviation($arr2);
                 $koreksi2 = $meanTerkoreksi2 - 50;
-                $u952 = hitung_uncertainty($resolusi->value, $stdev2, $uncert, $drift50);
+                $u952 = hitung_uncertainty($resolusi->value, $stdev2, $uncert, $drift50,6);
                 $absU952 = abs($koreksi2) + $u952;
                 $score2 = $absU952 < 5 ? 'Lulus' : 'Tidak';
                 // 3
@@ -339,7 +339,7 @@
                 // stdev
                 $stdev3 = standard_deviation($arr3);
                 $koreksi3 = $meanTerkoreksi3 - 100;
-                $u953 = hitung_uncertainty($resolusi->value, $stdev3, $uncert, $drift100);
+                $u953 = hitung_uncertainty($resolusi->value, $stdev3, $uncert, $drift100,6);
                 $absU953 = abs($koreksi3) + $u953;
                 $score3 = $absU953 < 10 ? 'Lulus' : 'Tidak';
                 // 4 sini
@@ -357,7 +357,7 @@
                     array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
                     $stdev4 = standard_deviation($arr4);
                     $koreksi4 = $meanTerkoreksi4 - 500;
-                    $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
+                    $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500,6);
                     $absU954 = abs($koreksi4) + $u954;
                     $score4 = $absU954 < 50 ? 'Lulus' : 'Tidak';
                 }
