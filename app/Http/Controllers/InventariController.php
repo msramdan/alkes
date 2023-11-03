@@ -211,6 +211,8 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
         } else if ($data->jenis_alat_id == 5) {
             return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == 22) {
+            return view('inventaris.sertifikat.ContactTachometer', compact('data'));
         } else if ($data->jenis_alat_id == 37) {
             return view('inventaris.sertifikat.TemperatureRecorder', compact('data'));
         } else if ($data->jenis_alat_id == 45) {
@@ -232,6 +234,15 @@ class InventariController extends Controller
                 'tahun' => $request->tahun,
                 'intercept' => $request->intercept,
                 'x_variable' => $request->x_variable,
+                'u10' => $request->u10,
+                'u20' => $request->u20,
+                'u30' => $request->u30,
+                'u40' => $request->u40,
+                'u50' => $request->u50,
+                'u60' => $request->u60,
+                'u300' => $request->u300,
+                'u600' => $request->u600,
+                'drift_300' => $request->drift_300,
             ];
         } else if ($data->jenis_alat_id == 5) {
             // Electrical Safety Analyzer
@@ -244,6 +255,25 @@ class InventariController extends Controller
                 'x_variable2' => $request->x_variable2,
                 'intercept3' => $request->intercept3,
                 'x_variable3' => $request->x_variable3,
+            ];
+        } else if ($data->jenis_alat_id == 22) {
+            // Contact Tachometer
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'intercept' => $request->intercept,
+                'x_variable' => $request->x_variable,
+                'u60' => $request->u60,
+                'u100' => $request->u100,
+                'u500' => $request->u500,
+                'u1000' => $request->u1000,
+                'u5000' => $request->u5000,
+                '10000' => $request->u10000,
+                'drift_1000' => $request->drift_1000,
+                'drift_2000' => $request->drift_2000,
+                'drift_3000' => $request->drift_3000,
+                'drift_4000' => $request->drift_4000,
+
             ];
         } else if ($data->jenis_alat_id == 37) {
             // Thermohygrometer

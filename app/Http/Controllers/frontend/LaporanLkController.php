@@ -141,14 +141,18 @@ class LaporanLkController extends Controller
                 if (!$sertifikatDigitalStopWatch) {
                     dd('Digital Stop Watch belum diisi');
                 }
+            }else if($nomenklatur_type->type_id == 22){
+                $sertifikatTachometer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                if (!$sertifikatTachometer) {
+                    dd('sertifikatTachometer belum diisi');
+                }
             } else if ($nomenklatur_type->type_id == 45) {
                 // get detail $sertifikat 	Digital Pressure Meter
                 $sertifikatDpm = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                 if (!$sertifikatDpm) {
                     dd('Digital Pressure Meter belum diisi');
                 }
-            }
-            else if ($nomenklatur_type->type_id == 37) {
+            } else if ($nomenklatur_type->type_id == 37) {
                 // get detail Temperature Recorder
                 $sertifikatTemperatureRecorder = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                 if (!$sertifikatTemperatureRecorder) {
@@ -166,7 +170,7 @@ class LaporanLkController extends Controller
         DB::table('laporan_kinerja')->insert([
             'no_laporan' => $laporan->no_laporan,
             'type_laporan_kinerja' => 'laporan_kondisi_lingkungan',
-            'data_laporan' =>laporan_kondisi_lingkungan($request),
+            'data_laporan' => laporan_kondisi_lingkungan($request),
             'data_sertifikat' =>  $sertifikat->data,
         ]);
 
@@ -218,7 +222,6 @@ class LaporanLkController extends Controller
                 'data_laporan' => laporan_flow_rate($request),
                 'data_sertifikat' => $sertifikatIda->data,
             ]);
-
         } else if ($request->nomenklatur_id == config('nomenklatur.SPHYGMOMANOMETER')) {
             // simpan KEBOCORAN TEKANAN
             DB::table('laporan_kinerja')->insert([
@@ -247,13 +250,25 @@ class LaporanLkController extends Controller
                 'data_laporan' => sensor_recorder($request),
                 'data_sertifikat' => $sertifikatTemperatureRecorder->data,
             ]);
-
-        }else if ($request->nomenklatur_id == config('nomenklatur.SUCTION_PUMP')){
+        } else if ($request->nomenklatur_id == config('nomenklatur.SUCTION_PUMP')) {
             DB::table('laporan_kinerja')->insert([
                 'no_laporan' => $laporan->no_laporan,
                 'type_laporan_kinerja' => 'suction_pump',
                 'data_laporan' => suction_pump($request),
                 'data_sertifikat' => $sertifikatDpm->data,
+            ]);
+        } else if ($request->nomenklatur_id == config('nomenklatur.CONTACT_TACHOMETER')) {
+            DB::table('laporan_kinerja')->insert([
+                'no_laporan' => $laporan->no_laporan,
+                'type_laporan_kinerja' => 'contact_tachometer',
+                'data_laporan' => contact_tachometer($request),
+                'data_sertifikat' => $sertifikatTachometer->data,
+            ]);
+            DB::table('laporan_kinerja')->insert([
+                'no_laporan' => $laporan->no_laporan,
+                'type_laporan_kinerja' => 'kinerja_waktu',
+                'data_laporan' => kinerja_waktu($request),
+                'data_sertifikat' => $sertifikatDigitalStopWatch->data,
             ]);
         }
 
@@ -263,7 +278,6 @@ class LaporanLkController extends Controller
 
         foreach ($telaah_teknis_key as $a => $teknis) {
             $teknis_id = explode('-', $teknis);
-
             $nomenklatur_telaah_teknis = DB::table('nomenklatur_telaah_teknis')
                 ->where('id', $teknis_id[1])
                 ->first();

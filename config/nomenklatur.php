@@ -7,4 +7,5 @@ return [
     'SYRINGE_PUMP' => 11,
     'SUCTION_PUMP' => 12,
     'INKUBATOR_LABORATORIUM' => 13,
+    'CONTACT_TACHOMETER' => 15,
 ];

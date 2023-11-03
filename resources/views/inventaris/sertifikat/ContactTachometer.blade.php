@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', __('Digital Stop Watch'))
+@section('title', __('Contact Tachometer'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Digital Stop Watch') }}</h3>
+                    <h3>{{ __('Contact Tachometer') }}</h3>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item">
@@ -62,47 +62,18 @@
                                             class="form-control" value="" required />
                                     </div>
 
+
                                     <div class="form-group">
                                         <label for="uc_suhu">{{ __('Uncertainty (U)') }}</label>
                                         <table class="table table-xs table-bordered"
                                             style="text-align: center; vertical-align: middle;">
                                             <thead>
                                                 <tr>
-                                                    <th>Detik</th>
-                                                    <th>U Detik</th>
+                                                    <th>RPM</th>
+                                                    <th>U RPM</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th>10</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u10" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>20</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u20" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>30</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u30" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>40</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u40" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>50</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u50" required>
-                                                    </td>
-                                                </tr>
                                                 <tr>
                                                     <th>60</th>
                                                     <td><input type="number" step="0.00000000000000001"
@@ -110,16 +81,34 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>300</th>
+                                                    <th>100</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u300" required>
+                                                            class="form-control" placeholder="" name="u100" required>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>600</th>
+                                                    <th>500</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u600" required>
-                                                    </td>
+                                                            class="form-control" placeholder="" name="u500"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>1000</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="u1000"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>5000</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="u5000"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>10000</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="u10000"
+                                                            required></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -131,22 +120,38 @@
                                             style="text-align: center; vertical-align: middle;">
                                             <thead>
                                                 <tr>
-                                                    <th>Detik</th>
+                                                    <th>RPM</th>
                                                     <th>Drift</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th>300</th>
+                                                    <th>1000</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="drift_300"
-                                                            required>
+                                                            class="form-control" placeholder="" name="drift_1000" required>
                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>2000</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift_2000" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>3000</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift_3000"
+                                                            required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>4000</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift_4000"
+                                                            required></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-
 
                                     <div class="form-group">
                                         <label for="file">{{ __('File Excel') }}</label>
@@ -196,8 +201,8 @@
                                                             class="ace-icon fa fa-file"></i> Download</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('SertifikatDelete', $row->id) }}"
-                                                        method="post" title="Hapus" class="d-inline"
+                                                    <form action="{{ route('SertifikatDelete', $row->id) }}" method="post"
+                                                        title="Hapus" class="d-inline"
                                                         onsubmit="return confirm('Yakin hapus data?')">
                                                         @csrf
                                                         @method('delete')

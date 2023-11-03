@@ -125,44 +125,44 @@ function standard_deviation($sample)
 function hitung_uncertainty($resolusi_uut, $stdev, $uncert, $drift, $n)
 {
     // $pembacaan_berulang
-    // $n = 6;
     $stdev = $stdev;
-    $pembagi = round(sqrt($n), 3); //2.45
+    $pembagi = sqrt($n); //2.45
     $v = $n - 1; //5
-    $u = round($stdev / $pembagi, 3); // 10.36
+    $u = $stdev / $pembagi; // 10.36
     $c = 1;
     $uc =  $u * $c; //10.367
-    $uc_1 = round($uc * $uc, 3);  //107.475
+    $uc_1 = $uc * $uc;  //107.475
     $ucv_1 = ($uc_1 * $uc_1) / $v;
     // sertifikat Standar
     $stdev2 = $uncert;
     $pembagi2 = 2;
     $v2 = 50;
-    $u2 = round($stdev2 / $pembagi2, 3); // 0.325
+    $u2 = $stdev2 / $pembagi2; // 0.325
     $c2 = 1;
     $uc2 =  $u2 * $c2; // 0.325
-    $uc_2 = round($uc2 * $uc2, 3);  //0.106
+    $uc_2 = $uc2 * $uc2;  //0.106
     $ucv_2 = ($uc_2 * $uc_2) / $v2;
 
     // Drift
     $stdev3 =  $drift;
     $pembagi3 = sqrt(3);
     $v3 = 50;
-    $u3 = round($stdev3 / $pembagi3, 3); // 0.006
+    $u3 = $stdev3 / $pembagi3; // 0.006
     $c3 = 1;
     $uc3 = $u3 * $c3; // 0.006
-    $uc_3 = round($uc3 * $uc3, 3);  // 0
-    $ucv_3 = ($uc_3 * $uc_3) / $v2;
+    $uc_3 = $uc3 * $uc3;  // 0
+    $ucv_3 = ($uc_3 * $uc_3) / $v3;
 
     $stdev4 = 0.5 * $resolusi_uut;
     $pembagi4 = sqrt(3);
     $v4 = 50;
-    $u4 = round($stdev4 / $pembagi4, 3); // 2.887
+    $u4 = $stdev4 / $pembagi4; // 2.887
     $c4 = 1;
     $uc4 = $u4 * $c4; // 2.887
-    $uc_4 = round($uc4 * $uc4, 3);  // 8.335
+    $uc_4 = $uc4 * $uc4;  // 8.335
     $ucv_4 = ($uc_4 * $uc_4) / $v4;
     // ==============================================
+
     $jumlah_uc =  $uc_1  + $uc_2 + $uc_3 + $uc_4;
     $jumlah_ucv =  $ucv_1  + $ucv_2 + $ucv_3 + $ucv_4;
     $ketidakpastian_baku_gabungan = sqrt($jumlah_uc);
@@ -416,6 +416,65 @@ function suction_pump($request)
         'max1' => $request->max1,
         'max2' => $request->max2,
         'max3' => $request->max3,
+    ];
+    return json_encode($data_laporan);
+}
+
+function contact_tachometer($request)
+{
+    $data_laporan = [
+        'percobaan_1000_1' => $request->percobaan_1000_1,
+        'percobaan_1000_2' => $request->percobaan_1000_2,
+        'percobaan_1000_3' => $request->percobaan_1000_3,
+        'percobaan_1000_4' => $request->percobaan_1000_4,
+        'percobaan_1000_5' => $request->percobaan_1000_5,
+        'percobaan_1000_6' => $request->percobaan_1000_6,
+        'percobaan_2000_1' => $request->percobaan_2000_1,
+        'percobaan_2000_2' => $request->percobaan_2000_2,
+        'percobaan_2000_3' => $request->percobaan_2000_3,
+        'percobaan_2000_4' => $request->percobaan_2000_4,
+        'percobaan_2000_5' => $request->percobaan_2000_5,
+        'percobaan_2000_6' => $request->percobaan_2000_6,
+        'percobaan_3000_1' => $request->percobaan_3000_1,
+        'percobaan_3000_2' => $request->percobaan_3000_2,
+        'percobaan_3000_3' => $request->percobaan_3000_3,
+        'percobaan_3000_4' => $request->percobaan_3000_4,
+        'percobaan_3000_5' => $request->percobaan_3000_5,
+        'percobaan_3000_6' => $request->percobaan_3000_6,
+        'percobaan_4000_1' => $request->percobaan_4000_1,
+        'percobaan_4000_2' => $request->percobaan_4000_2,
+        'percobaan_4000_3' => $request->percobaan_4000_3,
+        'percobaan_4000_4' => $request->percobaan_4000_4,
+        'percobaan_4000_5' => $request->percobaan_4000_5,
+        'percobaan_4000_6' => $request->percobaan_4000_6,
+        'min_1' => $request->min_1,
+        'min_2' => $request->min_2,
+        'min_3' => $request->min_3,
+        'min_4' => $request->min_4,
+        'min_5' => $request->min_5,
+        'min_6' => $request->min_6,
+        'medium_1' => $request->medium_1,
+        'medium_2' => $request->medium_2,
+        'medium_3' => $request->medium_3,
+        'medium_4' => $request->medium_4,
+        'medium_5' => $request->medium_5,
+        'medium_6' => $request->medium_6,
+        'max_1' => $request->max_1,
+        'max_2' => $request->max_2,
+        'max_3' => $request->max_3,
+        'max_4' => $request->max_4,
+        'max_5' => $request->max_5,
+        'max_6' => $request->max_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function kinerja_waktu($request)
+{
+    $data_laporan = [
+        'second_1' => $request->second_1,
+        'second_2' => $request->second_2,
+        'second_3' => $request->second_3,
     ];
     return json_encode($data_laporan);
 }

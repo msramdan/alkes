@@ -209,7 +209,6 @@
         </tbody>
     </table>
 @endif
-
 {{-- pengukuran_kinerja --}}
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
         KINERJA</b></p>
@@ -218,185 +217,287 @@ $resolusi = DB::table('laporan_pendataan_administrasi')
     ->where('no_laporan', $laporan->no_laporan)
     ->where('slug', 'resolusi')
     ->first();
+
 // ======================
-$laporan_suction_pump = DB::table('laporan_kinerja')
-    ->where('type_laporan_kinerja', 'suction_pump')
+$contact_tachometer = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'contact_tachometer')
     ->where('no_laporan', $laporan->no_laporan)
     ->first();
-$data_sertifikat = json_decode($laporan_suction_pump->data_sertifikat);
-$data_laporan = json_decode($laporan_suction_pump->data_laporan);
+$data_sertifikat = json_decode($contact_tachometer->data_sertifikat);
+$data_laporan = json_decode($contact_tachometer->data_laporan);
+$arr = [1000, 2000, 3000, 4000];
+$myArray = [];
+$initScore = 0;
 
-$arr = [100, 200, 300, 400, 500, 600];
-$myArrayNaik = [];
+$arrString = ['min', 'medium', 'max'];
+$myArrayString = [];
+$initScoreString = 0;
 
-$initScoreNaik = 0;
-$initScoreTurun = 0;
-$pembagi = 6;
 foreach ($arr as $value) {
-    $naik_1 = 'percobaan' . $value . '_1_naik';
-    $a = 'percobaan' . $value . '_1_naik';
-    $$naik_1 = $data_laporan->$a;
+    // 1000
+    $a = 'percobaan_' . $value . '_1';
+    $$a = $data_laporan->$a;
 
-    $naik_2 = 'percobaan' . $value . '_2_naik';
-    $b = 'percobaan' . $value . '_2_naik';
-    $$naik_2 = $data_laporan->$b;
+    $b = 'percobaan_' . $value . '_2';
+    $$b = $data_laporan->$b;
 
-    $naik_3 = 'percobaan' . $value . '_3_naik';
-    $c = 'percobaan' . $value . '_3_naik';
-    $$naik_3 = $data_laporan->$c;
+    $c = 'percobaan_' . $value . '_3';
+    $$c = $data_laporan->$c;
+
+    $d = 'percobaan_' . $value . '_4';
+    $$d = $data_laporan->$d;
+
+    $e = 'percobaan_' . $value . '_5';
+    $$e = $data_laporan->$e;
+
+    $f = 'percobaan_' . $value . '_6';
+    $$f = $data_laporan->$f;
 
     // mean
-    $mean = 'mean_' . $value . '_naik';
-    $$mean = ($$naik_1 + $$naik_2 + $$naik_3) / 3;
+    $mean = 'mean_' . $value;
+    $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
 
     // mean terkoreksi
-    $mean_terkoreksi = 'mean_terkoreksi_' . $value . '_naik';
-    $$mean_terkoreksi = $data_sertifikat->intercept_naik + $data_sertifikat->x_variable_naik * $$mean;
+    $mean_terkoreksi = 'mean_terkoreksi_' . $value;
+    $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->x_variable * $$mean;
 
     // stdev
-    $arrNaik = [];
-    array_push($arrNaik, $$naik_1, $$naik_2, $$naik_3);
-    $stdev = standard_deviation($arrNaik);
-    $var_stdev = 'stdev' . $value . '_naik';
+    $arrData = [];
+    array_push($arrData, $$a, $$b, $$c, $$d, $$e, $$f);
+    $stdev = standard_deviation($arrData);
+    $var_stdev = 'stdev' . $value;
     $$var_stdev = $stdev;
 
     // koreksi
-    $koreksi = 'koreksi_' . $value . '_naik';
-    $$koreksi = $$mean_terkoreksi + $value;
+    $koreksi = 'koreksi_' . $value;
+    $$koreksi = $$mean_terkoreksi - $value;
 
     // U95
     $u95 = 'u95' . $value . '_naik';
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat->uc, $data_sertifikat->drift50_naik, 3);
+    $drift = 'drift_' . $value;
+    if ($value == 1000) {
+        $uc = $data_sertifikat->u1000;
+    } elseif ($value == 2000 || $value == 3000 || $value == 4000) {
+        $uc = $data_sertifikat->u5000;
+    }
+    // U95
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $uc, $data_sertifikat->$drift, 6);
 
     // cu95
-    $cu95 = 'abs95' . $value . '_naik';
-    $$cu95 = abs($$koreksi) + $$u95;
+    $cu95 = 'abs95' . $value;
+    $$cu95 = abs($$koreksi) + abs($$u95);
 
     // toleransi
-    $toleransi = 'toleransi' . $value . '_naik';
+    $toleransi = 'toleransi' . $value;
     $$toleransi = 0.1 * $value;
 
     // hasil
-    $hasil = 'hasil' . $value . '_naik';
+    $hasil = 'hasil' . $value;
     $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
-        $initScoreNaik = $initScoreNaik + 1;
+        $initScore = $initScore + 1;
     }
+
     $data = [
-        'percobaan_1' => $$naik_1,
-        'percobaan_2' => $$naik_2,
-        'percobaan_3' => $$naik_3,
+        'percobaan_1' => $$a,
+        'percobaan_2' => $$b,
+        'percobaan_3' => $$c,
+        'percobaan_4' => $$d,
+        'percobaan_5' => $$e,
+        'percobaan_6' => $$f,
         'mean' => $$mean,
         'mean_terkoreksi' => $$mean_terkoreksi,
         'stdev' => $$var_stdev,
         'koreksi' => $$koreksi,
         'u95' => $$u95,
         'cu95' => $$cu95,
-        'toleransi' => $$toleransi,
+        'tol' => $$toleransi,
         'hasil' => $$hasil,
     ];
-    $myArrayNaik[$value] = $data;
-    $arrNaik = [];
+    $myArray[$value] = $data;
+    $arrData = [];
 }
 
-foreach ($arr as $value) {
-    $turun_1 = 'percobaan' . $value . '_1_turun';
-    $a = 'percobaan' . $value . '_1_turun';
-    $$turun_1 = $data_laporan->$a;
+foreach ($arrString as $value) {
+    // 1000
+    $a = $value . '_1';
+    $$a = $data_laporan->$a;
 
-    $turun_2 = 'percobaan' . $value . '_2_turun';
-    $b = 'percobaan' . $value . '_2_turun';
-    $$turun_2 = $data_laporan->$b;
+    $b = $value . '_2';
+    $$b = $data_laporan->$b;
 
-    $turun_3 = 'percobaan' . $value . '_3_turun';
-    $c = 'percobaan' . $value . '_3_turun';
-    $$turun_3 = $data_laporan->$c;
+    $c = $value . '_3';
+    $$c = $data_laporan->$c;
+
+    $d = $value . '_4';
+    $$d = $data_laporan->$d;
+
+    $e = $value . '_5';
+    $$e = $data_laporan->$e;
+
+    $f = $value . '_6';
+    $$f = $data_laporan->$f;
 
     // mean
-    $mean = 'mean_' . $value . '_turun';
-    $$mean = ($$turun_1 + $$turun_2 + $$turun_3) / 3;
+    $mean = 'mean_' . $value;
+    $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
 
     // mean terkoreksi
-    $mean_terkoreksi = 'mean_terkoreksi_' . $value . '_turun';
-    $$mean_terkoreksi = $data_sertifikat->intercept_turun + $data_sertifikat->x_variable_turun * $$mean;
+    $mean_terkoreksi = 'mean_terkoreksi_' . $value;
+    $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->x_variable * $$mean;
 
     // stdev
-    $arrTurun = [];
-    array_push($arrTurun, $$turun_1, $$turun_2, $$turun_3);
-    $stdev = standard_deviation($arrTurun);
-    $var_stdev = 'stdev' . $value . '_turun';
+    $arrData = [];
+    array_push($arrData, $$a, $$b, $$c, $$d, $$e, $$f);
+    $stdev = standard_deviation($arrData);
+    $var_stdev = 'stdev' . $value;
+    $$var_stdev = $stdev;
+
+    // U95
+    $u95 = 'u95' . $value . '_naik';
+    $drift = 'drift_' . $value;
+
+    if ($value == 'min') {
+        $drift = 'drift_1000';
+    } elseif ($value == 'medium') {
+        $drift = 'drift_3000';
+    } elseif ($value == 'max') {
+        $drift = 'drift_4000';
+    }
+    if ($value == 'min') {
+        $uc = $data_sertifikat->u1000;
+    } elseif ($value == 'medium' || $value == 'max') {
+        $uc = $data_sertifikat->u5000;
+    }
+    // U95
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $uc, $data_sertifikat->$drift, 6);
+
+    // toleransi
+    $toleransi = 'toleransi' . $value;
+    $$toleransi = 0.1 * $$mean;
+
+    // hasil
+    $hasil = 'hasil' . $value;
+    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
+    if ($$hasil == 'Lulus') {
+        $initScoreString = $initScoreString + 1;
+    }
+
+    $data = [
+        'percobaan_1' => $$a,
+        'percobaan_2' => $$b,
+        'percobaan_3' => $$c,
+        'percobaan_4' => $$d,
+        'percobaan_5' => $$e,
+        'percobaan_6' => $$f,
+        'mean' => $$mean,
+        'mean_terkoreksi' => $$mean_terkoreksi,
+        'stdev' => $$var_stdev,
+        'koreksi' => '',
+        'u95' => $$u95,
+        'cu95' => '',
+        'tol' => $$toleransi,
+        'hasil' => $$hasil,
+    ];
+    $myArrayString[$value] = $data;
+    $arrDataString = [];
+}
+
+// kinerja waktu
+$kinerja_waktu = DB::table('laporan_kinerja')
+    ->where('type_laporan_kinerja', 'kinerja_waktu')
+    ->where('no_laporan', $laporan->no_laporan)
+    ->first();
+$data_sertifikat_digital = json_decode($kinerja_waktu->data_sertifikat);
+$data_laporan = json_decode($kinerja_waktu->data_laporan);
+
+$arr = [300];
+$myArrayWaktu = [];
+$initScoreWaktu = 0;
+
+foreach ($arr as $value) {
+    // 1000
+    $a = 'second_1';
+    $$a = $data_laporan->$a;
+
+    $b = 'second_2';
+    $$b = $data_laporan->$b;
+
+    $c = 'second_3';
+    $$c = $data_laporan->$c;
+
+    // mean
+    $mean = 'mean_' . $value;
+    $$mean = ($$a + $$b + $$c) / 3;
+
+    // mean terkoreksi
+    $mean_terkoreksi = 'mean_terkoreksi_' . $value;
+    $$mean_terkoreksi = $data_sertifikat_digital->intercept + $data_sertifikat_digital->x_variable * $$mean;
+
+    // stdev
+    $arrDataWaktu = [];
+    array_push($arrDataWaktu, $$a, $$b, $$c);
+    $stdev = standard_deviation($arrDataWaktu);
+    $var_stdev = 'stdev' . $value;
     $$var_stdev = $stdev;
 
     // koreksi
-    $koreksi = 'koreksi_' . $value . '_turun';
-    $$koreksi = $$mean_terkoreksi + $value;
+    $koreksi = 'koreksi_' . $value;
+    $$koreksi = $$mean_terkoreksi - $value;
 
     // U95
-    $u95 = 'u95' . $value . '_turun';
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat->uc, $data_sertifikat->drift50_turun, 3);
+    $u95 = 'u95' . $value . '_naik';
+    $drift = 'drift_' . $value;
+    $uc = $data_sertifikat_digital->u;
+    // U95
+    $$u95 = hitung_uncertainty(0.01, $$var_stdev, $uc, $data_sertifikat_digital->$drift, 3);
 
     // cu95
-    $cu95 = 'abs95' . $value . '_turun';
-    $$cu95 = abs($$koreksi) + $$u95;
+    $cu95 = 'abs95' . $value;
+    $$cu95 = abs($$koreksi) + abs($$u95);
 
-    // cu95
-    $toleransi = 'toleransi' . $value . '_turun';
+    // toleransi
+    $toleransi = 'toleransi' . $value;
     $$toleransi = 0.1 * $value;
 
     // hasil
-    $hasil = 'hasil' . $value . '_turun';
+    $hasil = 'hasil' . $value;
     $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
-        $initScoreTurun = $initScoreTurun + 1;
+        $initScore = $initScore + 1;
     }
+
     $data = [
-        'percobaan_1' => $$turun_1,
-        'percobaan_2' => $$turun_2,
-        'percobaan_3' => $$turun_3,
+        'percobaan_1' => $$a,
+        'percobaan_2' => $$b,
+        'percobaan_3' => $$c,
         'mean' => $$mean,
         'mean_terkoreksi' => $$mean_terkoreksi,
         'stdev' => $$var_stdev,
         'koreksi' => $$koreksi,
         'u95' => $$u95,
         'cu95' => $$cu95,
-        'toleransi' => $$toleransi,
+        'tol' => $$toleransi,
         'hasil' => $$hasil,
     ];
-    $myArrayTurun[$value] = $data;
-    $arrTurun = [];
+    $myArrayWaktu[$value] = $data;
+    $arrDataWaktu = [];
 }
 
-// MAX
-$meanMax = ($data_laporan->max1 + $data_laporan->max2 + $data_laporan->max3) / 3;
-$mean_terkoreksi_max = $data_sertifikat->intercept_naik + $data_sertifikat->x_variable_naik * $meanMax;
-$arrMax = [];
-array_push($arrMax, $data_laporan->max1, $data_laporan->max2, $data_laporan->max3);
-$stdevMax = standard_deviation($arrMax);
-$koreksi_max = $mean_terkoreksi_max - $data_laporan->nilai_max;
-$u95_max = hitung_uncertainty($resolusi->value, $stdevMax, $data_sertifikat->uc, $data_sertifikat->drift350_naik, 3);
-$cu95_max = abs($koreksi_max) + $u95_max;
-$toleransi_max = 0.1 * $data_laporan->nilai_max;
-$hasil_max = $cu95_max <= $toleransi ? 'Lulus' : 'Tidak';
-$score_max = $hasil_max == 'Lulus' ? 100 : 0;
+$score = (($initScore / 4) * 100) / 2;
+$scoreString = (($initScoreString / 3) * 100) / 2;
+
+$persyaratan = $score >= 50 ? 'Lulus' : 'Tidak';
+$persyaratanString = $scoreString >= 50 ? 'Lulus' : 'Tidak';
 
 ?>
-
-@php
-    // dd($myArrayNaik);
-    $scoreNaik = ($initScoreNaik / $pembagi) * 100;
-    $scoreTurun = ($initScoreTurun / $pembagi) * 100;
-    $persyaratan = ($scoreNaik + $scoreTurun) / 2 > 70 ? 'Lulus' : 'Tidak';
-    $scoreKinerja = ($scoreNaik + $scoreTurun + $score_max) / 6;
-    $totalAll = $score_fisik + $point + $scoreKinerja;
-@endphp
-
-<p style="font-size: 11px;margin-left:18px"><b>VACCUM</b></p>
+<p style="font-size: 11px;margin-left:18px"><b>KINERJA PUTARAN</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
     <thead>
         <tr>
-            <th style="text-align: center;vertical-align: middle;">Skala Vaccum</th>
-            <th colspan="3" style="text-align: center;vertical-align: middle;">Penunjukan Standar</th>
+            <th rowspan="2"style="text-align: center;vertical-align: middle;">Setting <br> (RPM)</th>
+            <th colspan="6" style="text-align: center;vertical-align: middle;">Terukur Pada Standar (RPM)</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdv</th>
@@ -409,70 +510,79 @@ $score_max = $hasil_max == 'Lulus' ? 100 : 0;
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Persyaratan</th>
         </tr>
         <tr>
-            <th style="text-align: center;vertical-align: middle;">mmHg</th>
             <th style="text-align: center;vertical-align: middle;">1</th>
             <th style="text-align: center;vertical-align: middle;">2</th>
             <th style="text-align: center;vertical-align: middle;">3</th>
+            <th style="text-align: center;vertical-align: middle;">4</th>
+            <th style="text-align: center;vertical-align: middle;">5</th>
+            <th style="text-align: center;vertical-align: middle;">6</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td colspan="13" style="text-align: center;vertical-align: middle;background-color:grey"><b>Naik</b>
-            </td>
-            <td rowspan="14" style="text-align: center;vertical-align: middle">{{ $persyaratan }}</td>
-        </tr>
-        @foreach ($myArrayNaik as $key => $value)
+        @foreach ($myArray as $key => $value)
             <tr>
-                <td>-{{ $key }}</td>
+                <td>{{ $key }}</td>
                 <td>{{ $value['percobaan_1'] }}</td>
                 <td>{{ $value['percobaan_2'] }}</td>
                 <td>{{ $value['percobaan_3'] }}</td>
+                <td>{{ $value['percobaan_4'] }}</td>
+                <td>{{ $value['percobaan_5'] }}</td>
+                <td>{{ $value['percobaan_6'] }}</td>
                 <td>{{ round($value['mean'], 2) }}</td>
                 <td>{{ round($value['mean_terkoreksi'], 2) }}</td>
                 <td>{{ round($value['stdev'], 2) }}</td>
                 <td>{{ round($value['koreksi'], 2) }}</td>
                 <td>{{ round($value['u95'], 2) }}</td>
                 <td>{{ round($value['cu95'], 2) }}</td>
-                <td>- {{ $value['toleransi'] }}</td>
+                <td>{{ round($value['tol'], 2) }}</td>
                 <td>{{ $value['hasil'] }}</td>
-                @if ($key == 100)
-                    <td style="text-align: center;vertical-align: middle;" rowspan="6">{{ $scoreNaik }}</td>
+                @if ($key == 1000)
+                    <td style="text-align: center;vertical-align: middle;" rowspan="4">{{ $score }}</td>
+                    <td style="text-align: center;vertical-align: middle;" rowspan="4">{{ $persyaratan }}</td>
                 @endif
+
             </tr>
         @endforeach
         <tr>
-            <td colspan="13" style="text-align: center;vertical-align: middle;background-color:grey"><b>Turun</b>
-            </td>
+            <td colspan="17" style="text-align: center;vertical-align: middle;background-color: grey">Bila pada
+                setting kecepatan tidak terdapat / tertera nilai angka kecepatan putaran</td>
         </tr>
-        @foreach ($myArrayTurun as $key => $value)
+        @foreach ($myArrayString as $key => $value)
             <tr>
-                <td>-{{ $key }}</td>
+                <td>{{ $key }}</td>
                 <td>{{ $value['percobaan_1'] }}</td>
                 <td>{{ $value['percobaan_2'] }}</td>
                 <td>{{ $value['percobaan_3'] }}</td>
+                <td>{{ $value['percobaan_4'] }}</td>
+                <td>{{ $value['percobaan_5'] }}</td>
+                <td>{{ $value['percobaan_6'] }}</td>
                 <td>{{ round($value['mean'], 2) }}</td>
                 <td>{{ round($value['mean_terkoreksi'], 2) }}</td>
                 <td>{{ round($value['stdev'], 2) }}</td>
-                <td>{{ round($value['koreksi'], 2) }}</td>
+                <td>{{ $value['koreksi'] }}</td>
                 <td>{{ round($value['u95'], 2) }}</td>
-                <td>{{ round($value['cu95'], 2) }}</td>
-                <td>- {{ $value['toleransi'] }}</td>
+                <td>{{ $value['cu95'] }}</td>
+                <td>{{ round($value['tol'], 2) }}</td>
                 <td>{{ $value['hasil'] }}</td>
-                @if ($key == 100)
-                    <td style="text-align: center;vertical-align: middle;" rowspan="6">{{ $scoreTurun }}</td>
+                @if ($key == 'min')
+                    <td style="text-align: center;vertical-align: middle;" rowspan="4">{{ $scoreString }}</td>
+                    <td style="text-align: center;vertical-align: middle;" rowspan="4">{{ $persyaratanString }}
+                    </td>
                 @endif
             </tr>
         @endforeach
     </tbody>
 </table>
+{{-- <p style="margin-left: 18px; font-size:10px">* Biasanya tertera pada label / dibelakang alat centrifuge dekat kabel power</p> --}}
 
-<p style="font-size: 11px;margin-left:18px"><b>Nilai Max : {{ $data_laporan->nilai_max }} mmHg </b></p>
+<p style="font-size: 11px;margin-left:18px"><b>KINERJA WAKTU</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
     <thead>
         <tr>
-            <th style="text-align: center;vertical-align: middle;">Skala Vaccum</th>
-            <th colspan="3" style="text-align: center;vertical-align: middle;">Penunjukan Standar</th>
+            <th rowspan="2"style="text-align: center;vertical-align: middle;">Setting <br> (Detik)</th>
+            <th colspan="6" style="text-align: center;vertical-align: middle;">Terukur Pada Standar (Menit / Detik)
+            </th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdv</th>
@@ -485,144 +595,29 @@ $score_max = $hasil_max == 'Lulus' ? 100 : 0;
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Persyaratan</th>
         </tr>
         <tr>
-            <th style="text-align: center;vertical-align: middle;">mmHg</th>
-            <th style="text-align: center;vertical-align: middle;">1</th>
-            <th style="text-align: center;vertical-align: middle;">2</th>
-            <th style="text-align: center;vertical-align: middle;">3</th>
+            <th colspan="2" style="text-align: center;vertical-align: middle;">1</th>
+            <th colspan="2" style="text-align: center;vertical-align: middle;">2</th>
+            <th colspan="2" style="text-align: center;vertical-align: middle;">3</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>MAX</td>
-            <td>{{ $data_laporan->max1 }}</td>
-            <td>{{ $data_laporan->max2 }}</td>
-            <td>{{ $data_laporan->max3 }}</td>
-            <td>{{ round($meanMax, 2) }}</td>
-            <td>{{ round($mean_terkoreksi_max, 2) }}</td>
-            <td>{{ round($stdevMax, 2) }}</td>
-            <td>{{ round($koreksi_max, 2) }}</td>
-            <td>{{ round($u95_max, 2) }}</td>
-            <td>{{ round($cu95_max, 2) }}</td>
-            <td>{{ round($toleransi_max, 2) }}</td>
-            <td>{{ $hasil_max }}</td>
-            <td>{{ $score_max }}</td>
-            <td>{{ $hasil_max }}</td>
-        </tr>
-    </tbody>
-</table>
-
-{{-- telaah_teknis --}}
-<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
-        TEKNIS</b></p>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        @forelse ($laporan_telaah_teknis as $row)
+        @foreach ($myArrayWaktu as $key => $value)
             <tr>
-                <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
-                <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
-                <td>
-                    <div class="form-group" style="margin: 0px">
-                        <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
-                        <label>Baik</label>
-                    </div>
-                    <div class="form-group" style="margin: 0px">
-                        <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
-                        <label>Tidak Baik</label>
-                    </div>
-                </td>
+                <td>{{ $key }}</td>
+                <td colspan="2">{{ $value['percobaan_1'] }}</td>
+                <td colspan="2">{{ $value['percobaan_2'] }}</td>
+                <td colspan="2">{{ $value['percobaan_3'] }}</td>
+                <td>{{ round($value['mean'], 2) }}</td>
+                <td>{{ round($value['mean_terkoreksi'], 2) }}</td>
+                <td>{{ round($value['stdev'], 2) }}</td>
+                <td>{{ round($value['koreksi'], 2) }}</td>
+                <td>{{ round($value['u95'], 2) }}</td>
+                <td>{{ round($value['cu95'], 2) }}</td>
+                <td>{{ round($value['tol'], 2) }}</td>
+                <td>{{ $value['hasil'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $score }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $persyaratan }}</td>
             </tr>
-        @empty
-            <tr>
-                <td style="text-align: center;">-</td>
-                <td style="text-align: center;">-</td>
-                <td style="text-align: center;">-</td>
-            </tr>
-        @endforelse
+        @endforeach
     </tbody>
 </table>
-<div class="page_break"></div>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <thead>
-        <tr>
-            <th style="width: 4%;text-align: center;">No</th>
-            <th style="width: 24%;text-align: center;">Parameter</th>
-            <th style="width: 24%;text-align: center;">Skor</th>
-            <th style="width: 24%;text-align: center;">Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: center;">1</td>
-            <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
-            <td style="text-align: center;">{{ $score_fisik }}</td>
-            <td style="text-align: center;vertical-align: middle;" rowspan="3">
-                {{ $totalAll }}
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center;">2</td>
-            <td style="text-align: center;">Pengukuran Keselamatan Listrik
-            </td>
-            <td style="text-align: center;">
-                {{ $point }}
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center;">3</td>
-            <td style="text-align: center;">Hasil Pengukuran Kinerja</td>
-            <td style="text-align: center;">
-                {{ $scoreKinerja}}
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        <tr>
-            <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
-        </tr>
-    </tbody>
-</table>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        <tr>
-            <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
-                hasil kalibrasi, alat ini dinyatakan </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;">
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $totalAll >= 70 ? 'checked' : '' }}>
-                    <label><b style="font-size: 12px">LAIK PAKAI</b></label>
-                </div>
-            </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;">
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $totalAll < 70 ? 'checked' : '' }}>
-                    <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
-                </div>
-            </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;"><b style="font-size: 12px">PENYELIA</b>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
-            </td>
-            <td colspan="2" style="text-align: center">
-                <img style="width: 80px;margin-top:5px;margin-bottom:3px"
-                    src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
-                <span>{{ $laporan->nama_teknisi }}</span>
-            </td>
-            <td style="text-align: center">
-                @if (isset($laporan->name_user))
-                    <img style="width: 80px;margin-top:5px;margin-bottom:3px"
-                        src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
-                    <span>{{ $laporan->name_user }}</span>
-                @endif
-            </td>
-        </tr>
-    </tbody>
-</table>
-
