@@ -63,6 +63,12 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="u">{{ __('Uncertainty (U)') }}</label>
+                                        <input type="number" step="0.00000000000000001" name="u" id="u"
+                                            class="form-control" value="" required />
+                                    </div>
+
+                                    {{-- <div class="form-group">
                                         <label for="uc_suhu">{{ __('Uncertainty (U)') }}</label>
                                         <table class="table table-xs table-bordered"
                                             style="text-align: center; vertical-align: middle;">
@@ -123,7 +129,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group">
                                         <label for="uc_suhu">{{ __('Drift') }}</label>

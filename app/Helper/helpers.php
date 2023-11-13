@@ -172,6 +172,67 @@ function hitung_uncertainty($resolusi_uut, $stdev, $uncert, $drift, $n)
     return $ketidakpastian_bentangan;
 }
 
+function hitung_uncertainty2($resolusi_uut, $stdev, $uncert, $drift, $n)
+{
+    // $pembacaan_berulang
+    $stdev = $stdev;
+    $pembagi = sqrt($n); //2.45
+    $v = $n - 1; //5
+    $u = $stdev / $pembagi; // 10.36
+    $c = 1;
+    $uc =  $u * $c; //10.367
+    $uc_1 = $uc * $uc;  //107.475
+    $ucv_1 = ($uc_1 * $uc_1) / $v;
+    // sertifikat Standar
+    $stdev2 = $uncert;
+    $pembagi2 = 2;
+    $v2 = 50;
+    $u2 = $stdev2 / $pembagi2; // 0.325
+    $c2 = 1;
+    $uc2 =  $u2 * $c2; // 0.325
+    $uc_2 = $uc2 * $uc2;  //0.106
+    $ucv_2 = ($uc_2 * $uc_2) / $v2;
+
+    // Drift
+    $stdev3 =  $drift;
+    $pembagi3 = sqrt(3);
+    $v3 = 50;
+    $u3 = $stdev3 / $pembagi3; // 0.006
+    $c3 = 1;
+    $uc3 = $u3 * $c3; // 0.006
+    $uc_3 = $uc3 * $uc3;  // 0
+    $ucv_3 = ($uc_3 * $uc_3) / $v3;
+
+    // Resolusi UUT
+    $stdev4 = 0.5 * $resolusi_uut;
+    $pembagi4 = sqrt(3);
+    $v4 = 50;
+    $u4 = $stdev4 / $pembagi4; // 2.887
+    $c4 = 1;
+    $uc4 = $u4 * $c4; // 2.887
+    $uc_4 = $uc4 * $uc4;  // 8.335
+    $ucv_4 = ($uc_4 * $uc_4) / $v4;
+    // ==============================================
+
+    // Pembacaan Operator
+    $stdev5 =0.23;
+    $pembagi5 = 1;
+    $v5 = 50;
+    $u5 = $stdev5 / $pembagi5;
+    $c5 = 1;
+    $uc5 = $u5 * $c5;
+    $uc_5 = $uc5 * $uc5;
+    $ucv_5 = ($uc_5 * $uc_5) / $v5;
+
+    $jumlah_uc =  $uc_1  + $uc_2 + $uc_3 + $uc_4 + $uc_5;
+    $jumlah_ucv =  $ucv_1  + $ucv_2 + $ucv_3 + $ucv_4 + $ucv_5;
+    $ketidakpastian_baku_gabungan = sqrt($jumlah_uc);
+    $derajat_kebebasan_efektif = ($ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan * $ketidakpastian_baku_gabungan) /  $jumlah_ucv;
+    $faktor_cakupan = tinv(0.05, floor($derajat_kebebasan_efektif));
+    $ketidakpastian_bentangan = $faktor_cakupan * $ketidakpastian_baku_gabungan;
+    return $ketidakpastian_bentangan;
+}
+
 function tinv($probability, $df)
 {
     $table_t = DB::table('table_t')->where('df', $df)->first();
