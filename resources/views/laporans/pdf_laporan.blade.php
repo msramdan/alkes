@@ -105,6 +105,8 @@
         @include('laporans._pdf_lk_laporan.inkubator_labolatorium')
     @elseif ($nomenklaturs->id == config('nomenklatur.SUCTION_PUMP'))
         @include('laporans._pdf_lk_laporan.score_suction_pump')
+    @elseif ($nomenklaturs->id == config('nomenklatur.CENTRIFUGE'))
+        @include('laporans._pdf_lk_laporan.score_centrifuge')
     @endif
 
 

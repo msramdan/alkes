@@ -104,7 +104,7 @@
         @include('laporans._pdf_lk_scorsing.inkubator_labolatorium')
     @elseif ($nomenklaturs->id == config('nomenklatur.SUCTION_PUMP'))
         @include('laporans._pdf_lk_scorsing.score_suction_pump')
-    @elseif ($nomenklaturs->id == config('nomenklatur.CONTACT_TACHOMETER'))
+    @elseif ($nomenklaturs->id == config('nomenklatur.CENTRIFUGE'))
         @include('laporans._pdf_lk_scorsing.score_centrifuge')
     @endif
 
