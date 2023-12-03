@@ -211,6 +211,8 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
         } else if ($data->jenis_alat_id == 5) {
             return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == config('type_inventaris.FETAL_SIMULATOR')) {
+            return view('inventaris.sertifikat.FetalSimulator', compact('data'));
         } else if ($data->jenis_alat_id == 22) {
             return view('inventaris.sertifikat.ContactTachometer', compact('data'));
         } else if ($data->jenis_alat_id == 37) {
@@ -371,6 +373,14 @@ class InventariController extends Controller
                 'drift50_2' => $request->drift50_2,
                 'drift100_2' => $request->drift100_2,
                 'drift500_2' => $request->drift500_2,
+            ];
+        }else if($data->jenis_alat_id == config('type_inventaris.FETAL_SIMULATOR')){
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope' => $request->slope,
+                'intercept' => $request->intercept,
+                'uc' => $request->uc,
             ];
         }
         DB::table('sertifikat_inventaris')->insert(
