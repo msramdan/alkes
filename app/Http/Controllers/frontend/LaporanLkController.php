@@ -285,7 +285,7 @@ class LaporanLkController extends Controller
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'heart_rate',
-                    'data_laporan' => kinerja_waktu($request),
+                    'data_laporan' => heart_rate($request),
                     'data_sertifikat' => $fetalSimulator->data,
                 ]);
             } else if ($request->nomenklatur_id == config('nomenklatur.FETAL_DOPPLER')) {
@@ -293,7 +293,7 @@ class LaporanLkController extends Controller
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'heart_rate',
-                    'data_laporan' => kinerja_waktu($request),
+                    'data_laporan' => heart_rate($request),
                     'data_sertifikat' => $fetalSimulator->data,
                 ]);
             }

@@ -539,3 +539,47 @@ function kinerja_waktu($request)
     ];
     return json_encode($data_laporan);
 }
+
+
+function heart_rate($request)
+{
+    $data_laporan = [
+        'percobaan60_1' => $request->percobaan60_1,
+        'percobaan60_2' => $request->percobaan60_2,
+        'percobaan60_3' => $request->percobaan60_3,
+        'percobaan60_4' => $request->percobaan60_4,
+        'percobaan60_5' => $request->percobaan60_5,
+        'percobaan60_6' => $request->percobaan60_6,
+        'percobaan90_1' => $request->percobaan90_1,
+        'percobaan90_2' => $request->percobaan90_2,
+        'percobaan90_3' => $request->percobaan90_3,
+        'percobaan90_4' => $request->percobaan90_4,
+        'percobaan90_5' => $request->percobaan90_5,
+        'percobaan90_6' => $request->percobaan90_6,
+        'percobaan120_1' => $request->percobaan120_1,
+        'percobaan120_2' => $request->percobaan120_2,
+        'percobaan120_3' => $request->percobaan120_3,
+        'percobaan120_4' => $request->percobaan120_4,
+        'percobaan120_5' => $request->percobaan120_5,
+        'percobaan120_6' => $request->percobaan120_6,
+        'percobaan150_1' => $request->percobaan150_1,
+        'percobaan150_2' => $request->percobaan150_2,
+        'percobaan150_3' => $request->percobaan150_3,
+        'percobaan150_4' => $request->percobaan150_4,
+        'percobaan150_5' => $request->percobaan150_5,
+        'percobaan150_6' => $request->percobaan150_6,
+        'percobaan180_1' => $request->percobaan180_1,
+        'percobaan180_2' => $request->percobaan180_2,
+        'percobaan180_3' => $request->percobaan180_3,
+        'percobaan180_4' => $request->percobaan180_4,
+        'percobaan180_5' => $request->percobaan180_5,
+        'percobaan180_6' => $request->percobaan180_6,
+        'percobaan210_1' => $request->percobaan210_1,
+        'percobaan210_2' => $request->percobaan210_2,
+        'percobaan210_3' => $request->percobaan210_3,
+        'percobaan210_4' => $request->percobaan210_4,
+        'percobaan210_5' => $request->percobaan210_5,
+        'percobaan210_6' => $request->percobaan210_6,
+    ];
+    return json_encode($data_laporan);
+}
