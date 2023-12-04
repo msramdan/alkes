@@ -1,9 +1,3 @@
-<style>
-    .page_break {
-        page-break-before: always;
-    }
-</style>
-
 <p style="font-size: 14px"><b>D. PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
@@ -11,38 +5,31 @@
         <tr>
             <th style="width: 4%;text-align: center;">No</th>
             <th style="width: 24%;text-align: center;">Bagian Alat</th>
+            <th style="width: 52%;text-align: center;">Hasil Pemeriksaan</th>
             <th style="width: 20%;text-align: center;">Hasil Pengamatan</th>
-            <th style="width: 20%;text-align: center;">Skorsing</th>
-            <th style="width: 20%;text-align: center;">Pernyataan Penilaian
-            </th>
         </tr>
     </thead>
     <tbody>
-        <?php
-            $i =1;
-            foreach ($kondisi_fisik_fungsi as $row) { ?>
-        <tr>
-            <td>{{ $i++ }}</td>
-            <td style="text-align: justify">{{ $row->field_parameter_fisik_fungsi }}</td>
-            <td style="text-align: justify"> <b>{{ $row->value == 'baik' ? 'Baik' : 'Tidak Baik' }}</b> </td>
-            <?php if ($i == 2) { ?>
-            <td rowspan="{{ $count_kondisi_fisik_fungsi }}"
-                style="width: 20%;text-align: center;vertical-align: middle;"><b> {{ $score_fisik }} </b> </td>
-            <td rowspan="{{ $count_kondisi_fisik_fungsi }}"
-                style="width: 20%;text-align: center;vertical-align: middle;">
-                <b>{{ $score_fisik >= 7 ? 'Baik' : 'Tidak Baik' }}</b>
-            </td>
-            <?php } ?>
-        </tr>
-        <?php } ?>
+        @forelse ($kondisi_fisik_fungsi as $row)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td style="text-align: justify">{{ $row->field_parameter_fisik_fungsi }}</td>
+                <td style="text-align: justify">{{ $row->field_batas_pemeriksaan }}</td>
+                <td style="text-align: justify"> <b>{{ $row->value == 'baik' ? 'Baik' : 'Tidak Baik' }}</b> </td>
+            </tr>
+        @empty
+            <tr>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+            </tr>
+        @endforelse
     </tbody>
 </table>
-
-{{-- pengukuran_keselamatan_listrik --}}
 @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
     $cek = json_decode(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->data_sertifikat);
-
     $hitungPhaseNetral = round($cek->intercept1 + $cek->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
 
     $hitungPhaseGround = round($cek->intercept3 + $cek->x_variable3 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value, 2);
@@ -80,19 +67,16 @@
 
     $point = round(($lulus / 7) * 40);
     ?>
-    <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b> </p>
+
+    <p style="font-size: 14px"><b>E. PENGUKURAN KESELAMATAN LISTRIK</b></p>
     <table class="table table-bordered table-sm"
         style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
         <thead>
             <tr>
-                <th style="width: 5%;text-align: center;">No</th>
-                <th colspan="2" style="width: 30%;text-align: center;">Parameter</th>
-                <th style="width: 10%;text-align: center;">Terukur</th>
-                <th style="width: 15%;text-align: center;">Ambang Batas</th>
-                <th style="width: 8%;text-align: center;">Koreksi sertifikat</th>
-                <th style="width: 10%;text-align: center;">Hasil</th>
-                <th style="width: 8%;text-align: center;">Skorsing</th>
-                <th style="width: 8%;text-align: center;">Pernyataan Penilaian</th>
+                <th style="width: 4%;text-align: center;">No</th>
+                <th colspan="2" style="width: 24%;text-align: center;">Parameter</th>
+                <th style="width: 20%;text-align: center;">Terukur</th>
+                <th style="width: 20%;text-align: center;">Ambang Batas</th>
             </tr>
         </thead>
         <tbody>
@@ -105,22 +89,14 @@
                     Vac</td>
                 <td style="text-align: justify">220 ± 10% Vac
                 </td>
-                <td style="text-align: justify">
-                    {{ $hitungPhaseNetral }}
-                </td>
-                <td style="text-align: justify">{{ $hitungPhaseNetral > 198 ? 'Lulus' : 'Tidak Lulus' }}</td>
-                <td style="text-align: center;vertical-align: middle;" rowspan="9"> {{ $point }} </td>
-                <td style="text-align: center;vertical-align: middle;" rowspan="9">
-                    {{ $point < 40 ? 'Tidak Aman' : 'Aman' }}</td>
             </tr>
             <tr>
                 <td style="text-align: justify">Phase - Ground</td>
                 <td style="text-align: justify">
                     {{ get_data_litsrik($laporan->no_laporan, 'slug', 'phase-ground')->value }}
                     Vac</td>
-                <td style="text-align: justify">220 ± 10% Vac</td>
-                <td style="text-align: justify"> {{ $hitungPhaseGround }}</td>
-                <td style="text-align: justify">{{ $hitungPhaseGround > 198 ? 'Lulus' : 'Tidak Lulus' }}</td>
+                <td style="text-align: justify">220 ± 10% Vac
+                </td>
             </tr>
             <tr>
                 <td style="text-align: justify">Ground - Netral</td>
@@ -130,87 +106,63 @@
                 <td style="text-align: justify"><img src="../public/asset/kurang.png"
                         style="width: 6px; margin-top:3px"> 5 Vac
                 </td>
-                <td style="text-align: justify"> {{ $hitungGroundNetral }}</td>
-                <td style="text-align: justify">{{ $hitungGroundNetral < 5 ? 'Lulus' : 'Tidak Lulus' }}</td>
             </tr>
             <tr>
                 <td rowspan="3">2</td>
                 <td colspan="2" style="text-align: justify">Resistansi pembumian protektif</td>
-                <td colspan="4" style="text-align: justify;background-color: gray"></td>
+                <td colspan="2" style="text-align: justify;background-color: gray"></td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: justify">Kabel dapat dilepas (DPS)</td>
                 <td style="text-align: justify;">
-                    {{ $dps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-dapat-dilepas-dps')->value }} <img
+                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                 </td>
                 <td style="text-align: justify;"><img src="../public/asset/kurang.png"
-                        style="width: 6px; margin-top:3px"> 0.2 <img src="../public/asset/ohm.png"
+                        style="width: 6px; margin-top:3px"> 200 m<img src="../public/asset/ohm.png"
                         style="width: 10px; margin-top:3px">
-                </td>
-                <td style="text-align: justify">
-                    {{ $dps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
-                </td>
-                <td style="text-align: justify">
-                    {{ $dps <= 0.2 ? 'Lulus' : 'Tidak Lulus' }}
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: justify">Kabel tidak dapat dilepas (NPS)</td>
                 <td style="text-align: justify;">
-                    {{ $nps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
+                    {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kabel-tidak-dapat-dilepas-nps')->value }}
+                    <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
                 </td>
                 <td style="text-align: justify;"><img src="../public/asset/kurang.png"
-                        style="width: 6px; margin-top:3px"> 0.3 <img src="../public/asset/ohm.png"
+                        style="width: 6px; margin-top:3px"> 300 m<img src="../public/asset/ohm.png"
                         style="width: 10px; margin-top:4px">
-                </td>
-                <td style="text-align: justify">
-                    {{ $nps }} <img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
-                </td>
-                <td style="text-align: justify">
-                    {{ $nps <= 0.3 ? 'Lulus' : 'Tidak Lulus' }}
                 </td>
             </tr>
             <tr>
                 <td>3</td>
                 <td colspan="2" style="text-align: justify">Resistansi isolasi</td>
                 <td style="text-align: justify">
-                    {{ $isolasi }} M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
-                </td>
-                <td style="text-align: justify">> 2 M<img src="../public/asset/ohm.png"
+                    {{ get_data_litsrik($laporan->no_laporan, 'slug', 'resistansi-isolasi')->value }} M<img
+                        src="../public/asset/ohm.png" style="width: 10px; margin-top:3px"></td>
+                <td style="text-align: justify">> 2<img src="../public/asset/ohm.png"
                         style="width: 10px; margin-top:3px">
 
-                </td>
-                <td style="text-align: justify">
-                    {{ $isolasi }} M<img src="../public/asset/ohm.png" style="width: 10px; margin-top:3px">
-                </td>
-                <td style="text-align: justify">
-                    {{ $isolasi > 2 ? 'Lulus' : 'Tidak Lulus' }}
                 </td>
             </tr>
             <tr>
                 <td rowspan="2">4</td>
-                <td colspan="2" style="text-align: justify">Arus Bocor Pada peralatan
+                <td colspan="2" style="text-align: justify">Arus bocor peralatan metode langsung/diferensial
                 </td>
-                <td colspan="4" style="text-align: justify;background-color: gray"></td>
+                <td colspan="2" style="text-align: justify;background-color: gray"></td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: justify">Kelas I tipe B/BF/CF</td>
                 <td style="text-align: justify;">
-                    {{ $bf }} µA
+                    {{ get_data_litsrik($laporan->no_laporan, 'slug', 'kelas-i-tipe-bbfcf')->value }} µA
                 </td>
                 <td style="text-align: justify;"><img src="../public/asset/kurang.png"
                         style="width: 6px; margin-top:3px"> 500 µA
-                </td>
-                <td style="text-align: justify">
-                    {{ $bf }} µA</td>
-                <td style="text-align: justify">
-                    {{ $bf <= 500 ? 'Lulus' : 'Tidak Lulus' }}
                 </td>
             </tr>
         </tbody>
     </table>
 @endif
-
 
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')
@@ -330,16 +282,7 @@ if($score < 70){
             <th rowspan="2"style="text-align: center;vertical-align: middle;">Setting <br> (RPM)</th>
             <th colspan="6" style="text-align: center;vertical-align: middle;">Terukur Pada Standar (RPM)</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean <br>
-                Terkoreksi</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdv</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">Koreksi</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">U95</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">C + U95</th>
             <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">Hasil</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">Score</th>
-            <th rowspan="2" style="text-align: center;vertical-align: middle;">Persyaratan</th>
         </tr>
         <tr>
             <th style="text-align: center;vertical-align: middle;">1</th>
@@ -361,17 +304,7 @@ if($score < 70){
                 <td>{{ $value['percobaan_5'] }}</td>
                 <td>{{ $value['percobaan_6'] }}</td>
                 <td>{{ round($value['mean'], 2) }}</td>
-                <td>{{ round($value['mean_terkoreksi'], 2) }}</td>
-                <td>{{ round($value['stdev'], 2) }}</td>
-                <td>{{ round($value['koreksi'], 2) }}</td>
-                <td>{{ round($value['u95'], 2) }}</td>
-                <td>{{ round($value['cu95'], 2) }}</td>
                 <td>{{ round($value['tol'], 2) }}</td>
-                <td>{{ $value['hasil'] }}</td>
-                @if ($key == 60)
-                    <td style="text-align: center;vertical-align: middle;" rowspan="6">{{ $score }}</td>
-                    <td style="text-align: center;vertical-align: middle;" rowspan="6">{{ $persyaratan }}</td>
-                @endif
             </tr>
         @endforeach
     </tbody>
@@ -408,82 +341,60 @@ style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-rig
 </table>
 
 <table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <thead>
-        <tr>
-            <th style="width: 4%;text-align: center;">No</th>
-            <th style="width: 24%;text-align: center;">Parameter</th>
-            <th style="width: 24%;text-align: center;">Skor</th>
-            <th style="width: 24%;text-align: center;">Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: center;">1</td>
-            <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
-            <td style="text-align: center;">{{ $score_fisik }}</td>
-            <td style="text-align: center;vertical-align: middle;" rowspan="3">
-                {{ $totalAll = $score_fisik + $point + $scoreKinerja }}
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center;">2</td>
-            <td style="text-align: center;">PENGUKURAN KESELAMATAN LISTRIK</td>
-            <td style="text-align: center;">{{ $point }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: center;">3</td>
-            <td style="text-align: center;">PENGUKURAN KINERJA</td>
-            <td style="text-align: center;">{{ $scoreKinerja }}</td>
-        </tr>
-    </tbody>
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    <tr>
+        <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
+    </tr>
+</tbody>
 </table>
 
+<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'H' : 'G' }}. KESIMPULAN</b>
+</p>
 <table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        <tr>
-            <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
-        </tr>
-    </tbody>
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    <tr>
+        <td style="height:70px" style="text-align: justify">Berdasarkan Metode Kerja
+            <b>{{ $laporan->no_dokumen }}</b> yang mengacu ke KEPUTUSAN
+            DIREKTUR JENDERAL PELAYANAN KESEHATAN NOMOR : <b>HK.02.02/V/0412/2020</b>, METODE KERJA PENGUJIAN
+            DAN ATAU
+            KALIBRASI ALAT KESEHATAN, KEMENTERIAN KESEHATAN RI. Maka peralatan ini dinyatakan :
+            <?php
+            $totalAll = $score_fisik + $point + $scoreKinerja;
+            ?>
+            <b>ALAT DINYATAKAN <?php echo $totalAll >= 70 ? 'LAIK PAKAI' : 'TIDAK LAIK PAKAI'; ?></b>
+        </td>
+    </tr>
+</tbody>
 </table>
+<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'I' : 'H' }}. SARAN</b></p>
 <table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        <tr>
-            <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
-                hasil kalibrasi, alat ini dinyatakan </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;">
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $totalAll >= 70 ? 'checked' : '' }}>
-                    <label><b style="font-size: 12px">LAIK PAKAI</b></label>
-                </div>
-            </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;">
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $totalAll < 70 ? 'checked' : '' }}>
-                    <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
-                </div>
-            </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;"><b style="font-size: 12px">PENYELIA</b>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
-            </td>
-            <td colspan="2" style="text-align: center">
-                <img style="width: 80px;margin-top:5px;margin-bottom:3px"
-                    src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
-                <span>{{ $laporan->nama_teknisi }}</span>
-            </td>
-            <td style="text-align: center">
-                @if (isset($laporan->name_user))
-                    <img style="width: 80px;margin-top:5px;margin-bottom:3px"
-                        src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
-                    <span>{{ $laporan->name_user }}</span>
-                @endif
-            </td>
-        </tr>
-    </tbody>
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    <tr>
+        <td style="height:30px">Lakukan Pemeliharaan Preventif dan Kalibrasi Ulang Secara Berkala </td>
+    </tr>
+</tbody>
 </table>
-
+<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'J' : 'I' }}. KETERANGAN</b>
+</p>
+<table class="table table-bordered table-sm"
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    <tr>
+        <td style="height:60px">
+            <ul style="margin-left: -25px">
+                <li>Nilai sebenarnya adalah nilai penunjukan alat ditambah nilai koreksi</li>
+                <li>Nilai Ketidakpastian pengukuran dinyatakan pada tingkat kepercayaan 95 %, k = 2</li>
+                <li>Hasil kalibrasi Heart Rate tertelusur ke sistem satuan internasional (SI) melalui Fluke Biomedical
+                </li>
+                <li>Hasil Pengujian Kelistrikan tertelusur ke sistem satuan internasional (SI) melalui
+                    <b>LK-032-IDN</b>
+                </li>
+                <li>Hasil pengujian dan kalibrasi hanya terkait dengan kondisi yang dilaporkan </li>
+            </ul>
+        </td>
+    </tr>
+</tbody>
+</table>
