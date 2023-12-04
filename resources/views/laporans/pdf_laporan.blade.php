@@ -107,6 +107,12 @@
         @include('laporans._pdf_lk_laporan.score_suction_pump')
     @elseif ($nomenklaturs->id == config('nomenklatur.CENTRIFUGE'))
         @include('laporans._pdf_lk_laporan.score_centrifuge')
+    @elseif ($nomenklaturs->id == config('nomenklatur.ELECTROCARDIOGRAPH'))
+        @include('laporans._pdf_lk_laporan.score_electrocardiograph')
+    @elseif ($nomenklaturs->id == config('nomenklatur.CARDIOTOCOGRAPH'))
+        @include('laporans._pdf_lk_laporan.score_cardiotocograph')
+    @elseif ($nomenklaturs->id == config('nomenklatur.FETAL_DOPPLER'))
+        @include('laporans._pdf_lk_laporan.score_fetal_doppler')
     @endif
 
 
