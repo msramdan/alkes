@@ -61,7 +61,7 @@
                                         <p class="sale-price"><i class="fa fa-tag" aria-hidden="true"></i>
                                             Jenis Faskes : {{ $faskesdatas->jenis_faske->nama_jenis_faskes }}</p>
                                         <div class="product-rating"><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            {{ $faskesdatas->kabkot->kabupaten_kota }}
+                                            {{ isset($faskesdatas->kabkot->kabupaten_kota) ? $faskesdatas->kabkot->kabupaten_kota : '' }}
                                         </div>
                                     </div>
                                 </div>
