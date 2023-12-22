@@ -11,4 +11,5 @@ return [
     'ELECTROCARDIOGRAPH' => 16,
     'CARDIOTOCOGRAPH' => 17,
     'FETAL_DOPPLER' => 18,
+    'EXAMINATION_LAMP' => 19,
 ];
