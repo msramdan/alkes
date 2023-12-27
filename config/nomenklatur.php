@@ -12,4 +12,6 @@ return [
     'CARDIOTOCOGRAPH' => 17,
     'FETAL_DOPPLER' => 18,
     'EXAMINATION_LAMP' => 19,
+    'DENTAL_UNIT' => 20,
+    'ROLLER_MIXER' => 21,
 ];

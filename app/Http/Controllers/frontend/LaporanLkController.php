@@ -167,6 +167,12 @@ class LaporanLkController extends Controller
                     if (!$fetalSimulator) {
                         dd('Fetal Simulator belum diisi');
                     }
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.LUX_METER')) {
+                    // get detail Lux Meter
+                    $luxMeter = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$luxMeter) {
+                        dd('Fetal Simulator belum diisi');
+                    }
                 }
                 DB::table('laporan_daftar_alat_ukur')->insert([
                     'no_laporan' => $laporan->no_laporan,
@@ -290,6 +296,28 @@ class LaporanLkController extends Controller
                 ]);
             } else if ($request->nomenklatur_id == config('nomenklatur.FETAL_DOPPLER')) {
                 // HEART RATE
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'heart_rate',
+                    'data_laporan' => heart_rate($request),
+                    'data_sertifikat' => $fetalSimulator->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.DENTAL_UNIT')) {
+                // Intensitas Cahaya
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'intensitas_cahaya',
+                    'data_laporan' => intensitas_cahaya($request),
+                    'data_sertifikat' => $luxMeter->data,
+                ]);
+                // Akurasi Pressure
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'akurasi_pressure',
+                    'data_laporan' => akurasi_pressure($request),
+                    'data_sertifikat' => $sertifikatDpm->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.ROLLER_MIXER')) {
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'heart_rate',

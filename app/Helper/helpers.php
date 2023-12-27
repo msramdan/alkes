@@ -583,3 +583,30 @@ function heart_rate($request)
     ];
     return json_encode($data_laporan);
 }
+
+
+function intensitas_cahaya($request)
+{
+    $data_laporan = [
+        'cahaya_1' => $request->cahaya_1,
+        'cahaya_2' => $request->cahaya_2,
+        'cahaya_3' => $request->cahaya_3,
+        'cahaya_4' => $request->cahaya_4,
+        'cahaya_5' => $request->cahaya_5,
+        'cahaya_6' => $request->cahaya_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function akurasi_pressure($request)
+{
+    $data_laporan = [
+        'pressure_1' => $request->pressure_1,
+        'pressure_2' => $request->pressure_2,
+        'pressure_3' => $request->pressure_3,
+        'pressure_4' => $request->pressure_4,
+        'pressure_5' => $request->pressure_5,
+        'pressure_6' => $request->pressure_6,
+    ];
+    return json_encode($data_laporan);
+}

@@ -221,6 +221,8 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
         } else if ($data->jenis_alat_id == 46) {
             return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == config('type_inventaris.LUX_METER')) {
+            return view('inventaris.sertifikat.LuxMeter', compact('data'));
         }
     }
 
@@ -237,14 +239,6 @@ class InventariController extends Controller
                 'intercept' => $request->intercept,
                 'x_variable' => $request->x_variable,
                 'u' => $request->u,
-                // 'u10' => $request->u10,
-                // 'u20' => $request->u20,
-                // 'u30' => $request->u30,
-                // 'u40' => $request->u40,
-                // 'u50' => $request->u50,
-                // 'u60' => $request->u60,
-                // 'u300' => $request->u300,
-                // 'u600' => $request->u600,
                 'drift_300' => $request->drift_300,
             ];
         } else if ($data->jenis_alat_id == 5) {
@@ -374,7 +368,7 @@ class InventariController extends Controller
                 'drift100_2' => $request->drift100_2,
                 'drift500_2' => $request->drift500_2,
             ];
-        }else if($data->jenis_alat_id == config('type_inventaris.FETAL_SIMULATOR')){
+        } else if ($data->jenis_alat_id == config('type_inventaris.FETAL_SIMULATOR')) {
             $data = [
                 'inventaris_id' => $request->inventaris_id,
                 'tahun' => $request->tahun,
@@ -382,7 +376,15 @@ class InventariController extends Controller
                 'intercept' => $request->intercept,
                 'uc' => $request->uc,
             ];
+        } else if ($data->jenis_alat_id == config('type_inventaris.LUX_METER')) {
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope' => $request->slope,
+                'intercept' => $request->intercept,
+            ];
         }
+
         DB::table('sertifikat_inventaris')->insert(
             [
                 'inventaris_id' => $request->inventaris_id,

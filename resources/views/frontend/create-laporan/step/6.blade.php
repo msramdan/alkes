@@ -31,6 +31,10 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.cardiotocograph')
         @elseif($nomenklatur_id == config('nomenklatur.FETAL_DOPPLER'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.fetal_doppler')
+        @elseif($nomenklatur_id == config('nomenklatur.DENTAL_UNIT'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.dental_unit')
+        @elseif($nomenklatur_id == config('nomenklatur.ROLLER_MIXER'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.roller_mixer')
         @endif
     </form>
 </div>
