@@ -332,6 +332,14 @@ class LaporanLkController extends Controller
                     'data_laporan' => waktu_putaran($request),
                     'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.EXAMINATION_LAMP')) {
+                // Intensitas Cahaya
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'intensitas_cahaya',
+                    'data_laporan' => intensitas_cahaya($request),
+                    'data_sertifikat' => $luxMeter->data,
+                ]);
             }
 
             //Create Laporan Telaah Teknis
@@ -367,13 +375,7 @@ class LaporanLkController extends Controller
             toast('Berhasil membuat data laporan', 'success');
             return redirect()->route('home');
         } catch (\Exception $e) {
-            // Rollback transaksi jika terjadi kesalahan
             DB::rollback();
-
-            // Handle exception atau log pesan kesalahan
-            // ...
-
-            // Redirect atau memberikan respons sesuai kebutuhan
             toast('Gagal membuat data laporan', 'error');
             return redirect()->back()->withInput();
         }
