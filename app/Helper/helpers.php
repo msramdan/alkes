@@ -215,7 +215,7 @@ function hitung_uncertainty2($resolusi_uut, $stdev, $uncert, $drift, $n)
     // ==============================================
 
     // Pembacaan Operator
-    $stdev5 =0.23;
+    $stdev5 = 0.23;
     $pembagi5 = 1;
     $v5 = 50;
     $u5 = $stdev5 / $pembagi5;
@@ -607,6 +607,35 @@ function akurasi_pressure($request)
         'pressure_4' => $request->pressure_4,
         'pressure_5' => $request->pressure_5,
         'pressure_6' => $request->pressure_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function kecepatan_putaran($request)
+{
+    $data_laporan = [
+        'putaran_50_1' => $request->putaran_50_1,
+        'putaran_50_2' => $request->putaran_50_2,
+        'putaran_50_3' => $request->putaran_50_3,
+        'putaran_50_4' => $request->putaran_50_4,
+        'putaran_50_5' => $request->putaran_50_5,
+        'putaran_50_6' => $request->putaran_50_6,
+        'putaran_100_1' => $request->putaran_100_1,
+        'putaran_100_2' => $request->putaran_100_2,
+        'putaran_100_3' => $request->putaran_100_3,
+        'putaran_100_4' => $request->putaran_100_4,
+        'putaran_100_5' => $request->putaran_100_5,
+        'putaran_100_6' => $request->putaran_100_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function waktu_putaran($request)
+{
+    $data_laporan = [
+        'waktu_putaran_1' => $request->waktu_putaran_1,
+        'waktu_putaran_2' => $request->waktu_putaran_2,
+        'waktu_putaran_3' => $request->waktu_putaran_3,
     ];
     return json_encode($data_laporan);
 }

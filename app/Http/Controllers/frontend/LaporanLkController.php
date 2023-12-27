@@ -318,11 +318,19 @@ class LaporanLkController extends Controller
                     'data_sertifikat' => $sertifikatDpm->data,
                 ]);
             } else if ($request->nomenklatur_id == config('nomenklatur.ROLLER_MIXER')) {
+                // KECEPATAN PUTAR
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
-                    'type_laporan_kinerja' => 'heart_rate',
-                    'data_laporan' => heart_rate($request),
-                    'data_sertifikat' => $fetalSimulator->data,
+                    'type_laporan_kinerja' => 'kecepatan_putaran',
+                    'data_laporan' => kecepatan_putaran($request),
+                    'data_sertifikat' => $sertifikatTachometer->data,
+                ]);
+                // WAKTU PUTAR
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'waktu_putaran',
+                    'data_laporan' => waktu_putaran($request),
+                    'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
             }
 

@@ -52,7 +52,7 @@
                     <input type="number" class="form-control" placeholder="" id="administrasi_resolusi"
                         name="administrasi_resolusi" value="" required>
                     <span class="input-group-text" id=""
-                        style="width: 70px">{{ cek_satuan($nomenklatur_id, 'Resolusi') }}</span>
+                        style="width: 100px">{{ cek_satuan($nomenklatur_id, 'Resolusi') }}</span>
                     <div class="valid-feedback">
                         Okay !
                     </div>
