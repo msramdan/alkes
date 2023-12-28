@@ -50,15 +50,6 @@
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
-
-                    <div class="form-check form-check-lg d-flex align-items-end">
-                        <input class="form-check-input me-2" type="checkbox" value="" name="remember" id="remember"
-                            {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label text-gray-600" for="remember">
-                            Keep me logged in
-                        </label>
-                    </div>
-
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3">{{ __('Log in') }}</button>
                 </form>
 

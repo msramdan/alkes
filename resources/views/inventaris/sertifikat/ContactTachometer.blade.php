@@ -120,8 +120,8 @@
                                             style="text-align: center; vertical-align: middle;">
                                             <thead>
                                                 <tr>
-                                                    <th>RPM</th>
                                                     <th>Drift</th>
+                                                    <th>RPM</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

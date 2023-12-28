@@ -223,6 +223,8 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
         } else if ($data->jenis_alat_id == config('type_inventaris.LUX_METER')) {
             return view('inventaris.sertifikat.LuxMeter', compact('data'));
+        } else if ($data->jenis_alat_id == config('type_inventaris.Electrical_Surgery_Analyzer')) {
+            return view('inventaris.sertifikat.ElectricalSurgeryAnalyzer', compact('data'));
         }
     }
 
@@ -382,6 +384,17 @@ class InventariController extends Controller
                 'tahun' => $request->tahun,
                 'slope' => $request->slope,
                 'intercept' => $request->intercept,
+            ];
+        } else if ($data->jenis_alat_id == config('type_inventaris.Electrical_Surgery_Analyzer')) {
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'watt_intercept' => $request->watt_intercept,
+                'watt_slope' => $request->watt_slope,
+                'arus_intercept' => $request->arus_intercept,
+                'arus_slope' => $request->arus_slope,
+                'resistensi_intercept' => $request->resistensi_intercept,
+                'resistensi_slope' => $request->resistensi_slope,
             ];
         }
 
