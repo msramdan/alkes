@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('table_t', function (Blueprint $table) {
             $table->id();
             $table->integer('df')->nullable();
-            $table->double('value', 3, 5)->nullable();
+            $table->double('value', 3)->nullable();
             $table->timestamps();
         });
     }

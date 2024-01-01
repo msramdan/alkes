@@ -100,6 +100,7 @@ return array(
     'App\\Models\\BannerManagement' => $baseDir . '/app/Models/BannerManagement.php',
     'App\\Models\\Brand' => $baseDir . '/app/Models/Brand.php',
     'App\\Models\\Faske' => $baseDir . '/app/Models/Faske.php',
+    'App\\Models\\FormPengukuranKinerja' => $baseDir . '/app/Models/FormPengukuranKinerja.php',
     'App\\Models\\Home' => $baseDir . '/app/Models/Home.php',
     'App\\Models\\Inventari' => $baseDir . '/app/Models/Inventari.php',
     'App\\Models\\JenisFaske' => $baseDir . '/app/Models/JenisFaske.php',

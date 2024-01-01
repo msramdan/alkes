@@ -3,8 +3,8 @@
     <span>Setting (mmHg) : 250</span>
     <p>Toleransi : < 15 mmHg/menit</p>
             <div class="col">
-                <input type="number" step="0.000000001" id="kebocoran_tekanan" name="kebocoran_tekanan"
-                    class="form-control" required placeholder="Kebocoran (mmHg)">
+                <input type="number" step="0.000000001" id="kebocoran_tekanan" name="kebocoran_tekanan" class="form-control"
+                    required placeholder="Kebocoran (mmHg)">
                 <div class="valid-feedback">
                     Okay !
                 </div>
@@ -19,17 +19,16 @@
 <div class="alert alert-secondary" role="alert">
     <span>Setting (mmHg) : 260</span>
     <p>Toleransi : < 10 detik</p>
-            <div class="col">
-                <input type="number" step="0.000000001" id="laju_buang_cepat" name="laju_buang_cepat"
-                    class="form-control" required
-                    placeholder="Waktu Buang Cepat dari 260 ke 15 mmHg (dtk)">
-                <div class="valid-feedback">
-                    Okay !
-                </div>
-                <div class="invalid-feedback">
-                    Silahkan input Laju Buang Cepat
-                </div>
-            </div>
+    <div class="col">
+        <input type="number" step="0.000000001" id="laju_buang_cepat" name="laju_buang_cepat"
+            class="form-control" required placeholder="Waktu Buang Cepat dari 260 ke 15 mmHg (dtk)">
+        <div class="valid-feedback">
+            Okay !
+        </div>
+        <div class="invalid-feedback">
+            Silahkan input Laju Buang Cepat
+        </div>
+    </div>
 </div>
 <b>C. KALIBRASI AKURASI TEKANAN</b>
 <table class="table table-bordered" style="border-color: black">

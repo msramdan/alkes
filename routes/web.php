@@ -99,6 +99,7 @@ Route::resource('kabkots', App\Http\Controllers\KabkotController::class)->middle
 Route::resource('kecamatans', App\Http\Controllers\KecamatanController::class)->middleware('auth');
 Route::resource('kelurahans', App\Http\Controllers\KelurahanController::class)->middleware('auth');
 Route::resource('faskes', App\Http\Controllers\FaskeController::class)->middleware('auth');
+Route::resource('form-pengukuran-kinerjas', App\Http\Controllers\FormPengukuranKinerjaController::class)->middleware('auth');
 Route::get('download-format-faskes', [App\Http\Controllers\FaskeController::class, 'formatImport'])->name('download-format-faskes')->middleware('auth');
 Route::post('import-faskes', [App\Http\Controllers\FaskeController::class, 'import'])->name('action-import-faskes')->middleware('auth');
 

@@ -224,6 +224,8 @@ class LaporanLkController extends Controller
                 ]);
             }
 
+            // TODO: Dynamic insert data laporan kinerja
+
             if ($request->nomenklatur_id == config('nomenklatur.INFUSION_PUMP') || $request->nomenklatur_id == config('nomenklatur.SYRINGE_PUMP')) {
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,

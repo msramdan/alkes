@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('laporan_kesimpulan_telaah_teknis', function (Blueprint $table) {
-            $table->string('catatan')->nullable()->after('value');
+        Schema::create('form_pengukuran_kinerjas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->longText('struktur_input_general');
+            $table->longText('struktur_input_table');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('laporan_kesimpulan_telaah_teknis', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('form_pengukuran_kinerjas');
     }
 };
