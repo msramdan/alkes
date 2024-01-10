@@ -63,6 +63,16 @@
 @endsection
 
 @push('css')
+    <style>
+        .flex-row[layout*=row] {
+        border: 1px solid red;
+        }
+        .flex-row[layout*=row] div {
+        height: 130px;
+        border-right: 1px solid red;
+        }
+    </style>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
 
@@ -73,9 +83,52 @@
 
             // clean all symbol except alphanumeric and space
             string = string.replace(/[^a-zA-Z0-9 ]/g, '')
+            string = string.toLowerCase()
 
             return string.replaceAll(' ', '_')
         }
+
+        function formTableInputFunction() {
+            return {
+                isRequired: false,
+                position: null,
+                title: null,
+                rowTotal: 0,
+                parameters: [],
+                addParameter() {
+                    this.$nextTick(() => {
+                        this.parameters.push({
+                            name: null,
+                            subParameters: [],
+                            isRequired: false,
+                        })
+                    })
+                },
+                addSubParameter(parameterIndex) {
+                    this.parameters[parameterIndex].subParameters.push({
+                        name: null,
+                        subSubParameters: [],
+                        isRequired: false,
+                    })
+                },
+                addSubSubParameter(parameterIndex, subParameterIndex) {
+                    this.parameters[parameterIndex].subParameters[subParameterIndex].subSubParameters.push({
+                        name: null,
+                        isRequired: false,
+                    })
+                },
+                removeParameter(index) {
+                    this.parameters.splice(index, 1)
+                },
+                removeSubParameter(parameterIndex, subParameterIndex) {
+                    this.parameters[parameterIndex].subParameters.splice(subParameterIndex, 1)
+                },
+                removeSubSubParameter(parameterIndex, subParameterIndex, subSubParameterIndex) {
+                    this.parameters[parameterIndex].subParameters[subParameterIndex].subSubParameters.splice(subSubParameterIndex, 1)
+                },
+            }
+        }
+
         $(document).ready(function () {
             $('#formSingleInputModal').on('show.bs.modal', function (event) {
                 console.log('show.bs.modal')
@@ -93,5 +146,6 @@
                 // modal.find('.modal-title').text('Table Input - ' + name)
             })
         })
+
     </script>
 @endpush

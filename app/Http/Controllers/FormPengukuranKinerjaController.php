@@ -12,6 +12,12 @@ class FormPengukuranKinerjaController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
+
+            if($request->has('preview-table-input')) {
+                $request = $request->all();
+                return view('form-pengukuran-kinerja.preview', compact('request'));
+            }
+
             $q = FormPengukuranKinerja::orderBy('id', 'DESC')->get();
 
             return DataTables::of($q)

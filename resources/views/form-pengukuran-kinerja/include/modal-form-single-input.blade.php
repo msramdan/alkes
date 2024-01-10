@@ -1,21 +1,21 @@
 <div class="modal fade" id="formSingleInputModal" tabindex="-1" aria-labelledby="formSingleInputModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
+        <form class="modal-content" x-data="{ isRequired: false, position: null, title: null, note: null, placeholder: null, type: null, invalidFeedbackMessage: null }" x-on:submit.prevent="$dispatch('fetch-form', { position: position, title: title, note: note, placeholder: placeholder, type: type, isRequired: isRequired, invalidFeedbackMessage: invalidFeedbackMessage, inputType: 'single-input', inputName: replaceSpaceWithUnderscore(title) })">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="formSingleInputModalLabel">Single Input - [NAME]</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row" x-data="{ isRequired: false, position: null, title: null, note: null, placeholder: null, type: null, invalidFeedbackMessage: null }">
+                <div class="row">
                     <div class="col-md-5">
                         <div class="form-group mb-3">
                             <label for="posisi">POSISI</label>
-                            <input type="text" name="posisi" id="posisi" class="form-control" maxlength="1" x-model="position">
+                            <input type="number" name="posisi" id="posisi" class="form-control" x-model="position" required>
                         </div>
                         <div class="form-group mb-3">
                             <label for="title">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" x-model="title">
+                            <input type="text" name="title" id="title" class="form-control" x-model="title" required>
                             <template x-if="title">
                                 <p class="text-muted">Field Unique Name: <b x-text="replaceSpaceWithUnderscore(title)"></b></p>
                             </template>
@@ -30,7 +30,8 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="type">Type</label>
-                            <select name="type" id="type" class="form-control" x-model="type">
+                            <select name="type" id="type" class="form-control" x-model="type" required>
+                                <option>- Pilih - </option>
                                 <option value="text">Text</option>
                                 <option value="number">Number</option>
                                 <option value="textarea">Textarea</option>
@@ -47,7 +48,7 @@
                                 <div class="form-group mb-3">
                                     <label for="invalid-feedback">Invalid Feedback Message</label>
                                     <input type="text" name="invalid-feedback" id="invalid-feedback" x-model="invalidFeedbackMessage"
-                                        class="form-control">
+                                        class="form-control" required>
                                 </div>
                             </div>
                         </template>
@@ -71,8 +72,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
