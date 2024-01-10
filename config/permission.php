@@ -198,5 +198,6 @@ return [
         ],
         ['group' => 'pelaksana teknis', 'access' => ['pelaksana teknis view', 'pelaksana teknis create', 'pelaksana teknis edit', 'pelaksana teknis delete']],
         ['group' => 'banner managements', 'access' => ['banner management view', 'banner management create', 'banner management edit', 'banner management delete']],
+        ['group' => 'form pengukuran kinerja', 'access' => ['form pengukuran kinerja view', 'form pengukuran kinerja create', 'form pengukuran kinerja edit', 'form pengukuran kinerja delete']],
     ],
 ];

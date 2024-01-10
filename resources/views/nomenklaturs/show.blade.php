@@ -35,7 +35,7 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h6>PENDATAAN ADMINISTRASI</h6>
+                                <h6>A. PENDATAAN ADMINISTRASI</h6>
                                 <hr>
                                 <div class="row">
                                     <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}" readonly>
@@ -258,7 +258,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <h6>DAFTAR ALAT UKUR</h2>
+                                <h6>B. DAFTAR ALAT UKUR</h2>
                                     <hr>
                                     <div class="row">
                                         <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}"
@@ -284,7 +284,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6>PENGUKURAN KONDISI LINGKUNGAN</h6>
+                                <h6>C. PENGUKURAN KONDISI LINGKUNGAN</h6>
                                 <hr>
                                 <div class="row">
                                     <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}" readonly>
@@ -320,7 +320,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6>PEMERIKSAAAN KONDISI FISIK DAN FUNGSI ( CEK KUALITATIF)</h6>
+                                <h6>D. PEMERIKSAAAN KONDISI FISIK DAN FUNGSI ( CEK KUALITATIF)</h6>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
@@ -365,7 +365,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6>PENGUKURAN KESELAMATAN LISTRIK
+                                <h6>E. PENGUKURAN KESELAMATAN LISTRIK
                                 </h6>
                                 <hr>
                                 <div class="row">
@@ -446,7 +446,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6>TELAAH TEKNIS</h6>
+                                <h6>G. TELAAH TEKNIS</h6>
                                 <hr>
                                 <div class="row">
                                     <input type="hidden" name="nomenklatur_id" value="{{ $nomenklatur->id }}" readonly>

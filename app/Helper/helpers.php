@@ -639,3 +639,18 @@ function waktu_putaran($request)
     ];
     return json_encode($data_laporan);
 }
+
+
+function replaceSpaceWithUnderscore(string $string) {
+
+    // set all to lowercase
+    $string = strtolower($string);
+
+    // clean all symbol except alphanumeric and space
+    $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
+
+    // remove all space
+    $string = str_replace(' ', '', $string);
+
+    return $string;
+}
