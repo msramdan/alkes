@@ -13,9 +13,13 @@ class FormPengukuranKinerjaController extends Controller
     {
         if($request->ajax()) {
 
-            if($request->has('preview-table-input')) {
+            if($request->has('preview_table_input')) {
                 $request = $request->all();
-                return view('form-pengukuran-kinerja.preview', compact('request'));
+                $parameters = $request['data']['parameters'];
+                $rowTotal = (int)$request['data']['rowTotal'];
+                $acuanParameter = $request['data']['acuanParameter'];
+
+                return view('form-pengukuran-kinerja.include.preview-table-input', compact('parameters', 'rowTotal', 'acuanParameter'));
             }
 
             $q = FormPengukuranKinerja::orderBy('id', 'DESC')->get();

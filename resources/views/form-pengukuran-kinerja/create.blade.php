@@ -39,10 +39,15 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li>
-                                        <a class="dropdown-item" href="#" id="btn-show-add-single-input-form" data-bs-toggle="modal" data-bs-target="#formSingleInputModal">Single Input</a>
+                                        <a class="dropdown-item" href="#" id="btn-show-add-single-input-form" data-bs-toggle="modal" data-bs-target="#formSingleInputModal"
+                                        x-data @click.prevent="$dispatch('new-form-single-input')">
+                                            Single Input
+                                        </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#" id="btn-show-add-table-input-form" data-bs-toggle="modal" data-bs-target="#formTableInputModal">Table Input</a>
+                                        <a class="dropdown-item" href="#" id="btn-show-add-table-input-form" data-bs-toggle="modal" data-bs-target="#formTableInputModal" x-data @click.prevent="$dispatch('new-form-table-input')">
+                                            Table Input
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -88,33 +93,155 @@
             return string.replaceAll(' ', '_')
         }
 
+        function formSingleInputFunction() {
+            return {
+                index: null,
+                action: null,
+                position: null,
+                title: null,
+                note: null,
+                placeholder: null,
+                type: null,
+                invalidFeedbackMessage: null,
+                resetForm() {
+                    this.action = 'Tambah'
+                    this.position = null
+                    this.title = null
+                    this.note = null
+                    this.placeholder = null
+                    this.type = null
+                    this.invalidFeedbackMessage = null
+                },
+                editForm(data) {
+                    this.index = data.index
+                    this.action = 'Edit'
+                    this.position = data.position
+                    this.title = data.title
+                    this.note = data.note
+                    this.placeholder = data.placeholder
+                    this.type = data.type
+                    this.invalidFeedbackMessage = data.invalidFeedbackMessage
+                },
+                update() {
+                    this.$dispatch('update-form', {
+                        index: this.index,
+                        data : {
+                            position: this.position,
+                            title: this.title,
+                            note: this.note,
+                            placeholder: this.placeholder,
+                            type: this.type,
+                            invalidFeedbackMessage: this.invalidFeedbackMessage,
+                            inputType: 'single-input',
+                            inputName: replaceSpaceWithUnderscore(this.title)
+                        }
+                    })
+                },
+                add() {
+                    this.$dispatch('add-form', {
+                        position: this.position,
+                        title: this.title,
+                        note: this.note,
+                        placeholder: this.placeholder,
+                        type: this.type,
+                        invalidFeedbackMessage: this.invalidFeedbackMessage,
+                        inputType: 'single-input',
+                        inputName: replaceSpaceWithUnderscore(this.title)
+                    })
+                }
+            }
+        }
+
         function formTableInputFunction() {
             return {
-                isRequired: false,
+                init() {
+                    this.$watch('parameters', (value) => {
+                        this.doPreview({
+                            parameters: value,
+                            rowTotal: this.rowTotal,
+                            acuanParameter: this.acuanParameter
+                        })
+                    })
+
+                    this.$watch('rowTotal', (value) => {
+                        this.doPreview({
+                            parameters: this.parameters,
+                            rowTotal: value,
+                            acuanParameter: this.acuanParameter
+                        })
+                    })
+
+                    this.$watch('acuanParameter', (value) => {
+                        this.doPreview({
+                            parameters: this.parameters,
+                            rowTotal: this.rowTotal,
+                            acuanParameter: value
+                        })
+                    })
+
+                },
+                doPreview(data) {
+                    $.ajax({
+                        url: '{{ route('form-pengukuran-kinerjas.index') }}',
+                        type: 'GET',
+                        data: {
+                            preview_table_input: true,
+                            data: data,
+                        },
+                        success: function (response) {
+                            $('#preview-wrapper').html(response)
+                        }
+                    })
+                },
+                index: null,
+                action: null,
                 position: null,
                 title: null,
                 rowTotal: 0,
+                acuanParameter: {
+                    status: false,
+                    name: null,
+                    values: [],
+                },
                 parameters: [],
+                editForm(data) {
+                    this.index = data.index
+                    this.action = 'Edit'
+                    this.position = data.position
+                    this.title = data.title
+                    this.rowTotal = data.rowTotal
+                    this.acuanParameter = data.acuanParameter
+                    this.parameters = data.parameters
+                },
+                update() {
+                    this.$dispatch('update-form', {
+                        index: this.index,
+                        data : {
+                            position: this.position,
+                            title: this.title,
+                            rowTotal: this.rowTotal,
+                            acuanParameter: this.acuanParameter,
+                            parameters: this.parameters
+                        }
+                    })
+                },
                 addParameter() {
                     this.$nextTick(() => {
                         this.parameters.push({
                             name: null,
-                            subParameters: [],
-                            isRequired: false,
+                            subParameters: []
                         })
                     })
                 },
                 addSubParameter(parameterIndex) {
                     this.parameters[parameterIndex].subParameters.push({
                         name: null,
-                        subSubParameters: [],
-                        isRequired: false,
+                        subSubParameters: []
                     })
                 },
                 addSubSubParameter(parameterIndex, subParameterIndex) {
                     this.parameters[parameterIndex].subParameters[subParameterIndex].subSubParameters.push({
-                        name: null,
-                        isRequired: false,
+                        name: null
                     })
                 },
                 removeParameter(index) {
@@ -126,24 +253,41 @@
                 removeSubSubParameter(parameterIndex, subParameterIndex, subSubParameterIndex) {
                     this.parameters[parameterIndex].subParameters[subParameterIndex].subSubParameters.splice(subSubParameterIndex, 1)
                 },
+                resetForm() {
+                    this.action = 'Tambah'
+                    this.position = null
+                    this.title = null
+                    this.rowTotal = 0
+                    this.acuanParameter = {
+                        status: false,
+                        name: null,
+                        values: [],
+                    }
+                    this.parameters = []
+
+                    $('#preview-wrapper').html('')
+                },
+                add() {
+                    this.$dispatch('add-form', {
+                        position: this.position,
+                        title: this.title,
+                        rowTotal: this.rowTotal,
+                        acuanParameter: this.acuanParameter,
+                        parameters: this.parameters,
+                        inputType: 'table-input',
+                        inputName: replaceSpaceWithUnderscore(this.title)
+                    })
+                }
             }
         }
 
         $(document).ready(function () {
             $('#formSingleInputModal').on('show.bs.modal', function (event) {
                 console.log('show.bs.modal')
-                // const button = $(event.relatedTarget)
-                // const name = button.data('name')
-                // const modal = $(this)
-                // modal.find('.modal-title').text('Single Input - ' + name)
             })
 
             $('#formTableInputModal').on('show.bs.modal', function (event) {
                 console.log('hide.bs.modal')
-                // const button = $(event.relatedTarget)
-                // const name = button.data('name')
-                // const modal = $(this)
-                // modal.find('.modal-title').text('Table Input - ' + name)
             })
         })
 

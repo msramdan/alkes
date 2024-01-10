@@ -8,7 +8,7 @@
             <label for="form_title">Judul Form</label>
             <input type="text" name="form_title" class="form-control" required>
         </div>
-        <table class="table" x-data="{ data: [] }" @fetch-form.window="data.push($event.detail)">
+        <table class="table" x-data="{ data: [] }" @add-form.window="data.push($event.detail)" @update-form.window="data[$event.detail.index] = $event.detail.data">
             <thead>
                 <tr>
                     <th>Posisi</th>
@@ -23,8 +23,12 @@
                         <tr>
                             <td x-text="index + 1"></td>
                             <td x-text="item.title"></td>
-                            <td x-text="item.type"></td>
-                            <td><button type="button" class="btn btn-sm" @click.prevent="data.splice(index, 1)"><i class="bi bi-trash"></i></button>
+                            <td x-text="item.inputType"></td>
+                            <td>
+                                <button type="button" class="btn btn-sm" @click.prevent="item.inputType == 'single-input' ? $dispatch('edit-form-single-input', {...item, index: index}) : $dispatch('edit-form-table-input', {...item, index: index})"
+                                data-bs-toggle="modal" :data-bs-target="item.inputType == 'single-input' ? '#formSingleInputModal' : '#formTableInputModal'"><i class="bi bi-pencil"></i></button>
+                                <button type="button" class="btn btn-sm" @click.prevent="data.splice(index, 1)"><i class="bi bi-trash"></i></button>
+                            </td>
                         </tr>
                     </template>
                 </template>

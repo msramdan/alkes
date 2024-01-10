@@ -1,9 +1,10 @@
 <div class="modal fade" id="formSingleInputModal" tabindex="-1" aria-labelledby="formSingleInputModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-        <form class="modal-content" x-data="{ isRequired: false, position: null, title: null, note: null, placeholder: null, type: null, invalidFeedbackMessage: null }" x-on:submit.prevent="$dispatch('fetch-form', { position: position, title: title, note: note, placeholder: placeholder, type: type, isRequired: isRequired, invalidFeedbackMessage: invalidFeedbackMessage, inputType: 'single-input', inputName: replaceSpaceWithUnderscore(title) })">
+        <form class="modal-content" x-data="formSingleInputFunction()" x-on:submit.prevent="action == 'Tambah' ? add() : update()"
+        @edit-form-single-input.window="editForm($event.detail)" @new-form-single-input.window="resetForm()">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="formSingleInputModalLabel">Single Input - [NAME]</h1>
+                <h1 class="modal-title fs-5" id="formSingleInputModalLabel"><span x-text="action"></span> Single Input</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -37,21 +38,6 @@
                                 <option value="textarea">Textarea</option>
                             </select>
                         </div>
-                        <div class="form-check">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="form-check-input form-check-primary" id="isRequired" x-model="isRequired">
-                                <label class="form-check-label" for="isRequired">Wajib Diisi</label>
-                            </div>
-                        </div>
-                        <template x-if="isRequired">
-                            <div class="p-1">
-                                <div class="form-group mb-3">
-                                    <label for="invalid-feedback">Invalid Feedback Message</label>
-                                    <input type="text" name="invalid-feedback" id="invalid-feedback" x-model="invalidFeedbackMessage"
-                                        class="form-control" required>
-                                </div>
-                            </div>
-                        </template>
                     </div>
                     <div class="col-md-7">
                         <h5>Preview</h5>
@@ -60,10 +46,7 @@
                             <div class="alert alert-secondary" role="alert">
                                 <p id="preview_note" x-text="note" style="white-space: pre;">MASUKAN NOTE</p>
                                 <div class="col">
-                                    <input :type="type" id="laju_buang_cepat" name="replaceSpaceWithUnderscore(title)" class="form-control" :placeholder="placeholder" :required="isRequired">
-                                    <div class="invalid-feedback" x-text="invalidFeedbackMessage">
-
-                                    </div>
+                                    <input :type="type" name="replaceSpaceWithUnderscore(title)" class="form-control" :placeholder="placeholder">
                                 </div>
                             </div>
                         </div>
