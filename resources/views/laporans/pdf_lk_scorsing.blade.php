@@ -112,6 +112,8 @@
         @include('laporans._pdf_lk_scorsing.score_cardiotocograph')
     @elseif ($nomenklaturs->id == config('nomenklatur.FETAL_DOPPLER'))
         @include('laporans._pdf_lk_scorsing.score_fetal_doppler')
+    @elseif ($nomenklaturs->id == config('nomenklatur.EXAMINATION_LAMP'))
+        @include('laporans._pdf_lk_scorsing.score_examination_lamp')
     @endif
 
 </body>

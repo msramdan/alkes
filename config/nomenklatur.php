@@ -14,4 +14,5 @@ return [
     'EXAMINATION_LAMP' => 19,
     'DENTAL_UNIT' => 20,
     'ROLLER_MIXER' => 21,
+    'ROTATOR' => 22,
 ];
