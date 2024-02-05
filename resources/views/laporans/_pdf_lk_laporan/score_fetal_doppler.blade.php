@@ -225,11 +225,11 @@ foreach ($arr as $value) {
     $drift = 'drift_' . $value;
     $uc = $data_sertifikat->uc;
     // U95
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $uc,0, 6);
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $uc, 0, 6);
 
     // cu95
     $cu95 = 'abs95' . $value;
-    $$cu95 = ($$koreksi) + ($$u95);
+    $$cu95 = $$koreksi + $$u95;
 
     // toleransi
     $toleransi = 'toleransi' . $value;
@@ -262,18 +262,19 @@ foreach ($arr as $value) {
     $arrData = [];
 }
 
-$score = round((($initScore / 6) * 100),2) ;
+$score = round(($initScore / 6) * 100, 2);
 $persyaratan = $score >= 70 ? 'Lulus' : 'Tidak';
 
-if($score < 70){
+if ($score < 70) {
     $scoreKinerja = 0;
-}else{
+} else {
     $scoreKinerja = $score / 2;
 }
 
 ?>
 
-<p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN KINERJA</b></p>
+<p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+        PENGUKURAN KINERJA</b></p>
 <p style="font-size: 11px;margin-left:18px"><b> HEART RATE</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
@@ -296,105 +297,106 @@ if($score < 70){
     <tbody>
         @foreach ($myArray as $key => $value)
             <tr>
-                <td>{{ $key }}</td>
-                <td>{{ $value['percobaan_1'] }}</td>
-                <td>{{ $value['percobaan_2'] }}</td>
-                <td>{{ $value['percobaan_3'] }}</td>
-                <td>{{ $value['percobaan_4'] }}</td>
-                <td>{{ $value['percobaan_5'] }}</td>
-                <td>{{ $value['percobaan_6'] }}</td>
-                <td>{{ round($value['mean'], 2) }}</td>
-                <td>{{ round($value['tol'], 2) }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $key }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ round($value['tol'], 2) }}</td>
             </tr>
         @endforeach
     </tbody>
 </table>
 {{-- telaah_teknis --}}
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
-    TEKNIS</b></p>
+        TEKNIS</b></p>
 <table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-<tbody>
-    @forelse ($laporan_telaah_teknis as $row)
-        <tr>
-            <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
-            <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
-            <td>
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
-                    <label>Baik</label>
-                </div>
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
-                    <label>Tidak Baik</label>
-                </div>
-            </td>
-        </tr>
-    @empty
-        <tr>
-            <td style="text-align: center;">-</td>
-            <td style="text-align: center;">-</td>
-            <td style="text-align: center;">-</td>
-        </tr>
-    @endforelse
-</tbody>
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        @forelse ($laporan_telaah_teknis as $row)
+            <tr>
+                <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
+                <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
+                <td>
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
+                        <label>Baik</label>
+                    </div>
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
+                        <label>Tidak Baik</label>
+                    </div>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+            </tr>
+        @endforelse
+    </tbody>
 </table>
 
 <table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-<tbody>
-    <tr>
-        <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
-    </tr>
-</tbody>
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
+        </tr>
+    </tbody>
 </table>
 
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'H' : 'G' }}. KESIMPULAN</b>
 </p>
 <table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-<tbody>
-    <tr>
-        <td style="height:70px" style="text-align: justify">Berdasarkan Metode Kerja
-            <b>{{ $laporan->no_dokumen }}</b> yang mengacu ke KEPUTUSAN
-            DIREKTUR JENDERAL PELAYANAN KESEHATAN NOMOR : <b>HK.02.02/V/0412/2020</b>, METODE KERJA PENGUJIAN
-            DAN ATAU
-            KALIBRASI ALAT KESEHATAN, KEMENTERIAN KESEHATAN RI. Maka peralatan ini dinyatakan :
-            <?php
-            $totalAll = $score_fisik + $point + $scoreKinerja;
-            ?>
-            <b>ALAT DINYATAKAN <?php echo $totalAll >= 70 ? 'LAIK PAKAI' : 'TIDAK LAIK PAKAI'; ?></b>
-        </td>
-    </tr>
-</tbody>
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="height:70px" style="text-align: justify">Berdasarkan Metode Kerja
+                <b>{{ $laporan->no_dokumen }}</b> yang mengacu ke KEPUTUSAN
+                DIREKTUR JENDERAL PELAYANAN KESEHATAN NOMOR : <b>HK.02.02/V/0412/2020</b>, METODE KERJA PENGUJIAN
+                DAN ATAU
+                KALIBRASI ALAT KESEHATAN, KEMENTERIAN KESEHATAN RI. Maka peralatan ini dinyatakan :
+                <?php
+                $totalAll = $score_fisik + $point + $scoreKinerja;
+                ?>
+                <b>ALAT DINYATAKAN <?php echo $totalAll >= 70 ? 'LAIK PAKAI' : 'TIDAK LAIK PAKAI'; ?></b>
+            </td>
+        </tr>
+    </tbody>
 </table>
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'I' : 'H' }}. SARAN</b></p>
 <table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-<tbody>
-    <tr>
-        <td style="height:30px">Lakukan Pemeliharaan Preventif dan Kalibrasi Ulang Secara Berkala </td>
-    </tr>
-</tbody>
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="height:30px">Lakukan Pemeliharaan Preventif dan Kalibrasi Ulang Secara Berkala </td>
+        </tr>
+    </tbody>
 </table>
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'J' : 'I' }}. KETERANGAN</b>
 </p>
 <table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-<tbody>
-    <tr>
-        <td style="height:60px">
-            <ul style="margin-left: -25px">
-                <li>Nilai sebenarnya adalah nilai penunjukan alat ditambah nilai koreksi</li>
-                <li>Nilai Ketidakpastian pengukuran dinyatakan pada tingkat kepercayaan 95 %, k = 2</li>
-                <li>Hasil kalibrasi Heart Rate tertelusur ke sistem satuan internasional (SI) melalui Fluke Biomedical
-                </li>
-                <li>Hasil Pengujian Kelistrikan tertelusur ke sistem satuan internasional (SI) melalui
-                    <b>LK-032-IDN</b>
-                </li>
-                <li>Hasil pengujian dan kalibrasi hanya terkait dengan kondisi yang dilaporkan </li>
-            </ul>
-        </td>
-    </tr>
-</tbody>
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="height:60px">
+                <ul style="margin-left: -25px">
+                    <li>Nilai sebenarnya adalah nilai penunjukan alat ditambah nilai koreksi</li>
+                    <li>Nilai Ketidakpastian pengukuran dinyatakan pada tingkat kepercayaan 95 %, k = 2</li>
+                    <li>Hasil kalibrasi Heart Rate tertelusur ke sistem satuan internasional (SI) melalui Fluke
+                        Biomedical
+                    </li>
+                    <li>Hasil Pengujian Kelistrikan tertelusur ke sistem satuan internasional (SI) melalui
+                        <b>LK-032-IDN</b>
+                    </li>
+                    <li>Hasil pengujian dan kalibrasi hanya terkait dengan kondisi yang dilaporkan </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
 </table>
