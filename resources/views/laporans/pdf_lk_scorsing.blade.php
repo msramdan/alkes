@@ -81,7 +81,7 @@
                 <h6>
                     <center>
                         <b>
-                            LEMBAR KERJA PENGUJIAN/ KALIBRASI
+                            LEMBAR KERJA PENGUJIAN/ KALIBRASI <br>
                             {{ $nomenklaturs->nama_nomenklatur }}
                         </b>
                     </center>
@@ -116,6 +116,8 @@
         @include('laporans._pdf_lk_scorsing.score_examination_lamp')
     @elseif ($nomenklaturs->id == config('nomenklatur.DENTAL_UNIT'))
         @include('laporans._pdf_lk_scorsing.score_dental_unit')
+    @elseif ($nomenklaturs->id == config('nomenklatur.ROLLER_MIXER'))
+        @include('laporans._pdf_lk_scorsing.score_roller_mixer')
     @endif
 
 </body>

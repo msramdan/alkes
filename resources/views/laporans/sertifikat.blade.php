@@ -58,4 +58,6 @@
     @include('laporans._sertifikat.examination_lamp')
 @elseif ($nomenklatur->id == config('nomenklatur.DENTAL_UNIT'))
     @include('laporans._sertifikat.dental_unit')
+    @elseif ($nomenklatur->id == config('nomenklatur.ROLLER_MIXER'))
+    @include('laporans._sertifikat.roller_mixer')
 @endif
