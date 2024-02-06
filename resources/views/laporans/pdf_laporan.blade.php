@@ -115,6 +115,8 @@
         @include('laporans._pdf_lk_laporan.score_fetal_doppler')
     @elseif ($nomenklaturs->id == config('nomenklatur.EXAMINATION_LAMP'))
         @include('laporans._pdf_lk_laporan.score_examination_lamp')
+        @elseif ($nomenklaturs->id == config('nomenklatur.DENTAL_UNIT'))
+        @include('laporans._pdf_lk_laporan.score_dental_unit')
     @endif
 
 

@@ -56,4 +56,6 @@
     @include('laporans._sertifikat.fetal_doppler')
 @elseif ($nomenklatur->id == config('nomenklatur.EXAMINATION_LAMP'))
     @include('laporans._sertifikat.examination_lamp')
+@elseif ($nomenklatur->id == config('nomenklatur.DENTAL_UNIT'))
+    @include('laporans._sertifikat.dental_unit')
 @endif
