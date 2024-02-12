@@ -15,4 +15,6 @@ return [
     'DENTAL_UNIT' => 20,
     'ROLLER_MIXER' => 21,
     'ROTATOR' => 22,
+    'BEDSIDE_MONITOR' => 23,
+    'ELEKTROSURGERY_UNIT' => 24,
 ];

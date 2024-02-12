@@ -37,8 +37,12 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.roller_mixer')
         @elseif($nomenklatur_id == config('nomenklatur.EXAMINATION_LAMP'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.examination_lamp')
-            @elseif($nomenklatur_id == config('nomenklatur.ROTATOR'))
+        @elseif($nomenklatur_id == config('nomenklatur.ROTATOR'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.rotator')
+        @elseif($nomenklatur_id == config('nomenklatur.BEDSIDE_MONITOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.bedside_monitor')
+        @elseif($nomenklatur_id == config('nomenklatur.ELEKTROSURGERY_UNIT'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.elektrosurgery_unit')
         @endif
     </form>
 </div>
