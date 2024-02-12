@@ -279,7 +279,8 @@ class LaporanController extends Controller
             'score_fisik' => round($score_fisik, 2),
             'count_laporan_pengukuran_keselamatan_listrik' => $count_laporan_pengukuran_keselamatan_listrik
         ]);
-        return $pdf->stream();
+        $name = 'Scorsing-LK-' . $laporan->no_laporan . '.pdf';
+        return $pdf->stream($name);
     }
 
     public function pdf_lk_laporan($id)
@@ -351,8 +352,8 @@ class LaporanController extends Controller
             'score_fisik' => round($score_fisik, 2),
             'count_kondisi_fisik_fungsi' => $count_kondisi_fisik_fungsi,
         ]);
-        return $pdf->stream();
-        // return $pdf->download('Lembar-Kerja');
+        $name = 'Laporan-LK-' . $laporan->no_laporan . '.pdf';
+        return $pdf->stream($name);
     }
 
     public function pdf_sertifikat($id)
@@ -445,7 +446,8 @@ class LaporanController extends Controller
             $pdf->setOption('margin-right', 0);
             $pdf->setOption('margin-bottom', 0);
             $pdf->setOption('margin-left', 0);
-            return $pdf->stream('laporan-sertifikat.pdf');
+            $name = 'Sertifikat-LK-' . $laporan->no_laporan . '.pdf';
+            return $pdf->stream($name);
         } else {
             alert()->error('Error', 'The certificate is not yet available if the status is Need Review and Rejected.');
             return back();

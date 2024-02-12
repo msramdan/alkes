@@ -119,6 +119,8 @@
         @include('laporans._pdf_lk_laporan.score_dental_unit')
     @elseif ($nomenklaturs->id == config('nomenklatur.ROLLER_MIXER'))
         @include('laporans._pdf_lk_laporan.score_roller_mixer')
+    @elseif ($nomenklaturs->id == config('nomenklatur.ROTATOR'))
+        @include('laporans._pdf_lk_laporan.score_rotator')
     @endif
 
 

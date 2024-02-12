@@ -92,7 +92,7 @@
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="putaran_100_5" required>
+                    name="putaran_100_6" required>
             </td>
             <td> ± 10 % </td>
         </tr>
