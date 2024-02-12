@@ -1,4 +1,5 @@
 <b>1. Kecepatan Putaran</b>
+
 <table class="table table-borderless" style="line-height: 8px">
     <tr>
         <th style="text-align: left; line-height: 1;">setting</th>
@@ -20,6 +21,7 @@
         <th>rpm</th>
     </tr>
 </table>
+
 
 <table class="table table-bordered" style="border-color: black">
     <thead>

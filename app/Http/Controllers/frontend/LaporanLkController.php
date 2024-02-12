@@ -317,7 +317,7 @@ class LaporanLkController extends Controller
                     'data_laporan' => akurasi_pressure($request),
                     'data_sertifikat' => $sertifikatDpm->data,
                 ]);
-            } else if ($request->nomenklatur_id == config('nomenklatur.ROLLER_MIXER')) {
+            } else if ($request->nomenklatur_id == config('nomenklatur.ROLLER_MIXER') || $request->nomenklatur_id == config('nomenklatur.ROTATOR')) {
                 // KECEPATAN PUTAR
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,

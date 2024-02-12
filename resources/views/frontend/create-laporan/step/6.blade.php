@@ -37,6 +37,8 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.roller_mixer')
         @elseif($nomenklatur_id == config('nomenklatur.EXAMINATION_LAMP'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.examination_lamp')
+            @elseif($nomenklatur_id == config('nomenklatur.ROTATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.rotator')
         @endif
     </form>
 </div>

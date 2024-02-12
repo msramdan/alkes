@@ -626,6 +626,7 @@ function kecepatan_putaran($request)
         'putaran_100_4' => $request->putaran_100_4,
         'putaran_100_5' => $request->putaran_100_5,
         'putaran_100_6' => $request->putaran_100_6,
+        'rpm_max' => $request->rpm_max,
     ];
     return json_encode($data_laporan);
 }
