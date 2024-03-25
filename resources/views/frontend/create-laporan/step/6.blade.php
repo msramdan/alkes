@@ -43,6 +43,10 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.bedside_monitor')
         @elseif($nomenklatur_id == config('nomenklatur.ELEKTROSURGERY_UNIT'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.elektrosurgery_unit')
+        @elseif($nomenklatur_id == config('nomenklatur.FLOWMETER'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.flowmeter')
+        @elseif($nomenklatur_id == config('nomenklatur.CPAP'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.cpap')
         @endif
     </form>
 </div>

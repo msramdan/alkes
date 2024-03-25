@@ -17,4 +17,6 @@ return [
     'ROTATOR' => 22,
     'BEDSIDE_MONITOR' => 23,
     'ELEKTROSURGERY_UNIT' => 24,
+    'FLOWMETER' => 25,
+    'CPAP' => 26,
 ];
