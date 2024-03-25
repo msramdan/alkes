@@ -47,6 +47,8 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.flowmeter')
         @elseif($nomenklatur_id == config('nomenklatur.CPAP'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.cpap')
+        @elseif($nomenklatur_id == config('nomenklatur.OKSIGEN_CONCENTRATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.oksigen_concentrator')
         @endif
     </form>
 </div>

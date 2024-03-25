@@ -19,4 +19,12 @@ return [
     'ELEKTROSURGERY_UNIT' => 24,
     'FLOWMETER' => 25,
     'CPAP' => 26,
+    'BREAST_PUMP' => 27,
+    'OKSIGEN_CONCENTRATOR' => 28,
+    'WATERBATH' => 29,
+    'PARAFFIN_BATH' => 30,
+    'NEBULIZER' => 31,
+    'BLOOD_BANK_REFRIGERATOR' => 32,
+    'OVEN' => 33,
+    'MEDICAL_FREEZER' => 34,
 ];
