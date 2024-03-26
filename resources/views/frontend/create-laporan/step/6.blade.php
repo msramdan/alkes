@@ -51,6 +51,12 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.oksigen_concentrator')
         @elseif($nomenklatur_id == config('nomenklatur.NEBULIZER'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.nebulizer')
+        @elseif($nomenklatur_id == config('nomenklatur.BLOOD_BANK_REFRIGERATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.blood_bank_refrigerator')
+        @elseif($nomenklatur_id == config('nomenklatur.OVEN'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.oven')
+        @elseif($nomenklatur_id == config('nomenklatur.MEDICAL_FREEZER'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.medical_freezer')
         @endif
     </form>
 </div>

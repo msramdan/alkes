@@ -716,9 +716,9 @@ progress {
     .container-lg,
     .container-md,
     .container-sm,
-    .container-xl {
+    /* .container-xl {
         max-width: 1140px
-    }
+    } */
 }
 
 @media (min-width:1400px) {
@@ -728,9 +728,9 @@ progress {
     .container-md,
     .container-sm,
     .container-xl,
-    .container-xxl {
+    /* .container-xxl {
         max-width: 1320px
-    }
+    } */
 }
 
 .row {
