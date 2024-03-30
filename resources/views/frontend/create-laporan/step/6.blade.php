@@ -57,6 +57,12 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.oven')
         @elseif($nomenklatur_id == config('nomenklatur.MEDICAL_FREEZER'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.medical_freezer')
+        @elseif($nomenklatur_id == config('nomenklatur.BREAST_PUMP'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.breast_pump')
+        @elseif($nomenklatur_id == config('nomenklatur.WATERBATH'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.waterbath')
+        @elseif($nomenklatur_id == config('nomenklatur.PARAFFIN_BATH'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.paraffin_bath')
         @endif
     </form>
 </div>
