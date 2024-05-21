@@ -143,6 +143,22 @@ return [
             ]
         ],
         [
+            'header' => 'Form Pengukuran Kinerja',
+            'permissions' => [
+                'form pengukuran kinerja view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Form Pengukuran Kinerja',
+                    'icon' => '<i class="bi bi-list"></i>',
+                    'route' => '/form-pengukuran-kinerja',
+                    'permission' => 'form pengukuran kinerja view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
             'header' => 'Faskes',
             'permissions' => [
                 'jenis faske view',

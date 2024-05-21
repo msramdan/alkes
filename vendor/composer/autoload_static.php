@@ -762,6 +762,7 @@ class ComposerStaticInit9729285d7bc0c4b62d06bd7f76f42dbe
         'App\\Models\\BannerManagement' => __DIR__ . '/../..' . '/app/Models/BannerManagement.php',
         'App\\Models\\Brand' => __DIR__ . '/../..' . '/app/Models/Brand.php',
         'App\\Models\\Faske' => __DIR__ . '/../..' . '/app/Models/Faske.php',
+        'App\\Models\\FormPengukuranKinerja' => __DIR__ . '/../..' . '/app/Models/FormPengukuranKinerja.php',
         'App\\Models\\Home' => __DIR__ . '/../..' . '/app/Models/Home.php',
         'App\\Models\\Inventari' => __DIR__ . '/../..' . '/app/Models/Inventari.php',
         'App\\Models\\JenisFaske' => __DIR__ . '/../..' . '/app/Models/JenisFaske.php',
