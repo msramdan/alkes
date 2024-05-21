@@ -63,6 +63,14 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.waterbath')
         @elseif($nomenklatur_id == config('nomenklatur.PARAFFIN_BATH'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.paraffin_bath')
+        @elseif($nomenklatur_id == config('nomenklatur.TERMOMETER_KLINIK'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.termometer_klinik')
+        @elseif($nomenklatur_id == config('nomenklatur.BLOOD_WARMER'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.blood_warmer')
+        @elseif($nomenklatur_id == config('nomenklatur.AUTOCLAVE'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.autoclave')
+        @elseif($nomenklatur_id == config('nomenklatur.DEFIBRILLATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.defibrillator')
         @endif
     </form>
 </div>

@@ -27,4 +27,9 @@ return [
     'BLOOD_BANK_REFRIGERATOR' => 32,
     'OVEN' => 33,
     'MEDICAL_FREEZER' => 34,
+    'TERMOMETER_KLINIK' => 35,
+    'ULTRASONOGRAPHY' => 36,
+    'BLOOD_WARMER' => 37,
+    'AUTOCLAVE' => 38,
+    'DEFIBRILLATOR' => 39
 ];
