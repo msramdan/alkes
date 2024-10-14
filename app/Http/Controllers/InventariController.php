@@ -229,6 +229,8 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.Thermometer_Reference', compact('data'));
         } else if ($data->jenis_alat_id == config('type_inventaris.Ventilator_Analyzer')) {
             return view('inventaris.sertifikat.VentilatorAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == config('type_inventaris.Anaesthesi_Gas_Analyzer')) {
+            return view('inventaris.sertifikat.AnaesthesiGasAnalyzer', compact('data'));
         }
     }
 
@@ -415,6 +417,13 @@ class InventariController extends Controller
                 'tahun' => $request->tahun,
                 'slope' => $request->slope,
                 'intercept' => $request->intercept,
+            ];
+        } else if ($data->jenis_alat_id == config('type_inventaris.Anaesthesi_Gas_Analyzer')) {
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'intercept' => $request->intercept,
+                'x_variable_1' => $request->x_variable_1,
             ];
         }
 

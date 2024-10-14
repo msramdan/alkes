@@ -8,5 +8,6 @@ return [
     'Force_gauge' => 10,
     'Thermometer_Reference' => 36,
     'Ventilator_Analyzer' => 47,
+    'Anaesthesi_Gas_Analyzer' => 42,
 
 ];
