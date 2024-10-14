@@ -225,6 +225,10 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.LuxMeter', compact('data'));
         } else if ($data->jenis_alat_id == config('type_inventaris.Electrical_Surgery_Analyzer')) {
             return view('inventaris.sertifikat.ElectricalSurgeryAnalyzer', compact('data'));
+        } else if ($data->jenis_alat_id == config('type_inventaris.Thermometer_Reference')) {
+            return view('inventaris.sertifikat.Thermometer_Reference', compact('data'));
+        } else if ($data->jenis_alat_id == config('type_inventaris.Ventilator_Analyzer')) {
+            return view('inventaris.sertifikat.VentilatorAnalyzer', compact('data'));
         }
     }
 
@@ -395,6 +399,22 @@ class InventariController extends Controller
                 'arus_slope' => $request->arus_slope,
                 'resistensi_intercept' => $request->resistensi_intercept,
                 'resistensi_slope' => $request->resistensi_slope,
+            ];
+        } else if ($data->jenis_alat_id == config('type_inventaris.Ventilator_Analyzer')) {
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope_flow_meter' => $request->slope_flow_meter,
+                'intercept_flow_meter' => $request->intercept_flow_meter,
+                'slope_konsentrasi_oksigen' => $request->slope_konsentrasi_oksigen,
+                'intercept_konsentrasi_oksigen' => $request->intercept_konsentrasi_oksigen,
+            ];
+        } else if ($data->jenis_alat_id == config('type_inventaris.Thermometer_Reference')) {
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'slope' => $request->slope,
+                'intercept' => $request->intercept,
             ];
         }
 

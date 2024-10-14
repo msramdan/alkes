@@ -125,6 +125,7 @@
                 <input type="hidden" name="laporan_id" value="${laporan_id}"/>
                 <input type="hidden" name="_token" value="${csrf}"/>
             `);
+
             var form1 = document.getElementById('form-1').elements;
             [...form1].forEach((item) => {
                 $('#form-laporan').append(item.cloneNode(true));
@@ -137,6 +138,8 @@
             [...form3].forEach((item) => {
                 $('#form-laporan').append(item.cloneNode(true));
             });
+
+
             var form4 = document.getElementById('form-4').elements;
             [...form4].forEach((item) => {
                 $('#form-laporan').append(item.cloneNode(true));
