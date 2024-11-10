@@ -231,6 +231,10 @@ class InventariController extends Controller
             return view('inventaris.sertifikat.VentilatorAnalyzer', compact('data'));
         } else if ($data->jenis_alat_id == config('type_inventaris.Anaesthesi_Gas_Analyzer')) {
             return view('inventaris.sertifikat.AnaesthesiGasAnalyzer', compact('data'));
+        }else if ($data->jenis_alat_id == config('type_inventaris.Waterbath')) {
+            return view('inventaris.sertifikat.Waterbath', compact('data'));
+        }else if ($data->jenis_alat_id == config('type_inventaris.Incubator_Analyzer')) {
+            return view('inventaris.sertifikat.Incubator_Analyzer', compact('data'));
         }
     }
 
@@ -419,6 +423,13 @@ class InventariController extends Controller
                 'intercept' => $request->intercept,
             ];
         } else if ($data->jenis_alat_id == config('type_inventaris.Anaesthesi_Gas_Analyzer')) {
+            $data = [
+                'inventaris_id' => $request->inventaris_id,
+                'tahun' => $request->tahun,
+                'intercept' => $request->intercept,
+                'x_variable_1' => $request->x_variable_1,
+            ];
+        }else if ($data->jenis_alat_id == config('type_inventaris.Waterbath')) {
             $data = [
                 'inventaris_id' => $request->inventaris_id,
                 'tahun' => $request->tahun,

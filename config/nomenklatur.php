@@ -31,5 +31,11 @@ return [
     'ULTRASONOGRAPHY' => 36,
     'BLOOD_WARMER' => 37,
     'AUTOCLAVE' => 38,
-    'DEFIBRILLATOR' => 39
+    'DEFIBRILLATOR' => 39,
+    'HFNC' => 41,
+    'ELECTROSTIMULATOR' => 43,
+    'PULSE_OXYMETER' => 46,
+    'AUTOREFRAKTOR' => 51,
+    'Bed_Electric' => 53,
+    'BIOMETRI' => 54
 ];

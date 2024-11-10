@@ -43,7 +43,7 @@
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
                     name="percobaan1_6" required>
             </td>
-            <td rowspan="4">± 10%</td>
+            <td rowspan="5">± 10%</td>
         </tr>
         <tr>
             <td>6</td>

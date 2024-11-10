@@ -13,7 +13,7 @@
                 <label for="" style=" font-size: 12px;">{{ $row->jenis_alat }}</label>
                 <input type="hidden" name="type-{{ $row->id }}" id="type-{{ $row->id }}">
                 <select class="form-control select2" id="type_select-{{ $row->id }}"
-                    name="type-{{ $row->id }}" required style="width: 100%;" required onchange="selectChange(this, '#type-{{ $row->id }}')">
+                    name="type-{{ $row->id }}" style="width: 100%;"  onchange="selectChange(this, '#type-{{ $row->id }}')">
                     <option selected disabled value="">-- Pilih --</option>
                     @foreach ($inventaris as $data)
                         <option value="{{ $data->id }}">SN {{ $data->serial_number}} | KD {{ $data->kode_inventaris}} | Merk {{ $data->nama_merek}} | Type {{ $data->tipe}}

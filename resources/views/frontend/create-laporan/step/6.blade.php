@@ -71,6 +71,18 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.autoclave')
         @elseif($nomenklatur_id == config('nomenklatur.DEFIBRILLATOR'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.defibrillator')
+        @elseif($nomenklatur_id == config('nomenklatur.HFNC'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.HFNC')
+        @elseif($nomenklatur_id == config('nomenklatur.ELECTROSTIMULATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.ELECTROSTIMULATOR')
+        @elseif($nomenklatur_id == config('nomenklatur.PULSE_OXYMETER'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.PULSE_OXYMETER')
+        @elseif($nomenklatur_id == config('nomenklatur.AUTOREFRAKTOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.AUTOREFRAKTOR')
+        @elseif($nomenklatur_id == config('nomenklatur.Bed_Electric'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.Bed_Electric')
+        @elseif($nomenklatur_id == config('nomenklatur.BIOMETRI'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.BIOMETRI')
         @endif
     </form>
 </div>
