@@ -149,7 +149,7 @@ class HistoryLaporanLkController extends Controller
     public function kondisiLingkungan($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
-        $kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')
+        $kondisi_lingkungan = DB::table('nomenklatur_kondisi_lingkungan')
             ->select('*')
             ->where('no_laporan', $nolaporan)
             ->first();

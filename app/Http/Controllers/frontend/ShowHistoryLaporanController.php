@@ -53,7 +53,7 @@ class ShowHistoryLaporanController extends Controller
                 "laporan_daftar_alat_ukur.inventaris_id",
                 "laporan_daftar_alat_ukur.created_at",
                 "laporan_daftar_alat_ukur.updated_at",
-                "types.jenis_alat",
+                "types.jenis_alat"
             )
             ->join('types', 'laporan_daftar_alat_ukur.type_id', 'types.id')
             ->where('no_laporan', $nolaporan)
@@ -65,19 +65,15 @@ class ShowHistoryLaporanController extends Controller
     public function kondisiLingkungan($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
-        $kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')
-            ->select('*')
-            ->where('no_laporan', $nolaporan)
-            ->first();
-
-
+        $kondisi_lingkungan = DB::table('laporan_kinerja')
+            ->where('type_laporan_kinerja', 'laporan_kondisi_lingkungan')
+            ->where('no_laporan', $nolaporan)->first();
         return view('frontend.history-laporan.show.kondisi_lingkungan', compact('kondisi_lingkungan', 'laporan'));
     }
 
     public function pemeriksaanFisikFungsi($nolaporan)
     {
         $laporan = Laporan::where('no_laporan', $nolaporan)->first();
-
         $fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')
             ->where('no_laporan', $nolaporan)
             ->get();
@@ -121,6 +117,6 @@ class ShowHistoryLaporanController extends Controller
                 ->where('no_laporan', $nolaporan)
                 ->first();
         }
-        return view('frontend.history-laporan.show.pengukuran_kinjera', compact('laporan', 'laporan_occlusion','flow_rate'));
+        return view('frontend.history-laporan.show.pengukuran_kinjera', compact('laporan', 'laporan_occlusion', 'flow_rate'));
     }
 }
