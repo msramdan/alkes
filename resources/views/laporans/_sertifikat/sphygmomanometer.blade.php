@@ -43,7 +43,7 @@ $arr = [];
 array_push($arr, $percobaan0_1_naik, $percobaan0_2_naik, $percobaan0_3_naik);
 $stdev = standard_deviation($arr);
 // hitung uncertainty
-$u95 = hitung_uncertainty($resolusi->value, $stdev, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift0_naik);
+$u95 = hitung_uncertainty($resolusi->value, $stdev, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift0_naik,6);
 $absU95 = abs($koreksi) + $u95;
 $score = $absU95 < 4 ? 'Lulus' : 'Tidak';
 
@@ -59,7 +59,7 @@ array_push($arr2, $percobaan50_1_naik, $percobaan50_2_naik, $percobaan50_3_naik)
 $stdev2 = standard_deviation($arr2);
 $koreksi2 = $meanterkoreksi50 - 50;
 // hitung uncertainty
-$u952 = hitung_uncertainty($resolusi->value, $stdev2, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift50_naik);
+$u952 = hitung_uncertainty($resolusi->value, $stdev2, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift50_naik,6);
 $absU952 = abs($koreksi2) + $u952;
 $score2 = $absU952 < 4 ? 'Lulus' : 'Tidak';
 
@@ -74,7 +74,7 @@ array_push($arr3, $percobaan100_1_naik, $percobaan100_2_naik, $percobaan100_3_na
 $stdev3 = standard_deviation($arr3);
 $koreksi3 = $meanterkoreksi100 - 100;
 // hitung uncertainty
-$u953 = hitung_uncertainty($resolusi->value, $stdev3, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift100_naik);
+$u953 = hitung_uncertainty($resolusi->value, $stdev3, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift100_naik,6);
 $absU953 = abs($koreksi3) + $u953;
 $score3 = $absU953 < 4 ? 'Lulus' : 'Tidak';
 
@@ -89,7 +89,7 @@ array_push($arr4, $percobaan150_1_naik, $percobaan150_2_naik, $percobaan150_3_na
 $stdev4 = standard_deviation($arr4);
 $koreksi4 = $meanterkoreksi150 - 150;
 // hitung uncertainty
-$u954 = hitung_uncertainty($resolusi->value, $stdev4, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift150_naik);
+$u954 = hitung_uncertainty($resolusi->value, $stdev4, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift150_naik,6);
 $absU954 = abs($koreksi4) + $u954;
 $score4 = $absU954 < 4 ? 'Lulus' : 'Tidak';
 
@@ -104,7 +104,7 @@ array_push($arr5, $percobaan200_1_naik, $percobaan200_2_naik, $percobaan200_3_na
 $stdev5 = standard_deviation($arr5);
 $koreksi5 = $meanterkoreksi200 - 200;
 // hitung uncertainty
-$u955 = hitung_uncertainty($resolusi->value, $stdev5, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift200_naik);
+$u955 = hitung_uncertainty($resolusi->value, $stdev5, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift200_naik,6);
 $absU955 = abs($koreksi5) + $u955;
 $score5 = $absU955 < 4 ? 'Lulus' : 'Tidak';
 
@@ -119,7 +119,7 @@ array_push($arr6, $percobaan250_1_naik, $percobaan250_2_naik, $percobaan250_3_na
 $stdev6 = standard_deviation($arr6);
 $koreksi6 = $meanterkoreksi250 - 250;
 // hitung uncertainty
-$u956 = hitung_uncertainty($resolusi->value, $stdev6, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift250_naik);
+$u956 = hitung_uncertainty($resolusi->value, $stdev6, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift250_naik,6);
 $absU956 = abs($koreksi6) + $u956;
 $score6 = $absU956 < 4 ? 'Lulus' : 'Tidak';
 
@@ -135,7 +135,7 @@ array_push($arr7, $percobaan250_1_turun, $percobaan250_2_turun, $percobaan250_3_
 $stdev7 = standard_deviation($arr7);
 $koreksi7 = $meanterkoreksiTurun250 - 250;
 // hitung uncertainty
-$u957 = hitung_uncertainty($resolusi->value, $stdev7, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift250_turun);
+$u957 = hitung_uncertainty($resolusi->value, $stdev7, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift250_turun,6);
 $absU957 = abs($koreksi7) + $u957;
 $score7 = $absU957 < 4 ? 'Lulus' : 'Tidak';
 
@@ -150,7 +150,7 @@ array_push($arr8, $percobaan200_1_turun, $percobaan200_2_turun, $percobaan200_3_
 $stdev8 = standard_deviation($arr8);
 $koreksi8 = $meanterkoreksiTurun200 - 200;
 // hitung uncertainty
-$u958 = hitung_uncertainty($resolusi->value, $stdev8, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift200_turun);
+$u958 = hitung_uncertainty($resolusi->value, $stdev8, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift200_turun,6);
 $absU958 = abs($koreksi8) + $u958;
 $score8 = $absU958 < 4 ? 'Lulus' : 'Tidak';
 
@@ -165,7 +165,7 @@ array_push($arr9, $percobaan150_1_turun, $percobaan150_2_turun, $percobaan150_3_
 $stdev9 = standard_deviation($arr9);
 $koreksi9 = $meanterkoreksiTurun150 - 150;
 // hitung uncertainty
-$u959 = hitung_uncertainty($resolusi->value, $stdev9, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift150_turun);
+$u959 = hitung_uncertainty($resolusi->value, $stdev9, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift150_turun,6);
 $absU959 = abs($koreksi9) + $u959;
 $score9 = $absU959 < 4 ? 'Lulus' : 'Tidak';
 
@@ -180,7 +180,7 @@ array_push($arr10, $percobaan100_1_turun, $percobaan100_2_turun, $percobaan100_3
 $stdev10 = standard_deviation($arr10);
 $koreksi10 = $meanterkoreksiTurun100 - 100;
 // hitung uncertainty
-$u9510 = hitung_uncertainty($resolusi->value, $stdev10, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift100_turun);
+$u9510 = hitung_uncertainty($resolusi->value, $stdev10, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift100_turun,6);
 $absU9510 = abs($koreksi10) + $u9510;
 $score10 = $absU9510 < 4 ? 'Lulus' : 'Tidak';
 
@@ -195,7 +195,7 @@ array_push($arr11, $percobaan50_1_turun, $percobaan50_2_turun, $percobaan50_3_tu
 $stdev11 = standard_deviation($arr11);
 $koreksi11 = $meanterkoreksiTurun50 - 50;
 // hitung uncertainty
-$u9511 = hitung_uncertainty($resolusi->value, $stdev11, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift50_turun);
+$u9511 = hitung_uncertainty($resolusi->value, $stdev11, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift50_turun,6);
 $absU9511 = abs($koreksi11) + $u9511;
 $score11 = $absU9511 < 4 ? 'Lulus' : 'Tidak';
 
@@ -210,7 +210,7 @@ array_push($arr12, $percobaan0_1_turun, $percobaan0_2_turun, $percobaan0_3_turun
 $stdev12 = standard_deviation($arr12);
 $koreksi12 = $meanterkoreksiTurun0 - 00;
 // hitung uncertainty
-$u9512 = hitung_uncertainty($resolusi->value, $stdev12, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift0_turun);
+$u9512 = hitung_uncertainty($resolusi->value, $stdev12, $data_sertifikat_akurasi_tekanan->uc, $data_sertifikat_akurasi_tekanan->drift0_turun,6);
 $absU9512 = abs($koreksi12) + $u9512;
 $score12 = $absU9512 < 4 ? 'Lulus' : 'Tidak';
 
