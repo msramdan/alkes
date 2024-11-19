@@ -49,7 +49,7 @@
             <div class="col">
                 <label for="" style=" font-size: 12px;">Resolusi</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" placeholder="" id="administrasi_resolusi"
+                    <input type="number" step="0.000000001" class="form-control" placeholder="" id="administrasi_resolusi"
                         name="administrasi_resolusi" value="" required>
                     <span class="input-group-text" id=""
                         style="width: 100px">{{ cek_satuan($nomenklatur_id, 'Resolusi') }}</span>
@@ -68,7 +68,7 @@
             <div class="col">
                 <label for="" style=" font-size: 12px;">Rentang Ukur</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="" id="administrasi_rentang-ukur"
+                    <input type="number" step="0.000000001" class="form-control" placeholder="" id="administrasi_rentang-ukur"
                         name="administrasi_rentang-ukur" value="" required>
                     <span class="input-group-text" style="width: 70px"
                         id="">{{ cek_satuan($nomenklatur_id, 'Rentang Ukur') }}</span>
@@ -87,7 +87,7 @@
             <div class="col">
                 <label for="" style=" font-size: 12px;">Kapasitas</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" value="" id="administrasi_kapasitas"
+                    <input type="number" step="0.000000001" class="form-control" value="" id="administrasi_kapasitas"
                         name="administrasi_kapasitas" aria-describedby="" required>
                     <span class="input-group-text" id=""
                         style="width: 70px">{{ cek_satuan($nomenklatur_id, 'Kapasitas') }}</span>
