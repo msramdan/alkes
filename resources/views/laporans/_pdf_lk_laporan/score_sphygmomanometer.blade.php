@@ -506,6 +506,8 @@ $initScore = (($initScore / $pembagi) * 100) / 2;
         <tr>
             <th colspan="2" style="text-align: center;vertical-align: middle;">Setting (mmHg)</th>
             <th colspan="3" style="text-align: center;vertical-align: middle;">Terukur Pada Standar (mmHg)</th>
+            <th style="text-align: center;vertical-align: middle;">Koreksi</th>
+            <th style="text-align: center;vertical-align: middle;">Ketidakpastian (U95)</th>
         </tr>
     </thead>
     <tbody>
@@ -517,36 +519,48 @@ $initScore = (($initScore / $pembagi) * 100) / 2;
             <td>{{ $percobaan0_1_naik }}</td>
             <td>{{ $percobaan0_2_naik }}</td>
             <td>{{ $percobaan0_3_naik }}</td>
+            <td>{{ round($koreksi, 2) }}</td>
+            <td>± {{ round($u95, 2) }}</td>
         </tr>
         <tr>
             <td>50</td>
             <td>{{ $percobaan50_1_naik }}</td>
             <td>{{ $percobaan50_2_naik }}</td>
             <td>{{ $percobaan50_3_naik }}</td>
+            <td>{{ round($koreksi2, 2) }}</td>
+            <td>± {{ round($u952, 2) }}</td>
         </tr>
         <tr>
             <td>100</td>
             <td>{{ $percobaan100_1_naik }}</td>
             <td>{{ $percobaan100_2_naik }}</td>
             <td>{{ $percobaan100_3_naik }}</td>
+            <td>{{ round($koreksi3, 2) }}</td>
+            <td>± {{ round($u953, 2) }}</td>
         </tr>
         <tr>
             <td>150</td>
             <td>{{ $percobaan150_1_naik }}</td>
             <td>{{ $percobaan150_2_naik }}</td>
             <td>{{ $percobaan150_3_naik }}</td>
+            <td>{{ round($koreksi4, 2) }}</td>
+            <td>± {{ round($u954, 2) }}</td>
         </tr>
         <tr>
             <td>200</td>
             <td>{{ $percobaan200_1_naik }}</td>
             <td>{{ $percobaan200_2_naik }}</td>
             <td>{{ $percobaan200_3_naik }}</td>
+            <td>{{ round($koreksi5, 2) }}</td>
+            <td>± {{ round($u955, 2) }}</td>
         </tr>
         <tr>
             <td>250</td>
             <td>{{ $percobaan250_1_naik }}</td>
             <td>{{ $percobaan250_2_naik }}</td>
             <td>{{ $percobaan250_3_naik }}</td>
+            <td>{{ round($koreksi6, 2) }}</td>
+            <td>± {{ round($u956, 2) }}</td>
         </tr>
         <tr>
             <td rowspan="6" style="background-color:grey;text-align: center;vertical-align: middle;"> <span
@@ -555,36 +569,48 @@ $initScore = (($initScore / $pembagi) * 100) / 2;
             <td>{{ $percobaan250_1_turun }}</td>
             <td>{{ $percobaan250_2_turun }}</td>
             <td>{{ $percobaan250_3_turun }}</td>
+            <td>{{ round($koreksi7, 2) }}</td>
+            <td>± {{ round($u957, 2) }}</td>
         </tr>
         <tr>
             <td>200</td>
             <td>{{ $percobaan200_1_turun }}</td>
             <td>{{ $percobaan200_2_turun }}</td>
             <td>{{ $percobaan200_3_turun }}</td>
+            <td>{{ round($koreksi8, 2) }}</td>
+            <td>± {{ round($u958, 2) }}</td>
         </tr>
         <tr>
             <td>150</td>
             <td>{{ $percobaan150_1_turun }}</td>
             <td>{{ $percobaan150_2_turun }}</td>
             <td>{{ $percobaan150_3_turun }}</td>
+            <td>{{ round($koreksi9, 2) }}</td>
+            <td>± {{ round($u959, 2) }}</td>
         </tr>
         <tr>
             <td>100</td>
             <td>{{ $percobaan100_1_turun }}</td>
             <td>{{ $percobaan100_2_turun }}</td>
             <td>{{ $percobaan100_3_turun }}</td>
+            <td>{{ round($koreksi10, 2) }}</td>
+            <td>± {{ round($u9510, 2) }}</td>
         </tr>
         <tr>
             <td>50</td>
             <td>{{ $percobaan50_1_turun }}</td>
             <td>{{ $percobaan50_2_turun }}</td>
             <td>{{ $percobaan50_3_turun }}</td>
+            <td>{{ round($koreksi11, 2) }}</td>
+            <td>± {{ round($u9511, 2) }}</td>
         </tr>
         <tr>
             <td>0</td>
             <td>{{ $percobaan0_1_turun }}</td>
             <td>{{ $percobaan0_2_turun }}</td>
             <td>{{ $percobaan0_3_turun }}</td>
+            <td>{{ round($u9512, 2) }}</td>
+            <td>± {{ round($absU9512, 2) }}</td>
         </tr>
     </tbody>
 </table>
