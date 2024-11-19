@@ -21,12 +21,12 @@ class HistoryLaporanLkController extends Controller
     {
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
         $laporans = DB::table('laporans')
-                ->leftjoin('faskes', 'laporans.faskes_id', '=', 'faskes.id')
-                ->select('laporans.*', 'faskes.nama_faskes')
-                ->where('laporans.status_laporan', '!=', 'Initial')
-                ->orderBy('laporans.no_laporan', 'DESC')->paginate(5);
+            ->leftjoin('faskes', 'laporans.faskes_id', '=', 'faskes.id')
+            ->select('laporans.*', 'faskes.nama_faskes')
+            ->where('laporans.status_laporan', '!=', 'Initial')
+            ->orderBy('laporans.no_laporan', 'DESC')->paginate(5);
         return view('frontend.history-laporan.index', [
-            'laporan' =>$laporans,
+            'laporan' => $laporans,
             'selected_status' => 'all',
             'selected_faskes' => 'all',
             'faskes' => $faskes
@@ -37,9 +37,9 @@ class HistoryLaporanLkController extends Controller
     private function laporanData($faskes, $status)
     {
         $laporandata = DB::table('laporans')
-        ->leftjoin('faskes', 'laporans.faskes_id', '=', 'faskes.id')
-        ->select('laporans.*', 'faskes.nama_faskes')
-        ->where('laporans.status_laporan', '!=', 'Initial');
+            ->leftjoin('faskes', 'laporans.faskes_id', '=', 'faskes.id')
+            ->select('laporans.*', 'faskes.nama_faskes')
+            ->where('laporans.status_laporan', '!=', 'Initial');
         if (isset($faskes) && !empty($faskes)) {
             if ($faskes != 'all') {
                 $laporandata->where('laporans.faskes_id', $faskes);
@@ -157,7 +157,7 @@ class HistoryLaporanLkController extends Controller
 
     public function updateKondisiLingkungan(Request $request)
     {
-        $kondisi_lingkungan = DB::table('laporan_kondisi_lingkungan')
+        DB::table('laporan_kondisi_lingkungan')
             ->where('no_laporan', $request->nolaporan)
             ->update([
                 'suhu_awal' => $request->suhu_awal,
@@ -186,7 +186,7 @@ class HistoryLaporanLkController extends Controller
         $datas = array_keys($request->input());
 
         foreach ($datas as $data) {
-            $fisik_fungsi = DB::table('laporan_kondisi_fisik_fungsi')
+            DB::table('laporan_kondisi_fisik_fungsi')
                 ->where('no_laporan', $request->no_laporan)
                 ->where('slug', $data)
                 ->update([
