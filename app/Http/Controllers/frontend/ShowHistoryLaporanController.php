@@ -108,15 +108,51 @@ class ShowHistoryLaporanController extends Controller
 
     public function pengukuranKinerja($nolaporan)
     {
-        $laporan = Laporan::where('no_laporan', $nolaporan)->first();
-        if ($laporan->nomenklatur_id == 10 || $laporan->nomenklatur_id == 11) {
-            $laporan_occlusion = DB::table('laporan_occlusion')
-                ->where('no_laporan', $nolaporan)
-                ->first();
-            $flow_rate = DB::table('laporan_flow_rate')
-                ->where('no_laporan', $nolaporan)
-                ->first();
+        $laporan = DB::table('laporans')->where('no_laporan', $nolaporan)->first();
+
+        if (!$laporan) {
+            abort(404, 'Laporan tidak ditemukan.');
         }
-        return view('frontend.history-laporan.show.pengukuran_kinjera', compact('laporan', 'laporan_occlusion', 'flow_rate'));
+
+        $data = [];
+
+        if (
+            $laporan->nomenklatur_id == config('nomenklatur.INFUSION_PUMP') ||
+            $laporan->nomenklatur_id == config('nomenklatur.SYRINGE_PUMP')
+        ) {
+            $data['laporan_occlusion'] = DB::table('laporan_kinerja')
+                ->where('type_laporan_kinerja', 'laporan_occlusion')
+                ->where('no_laporan', $nolaporan)
+                ->first();
+            $data['laporan_flow_rate'] = DB::table('laporan_kinerja')
+                ->where('type_laporan_kinerja', 'laporan_flow_rate')
+                ->where('no_laporan', $nolaporan)
+                ->first();
+        } else if ($laporan->nomenklatur_id == config('nomenklatur.SPHYGMOMANOMETER')) {
+            $data['kebocoran_tekanan'] = DB::table('laporan_kinerja')
+                ->where('type_laporan_kinerja', 'kebocoran_tekanan')
+                ->where('no_laporan', $nolaporan)
+                ->first();
+            $data['laju_buang_cepat'] = DB::table('laporan_kinerja')
+                ->where('type_laporan_kinerja', 'laju_buang_cepat')
+                ->where('no_laporan', $nolaporan)
+                ->first();
+            $data['akurasi_tekanan'] = DB::table('laporan_kinerja')
+                ->where('type_laporan_kinerja', 'akurasi_tekanan')
+                ->where('no_laporan', $nolaporan)
+                ->first();
+        } else {
+            abort(404, 'Tipe laporan tidak didukung.');
+        }
+
+        foreach ($data as $key => $value) {
+            $data[$key]->data_laporan = json_decode($value->data_laporan, true);
+        }
+
+        return view('frontend.history-laporan.show.pengukuran_kinerja', [
+            'laporan' => $laporan,
+            'data' => $data,
+        ]);
     }
+
 }

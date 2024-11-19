@@ -1,220 +1,183 @@
-<b>A. CEK KEBOCORAN TEKANAN</b>
-<div class="alert alert-secondary" role="alert">
-    <span>Setting (mmHg) : 250</span>
-    <p>Toleransi : < 15 mmHg/menit</p>
-            <div class="col">
-                <input type="number" step="0.000000001" id="kebocoran_tekanan" name="kebocoran_tekanan" class="form-control"
-                    required placeholder="Kebocoran (mmHg)">
-                <div class="valid-feedback">
-                    Okay !
-                </div>
-                <div class="invalid-feedback">
-                    Silahkan input Cek Kebocoran Tekanan
-                </div>
-            </div>
-
-</div>
-
-<b>B. LAJU BUANG CEPAT</b>
-<div class="alert alert-secondary" role="alert">
-    <span>Setting (mmHg) : 260</span>
-    <p>Toleransi : < 10 detik</p>
-            <div class="col">
-                <input type="number" step="0.000000001" id="laju_buang_cepat" name="laju_buang_cepat"
-                    class="form-control" required placeholder="Waktu Buang Cepat dari 260 ke 15 mmHg (dtk)">
-                <div class="valid-feedback">
-                    Okay !
-                </div>
-                <div class="invalid-feedback">
-                    Silahkan input Laju Buang Cepat
-                </div>
-            </div>
-</div>
-<b>C. KALIBRASI AKURASI TEKANAN</b>
+<b>HEART RATE</b>
 <table class="table table-bordered" style="border-color: black">
     <thead>
         <tr>
-            <th rowspan="3">Setting Alat <br>
-                (mmHg)</th>
-            <th colspan="6">Terukur Pada Standar (mmHg) </th>
+            <th rowspan="3">Setting Standar<br>
+                (BPM) </th>
+            <th colspan="6">Penunjukan Alat (BPM)</th>
             <th rowspan="3">Toleransi</th>
         </tr>
         <tr>
-            <th colspan="2">1</th>
-            <th colspan="2">2</th>
-            <th colspan="2">3</th>
-        </tr>
-        <tr>
-            <th>Naik</th>
-            <th>Turun</th>
-            <th>Naik</th>
-            <th>Turun</th>
-            <th>Naik</th>
-            <th>Turun</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>0</td>
+            <td>60</td>
             <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan0_1_naik" required>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control" name="percobaan60_1"
+                    required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan0_1_turun" required>
+                    name="percobaan60_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan0_2_naik" required>
+                    name="percobaan60_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan0_2_turun" required>
+                    name="percobaan60_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan0_3_naik" required>
+                    name="percobaan60_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan0_3_turun" required>
+                    name="percobaan60_6" required>
             </td>
-            <td rowspan="6"> + 3 mmHg</td>
+            <td rowspan="6"> ± 5%</td>
         </tr>
         <tr>
-            <td>50</td>
+            <td>90</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan50_1_naik" required>
+                    name="percobaan90_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan50_1_turun" required>
+                    name="percobaan90_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan50_2_naik" required>
+                    name="percobaan90_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan50_2_turun" required>
+                    name="percobaan90_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan50_3_naik" required>
+                    name="percobaan90_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan50_3_turun" required>
+                    name="percobaan90_6" required>
             </td>
         </tr>
         <tr>
-            <td>100</td>
+            <td>120</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan100_1_naik" required>
+                    name="percobaan120_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan100_1_turun" required>
+                    name="percobaan120_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan100_2_naik" required>
+                    name="percobaan120_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan100_2_turun" required>
+                    name="percobaan120_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan100_3_naik" required>
+                    name="percobaan120_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan100_3_turun" required>
+                    name="percobaan120_6" required>
             </td>
         </tr>
         <tr>
             <td>150</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan150_1_naik" required>
+                    name="percobaan150_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan150_1_turun" required>
+                    name="percobaan150_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan150_2_naik" required>
+                    name="percobaan150_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan150_2_turun" required>
+                    name="percobaan150_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan150_3_naik" required>
+                    name="percobaan150_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan150_3_turun" required>
-            </td>
-        </tr>
-        <tr>
-            <td>200</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan200_1_naik" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan200_1_turun" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan200_2_naik" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan200_2_turun" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan200_3_naik" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan200_3_turun" required>
+                    name="percobaan150_6" required>
             </td>
         </tr>
         <tr>
-            <td>250</td>
+            <td>180</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan250_1_naik" required>
+                    name="percobaan180_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan250_1_turun" required>
+                    name="percobaan180_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan250_2_naik" required>
+                    name="percobaan180_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan250_2_turun" required>
+                    name="percobaan180_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan250_3_naik" required>
+                    name="percobaan180_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan250_3_turun" required>
+                    name="percobaan180_6" required>
+            </td>
+        </tr>
+        <tr>
+            <td>210</td>
+            <td>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                    name="percobaan210_1" required>
+            </td>
+            <td>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                    name="percobaan210_2" required>
+            </td>
+            <td>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                    name="percobaan210_3" required>
+            </td>
+            <td>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                    name="percobaan210_4" required>
+            </td>
+            <td>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                    name="percobaan210_5" required>
+            </td>
+            <td>
+                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                    name="percobaan210_6" required>
             </td>
         </tr>
     </tbody>
