@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Sertifikat Thermohygrometer'))
+@section('title', __('Electrical Surgery Analyzer'))
 
 @push('css')
 @endpush

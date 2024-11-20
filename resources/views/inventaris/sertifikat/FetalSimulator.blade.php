@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', __('Infusion Device Analyzer'))
+@section('title', __('Fetal SImulator'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h5>{{ __('Infusion Device Analyzer') }} {{ $data->kode_inventaris }}</h5>
+                    <h5>{{ __('Fetal SImulator') }} {{ $data->kode_inventaris }}</h5>
                 </div>
             </div>
         </div>
