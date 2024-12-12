@@ -38,8 +38,6 @@ class LaporanLkController extends Controller
         $laporan_id = $request->laporan_id;
         $nomenklatur_id = $request->nomenklatur_id;
         $faskes = Faske::orderBy('nama_faskes', 'ASC')->get();
-        //menampilkan form bagian administrasi sesuai dengan field yang sudah di config pada halaman admin
-        $administrasi = DB::table('nomenklatur_pendataan_administrasi')->where('nomenklatur_id', $nomenklatur_id)->get();
 
         //Alat yang digunakan untuk mengisi form  bagian daftar alat ukur
         $nomenklatur_type = DB::table('nomenklatur_type')

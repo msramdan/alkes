@@ -196,259 +196,143 @@ class InventariController extends Controller
 
     public function inventarisSertifikat($inventaris_id)
     {
-        /*
-        3 = Digital Stop Watch
-        5 = Electrical Safety Analyzer
-        37 = Thermocouple type K / Temperature Recorder
-        39 = Thermohygrometer
-        45 = DPM
-        46 = Infusion Device Analyzer
-        ==========================================================================*/
-        $data = Inventari::where('id', $inventaris_id)->first();
-        if ($data->jenis_alat_id == 39) {
-            return view('inventaris.sertifikat.Thermohygrometer', compact('data'));
-        } else if ($data->jenis_alat_id == 3) {
-            return view('inventaris.sertifikat.DigitalStopWatch', compact('data'));
-        } else if ($data->jenis_alat_id == 5) {
-            return view('inventaris.sertifikat.ElectricalSafetyAnalyzer', compact('data'));
-        } else if ($data->jenis_alat_id == config('type_inventaris.FETAL_SIMULATOR')) {
-            return view('inventaris.sertifikat.FetalSimulator', compact('data'));
-        } else if ($data->jenis_alat_id == 22) {
-            return view('inventaris.sertifikat.ContactTachometer', compact('data'));
-        } else if ($data->jenis_alat_id == 37) {
-            return view('inventaris.sertifikat.TemperatureRecorder', compact('data'));
-        } else if ($data->jenis_alat_id == 45) {
-            return view('inventaris.sertifikat.DigitalPressureMeter', compact('data'));
-        } else if ($data->jenis_alat_id == 46) {
-            return view('inventaris.sertifikat.InfusionDeviceAnalyzer', compact('data'));
-        } else if ($data->jenis_alat_id == config('type_inventaris.LUX_METER')) {
-            return view('inventaris.sertifikat.LuxMeter', compact('data'));
-        } else if ($data->jenis_alat_id == config('type_inventaris.Electrical_Surgery_Analyzer')) {
-            return view('inventaris.sertifikat.ElectricalSurgeryAnalyzer', compact('data'));
-        } else if ($data->jenis_alat_id == config('type_inventaris.Thermometer_Reference')) {
-            return view('inventaris.sertifikat.Thermometer_Reference', compact('data'));
-        } else if ($data->jenis_alat_id == config('type_inventaris.Ventilator_Analyzer')) {
-            return view('inventaris.sertifikat.VentilatorAnalyzer', compact('data'));
-        } else if ($data->jenis_alat_id == config('type_inventaris.Anaesthesi_Gas_Analyzer')) {
-            return view('inventaris.sertifikat.AnaesthesiGasAnalyzer', compact('data'));
-        }else if ($data->jenis_alat_id == config('type_inventaris.Waterbath')) {
-            return view('inventaris.sertifikat.Waterbath', compact('data'));
-        }else if ($data->jenis_alat_id == config('type_inventaris.Incubator_Analyzer')) {
-            return view('inventaris.sertifikat.Incubator_Analyzer', compact('data'));
+        $data = Inventari::findOrFail($inventaris_id);
+
+        $viewMapping = [
+            39 => 'inventaris.sertifikat.Thermohygrometer',
+            3 => 'inventaris.sertifikat.DigitalStopWatch',
+            5 => 'inventaris.sertifikat.ElectricalSafetyAnalyzer',
+            config('type_inventaris.FETAL_SIMULATOR') => 'inventaris.sertifikat.FetalSimulator',
+            22 => 'inventaris.sertifikat.ContactTachometer',
+            37 => 'inventaris.sertifikat.TemperatureRecorder',
+            45 => 'inventaris.sertifikat.DigitalPressureMeter',
+            46 => 'inventaris.sertifikat.InfusionDeviceAnalyzer',
+            config('type_inventaris.LUX_METER') => 'inventaris.sertifikat.LuxMeter',
+            config('type_inventaris.Electrical_Surgery_Analyzer') => 'inventaris.sertifikat.ElectricalSurgeryAnalyzer',
+            config('type_inventaris.Thermometer_Reference') => 'inventaris.sertifikat.Thermometer_Reference',
+            config('type_inventaris.Ventilator_Analyzer') => 'inventaris.sertifikat.VentilatorAnalyzer',
+            config('type_inventaris.Anaesthesi_Gas_Analyzer') => 'inventaris.sertifikat.AnaesthesiGasAnalyzer',
+            config('type_inventaris.Waterbath') => 'inventaris.sertifikat.Waterbath',
+            config('type_inventaris.Incubator_Analyzer') => 'inventaris.sertifikat.Incubator_Analyzer',
+            config('type_inventaris.Solar_Power_Meter') => 'inventaris.sertifikat.Solar_Power_Meter',
+        ];
+
+        $view = $viewMapping[$data->jenis_alat_id] ?? null;
+
+        if ($view) {
+            return view($view, compact('data'));
         }
+
+        abort(404, 'Jenis alat tidak ditemukan.');
     }
 
     public function sertifikatSave(Request $request)
     {
-        $data = Inventari::where('id', $request->inventaris_id)->first();
+        $data = Inventari::findOrFail($request->inventaris_id);
         $file = $request->file('file');
         $file->storeAs('public/sertifikat', $file->hashName());
-        if ($data->jenis_alat_id == 3) {
-            // Digital Stop Watch
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'intercept' => $request->intercept,
-                'x_variable' => $request->x_variable,
-                'u' => $request->u,
-                'drift_300' => $request->drift_300,
-            ];
-        } else if ($data->jenis_alat_id == 5) {
-            // Electrical Safety Analyzer
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'intercept1' => $request->intercept1,
-                'x_variable1' => $request->x_variable1,
-                'intercept2' => $request->intercept2,
-                'x_variable2' => $request->x_variable2,
-                'intercept3' => $request->intercept3,
-                'x_variable3' => $request->x_variable3,
-            ];
-        } else if ($data->jenis_alat_id == 22) {
-            // Contact Tachometer
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'intercept' => $request->intercept,
-                'x_variable' => $request->x_variable,
-                'u60' => $request->u60,
-                'u100' => $request->u100,
-                'u500' => $request->u500,
-                'u1000' => $request->u1000,
-                'u5000' => $request->u5000,
-                '10000' => $request->u10000,
-                'drift_1000' => $request->drift_1000,
-                'drift_2000' => $request->drift_2000,
-                'drift_3000' => $request->drift_3000,
-                'drift_4000' => $request->drift_4000,
 
-            ];
-        } else if ($data->jenis_alat_id == 37) {
-            // Thermohygrometer
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'slope_1' => $request->slope_1,
-                'intercept_1' => $request->intercept_1,
-                'uc_1' => $request->uc_1,
-                'slope_2' => $request->slope_2,
-                'intercept_2' => $request->intercept_2,
-                'uc_2' => $request->uc_2,
-                'slope_3' => $request->slope_3,
-                'intercept_3' => $request->intercept_3,
-                'uc_3' => $request->uc_3,
-                'slope_4' => $request->slope_4,
-                'intercept_4' => $request->intercept_4,
-                'uc_4' => $request->uc_4,
-                'slope_5' => $request->slope_5,
-                'intercept_5' => $request->intercept_5,
-                'uc_5' => $request->uc_5,
+        // Konfigurasi jenis alat dan field
+        $jenisAlatFields = [
+            3 => ['intercept', 'x_variable', 'u', 'drift_300'], // Digital Stop Watch
+            5 => ['intercept1', 'x_variable1', 'intercept2', 'x_variable2', 'intercept3', 'x_variable3'], // Electrical Safety Analyzer
+            22 => [
+                'intercept',
+                'x_variable',
+                'u60',
+                'u100',
+                'u500',
+                'u1000',
+                'u5000',
+                '10000',
+                'drift_1000',
+                'drift_2000',
+                'drift_3000',
+                'drift_4000'
+            ], // Contact Tachometer
+            37 => array_merge(
+                array_map(fn($i) => ["slope_$i", "intercept_$i", "uc_$i"], range(1, 10)) // Thermohygrometer
+            ),
+            39 => ['uc_suhu', 'intercept_suhu', 'x_variable_suhu', 'uc_kelembapan', 'intercept_kelembapan', 'x_variable_kelembapan'], // Thermohygrometer
+            45 => [
+                'intercept_naik',
+                'x_variable_naik',
+                'intercept_turun',
+                'x_variable_turun',
+                'uc',
+                'drift0_naik',
+                'drift0_turun',
+                'drift50_naik',
+                'drift50_turun',
+                'drift100_naik',
+                'drift100_turun',
+                'drift150_naik',
+                'drift150_turun',
+                'drift200_naik',
+                'drift200_turun',
+                'drift250_naik',
+                'drift250_turun',
+                'drift300_naik',
+                'drift300_turun',
+                'drift350_naik',
+                'drift350_turun'
+            ], // Digital Pressure Meter
+            46 => [
+                'slope_1',
+                'intercept_1',
+                'uc_1',
+                'slope_2',
+                'intercept_2',
+                'uc_2',
+                'drift10_1',
+                'drift50_1',
+                'drift100_1',
+                'drift500_1',
+                'drift10_2',
+                'drift50_2',
+                'drift100_2',
+                'drift500_2'
+            ], // IDA
+            config('type_inventaris.FETAL_SIMULATOR') => ['slope', 'intercept', 'uc'], // Fetal Simulator
+            config('type_inventaris.LUX_METER') => ['slope', 'intercept'], // Lux Meter
+            config('type_inventaris.Electrical_Surgery_Analyzer') => [
+                'watt_intercept',
+                'watt_slope',
+                'arus_intercept',
+                'arus_slope',
+                'resistensi_intercept',
+                'resistensi_slope'
+            ], // Electrical Surgery Analyzer
+            config('type_inventaris.Ventilator_Analyzer') => [
+                'slope_flow_meter',
+                'intercept_flow_meter',
+                'slope_konsentrasi_oksigen',
+                'intercept_konsentrasi_oksigen'
+            ], // Ventilator Analyzer
+            config('type_inventaris.Thermometer_Reference') => ['slope', 'intercept'], // Thermometer Reference
+            config('type_inventaris.Anaesthesi_Gas_Analyzer') => ['intercept', 'x_variable_1'], // Anaesthesi Gas Analyzer
+            config('type_inventaris.Waterbath') => ['intercept', 'x_variable_1'], // Waterbath
+            config('type_inventaris.Solar_Power_Meter') => ['intercept', 'x_variable_1', 'u'], // Solar Power Meter
+        ];
 
-                'slope_6' => $request->slope_6,
-                'intercept_6' => $request->intercept_6,
-                'uc_6' => $request->uc_6,
-                'slope_7' => $request->slope_7,
-                'intercept_7' => $request->intercept_7,
-                'uc_7' => $request->uc_7,
-                'slope_8' => $request->slope_8,
-                'intercept_8' => $request->intercept_8,
-                'uc_8' => $request->uc_8,
-                'slope_9' => $request->slope_9,
-                'intercept_9' => $request->intercept_9,
-                'uc_9' => $request->uc_9,
-                'slope_10' => $request->slope_10,
-                'intercept_10' => $request->intercept_10,
-                'uc_10' => $request->uc_10,
-            ];
-        } else if ($data->jenis_alat_id == 39) {
-            // Thermohygrometer
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'uc_suhu' => $request->uc_suhu,
-                'intercept_suhu' => $request->intercept_suhu,
-                'x_variable_suhu' => $request->x_variable_suhu,
-                'uc_kelembapan' => $request->uc_kelembapan,
-                'intercept_kelembapan' => $request->intercept_kelembapan,
-                'x_variable_kelembapan' => $request->x_variable_kelembapan,
-            ];
-        } else if ($data->jenis_alat_id == 45) {
-            // Digital Pressure Meter
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'intercept_naik' => $request->intercept_naik,
-                'x_variable_naik' => $request->x_variable_naik,
-                'intercept_turun' => $request->intercept_turun,
-                'x_variable_turun' => $request->x_variable_turun,
-                'uc' => $request->uc,
-                'drift0_naik' => $request->drift0_naik,
-                'drift0_turun' => $request->drift0_turun,
-                'drift50_naik' => $request->drift50_naik,
-                'drift50_turun' => $request->drift50_turun,
-                'drift100_naik' => $request->drift100_naik,
-                'drift100_turun' => $request->drift100_turun,
-                'drift150_naik' => $request->drift150_naik,
-                'drift150_turun' => $request->drift150_turun,
-                'drift200_naik' => $request->drift200_naik,
-                'drift200_turun' => $request->drift200_turun,
-                'drift250_naik' => $request->drift250_naik,
-                'drift250_turun' => $request->drift250_turun,
-                'drift300_naik' => $request->drift300_naik,
-                'drift300_turun' => $request->drift300_turun,
-                'drift350_naik' => $request->drift350_naik,
-                'drift350_turun' => $request->drift350_turun,
-            ];
-        } else if ($data->jenis_alat_id == 46) {
-            // IDA
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'slope_1' => $request->slope_1,
-                'intercept_1' => $request->intercept_1,
-                'uc_1' => $request->uc_1,
-                'slope_2' => $request->slope_2,
-                'intercept_2' => $request->intercept_2,
-                'uc_2' => $request->uc_2,
-                'drift10_1' => $request->drift10_1,
-                'drift50_1' => $request->drift50_1,
-                'drift100_1' => $request->drift100_1,
-                'drift500_1' => $request->drift500_1,
-                'drift10_2' => $request->drift10_2,
-                'drift50_2' => $request->drift50_2,
-                'drift100_2' => $request->drift100_2,
-                'drift500_2' => $request->drift500_2,
-            ];
-        } else if ($data->jenis_alat_id == config('type_inventaris.FETAL_SIMULATOR')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'slope' => $request->slope,
-                'intercept' => $request->intercept,
-                'uc' => $request->uc,
-            ];
-        } else if ($data->jenis_alat_id == config('type_inventaris.LUX_METER')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'slope' => $request->slope,
-                'intercept' => $request->intercept,
-            ];
-        } else if ($data->jenis_alat_id == config('type_inventaris.Electrical_Surgery_Analyzer')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'watt_intercept' => $request->watt_intercept,
-                'watt_slope' => $request->watt_slope,
-                'arus_intercept' => $request->arus_intercept,
-                'arus_slope' => $request->arus_slope,
-                'resistensi_intercept' => $request->resistensi_intercept,
-                'resistensi_slope' => $request->resistensi_slope,
-            ];
-        } else if ($data->jenis_alat_id == config('type_inventaris.Ventilator_Analyzer')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'slope_flow_meter' => $request->slope_flow_meter,
-                'intercept_flow_meter' => $request->intercept_flow_meter,
-                'slope_konsentrasi_oksigen' => $request->slope_konsentrasi_oksigen,
-                'intercept_konsentrasi_oksigen' => $request->intercept_konsentrasi_oksigen,
-            ];
-        } else if ($data->jenis_alat_id == config('type_inventaris.Thermometer_Reference')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'slope' => $request->slope,
-                'intercept' => $request->intercept,
-            ];
-        } else if ($data->jenis_alat_id == config('type_inventaris.Anaesthesi_Gas_Analyzer')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'intercept' => $request->intercept,
-                'x_variable_1' => $request->x_variable_1,
-            ];
-        }else if ($data->jenis_alat_id == config('type_inventaris.Waterbath')) {
-            $data = [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'intercept' => $request->intercept,
-                'x_variable_1' => $request->x_variable_1,
-            ];
+        $fields = $jenisAlatFields[$data->jenis_alat_id] ?? [];
+        $insertData = [
+            'inventaris_id' => $request->inventaris_id,
+            'tahun' => $request->tahun,
+        ];
+
+        foreach ($fields as $field) {
+            $insertData[$field] = $request->get($field);
         }
 
-        DB::table('sertifikat_inventaris')->insert(
-            [
-                'inventaris_id' => $request->inventaris_id,
-                'tahun' => $request->tahun,
-                'data' => json_encode($data),
-                'file' =>  $file->hashName(),
-            ],
-        );
-        return redirect()
-            ->back()
-            ->with('success', __('Sertifikat inventaris berhasil disimpan'));
+        DB::table('sertifikat_inventaris')->insert([
+            'inventaris_id' => $request->inventaris_id,
+            'tahun' => $request->tahun,
+            'data' => json_encode($insertData),
+            'file' => $file->hashName(),
+        ]);
+
+        return redirect()->back()->with('success', __('Data berhasil disimpan.'));
     }
 
     public function SertifikatDelete($id)

@@ -11,6 +11,7 @@ return [
     'Anaesthesi_Gas_Analyzer' => 42,
     'Waterbath' => 40,
     'Incubator_Analyzer' => 34,
+    'Solar_Power_Meter' => 23,
 
 
 
