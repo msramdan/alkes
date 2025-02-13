@@ -240,7 +240,7 @@ $totalAll = $score_fisik + $point + $score_kinerja;
 <html>
 
 <head>
-    <title>Sertifikat {{ $laporan->no_laporan }}</title>
+    <title>Sertifikat {{ $laporan->no_sertifikat ?? '-' }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma35MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="{{ asset('template_sertifikat/assets/css/custom.css') }}">
@@ -258,7 +258,7 @@ $totalAll = $score_fisik + $point + $score_kinerja;
             <p class="text-center mt-0 mb-1" style="font-size: 20px;">Sertificate Of Calibration</p>
             <h4 class="text-center w-100"
                 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold; text-align: center;">
-                {{ $laporan->no_laporan }}</h4>
+                {{ $laporan->no_sertifikat ?? '-' }}</h4>
         </div>
 
         <div class="mt-4">

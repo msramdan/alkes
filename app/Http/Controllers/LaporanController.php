@@ -461,6 +461,7 @@ class LaporanController extends Controller
             'catatan' => $request->catatan,
             'user_review' => auth()->user()->id,
             'tgl_review' => date('Y-m-d H:i:s'),
+            'no_sertifikat' => $request->no_sertifikat,
             'status_laporan' => $request->status_laporan,
         ]);
         return redirect()

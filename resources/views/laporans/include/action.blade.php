@@ -12,10 +12,15 @@
                 @method('POST')
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Catatan</label>
+                        <label for="no_sertifikat">No Sertifikat</label>
                         <input type="hidden" name="id" id="id" value="{{ $model->id }}">
                         <input type="hidden" name="status_laporan" id="status_laporan" value="Approved">
-                        <textarea class="form-control" id="catatan" name="catatan" rows="3" required></textarea>
+                        <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="{{ old('no_sertifikat', $model->no_sertifikat ?? '') }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="catatan">Catatan</label>
+                        <textarea class="form-control" id="catatan" name="catatan" rows="3" required>{{ old('catatan', $model->catatan ?? 'Default Catatan') }}</textarea>
                     </div>
 
                 </div>

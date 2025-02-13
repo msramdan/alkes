@@ -94,6 +94,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('No Laporan') }}</th>
+                                            <th>{{ __('No Sertifikat') }}</th>
                                             <th>{{ __('Tgl Laporan') }}</th>
                                             <th>{{ __('Penginput') }}</th>
                                             <th>{{ __('Faskes') }}</th>
@@ -140,9 +141,14 @@
                 name: 'DT_RowIndex',
                 orderable: false,
                 searchable: false
-            }, {
+            },
+            {
                 data: 'no_laporan',
                 name: 'no_laporan',
+            },
+            {
+                data: 'no_sertifikat',
+                name: 'no_sertifikat',
             },
             {
                 data: 'tgl_laporan',
