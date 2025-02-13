@@ -151,7 +151,7 @@
         </tr>
         @if ($nomenklatur_id == 10)
             <tr>
-                <td>500</td>
+                <td>300</td>
                 <td>
                     <input style="width: 100px" type="number" step="0.000000001" class="form-control"
                         name="percobaan4_1" required>

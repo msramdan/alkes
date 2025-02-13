@@ -112,7 +112,7 @@ if ($nomenklatur->id == 10) {
     $arr4 = [];
     array_push($arr4, $satu4, $dua4, $tiga4, $empat4, $lima4, $enam4);
     $stdev4 = standard_deviation($arr4);
-    $koreksi4 = $meanTerkoreksi4 - 500;
+    $koreksi4 = $meanTerkoreksi4 - 300;
     $u954 = hitung_uncertainty($resolusi->value, $stdev4, $uncert, $drift500);
     $absU954 = abs($koreksi4) + $u954;
     $score4 = $absU954 < 50 ? 'Lulus' : 'Tidak';
