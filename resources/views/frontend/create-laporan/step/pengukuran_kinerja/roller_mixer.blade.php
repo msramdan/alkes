@@ -17,7 +17,7 @@
         <td>:</td>
         <td><input style="width: 100px; float" type="number" step="0.000000001" class="form-control" required name="rpm_max"
                 required></td>
-        <th>rpm</th>
+        <th>Rpm</th>
     </tr>
 </table>
 
@@ -25,7 +25,7 @@
     <thead>
         <tr>
             <th rowspan="2">Setting Alat</th>
-            <th colspan="6">Penunjukan Standar (KLux)</th>
+            <th colspan="6">Penunjukan Standar (Rpm)</th>
             <th rowspan="2">Toleransi</th>
         </tr>
         <tr>
@@ -64,7 +64,7 @@
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
                     name="putaran_50_6" required>
             </td>
-            <td>> 4 KLux</td>
+            <td rowspan="2"> ± 10 % </td>
         </tr>
         <tr>
             <td>100 %</td>
@@ -92,7 +92,6 @@
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
                     name="putaran_100_6" required>
             </td>
-            <td> ± 10 % </td>
         </tr>
     </tbody>
 </table>
@@ -102,7 +101,7 @@
     <thead>
         <tr>
             <th rowspan="2">Setting Alat</th>
-            <th colspan="6">Penunjukan Standar (mmHg)</th>
+            <th colspan="6">Penunjukan Standar (Second)</th>
             <th rowspan="2">Toleransi</th>
         </tr>
         <tr>

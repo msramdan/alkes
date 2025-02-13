@@ -53,24 +53,34 @@
                     <div class="register-form mt-5">
                         <form action="{{ route('auth-user') }}" method="POST">
                             {{ csrf_field() }}
-                            <div class="form-group text-start mb-4"><span>Email</span>
+                            <div class="form-group text-start mb-4">
+                                <span>Email</span>
                                 <label for="email"><i class="fa-solid fa-user"></i></label>
                                 <input class="form-control" id="email" type="email" name="email" required
-                                    placeholder="account@example.com" autocomplete="off">
+                                    placeholder="account@example.com">
                                 @error('email')
                                     <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group text-start mb-4"><span>Password</span>
+
+                            <div class="form-group text-start mb-4 position-relative">
+                                <span>Password</span>
                                 <label for="password"><i class="fa-solid fa-key"></i></label>
-                                <input class="form-control" id="password" name="password" type="password" required
-                                    placeholder="Password">
+                                <div class="input-group">
+                                    <input class="form-control" id="password" name="password" type="password" required
+                                        placeholder="Password">
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
                                 @error('password')
                                     <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
+
                             <button class="btn btn-warning btn-lg w-100" type="submit">Log In</button>
                         </form>
+
                     </div>
                     <div class="login-meta-data"><a class="forgot-password d-block mt-3 mb-1" href="/forget-web">Forgot
                             Password?</a>
@@ -92,6 +102,22 @@
         <script src="{{ asset('frontend/js/theme-switching.js') }}"></script>
         <script src="{{ asset('frontend/js/active.js') }}"></script>
         <script src="{{ asset('frontend/js/pwa.js') }}"></script>
+        <script>
+            document.getElementById("togglePassword").addEventListener("click", function() {
+                var passwordField = document.getElementById("password");
+                var icon = this.querySelector("i");
+
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                } else {
+                    passwordField.type = "password";
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+            });
+        </script>
         @include('sweetalert::alert')
 </body>
 
