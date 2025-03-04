@@ -44,12 +44,19 @@
                     </div>
 
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="password" class="form-control form-control-xl @error('password') is-invalid @enderror"
+                        <input type="password" id="password"
+                            class="form-control form-control-xl @error('password') is-invalid @enderror"
                             placeholder="Password" name="password" autocomplete="current-password" required>
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="showPassword">
+                        <label class="form-check-label" for="showPassword">Show password</label>
+                    </div>
+
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3">{{ __('Log in') }}</button>
                 </form>
 
@@ -71,3 +78,13 @@
         </div>
     </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("showPassword").addEventListener("change", function() {
+            let passwordField = document.getElementById("password");
+            passwordField.type = this.checked ? "text" : "password";
+        });
+    });
+</script>
