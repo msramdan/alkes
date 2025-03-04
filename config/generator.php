@@ -90,7 +90,7 @@ return [
      *          'route' => null,
      *
      *          // permission always null when isset submenus
-     *          'permission' => null,
+     *
      *
      *          // All permissions on submenus[] and will empty[] when submenus equals to []
      *          'permissions' => ['test view'],
@@ -152,8 +152,11 @@ return [
                 [
                     'title' => 'Data Faskes',
                     'icon' => '<i class="bi bi-bank"></i>',
-                    'route' => null,
-                    'permission' => null,
+                    'route' => [
+                        'faskes*',
+                        'jenis-faskes*'
+                    ],
+
                     'permissions' => [
                         'jenis faske view',
                         'faske view'
@@ -186,8 +189,14 @@ return [
                 [
                     'title' => 'Inventaris Alat',
                     'icon' => '<i class="bi bi-tools"></i>',
-                    'route' => null,
-                    'permission' => null,
+                    'route' => [
+                        'inventaris*',
+                        'types*',
+                        'rooms*',
+                        'brands*',
+                        'vendors*'
+                    ],
+
                     'permissions' => [
                         'room view',
                         'brand view',
@@ -253,8 +262,12 @@ return [
                 [
                     'title' => 'Data Wilayah',
                     'icon' => '<i class="bi bi-map"></i>',
-                    'route' => null,
-                    'permission' => null,
+                    'route' => [
+                        'provinces*',
+                        'kabkots*',
+                        'kecamatans*',
+                        'kelurahans*'
+                    ],
                     'permissions' => [
                         'province view',
                         'kabkot view',
@@ -328,8 +341,10 @@ return [
                 [
                     'title' => 'Utilities',
                     'icon' => '<i class="bi bi-gear-fill"></i>',
-                    'route' => null,
-                    'permission' => null,
+                    'route' => [
+                        'users*',
+                        'roles*'
+                    ],
                     'permissions' => [
                         'user view',
                         'role & permission view'
