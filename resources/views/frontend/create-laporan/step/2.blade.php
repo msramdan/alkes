@@ -6,8 +6,9 @@
                     ->join('brands', 'inventaris.merk_id', '=', 'brands.id')
                     ->rightJoin('sertifikat_inventaris', 'inventaris.id', '=', 'sertifikat_inventaris.inventaris_id')
                     ->select('inventaris.*', 'brands.nama_merek')
-                    ->where('jenis_alat_id', $row->type_id)
+                    ->where('inventaris.jenis_alat_id', $row->type_id)
                     ->whereNotNull('sertifikat_inventaris.inventaris_id')
+                    ->groupBy('inventaris.id')
                     ->get();
             @endphp
 
