@@ -38,6 +38,8 @@ return [
     'AUTOREFRAKTOR' => 51,
     'Bed_Electric' => 53,
     'BIOMETRI' => 54,
+    'VEIN_FINDER' => 56,
+    'UV_STERILIZER' => 57,
     'TREADMILL' => 58,
     'STIRER' => 59,
     'STERILLISATOR' => 60,
@@ -45,5 +47,8 @@ return [
     'NEOPUFF' => 63,
     'Microwave_Diathermy' => 64,
     'Meja_Operasi' => 68,
+    'MEDICAL_REFRIGERATOR' => 69,
     'OPERATING_LAMP' => 71,
+
+
 ];

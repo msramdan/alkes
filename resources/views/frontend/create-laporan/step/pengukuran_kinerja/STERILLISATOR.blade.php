@@ -1,3 +1,19 @@
+<style>
+    .table-responsive {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    /* Atur lebar input di tampilan mobile */
+    @media (max-width: 768px) {
+        .table input {
+            min-width: 100px;
+            /* Lebar minimal lebih besar */
+            max-width: none;
+            /* Hilangkan batas maksimum */
+        }
+    }
+</style>
 <div class="container bg-white p-4 rounded shadow">
     <h5 class="text-uppercase fw-bold">Gambarkan Posisi Sensor</h5>
     <div class="row mb-3">
@@ -6,15 +22,18 @@
             <div class="row gap-2">
                 <div class="col-12">
                     <label for="panjang" class="form-label">Panjang</label>
-                    <input type="number" class="form-control form-control-sm" id="panjang" name="panjang" placeholder="m">
+                    <input type="number" class="form-control form-control-sm" id="panjang" name="panjang"
+                        placeholder="m">
                 </div>
                 <div class="col-12">
                     <label for="lebar" class="form-label">Lebar</label>
-                    <input type="number" class="form-control form-control-sm" id="lebar" name="lebar" placeholder="m">
+                    <input type="number" class="form-control form-control-sm" id="lebar" name="lebar"
+                        placeholder="m">
                 </div>
                 <div class="col-12">
                     <label for="tinggi" class="form-label">Tinggi</label>
-                    <input type="number" class="form-control form-control-sm" id="tinggi" name="tinggi" placeholder="m">
+                    <input type="number" class="form-control form-control-sm" id="tinggi" name="tinggi"
+                        placeholder="m">
                 </div>
             </div>
         </div>
@@ -41,7 +60,9 @@
                     <th colspan="2">3</th>
                 </tr>
                 <tr>
-                    <th>Setting Suhu: 100°C</th>
+                    <th>Setting Suhu: <input name="setting_suhu" type="number" step="0.1"
+                            class="form-control form-control-sm text-center" style="width: 100px" placeholder="°C">
+                    </th>
                     <th>Min</th>
                     <th>Max</th>
                     <th>Min</th>

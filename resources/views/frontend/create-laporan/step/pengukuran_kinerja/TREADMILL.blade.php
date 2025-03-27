@@ -4,10 +4,14 @@
         width: 100%;
     }
 
-    .table input {
-        min-width: 80px;
-        width: 100%;
-        max-width: 100px;
+    /* Atur lebar input di tampilan mobile */
+    @media (max-width: 768px) {
+        .table input {
+            min-width: 100px;
+            /* Lebar minimal lebih besar */
+            max-width: none;
+            /* Hilangkan batas maksimum */
+        }
     }
 </style>
 

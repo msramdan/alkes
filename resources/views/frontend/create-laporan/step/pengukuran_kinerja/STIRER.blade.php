@@ -1,20 +1,17 @@
 <style>
-
     .table-responsive {
         overflow-x: auto;
-        /* Mencegah tabel terlalu besar */
         width: 100%;
-        /* Agar sesuai layar */
     }
 
-
-    .table input {
-        min-width: 80px;
-        /* Ukuran minimal */
-        width: 100%;
-        /* Menyesuaikan kolom */
-        max-width: 100px;
-        /* Batas maksimum */
+    /* Atur lebar input di tampilan mobile */
+    @media (max-width: 768px) {
+        .table input {
+            min-width: 100px;
+            /* Lebar minimal lebih besar */
+            max-width: none;
+            /* Hilangkan batas maksimum */
+        }
     }
 </style>
 <div class="container bg-white p-4 rounded shadow">
