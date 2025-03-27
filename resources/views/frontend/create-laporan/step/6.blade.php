@@ -61,6 +61,7 @@
         config('nomenklatur.UV_STERILIZER') => 'UV_STERILIZER',
         config('nomenklatur.VEIN_FINDER') => 'VEIN_FINDER',
         config('nomenklatur.MEDICAL_REFRIGERATOR') => 'MEDICAL_REFRIGERATOR',
+        config('nomenklatur.ULTRA_SOUND_THERAPY') => 'ULTRA_SOUND_THERAPY',
     ];
 @endphp
 

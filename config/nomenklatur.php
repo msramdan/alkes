@@ -33,6 +33,7 @@ return [
     'AUTOCLAVE' => 38,
     'DEFIBRILLATOR' => 39,
     'HFNC' => 41,
+    'ULTRA_SOUND_THERAPY' => 42,
     'ELECTROSTIMULATOR' => 43,
     'PULSE_OXYMETER' => 46,
     'AUTOREFRAKTOR' => 51,
