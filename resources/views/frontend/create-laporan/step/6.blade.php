@@ -83,6 +83,16 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.Bed_Electric')
         @elseif($nomenklatur_id == config('nomenklatur.BIOMETRI'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.BIOMETRI')
+        @elseif($nomenklatur_id == config('nomenklatur.OPERATING_LAMP'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.OPERATING_LAMP')
+        @elseif($nomenklatur_id == config('nomenklatur.Meja_Operasi'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.Meja_Operasi')
+        @elseif($nomenklatur_id == config('nomenklatur.Microwave_Diathermy'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.Microwave_Diathermy')
+        @elseif($nomenklatur_id == config('nomenklatur.NEOPUFF'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.NEOPUFF')
+        @elseif($nomenklatur_id == config('nomenklatur.PLATELET_AGITAROR_INKUBATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.PLATELET_AGITAROR_INKUBATOR')
         @endif
     </form>
 </div>

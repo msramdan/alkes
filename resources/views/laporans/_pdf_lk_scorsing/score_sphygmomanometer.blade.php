@@ -759,7 +759,7 @@ $totalAll = $score_fisik + $scoreTekananHasil + $scoreLajuHasil + $initScore;
             <td style="text-align: center;">1</td>
             <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
             <td style="text-align: center;">{{ $score_fisik }}</td>
-            <td style="text-align: center;vertical-align: middle;" rowspan="3">
+            <td style="text-align: center;vertical-align: middle;" rowspan="4">
                 {{ $totalAll }}
             </td>
         </tr>

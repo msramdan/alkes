@@ -37,5 +37,10 @@ return [
     'PULSE_OXYMETER' => 46,
     'AUTOREFRAKTOR' => 51,
     'Bed_Electric' => 53,
-    'BIOMETRI' => 54
+    'BIOMETRI' => 54,
+    'PLATELET_AGITAROR_INKUBATOR' => 62,
+    'NEOPUFF' => 63,
+    'Microwave_Diathermy' => 64,
+    'Meja_Operasi' => 68,
+    'OPERATING_LAMP' => 71,
 ];

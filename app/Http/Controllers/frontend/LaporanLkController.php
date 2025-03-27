@@ -124,7 +124,7 @@ class LaporanLkController extends Controller
                     if (!$sertifikat) {
                         dd('Thermohygrometer belum diisi');
                     }
-                } else if ($nomenklatur_type->type_id == 5) {
+                } else if ($nomenklatur_type->type_id ==  config('type_inventaris.Electrical_Safety_Analyzer')) {
                     // get detail $sertifikat  ElectricalSafetyAnalyzer
                     $ElectricalSafetyAnalyzer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$ElectricalSafetyAnalyzer) {
