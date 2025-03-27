@@ -93,6 +93,12 @@
             @include('frontend.create-laporan.step.pengukuran_kinerja.NEOPUFF')
         @elseif($nomenklatur_id == config('nomenklatur.PLATELET_AGITAROR_INKUBATOR'))
             @include('frontend.create-laporan.step.pengukuran_kinerja.PLATELET_AGITAROR_INKUBATOR')
+        @elseif($nomenklatur_id == config('nomenklatur.STERILLISATOR'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.STERILLISATOR')
+        @elseif($nomenklatur_id == config('nomenklatur.STIRER'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.STIRER')
+        @elseif($nomenklatur_id == config('nomenklatur.TREADMILL'))
+            @include('frontend.create-laporan.step.pengukuran_kinerja.TREADMILL')
         @endif
     </form>
 </div>
