@@ -35,7 +35,10 @@ return [
     'HFNC' => 41,
     'ULTRA_SOUND_THERAPY' => 42,
     'ELECTROSTIMULATOR' => 43,
+    'PHOTOTHERAPY' => 44,
+    'INFANT_WARMER' => 45,
     'PULSE_OXYMETER' => 46,
+    'TRAKSI' => 47,
     'AUTOREFRAKTOR' => 51,
     'Bed_Electric' => 53,
     'BIOMETRI' => 54,
@@ -50,6 +53,4 @@ return [
     'Meja_Operasi' => 68,
     'MEDICAL_REFRIGERATOR' => 69,
     'OPERATING_LAMP' => 71,
-
-
 ];

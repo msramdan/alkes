@@ -62,6 +62,9 @@
         config('nomenklatur.VEIN_FINDER') => 'VEIN_FINDER',
         config('nomenklatur.MEDICAL_REFRIGERATOR') => 'MEDICAL_REFRIGERATOR',
         config('nomenklatur.ULTRA_SOUND_THERAPY') => 'ULTRA_SOUND_THERAPY',
+        config('nomenklatur.PHOTOTHERAPY') => 'PHOTOTHERAPY',
+        config('nomenklatur.TRAKSI') => 'TRAKSI',
+        config('nomenklatur.INFANT_WARMER') => 'INFANT_WARMER',
     ];
 @endphp
 
