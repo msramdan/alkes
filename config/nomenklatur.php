@@ -42,6 +42,7 @@ return [
     'AUTOREFRAKTOR' => 51,
     'Bed_Electric' => 53,
     'BIOMETRI' => 54,
+    'VITAL_SIGN_MONITOR' => 55,
     'VEIN_FINDER' => 56,
     'UV_STERILIZER' => 57,
     'TREADMILL' => 58,

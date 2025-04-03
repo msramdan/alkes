@@ -65,6 +65,7 @@
         config('nomenklatur.PHOTOTHERAPY') => 'PHOTOTHERAPY',
         config('nomenklatur.TRAKSI') => 'TRAKSI',
         config('nomenklatur.INFANT_WARMER') => 'INFANT_WARMER',
+        config('nomenklatur.VITAL_SIGN_MONITOR') => 'VITAL_SIGN_MONITOR',
     ];
 @endphp
 
