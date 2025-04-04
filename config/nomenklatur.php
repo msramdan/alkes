@@ -48,6 +48,7 @@ return [
     'TREADMILL' => 58,
     'STIRER' => 59,
     'STERILLISATOR' => 60,
+    'SPIROMETER' => 61,
     'PLATELET_AGITAROR_INKUBATOR' => 62,
     'NEOPUFF' => 63,
     'Microwave_Diathermy' => 64,
@@ -56,4 +57,5 @@ return [
     'MEDICAL_REFRIGERATOR' => 69,
     'LAPAROSCOPY' => 70,
     'OPERATING_LAMP' => 71,
+    'HUMIDIFIER' => 73,
 ];

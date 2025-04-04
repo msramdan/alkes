@@ -68,6 +68,8 @@
         config('nomenklatur.VITAL_SIGN_MONITOR') => 'VITAL_SIGN_MONITOR',
         config('nomenklatur.MIKROPIPET_FIXED_VOLUME') => 'MIKROPIPET_FIXED_VOLUME',
         config('nomenklatur.LAPAROSCOPY') => 'LAPAROSCOPY',
+        config('nomenklatur.HUMIDIFIER') => 'HUMIDIFIER',
+        config('nomenklatur.SPIROMETER') => 'SPIROMETER',
     ];
 @endphp
 
