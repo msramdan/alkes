@@ -51,7 +51,9 @@ return [
     'PLATELET_AGITAROR_INKUBATOR' => 62,
     'NEOPUFF' => 63,
     'Microwave_Diathermy' => 64,
+    'MIKROPIPET_FIXED_VOLUME' => 67,
     'Meja_Operasi' => 68,
     'MEDICAL_REFRIGERATOR' => 69,
+    'LAPAROSCOPY' => 70,
     'OPERATING_LAMP' => 71,
 ];

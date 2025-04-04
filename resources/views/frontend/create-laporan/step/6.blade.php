@@ -66,6 +66,8 @@
         config('nomenklatur.TRAKSI') => 'TRAKSI',
         config('nomenklatur.INFANT_WARMER') => 'INFANT_WARMER',
         config('nomenklatur.VITAL_SIGN_MONITOR') => 'VITAL_SIGN_MONITOR',
+        config('nomenklatur.MIKROPIPET_FIXED_VOLUME') => 'MIKROPIPET_FIXED_VOLUME',
+        config('nomenklatur.LAPAROSCOPY') => 'LAPAROSCOPY',
     ];
 @endphp
 
