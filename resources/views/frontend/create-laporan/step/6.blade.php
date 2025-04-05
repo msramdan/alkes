@@ -70,6 +70,8 @@
         config('nomenklatur.LAPAROSCOPY') => 'LAPAROSCOPY',
         config('nomenklatur.HUMIDIFIER') => 'HUMIDIFIER',
         config('nomenklatur.SPIROMETER') => 'SPIROMETER',
+        config('nomenklatur.ULTRASONOGRAPHY') => 'ULTRASONOGRAPHY',
+        config('nomenklatur.MIKROSKOP') => 'MIKROSKOP',
     ];
 @endphp
 
