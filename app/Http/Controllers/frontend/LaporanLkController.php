@@ -270,7 +270,7 @@ class LaporanLkController extends Controller
                     'data_laporan' => suction_pump($request),
                     'data_sertifikat' => $sertifikatDpm->data,
                 ]);
-            } else if ($request->nomenklatur_id == config('nomenklatur.CONTACT_TACHOMETER')) {
+            } else if ($request->nomenklatur_id == config('nomenklatur.CENTRIFUGE')) {
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'contact_tachometer',

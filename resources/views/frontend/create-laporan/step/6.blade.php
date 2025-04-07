@@ -20,7 +20,7 @@
         config('nomenklatur.SPHYGMOMANOMETER') => 'sphygmomanometer',
         config('nomenklatur.SUCTION_PUMP') => 'suction_pump',
         config('nomenklatur.INKUBATOR_LABORATORIUM') => 'inkubator_laboratorium',
-        config('nomenklatur.CONTACT_TACHOMETER') => 'contact_tachometer',
+        config('nomenklatur.CENTRIFUGE') => 'CENTRIFUGE',
         config('nomenklatur.ELECTROCARDIOGRAPH') => 'electrocardiograph',
         config('nomenklatur.CARDIOTOCOGRAPH') => 'cardiotocograph',
         config('nomenklatur.FETAL_DOPPLER') => 'fetal_doppler',
