@@ -96,7 +96,7 @@
                     <td><input name="linearitas_0_4_4" type="number" step="0.1"
                             class="form-control form-control-sm "></td>
                     <td><input name="linearitas_0_4_5" type="number" step="0.1"
-                            class="form-control form-control-sm "></td>
+                            class="form-control form-control-sm"></td>
                     <td rowspan="3">3%</td>
                 </tr>
                 <tr>
