@@ -23,20 +23,35 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
     <link rel="manifest" href="{{ asset('frontend/manifest.json') }}">
     <link href="{{ asset('frontend/css/select2.css') }}" rel="stylesheet" />
+    <style>
+        .logo-img {
+            width: 50%;
+        }
 
+        @media (max-width: 768px) {
+            .logo-img {
+                width: 80%;
+            }
+        }
+    </style>
     @stack('css')
 </head>
 
 <body>
     <div class="header-area" id="headerArea">
         <div class="container h-100 d-flex align-items-center justify-content-between d-flex rtl-flex-d-row-r">
-            <div class="logo-wrapper"><a href="{{ route('home') }}">
-                    <img src="{{ asset('frontend/img/logo.png') }}" alt="" style="width: 70%;">
-                </a></div>
+            <div class="logo-wrapper">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('frontend/img/logo.png') }}" alt="Logo" class="logo-img">
+                </a>
+            </div>
+
             <div class="navbar-logo-container d-flex align-items-center">
                 <div class="form-check form-switch mb-0">
                     <input class="form-check-input" id="darkSwitch" type="checkbox" role="switch">
