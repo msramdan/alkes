@@ -70,7 +70,7 @@
                 <div class="input-group">
                     <input type="number" step="0.000000001" class="form-control" placeholder="" id="administrasi_rentang-ukur"
                         name="administrasi_rentang-ukur" value="" required>
-                    <span class="input-group-text" style="width: 70px"
+                    <span class="input-group-text" style="width: 100px"
                         id="">{{ cek_satuan($nomenklatur_id, 'Rentang Ukur') }}</span>
                     <div class="valid-feedback">
                         Okay !
@@ -90,7 +90,7 @@
                     <input type="number" step="0.000000001" class="form-control" value="" id="administrasi_kapasitas"
                         name="administrasi_kapasitas" aria-describedby="" required>
                     <span class="input-group-text" id=""
-                        style="width: 70px">{{ cek_satuan($nomenklatur_id, 'Kapasitas') }}</span>
+                        style="width: 100px">{{ cek_satuan($nomenklatur_id, 'Kapasitas') }}</span>
                     <div class="valid-feedback">
                         Okay !
                     </div>
