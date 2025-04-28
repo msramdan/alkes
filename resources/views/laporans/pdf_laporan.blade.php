@@ -121,6 +121,8 @@
         @include('laporans._pdf_lk_laporan.score_roller_mixer')
     @elseif ($nomenklaturs->id == config('nomenklatur.ROTATOR'))
         @include('laporans._pdf_lk_laporan.score_rotator')
+    @elseif ($nomenklaturs->id == config('nomenklatur.Meja_Operasi'))
+        @include('laporans._pdf_lk_laporan.score_meja_operasi')
     @endif
 
 

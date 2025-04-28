@@ -54,7 +54,7 @@
     @include('laporans._sertifikat.cardiotocograph')
 @elseif ($nomenklatur->id == config('nomenklatur.FETAL_DOPPLER'))
     @include('laporans._sertifikat.fetal_doppler')
-@elseif ($nomenklatur->id == config('nomenklatur.EXAMINATION_LAMP'))
+@elseif ($nomenklatur->id == config('nomenklatur.EXAMINATION_LAMP'))s
     @include('laporans._sertifikat.examination_lamp')
 @elseif ($nomenklatur->id == config('nomenklatur.DENTAL_UNIT'))
     @include('laporans._sertifikat.dental_unit')
@@ -62,4 +62,6 @@
     @include('laporans._sertifikat.roller_mixer')
 @elseif ($nomenklatur->id == config('nomenklatur.ROTATOR'))
     @include('laporans._sertifikat.rotator')
+@elseif ($nomenklatur->id == config('nomenklatur.Meja_Operasi'))
+    @include('laporans._sertifikat.meja_operasi')
 @endif
