@@ -644,6 +644,32 @@ function intensitas_cahaya($request)
     return json_encode($data_laporan);
 }
 
+function intensitas_cahaya_lengan_1($request)
+{
+    $data_laporan = [
+        'cahaya_lengan_1_1' => $request->cahaya_lengan_1_1,
+        'cahaya_lengan_1_2' => $request->cahaya_lengan_1_2,
+        'cahaya_lengan_1_3' => $request->cahaya_lengan_1_3,
+        'cahaya_lengan_1_4' => $request->cahaya_lengan_1_4,
+        'cahaya_lengan_1_5' => $request->cahaya_lengan_1_5,
+        'cahaya_lengan_1_6' => $request->cahaya_lengan_1_6,
+    ];
+    return json_encode($data_laporan);
+}
+
+function intensitas_cahaya_lengan_2($request)
+{
+    $data_laporan = [
+        'cahaya_lengan_2_1' => $request->cahaya_lengan_2_1,
+        'cahaya_lengan_2_2' => $request->cahaya_lengan_2_2,
+        'cahaya_lengan_2_3' => $request->cahaya_lengan_2_3,
+        'cahaya_lengan_2_4' => $request->cahaya_lengan_2_4,
+        'cahaya_lengan_2_5' => $request->cahaya_lengan_2_5,
+        'cahaya_lengan_2_6' => $request->cahaya_lengan_2_6,
+    ];
+    return json_encode($data_laporan);
+}
+
 function akurasi_pressure($request)
 {
     $data_laporan = [

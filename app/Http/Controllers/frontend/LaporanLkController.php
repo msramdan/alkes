@@ -338,6 +338,21 @@ class LaporanLkController extends Controller
                     'data_laporan' => intensitas_cahaya($request),
                     'data_sertifikat' => $luxMeter->data,
                 ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.OPERATING_LAMP')) {
+                // Intensitas Cahaya
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'intensitas_cahaya_lengan_1',
+                    'data_laporan' => intensitas_cahaya_lengan_1($request),
+                    'data_sertifikat' => $luxMeter->data,
+                ]);
+
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'intensitas_cahaya_lengan_2',
+                    'data_laporan' => intensitas_cahaya_lengan_2($request),
+                    'data_sertifikat' => $luxMeter->data,
+                ]);
             }
 
             //Create Laporan Telaah Teknis
