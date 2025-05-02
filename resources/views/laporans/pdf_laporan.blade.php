@@ -125,6 +125,8 @@
         @include('laporans._pdf_lk_laporan.score_meja_operasi')
     @elseif ($nomenklaturs->id == config('nomenklatur.OPERATING_LAMP'))
         @include('laporans._pdf_lk_laporan.score_operating_lamp')
+    @elseif ($nomenklaturs->id == config('nomenklatur.Microwave_Diathermy'))
+        @include('laporans._pdf_lk_laporan.score_microwave_diathermy')
     @endif
 
 

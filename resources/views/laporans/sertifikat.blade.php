@@ -67,4 +67,6 @@
     @include('laporans._sertifikat.meja_operasi')
 @elseif ($nomenklatur->id == config('nomenklatur.OPERATING_LAMP'))
     @include('laporans._sertifikat.operating_lamp')
+@elseif ($nomenklatur->id == config('nomenklatur.Microwave_Diathermy'))
+    @include('laporans._sertifikat.microwave_diathermy')
 @endif
