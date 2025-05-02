@@ -353,6 +353,21 @@ class LaporanLkController extends Controller
                     'data_laporan' => intensitas_cahaya_lengan_2($request),
                     'data_sertifikat' => $luxMeter->data,
                 ]);
+            }else if ($request->nomenklatur_id == config('nomenklatur.HUMIDIFIER')) {
+                // Intensitas Cahaya
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'suhu_udara',
+                    'data_laporan' => suhu_udara($request),
+                    'data_sertifikat' => $luxMeter->data,
+                ]);
+
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'kelembapan_udara',
+                    'data_laporan' => kelembapan_udara($request),
+                    'data_sertifikat' => $luxMeter->data,
+                ]);
             }
 
             //Create Laporan Telaah Teknis

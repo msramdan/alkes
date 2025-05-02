@@ -712,3 +712,24 @@ function waktu_putaran($request)
     ];
     return json_encode($data_laporan);
 }
+
+// HUMIDIFIER
+function suhu_udara($request)
+{
+    $data_laporan = [
+        'waktu_putaran_1' => $request->waktu_putaran_1,
+        'waktu_putaran_2' => $request->waktu_putaran_2,
+        'waktu_putaran_3' => $request->waktu_putaran_3,
+    ];
+    return json_encode($data_laporan);
+}
+
+function kelembapan_udara($request)
+{
+    $data_laporan = [
+        'waktu_putaran_1' => $request->waktu_putaran_1,
+        'waktu_putaran_2' => $request->waktu_putaran_2,
+        'waktu_putaran_3' => $request->waktu_putaran_3,
+    ];
+    return json_encode($data_laporan);
+}

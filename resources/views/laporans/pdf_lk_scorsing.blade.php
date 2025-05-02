@@ -122,6 +122,8 @@
         @include('laporans._pdf_lk_scorsing.score_rotator')
     @elseif ($nomenklaturs->id == config('nomenklatur.Meja_Operasi'))
         @include('laporans._pdf_lk_scorsing.score_meja_operasi')
+    @elseif ($nomenklaturs->id == config('nomenklatur.OPERATING_LAMP'))
+        @include('laporans._pdf_lk_scorsing.score_operating_lamp')
     @endif
 
 </body>
