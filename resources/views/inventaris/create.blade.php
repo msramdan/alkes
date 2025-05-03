@@ -49,3 +49,18 @@
         </section>
     </div>
 @endsection
+@push('css')
+    <link href="{{ asset('frontend/css/select2.css') }}" rel="stylesheet" />
+@endpush
+
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2-form').select2();
+        });
+    </script>
+@endpush
