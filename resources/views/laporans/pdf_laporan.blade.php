@@ -129,6 +129,8 @@
         @include('laporans._pdf_lk_laporan.score_microwave_diathermy')
     @elseif ($nomenklaturs->id == config('nomenklatur.UJI_KESELAMATAN_LISTRIK'))
         @include('laporans._pdf_lk_laporan.score_uji_keselamatan_listrik')
+    @elseif ($nomenklaturs->id == config('nomenklatur.Bed_Electric'))
+        @include('laporans._pdf_lk_laporan.score_bed_electric')
     @endif
 
 

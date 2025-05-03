@@ -70,4 +70,6 @@
     @include('laporans._sertifikat.microwave_diathermy')
 @elseif ($nomenklatur->id == config('nomenklatur.UJI_KESELAMATAN_LISTRIK'))
     @include('laporans._sertifikat.uji_keselamatan_listrik')
+@elseif ($nomenklatur->id == config('nomenklatur.Bed_Electric'))
+    @include('laporans._sertifikat.bed_electric')
 @endif
