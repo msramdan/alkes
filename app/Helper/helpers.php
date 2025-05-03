@@ -733,3 +733,16 @@ function kelembapan_udara($request)
     ];
     return json_encode($data_laporan);
 }
+
+function peak_inspiratory_pressure($request)
+{
+    $data_laporan = [];
+
+    foreach ([10, 20, 30] as $level) {
+        for ($i = 1; $i <= 6; $i++) {
+            $key = "peak_{$level}_{$i}";
+            $data_laporan[$key] = $request->$key ?? null;
+        }
+    }
+    return json_encode($data_laporan);
+}

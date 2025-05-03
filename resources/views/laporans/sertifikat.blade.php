@@ -55,7 +55,6 @@
 @elseif ($nomenklatur->id == config('nomenklatur.FETAL_DOPPLER'))
     @include('laporans._sertifikat.fetal_doppler')
 @elseif ($nomenklatur->id == config('nomenklatur.EXAMINATION_LAMP'))
-    s
     @include('laporans._sertifikat.examination_lamp')
 @elseif ($nomenklatur->id == config('nomenklatur.DENTAL_UNIT'))
     @include('laporans._sertifikat.dental_unit')
@@ -69,4 +68,6 @@
     @include('laporans._sertifikat.operating_lamp')
 @elseif ($nomenklatur->id == config('nomenklatur.Microwave_Diathermy'))
     @include('laporans._sertifikat.microwave_diathermy')
+@elseif ($nomenklatur->id == config('nomenklatur.UJI_KESELAMATAN_LISTRIK'))
+    @include('laporans._sertifikat.uji_keselamatan_listrik')
 @endif

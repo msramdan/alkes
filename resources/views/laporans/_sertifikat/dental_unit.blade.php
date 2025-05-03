@@ -1,4 +1,4 @@
-@if ($count_laporan_pengukuran_keselamatan_listrik > 0)
+{{-- @if ($count_laporan_pengukuran_keselamatan_listrik > 0)
     <?php
     $cek = json_decode(get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->data_sertifikat);
     $hitungPhaseNetral = round($cek->intercept1 + $cek->x_variable1 * get_data_litsrik($laporan->no_laporan, 'slug', 'phase-netral')->value, 2);
@@ -38,7 +38,7 @@
 
     $point = round(($lulus / 7) * 40);
     ?>
-@endif
+@endif --}}
 
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')

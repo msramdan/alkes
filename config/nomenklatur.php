@@ -58,5 +58,6 @@ return [
     'MEDICAL_REFRIGERATOR' => 69,
     'LAPAROSCOPY' => 70,
     'OPERATING_LAMP' => 71,
+    'UJI_KESELAMATAN_LISTRIK' => 72,
     'HUMIDIFIER' => 73,
 ];

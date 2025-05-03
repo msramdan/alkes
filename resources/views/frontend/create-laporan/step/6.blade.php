@@ -72,6 +72,7 @@
         config('nomenklatur.SPIROMETER') => 'SPIROMETER',
         config('nomenklatur.ULTRASONOGRAPHY') => 'ULTRASONOGRAPHY',
         config('nomenklatur.MIKROSKOP') => 'MIKROSKOP',
+        config('nomenklatur.UJI_KESELAMATAN_LISTRIK') => 'UJI_KESELAMATAN_LISTRIK',
     ];
 @endphp
 

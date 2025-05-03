@@ -353,7 +353,7 @@ class LaporanLkController extends Controller
                     'data_laporan' => intensitas_cahaya_lengan_2($request),
                     'data_sertifikat' => $luxMeter->data,
                 ]);
-            }else if ($request->nomenklatur_id == config('nomenklatur.HUMIDIFIER')) {
+            } else if ($request->nomenklatur_id == config('nomenklatur.HUMIDIFIER')) {
                 // Intensitas Cahaya
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
@@ -367,6 +367,13 @@ class LaporanLkController extends Controller
                     'type_laporan_kinerja' => 'kelembapan_udara',
                     'data_laporan' => kelembapan_udara($request),
                     'data_sertifikat' => $luxMeter->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.NEOPUFF')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'peak_inspiratory_pressure',
+                    'data_laporan' => peak_inspiratory_pressure($request),
+                    'data_sertifikat' => '',
                 ]);
             }
 
