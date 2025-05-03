@@ -746,3 +746,16 @@ function peak_inspiratory_pressure($request)
     }
     return json_encode($data_laporan);
 }
+
+function spectral_irradiance($request)
+{
+    $data_laporan = [
+        'spectral_irradiance_1' => $request->spectral_irradiance_1,
+        'spectral_irradiance_2' => $request->spectral_irradiance_2,
+        'spectral_irradiance_3' => $request->spectral_irradiance_3,
+        'spectral_irradiance_4' => $request->spectral_irradiance_4,
+        'spectral_irradiance_5' => $request->spectral_irradiance_5,
+        'spectral_irradiance_6' => $request->spectral_irradiance_6,
+    ];
+    return json_encode($data_laporan);
+}
