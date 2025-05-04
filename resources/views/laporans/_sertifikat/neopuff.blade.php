@@ -1,98 +1,6 @@
-{{-- PEAK INSPIRATORY PRESSURE --}}
 <?php
-$resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
-$peak_inspiratory_pressure = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'peak_inspiratory_pressure')->where('no_laporan', $laporan->no_laporan)->first();
-$data_sertifikat = json_decode($peak_inspiratory_pressure->data_sertifikat);
-$data_laporan = json_decode($peak_inspiratory_pressure->data_laporan);
-
-$arrString = ['peak_10', 'peak_20', 'peak_30'];
-$myArrayString = [];
-$initScoreString = 0;
-
-foreach ($arrString as $value) {
-    // 1000
-    $a = $value . '_1';
-    $$a = $data_laporan->$a;
-
-    $b = $value . '_2';
-    $$b = $data_laporan->$b;
-
-    $c = $value . '_3';
-    $$c = $data_laporan->$c;
-
-    $d = $value . '_4';
-    $$d = $data_laporan->$d;
-
-    $e = $value . '_5';
-    $$e = $data_laporan->$e;
-
-    $f = $value . '_6';
-    $$f = $data_laporan->$f;
-
-    // mean
-    $mean = 'mean_' . $value;
-
-    $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
-    // mean terkoreksi
-    $mean_terkoreksi = 'mean_terkoreksi_' . $value;
-    // $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->slope * $$mean;
-    $$mean_terkoreksi = $$mean;
-
-    // stdev
-    $arrData = [];
-    array_push($arrData, $$a, $$b, $$c, $$d, $$e, $$f);
-    $stdev = standard_deviation($arrData);
-    $var_stdev = 'stdev' . $value;
-    $$var_stdev = $stdev;
-
-    // U95
-    $u95 = 'u95' . $value . '_naik';
-    // U95
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, 0, 0, 6);
-    // koreksi
-    $angka = (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
-    $koreksi = 'koreksi' . $value;
-    $$koreksi = $$mean - $angka;
-    // cu95
-    $cu95 = 'abs95' . $value;
-    $$cu95 = $$koreksi + $$u95;
-
-    // toleransi
-    $toleransi = 'toleransi' . $value;
-    $$toleransi = 0.1 * $angka;
-
-    // hasil
-    $hasil = 'hasil' . $value;
-    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
-    if ($$hasil == 'Lulus') {
-        $initScoreString = $initScoreString + 1;
-    }
-
-    $data = [
-        'angka' => $angka,
-        'percobaan_1' => $$a,
-        'percobaan_2' => $$b,
-        'percobaan_3' => $$c,
-        'percobaan_4' => $$d,
-        'percobaan_5' => $$e,
-        'percobaan_6' => $$f,
-        'mean' => $$mean,
-        'mean_terkoreksi' => $$mean_terkoreksi,
-        'stdev' => $$var_stdev,
-        'koreksi' => $$koreksi,
-        'u95' => $$u95,
-        'cu95' => $$cu95,
-        'tol' => $$toleransi,
-        'hasil' => $$hasil,
-    ];
-    $myArrayString[$value] = $data;
-    $arrData = [];
-}
-$scoreString = (($initScoreString / 3) * 100) / 2;
-$persyaratanString = $scoreString >= 50 ? 'Lulus' : 'Tidak';
-$totalAll = $score_fisik + $point + $scoreString;
+$totalAll = $score_fisik + $point;
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -102,7 +10,6 @@ $totalAll = $score_fisik + $point + $scoreString;
         integrity="sha384-ggOyR0iXCbMQv3Xipma35MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="{{ asset('template_sertifikat/assets/css/custom.css') }}">
 </head>
-
 <body>
     <img src="{{ asset('template_sertifikat/assets/img/logo-bg.jpg') }}" class="img-fluid" width="590"
         style="position: absolute; top: 350px; left: 40px; z-index: -1; opacity: 0.05;" alt="Responsive image">
@@ -182,7 +89,7 @@ $totalAll = $score_fisik + $point + $scoreString;
                     </td>
                     <td class="va-top" width="3%">:</td>
                     <td class="va-top" style="font-weight: bold; font-size: 16px;">
-                        @if ($totalAll >= 70)
+                        @if ($totalAll >= 50)
                             LAIK PAKAI
                             <br>berlaku s/d :
                             {{ tanggal_indonesia(date('Y-m-d', strtotime('+1 year', strtotime($tgl)))) }}
@@ -213,8 +120,8 @@ $totalAll = $score_fisik + $point + $scoreString;
                 </tr>
                 <tr>
                     <td class="text-center p-2">
-                        <img src="{{ asset('template_sertifikat/assets/img/logo-head.webp') }}" class="img-fluid ml-4"
-                            width="200" style="opacity: 0.5;" alt="Responsive image">
+                        <img src="{{ asset('template_sertifikat/assets/img/logo-head.webp') }}"
+                            class="img-fluid ml-4" width="200" style="opacity: 0.5;" alt="Responsive image">
                     </td>
                 </tr>
                 <tr>

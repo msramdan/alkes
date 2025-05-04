@@ -4,6 +4,8 @@
     }
 </style>
 
+
+
 <p style="font-size: 14px"><b>D. PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
@@ -210,15 +212,14 @@
         </tbody>
     </table>
 @endif
-
-{{-- spectral_irradiance --}}
+{{-- PEAK INSPIRATORY PRESSURE --}}
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
-$spectral_irradiance = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'spectral_irradiance')->where('no_laporan', $laporan->no_laporan)->first();
-$data_sertifikat = json_decode($spectral_irradiance->data_sertifikat);
-$data_laporan = json_decode($spectral_irradiance->data_laporan);
+$peak_inspiratory_pressure = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'peak_inspiratory_pressure')->where('no_laporan', $laporan->no_laporan)->first();
+$data_sertifikat = json_decode($peak_inspiratory_pressure->data_sertifikat);
+$data_laporan = json_decode($peak_inspiratory_pressure->data_laporan);
 
-$arrString = ['spectral_irradiance'];
+$arrString = ['peak_10', 'peak_20', 'peak_30'];
 $myArrayString = [];
 $initScoreString = 0;
 
@@ -246,7 +247,6 @@ foreach ($arrString as $value) {
     $mean = 'mean_' . $value;
 
     $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
-
     // mean terkoreksi
     $mean_terkoreksi = 'mean_terkoreksi_' . $value;
     // $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->slope * $$mean;
@@ -262,23 +262,28 @@ foreach ($arrString as $value) {
     // U95
     $u95 = 'u95' . $value . '_naik';
     // U95
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat->u, 0, 6);
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, 0, 0, 6);
+    // koreksi
+    $angka = (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+    $koreksi = 'koreksi' . $value;
+    $$koreksi =  $$mean - $angka;
     // cu95
     $cu95 = 'abs95' . $value;
-    $$cu95 = $$mean + $$u95;
+    $$cu95 = $$koreksi + $$u95;
 
     // toleransi
     $toleransi = 'toleransi' . $value;
-    $$toleransi = 4;
+    $$toleransi = 0.1 * $angka;
 
     // hasil
     $hasil = 'hasil' . $value;
-    $$hasil = $$cu95 >= $$toleransi ? 'Lulus' : 'Tidak';
+    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
         $initScoreString = $initScoreString + 1;
     }
 
     $data = [
+        'angka' => $angka,
         'percobaan_1' => $$a,
         'percobaan_2' => $$b,
         'percobaan_3' => $$c,
@@ -288,7 +293,7 @@ foreach ($arrString as $value) {
         'mean' => $$mean,
         'mean_terkoreksi' => $$mean_terkoreksi,
         'stdev' => $$var_stdev,
-        'koreksi' => '',
+        'koreksi' => $$koreksi,
         'u95' => $$u95,
         'cu95' => $$cu95,
         'tol' => $$toleransi,
@@ -297,10 +302,11 @@ foreach ($arrString as $value) {
     $myArrayString[$value] = $data;
     $arrData = [];
 }
-$scoreString = (($initScoreString / 1) * 100) / 2;
+$scoreString = (($initScoreString / 3) * 100) / 2;
 $persyaratanString = $scoreString >= 50 ? 'Lulus' : 'Tidak';
-$totalAll = $score_fisik + $scoreString;
+$totalAll = $score_fisik + $point + $scoreString;
 ?>
+
 <p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
         PENGUKURAN KINERJA</b></p>
 <p style="font-size: 11px;margin-left:18px"><b>Spectral Irradiance</b></p>
@@ -312,6 +318,7 @@ $totalAll = $score_fisik + $scoreString;
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdv</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Koreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">U95</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">C + U95</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
@@ -328,129 +335,139 @@ $totalAll = $score_fisik + $scoreString;
         <th style="text-align: center;vertical-align: middle;">6</th>
     </tr>
     @foreach ($myArrayString as $key => $value)
-        <tr>
-            <td style="text-align: center;vertical-align: middle;">MAX</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['mean_terkoreksi'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['stdev'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['u95'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['cu95'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['tol'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['hasil'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $scoreString }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $persyaratanString }}</td>
-        </tr>
-    @endforeach
+    <tr>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['angka'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['mean_terkoreksi'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['stdev'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['koreksi'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['u95'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['cu95'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ round($value['tol'], 2) }}</td>
+        <td style="text-align: center;vertical-align: middle;">{{ $value['hasil'] }}</td>
+        @if ($key == 'peak_10')
+            <td style="text-align: center;vertical-align: middle;" rowspan="3">{{ $scoreString }}</td>
+            <td style="text-align: center;vertical-align: middle;" rowspan="3">{{ $persyaratanString }}</td>
+        @endif
+    </tr>
+@endforeach
 </table>
-
 {{-- telaah_teknis --}}
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
-        TEKNIS</b></p>
+    TEKNIS</b></p>
 <table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        @forelse ($laporan_telaah_teknis as $row)
-            <tr>
-                <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
-                <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
-                <td>
-                    <div class="form-group" style="margin: 0px">
-                        <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
-                        <label>Baik</label>
-                    </div>
-                    <div class="form-group" style="margin: 0px">
-                        <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
-                        <label>Tidak Baik</label>
-                    </div>
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td style="text-align: center;">-</td>
-                <td style="text-align: center;">-</td>
-                <td style="text-align: center;">-</td>
-            </tr>
-        @endforelse
-    </tbody>
-</table>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <thead>
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    @forelse ($laporan_telaah_teknis as $row)
         <tr>
-            <th style="width: 4%;text-align: center;">No</th>
-            <th style="width: 24%;text-align: center;">Parameter</th>
-            <th style="width: 24%;text-align: center;">Skor</th>
-            <th style="width: 24%;text-align: center;">Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: center;">1</td>
-            <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
-            <td style="text-align: center;">{{ $score_fisik }}</td>
-            <td style="text-align: center;vertical-align: middle;" rowspan="3">
-                {{ $totalAll }}
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center;">2</td>
-            <td style="text-align: center;">Hasil Pengukuran Kinerja</td>
-            <td style="text-align: center;">
-                {{ $scoreString }}
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        <tr>
-            <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
-        </tr>
-    </tbody>
-</table>
-<table class="table table-bordered table-sm"
-    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
-    <tbody>
-        <tr>
-            <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
-                hasil kalibrasi, alat ini dinyatakan </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;">
+            <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
+            <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
+            <td>
                 <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $totalAll >= 60 ? 'checked' : '' }}>
-                    <label><b style="font-size: 12px">LAIK PAKAI</b></label>
+                    <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
+                    <label>Baik</label>
+                </div>
+                <div class="form-group" style="margin: 0px">
+                    <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
+                    <label>Tidak Baik</label>
                 </div>
             </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;">
-                <div class="form-group" style="margin: 0px">
-                    <input type="checkbox" {{ $totalAll < 60 ? 'checked' : '' }}>
-                    <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
-                </div>
-            </td>
-            <td style="width: 20%;text-align: center;vertical-align: middle;"><b style="font-size: 12px">PENYELIA</b>
-            </td>
         </tr>
+    @empty
         <tr>
-            <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
-            </td>
-            <td colspan="2" style="text-align: center">
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+        </tr>
+    @endforelse
+</tbody>
+</table>
+<table class="table table-bordered table-sm"
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<thead>
+    <tr>
+        <th style="width: 4%;text-align: center;">No</th>
+        <th style="width: 24%;text-align: center;">Parameter</th>
+        <th style="width: 24%;text-align: center;">Skor</th>
+        <th style="width: 24%;text-align: center;">Total</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
+        <td style="text-align: center;">{{ $score_fisik }}</td>
+        <td style="text-align: center;vertical-align: middle;" rowspan="3">
+            {{ $totalAll }}
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">Pengukuran Keselamatan Listrik
+        </td>
+        <td style="text-align: center;">
+            {{ $point }}
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">3</td>
+        <td style="text-align: center;">Hasil Pengukuran Kinerja</td>
+        <td style="text-align: center;">
+            {{ $scoreString }}
+        </td>
+    </tr>
+</tbody>
+</table>
+<table class="table table-bordered table-sm"
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    <tr>
+        <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
+    </tr>
+</tbody>
+</table>
+<table class="table table-bordered table-sm"
+style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+<tbody>
+    <tr>
+        <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
+            hasil kalibrasi, alat ini dinyatakan </td>
+        <td style="width: 20%;text-align: center;vertical-align: middle;">
+            <div class="form-group" style="margin: 0px">
+                <input type="checkbox" {{ $totalAll >= 70 ? 'checked' : '' }}>
+                <label><b style="font-size: 12px">LAIK PAKAI</b></label>
+            </div>
+        </td>
+        <td style="width: 20%;text-align: center;vertical-align: middle;">
+            <div class="form-group" style="margin: 0px">
+                <input type="checkbox" {{ $totalAll < 70 ? 'checked' : '' }}>
+                <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
+            </div>
+        </td>
+        <td style="width: 20%;text-align: center;vertical-align: middle;"><b style="font-size: 12px">PENYELIA</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
+        </td>
+        <td colspan="2" style="text-align: center">
+            <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
+            <span>{{ $laporan->nama_teknisi }}</span>
+        </td>
+        <td style="text-align: center">
+            @if (isset($laporan->name_user))
                 <img style="width: 80px;margin-top:5px;margin-bottom:3px"
-                    src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
-                <span>{{ $laporan->nama_teknisi }}</span>
-            </td>
-            <td style="text-align: center">
-                @if (isset($laporan->name_user))
-                    <img style="width: 80px;margin-top:5px;margin-bottom:3px"
-                        src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
-                    <span>{{ $laporan->name_user }}</span>
-                @endif
-            </td>
-        </tr>
-    </tbody>
+                    src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
+                <span>{{ $laporan->name_user }}</span>
+            @endif
+        </td>
+    </tr>
+</tbody>
 </table>

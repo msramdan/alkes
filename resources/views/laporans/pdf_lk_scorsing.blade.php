@@ -132,6 +132,8 @@
         @include('laporans._pdf_lk_scorsing.score_bed_electric')
     @elseif ($nomenklaturs->id == config('nomenklatur.VEIN_FINDER'))
         @include('laporans._pdf_lk_scorsing.score_vein_finder')
+    @elseif ($nomenklaturs->id == config('nomenklatur.NEOPUFF'))
+        @include('laporans._pdf_lk_scorsing.score_neopuff')
     @endif
 
 </body>

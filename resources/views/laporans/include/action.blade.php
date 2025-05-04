@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         <label for="catatan">Catatan</label>
-                        <textarea class="form-control" id="catatan" name="catatan" rows="3" required>{{ old('catatan', $model->catatan ?? 'Default Catatan') }}</textarea>
+                        <textarea class="form-control" id="catatan" name="catatan" rows="3" required>{{ old('catatan', $model->catatan ?? '') }}</textarea>
                     </div>
 
                 </div>
