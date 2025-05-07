@@ -713,6 +713,7 @@ function waktu_putaran($request)
     return json_encode($data_laporan);
 }
 
+
 // HUMIDIFIER
 function suhu_udara($request)
 {
@@ -744,5 +745,25 @@ function peak_inspiratory_pressure($request)
             $data_laporan[$key] = $request->$key ?? null;
         }
     }
+    return json_encode($data_laporan);
+}
+
+// STIRER
+function kinerja_putaran($request)
+{
+    $data_laporan = [
+        'rpm_50_1' => $request->rpm_50_1,
+        'rpm_50_2' => $request->rpm_50_2,
+        'rpm_50_3' => $request->rpm_50_3,
+        'rpm_50_4' => $request->rpm_50_4,
+        'rpm_50_5' => $request->rpm_50_5,
+        'rpm_50_6' => $request->rpm_50_6,
+        'rpm_max_1' => $request->rpm_max_1,
+        'rpm_max_2' => $request->rpm_max_2,
+        'rpm_max_3' => $request->rpm_max_3,
+        'rpm_max_4' => $request->rpm_max_4,
+        'rpm_max_5' => $request->rpm_max_5,
+        'rpm_max_6' => $request->rpm_max_6,
+    ];
     return json_encode($data_laporan);
 }

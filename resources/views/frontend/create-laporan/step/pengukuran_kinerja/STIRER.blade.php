@@ -94,11 +94,11 @@
                 <tr>
                     <td class="text-center">1</td>
                     <td class="text-center">5 menit / 300 detik</td>
-                    <td><input name="time_5min_1" type="number" step="0.01" required
+                    <td><input name="waktu_putaran_1" type="number" step="0.01" required
                             class="form-control form-control-sm"></td>
-                    <td><input name="time_5min_2" type="number" step="0.01" required
+                    <td><input name="waktu_putaran_2" type="number" step="0.01" required
                             class="form-control form-control-sm"></td>
-                    <td><input name="time_5min_3" type="number" step="0.01" required
+                    <td><input name="waktu_putaran_3" type="number" step="0.01" required
                             class="form-control form-control-sm"></td>
                     <td class="text-center">10%</td>
                 </tr>

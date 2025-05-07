@@ -375,6 +375,21 @@ class LaporanLkController extends Controller
                     'data_laporan' => peak_inspiratory_pressure($request),
                     'data_sertifikat' => '',
                 ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.STIRER')) {
+                // KECEPATAN PUTAR
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'kinerja_putaran',
+                    'data_laporan' => kinerja_putaran($request),
+                    'data_sertifikat' => $sertifikatTachometer->data,
+                ]);
+                // WAKTU PUTAR
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'waktu_putaran',
+                    'data_laporan' => waktu_putaran($request),
+                    'data_sertifikat' => $sertifikatDigitalStopWatch->data,
+                ]);
             }
 
             //Create Laporan Telaah Teknis
