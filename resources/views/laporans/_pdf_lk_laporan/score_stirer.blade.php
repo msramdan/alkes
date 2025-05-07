@@ -168,39 +168,33 @@
         </tbody>
     </table>
 @endif
-
-
-{{-- pengukuran_kinerja --}}
-<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
-        KINERJA</b></p>
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
 
-$contact_tachometer = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'kecepatan_putaran')->where('no_laporan', $laporan->no_laporan)->first();
+$contact_tachometer = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'kinerja_putaran')->where('no_laporan', $laporan->no_laporan)->first();
 $data_sertifikat = json_decode($contact_tachometer->data_sertifikat);
 $data_laporan = json_decode($contact_tachometer->data_laporan);
-$arr = [50, 100];
+$arr = [50, 'max'];
 $myArray = [];
 $initScore = 0;
 
 foreach ($arr as $value) {
-    // 1000
-    $a = 'putaran_' . $value . '_1';
+    $a = 'rpm_' . $value . '_1';
     $$a = $data_laporan->$a;
 
-    $b = 'putaran_' . $value . '_2';
+    $b = 'rpm_' . $value . '_2';
     $$b = $data_laporan->$b;
 
-    $c = 'putaran_' . $value . '_3';
+    $c = 'rpm_' . $value . '_3';
     $$c = $data_laporan->$c;
 
-    $d = 'putaran_' . $value . '_4';
+    $d = 'rpm_' . $value . '_4';
     $$d = $data_laporan->$d;
 
-    $e = 'putaran_' . $value . '_5';
+    $e = 'rpm_' . $value . '_5';
     $$e = $data_laporan->$e;
 
-    $f = 'putaran_' . $value . '_6';
+    $f = 'rpm_' . $value . '_6';
     $$f = $data_laporan->$f;
 
     // mean
@@ -220,10 +214,10 @@ foreach ($arr as $value) {
 
     // koreksi
     $koreksi = 'koreksi_' . $value;
-    $$koreksi = $$mean_terkoreksi - $value;
+    $$koreksi = '';
 
     // U95
-    $u95 = 'u95' . $value . '_naik';
+    $u95 = 'u95' . $value;
     $drift = 'drift_' . $value;
     $uc = 0.03;
 
@@ -236,8 +230,7 @@ foreach ($arr as $value) {
 
     // toleransi
     $toleransi = 'toleransi' . $value;
-    $$toleransi = 0.1 * $$mean_terkoreksi;
-
+    $$toleransi = '10%';
     // hasil
     $hasil = 'hasil' . $value;
     $$hasil = $$cu95 >= $$toleransi ? 'Lulus' : 'Tidak';
@@ -270,7 +263,7 @@ $kinerja_waktu = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'wa
 $data_sertifikat_digital = json_decode($kinerja_waktu->data_sertifikat);
 $data_laporan = json_decode($kinerja_waktu->data_laporan);
 
-$arr = [600];
+$arr = [300];
 $myArrayWaktu = [];
 $initScoreWaktu = 0;
 
@@ -304,7 +297,7 @@ foreach ($arr as $value) {
     $$koreksi = $$mean_terkoreksi - $value;
 
     // U95
-    $u95 = 'u95' . $value . '_naik';
+    $u95 = 'u95' . $value;
     $drift = 'drift_' . $value;
     $uc = $data_sertifikat_digital->u;
     // U95
@@ -355,7 +348,6 @@ if ($xx >= 50) {
 $persyaratan = $score >= 50 ? 'Lulus' : 'Tidak';
 
 ?>
-
 <p style="font-size: 11px;margin-left:18px"><b>KINERJA PUTARAN</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
@@ -377,18 +369,20 @@ $persyaratan = $score >= 50 ? 'Lulus' : 'Tidak';
     </thead>
     <tbody>
         @foreach ($myArray as $key => $value)
-            <tr>
-                <td style="text-align: center;vertical-align: middle;">{{ $key }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
-                <td style="text-align: center;vertical-align: middle;">{{ round($value['tol'], 2) }}</td>
-            </tr>
-        @endforeach
+        <tr>
+            <td style="text-align: center;vertical-align: middle;">{{ $key }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
+            <td>{{ $value['tol'] }}</td>
+        </tr>
+    @endforeach
+
+
     </tbody>
 </table>
 <p style="font-size: 11px;margin-left:18px"><b>KINERJA WAKTU</b></p>

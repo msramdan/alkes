@@ -76,4 +76,6 @@
     @include('laporans._sertifikat.vein_finder')
 @elseif ($nomenklatur->id == config('nomenklatur.NEOPUFF'))
     @include('laporans._sertifikat.neopuff')
+@elseif ($nomenklatur->id == config('nomenklatur.STIRER'))
+    @include('laporans._sertifikat.stirer')
 @endif
