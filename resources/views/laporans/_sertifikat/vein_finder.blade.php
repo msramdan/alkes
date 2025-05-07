@@ -1,11 +1,11 @@
-{{-- PEAK INSPIRATORY PRESSURE --}}
+{{-- spectral_irradiance --}}
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
-$peak_inspiratory_pressure = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'peak_inspiratory_pressure')->where('no_laporan', $laporan->no_laporan)->first();
-$data_sertifikat = json_decode($peak_inspiratory_pressure->data_sertifikat);
-$data_laporan = json_decode($peak_inspiratory_pressure->data_laporan);
+$spectral_irradiance = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'spectral_irradiance')->where('no_laporan', $laporan->no_laporan)->first();
+$data_sertifikat = json_decode($spectral_irradiance->data_sertifikat);
+$data_laporan = json_decode($spectral_irradiance->data_laporan);
 
-$arrString = ['peak_10', 'peak_20', 'peak_30'];
+$arrString = ['spectral_irradiance'];
 $myArrayString = [];
 $initScoreString = 0;
 
@@ -33,6 +33,7 @@ foreach ($arrString as $value) {
     $mean = 'mean_' . $value;
 
     $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
+
     // mean terkoreksi
     $mean_terkoreksi = 'mean_terkoreksi_' . $value;
     // $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->slope * $$mean;
@@ -48,28 +49,23 @@ foreach ($arrString as $value) {
     // U95
     $u95 = 'u95' . $value . '_naik';
     // U95
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, 0, 0, 6);
-    // koreksi
-    $angka = (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
-    $koreksi = 'koreksi' . $value;
-    $$koreksi = $$mean - $angka;
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat->u, 0, 6);
     // cu95
     $cu95 = 'abs95' . $value;
-    $$cu95 = $$koreksi + $$u95;
+    $$cu95 = $$mean + $$u95;
 
     // toleransi
     $toleransi = 'toleransi' . $value;
-    $$toleransi = 0.1 * $angka;
+    $$toleransi = 4;
 
     // hasil
     $hasil = 'hasil' . $value;
-    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
+    $$hasil = $$cu95 >= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
         $initScoreString = $initScoreString + 1;
     }
 
     $data = [
-        'angka' => $angka,
         'percobaan_1' => $$a,
         'percobaan_2' => $$b,
         'percobaan_3' => $$c,
@@ -79,7 +75,7 @@ foreach ($arrString as $value) {
         'mean' => $$mean,
         'mean_terkoreksi' => $$mean_terkoreksi,
         'stdev' => $$var_stdev,
-        'koreksi' => $$koreksi,
+        'koreksi' => '',
         'u95' => $$u95,
         'cu95' => $$cu95,
         'tol' => $$toleransi,
@@ -88,9 +84,9 @@ foreach ($arrString as $value) {
     $myArrayString[$value] = $data;
     $arrData = [];
 }
-$scoreString = (($initScoreString / 3) * 100) / 2;
+$scoreString = (($initScoreString / 1) * 100) / 2;
 $persyaratanString = $scoreString >= 50 ? 'Lulus' : 'Tidak';
-$totalAll = $score_fisik + $point + $scoreString;
+$totalAll = $score_fisik + $scoreString;
 ?>
 
 <!DOCTYPE html>
@@ -182,7 +178,7 @@ $totalAll = $score_fisik + $point + $scoreString;
                     </td>
                     <td class="va-top" width="3%">:</td>
                     <td class="va-top" style="font-weight: bold; font-size: 16px;">
-                        @if ($totalAll >= 70)
+                        @if ($totalAll >= 60)
                             LAIK PAKAI
                             <br>berlaku s/d :
                             {{ tanggal_indonesia(date('Y-m-d', strtotime('+1 year', strtotime($tgl)))) }}

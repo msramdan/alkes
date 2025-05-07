@@ -312,7 +312,7 @@ class InventariController extends Controller
             config('type_inventaris.Thermometer_Reference') => ['slope', 'intercept'], // Thermometer Reference
             config('type_inventaris.Anaesthesi_Gas_Analyzer') => ['intercept', 'x_variable_1'], // Anaesthesi Gas Analyzer
             config('type_inventaris.Waterbath') => ['intercept', 'x_variable_1'], // Waterbath
-            config('type_inventaris.Solar_Power_Meter') => ['intercept', 'x_variable_1', 'u'], // Solar Power Meter
+            config('type_inventaris.Solar_Power_Meter') => ['slope', 'intercept', 'u'], // Solar Power Meter
         ];
 
         $fields = $jenisAlatFields[$data->jenis_alat_id] ?? [];

@@ -29,7 +29,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="tahun-pembelian">{{ __('Tahun Pembelian') }}</label>
-            <select class="form-select @error('tahun_pembelian') is-invalid @enderror" name="tahun_pembelian"
+            <select class="form-select select2-form @error('tahun_pembelian') is-invalid @enderror" name="tahun_pembelian"
                 id="tahun-pembelian" class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select tahun pembelian') }} --</option>
 
@@ -50,7 +50,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="ruangan-id">{{ __('Ruangan') }}</label>
-            <select class="form-select @error('ruangan_id') is-invalid @enderror" name="ruangan_id" id="ruangan-id"
+            <select class="form-select select2-form @error('ruangan_id') is-invalid @enderror" name="ruangan_id" id="ruangan-id"
                 class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select room') }} --</option>
 
@@ -71,7 +71,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="jenis-alat-id">{{ __('Jenis Alat') }}</label>
-            <select class="form-select @error('jenis_alat_id') is-invalid @enderror" name="jenis_alat_id"
+            <select class="form-select select2-form @error('jenis_alat_id') is-invalid @enderror" name="jenis_alat_id"
                 id="jenis-alat-id" class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select type') }} --</option>
 
@@ -92,7 +92,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="merk-id">{{ __('Merek') }}</label>
-            <select class="form-select @error('merk_id') is-invalid @enderror" name="merk_id" id="merk-id"
+            <select class="form-select select2-form @error('merk_id') is-invalid @enderror" name="merk_id" id="merk-id"
                 class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select brand') }} --</option>
 
@@ -140,7 +140,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="vendor-id">{{ __('Vendor Alat') }}</label>
-            <select class="form-select @error('vendor_id') is-invalid @enderror" name="vendor_id" id="vendor-id"
+            <select class="form-select select2-form @error('vendor_id') is-invalid @enderror" name="vendor_id" id="vendor-id"
                 class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select vendor') }} --</option>
 

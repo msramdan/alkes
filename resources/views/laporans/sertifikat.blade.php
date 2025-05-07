@@ -72,4 +72,8 @@
     @include('laporans._sertifikat.uji_keselamatan_listrik')
 @elseif ($nomenklatur->id == config('nomenklatur.Bed_Electric'))
     @include('laporans._sertifikat.bed_electric')
+@elseif ($nomenklatur->id == config('nomenklatur.VEIN_FINDER'))
+    @include('laporans._sertifikat.vein_finder')
+@elseif ($nomenklatur->id == config('nomenklatur.NEOPUFF'))
+    @include('laporans._sertifikat.neopuff')
 @endif

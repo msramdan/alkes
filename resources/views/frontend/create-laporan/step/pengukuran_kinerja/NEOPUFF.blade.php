@@ -38,30 +38,30 @@
                     <td>20</td>
                     <td><input name="peak_20_1" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_20_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_20_2" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_20_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_20_3" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_20_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_20_4" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_20_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_20_5" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_20_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_20_6" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
                 </tr>
                 <tr>
                     <td>30</td>
                     <td><input name="peak_30_1" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_30_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_30_2" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_30_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_30_3" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_30_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_30_4" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_30_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_30_5" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_30_1" required type="number" step="0.000000001" style="width: 100px"
+                    <td><input name="peak_30_6" required type="number" step="0.000000001" style="width: 100px"
                             class="form-control form-control-sm"></td>
                 </tr>
             </tbody>

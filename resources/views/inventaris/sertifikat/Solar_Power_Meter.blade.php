@@ -38,20 +38,20 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="uc_suhu">{{ __('Intercept') }}</label>
+                                        <label for="slope">{{ __('Slope') }}</label>
                                         <div class="row">
                                             <div class="col">
                                                 <input type="number" step="0.00000000000000001" class="form-control"
-                                                    placeholder="" name="intercept" required>
+                                                    placeholder="" name="slope" id="slope" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="uc_suhu">{{ __('X Variable 1') }}</label>
+                                        <label for="intercept">{{ __('Intercept') }}</label>
                                         <div class="row">
                                             <div class="col">
                                                 <input type="number" step="0.00000000000000001" class="form-control"
-                                                    placeholder="" name="x_variable_1" required>
+                                                    placeholder="" name="intercept" id="intercept" required>
                                             </div>
                                         </div>
                                     </div>
@@ -87,8 +87,8 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('Tahun') }}</th>
+                                            <th>{{ __('Slope') }}</th>
                                             <th>{{ __('Intersept') }}</th>
-                                            <th>{{ __('X Variable 1') }}</th>
                                             <th>{{ __('Uncertainty (U)') }}</th>
                                             <th>{{ __('File') }}</th>
                                             <th>{{ __('Action') }}</th>
@@ -101,8 +101,8 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $row->tahun }}</td>
+                                                <td>{{ $data->slope }}</td>
                                                 <td>{{ $data->intercept }}</td>
-                                                <td>{{ $data->x_variable_1 }}</td>
                                                 <td>{{ $data->u }}</td>
                                                 <td rowspan="5"><a
                                                         href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i

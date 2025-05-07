@@ -167,21 +167,14 @@
         </tbody>
     </table>
 @endif
-
-
+{{-- PEAK INSPIRATORY PRESSURE --}}
 <?php
-$resolusi = DB::table('laporan_pendataan_administrasi')
-    ->where('no_laporan', $laporan->no_laporan)
-    ->where('slug', 'resolusi')
-    ->first();
-$intensitas_cahaya = DB::table('laporan_kinerja')
-    ->where('type_laporan_kinerja', 'intensitas_cahaya')
-    ->where('no_laporan', $laporan->no_laporan)
-    ->first();
-$data_sertifikat = json_decode($intensitas_cahaya->data_sertifikat);
-$data_laporan = json_decode($intensitas_cahaya->data_laporan);
+$resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
+$peak_inspiratory_pressure = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'peak_inspiratory_pressure')->where('no_laporan', $laporan->no_laporan)->first();
+$data_sertifikat = json_decode($peak_inspiratory_pressure->data_sertifikat);
+$data_laporan = json_decode($peak_inspiratory_pressure->data_laporan);
 
-$arrString = ['cahaya'];
+$arrString = ['peak_10', 'peak_20', 'peak_30'];
 $myArrayString = [];
 $initScoreString = 0;
 
@@ -207,11 +200,12 @@ foreach ($arrString as $value) {
 
     // mean
     $mean = 'mean_' . $value;
-    $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
 
+    $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
     // mean terkoreksi
     $mean_terkoreksi = 'mean_terkoreksi_' . $value;
-    $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->slope * $$mean;
+    // $$mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->slope * $$mean;
+    $$mean_terkoreksi = $$mean;
 
     // stdev
     $arrData = [];
@@ -223,23 +217,28 @@ foreach ($arrString as $value) {
     // U95
     $u95 = 'u95' . $value . '_naik';
     // U95
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, 2.6, 0.01, 6);
+    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, 0, 0, 6);
+    // koreksi
+    $angka = (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+    $koreksi = 'koreksi' . $value;
+    $$koreksi = $$mean - $angka;
     // cu95
     $cu95 = 'abs95' . $value;
-    $$cu95 = $$mean + $$u95;
+    $$cu95 = $$koreksi + $$u95;
 
     // toleransi
     $toleransi = 'toleransi' . $value;
-    $$toleransi = 40;
+    $$toleransi = 0.1 * $angka;
 
     // hasil
     $hasil = 'hasil' . $value;
-    $$hasil = $$cu95 >= $$toleransi ? 'Lulus' : 'Tidak';
+    $$hasil = $$cu95 <= $$toleransi ? 'Lulus' : 'Tidak';
     if ($$hasil == 'Lulus') {
         $initScoreString = $initScoreString + 1;
     }
 
     $data = [
+        'angka' => $angka,
         'percobaan_1' => $$a,
         'percobaan_2' => $$b,
         'percobaan_3' => $$c,
@@ -247,170 +246,57 @@ foreach ($arrString as $value) {
         'percobaan_5' => $$e,
         'percobaan_6' => $$f,
         'mean' => $$mean,
+        'mean_terkoreksi' => $$mean_terkoreksi,
+        'stdev' => $$var_stdev,
+        'koreksi' => $$koreksi,
+        'u95' => $$u95,
+        'cu95' => $$cu95,
         'tol' => $$toleransi,
+        'hasil' => $$hasil,
     ];
     $myArrayString[$value] = $data;
     $arrData = [];
 }
-$scoreString = (($initScoreString / 1) * 100) / 2;
+$scoreString = (($initScoreString / 3) * 100) / 2;
 $persyaratanString = $scoreString >= 50 ? 'Lulus' : 'Tidak';
+$totalAll = $score_fisik + $point + $scoreString;
 ?>
-
-
-{{-- akurasi tekanan --}}
-<?php
-$akurasi_pressure = DB::table('laporan_kinerja')
-    ->where('type_laporan_kinerja', 'akurasi_pressure')
-    ->where('no_laporan', $laporan->no_laporan)
-    ->first();
-$data_sertifikat_akurasi_pressure = json_decode($akurasi_pressure->data_sertifikat);
-$data_laporan_akurasi_pressure = json_decode($akurasi_pressure->data_laporan);
-
-$array = ['pressure'];
-$arrayPressure = [];
-$initScoreStringPressure = 0;
-
-foreach ($array as $value) {
-    $a = $value . '_1';
-    $$a = $data_laporan_akurasi_pressure->$a;
-
-    $b = $value . '_2';
-    $$b = $data_laporan_akurasi_pressure->$b;
-
-    $c = $value . '_3';
-    $$c = $data_laporan_akurasi_pressure->$c;
-
-    $d = $value . '_4';
-    $$d = $data_laporan_akurasi_pressure->$d;
-
-    $e = $value . '_5';
-    $$e = $data_laporan_akurasi_pressure->$e;
-
-    $f = $value . '_6';
-    $$f = $data_laporan_akurasi_pressure->$f;
-
-    // mean
-    $mean = 'mean_' . $value;
-    $$mean = ($$a + $$b + $$c + $$d + $$e + $$f) / 6;
-
-    // mean terkoreksi
-    $mean_terkoreksi = 'mean_terkoreksi_' . $value;
-    $$mean_terkoreksi = $data_sertifikat_akurasi_pressure->intercept_naik + $data_sertifikat_akurasi_pressure->x_variable_naik * $$mean;
-
-    // stdev
-    $arrDataPressure = [];
-    array_push($arrDataPressure, $$a, $$b, $$c, $$d, $$e, $$f);
-    $stdev = standard_deviation($arrDataPressure);
-    $var_stdev = 'stdev' . $value;
-    $$var_stdev = $stdev;
-
-    // U95
-    $u95 = 'u95' . $value . '_naik';
-    // U95
-    $$u95 = hitung_uncertainty($resolusi->value, $$var_stdev, $data_sertifikat_akurasi_pressure->uc, $data_sertifikat_akurasi_pressure->drift50_naik, 6);
-    // cu95
-    $cu95 = 'abs95' . $value;
-    $$cu95 = $$mean + $$u95;
-
-    // toleransi
-    $toleransi = 'toleransi' . $value;
-    $$toleransi = 40;
-
-    // hasil
-    $hasil = 'hasil' . $value;
-    $$hasil = $$cu95 >= $$toleransi ? 'Lulus' : 'Tidak';
-    if ($$hasil == 'Lulus') {
-        $initScoreStringPressure = $initScoreStringPressure + 1;
-    }
-
-    $data = [
-        'percobaan_1' => $$a,
-        'percobaan_2' => $$b,
-        'percobaan_3' => $$c,
-        'percobaan_4' => $$d,
-        'percobaan_5' => $$e,
-        'percobaan_6' => $$f,
-        'mean' => $$mean,
-        'tol' => $$toleransi,
-    ];
-    $arrayPressure[$value] = $data;
-    $arrDataPressure = [];
-}
-$scoreStringPressure = (($initScoreStringPressure / 1) * 100) / 2;
-$persyaratanStringPressure = $scoreStringPressure >= 50 ? 'Lulus' : 'Tidak';
-$scoreKinerja = ($scoreStringPressure + $scoreString) / 2;
-$totalAll = $score_fisik + $point + $scoreKinerja;
-?>
-
-
 
 <p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
-    PENGUKURAN KINERJA</b></p>
-<p style="font-size: 11px;margin-left:18px"><b> Intensitas Cahaya</b></p>
+        PENGUKURAN KINERJA</b></p>
+<p style="font-size: 11px;margin-left:18px"><b>Spectral Irradiance</b></p>
 <table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
-<tr>
-    <th rowspan="2"style="text-align: center;vertical-align: middle;">Setting Alat</th>
-    <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Standar (KLux)</th>
-    <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
-    <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
-</tr>
-<tr>
-    <th style="text-align: center;vertical-align: middle;">1</th>
-    <th style="text-align: center;vertical-align: middle;">2</th>
-    <th style="text-align: center;vertical-align: middle;">3</th>
-    <th style="text-align: center;vertical-align: middle;">4</th>
-    <th style="text-align: center;vertical-align: middle;">5</th>
-    <th style="text-align: center;vertical-align: middle;">6</th>
-</tr>
-@foreach ($myArrayString as $key => $value)
+    style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
     <tr>
-        <td style="text-align: center;vertical-align: middle;">MAX</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ round($value['tol'], 2) }}</td>
+        <th rowspan="2"style="text-align: center;vertical-align: middle;">Setting Alat</th>
+        <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Standar (KLux)</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
     </tr>
-@endforeach
-</table>
-
-
-<p style="font-size: 11px;margin-left:18px"><b> Akurasi Pressure</b></p>
-<table class="table table-bordered table-sm"
-style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
-<tr>
-    <th rowspan="2"style="text-align: center;vertical-align: middle;">Setting Alat</th>
-    <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Standar (KLux)</th>
-    <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
-    <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
-</tr>
-<tr>
-    <th style="text-align: center;vertical-align: middle;">1</th>
-    <th style="text-align: center;vertical-align: middle;">2</th>
-    <th style="text-align: center;vertical-align: middle;">3</th>
-    <th style="text-align: center;vertical-align: middle;">4</th>
-    <th style="text-align: center;vertical-align: middle;">5</th>
-    <th style="text-align: center;vertical-align: middle;">6</th>
-</tr>
-@foreach ($arrayPressure as $key => $value)
     <tr>
-        <td style="text-align: center;vertical-align: middle;">MAX</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
-        <td style="text-align: center;vertical-align: middle;">{{ round($value['tol'], 2) }}</td>
+        <th style="text-align: center;vertical-align: middle;">1</th>
+        <th style="text-align: center;vertical-align: middle;">2</th>
+        <th style="text-align: center;vertical-align: middle;">3</th>
+        <th style="text-align: center;vertical-align: middle;">4</th>
+        <th style="text-align: center;vertical-align: middle;">5</th>
+        <th style="text-align: center;vertical-align: middle;">6</th>
     </tr>
-@endforeach
+    @foreach ($myArrayString as $key => $value)
+        <tr>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['angka'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
+            @if ($key == 'peak_10')
+                <td style="text-align: center;vertical-align: middle;" rowspan="3">+- 10 %</td>
+            @endif
+        </tr>
+    @endforeach
 </table>
-
 
 {{-- telaah_teknis --}}
 <p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH

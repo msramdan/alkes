@@ -16,7 +16,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="jenis-faskes-id">{{ __('Jenis Faske') }}</label>
-            <select class="form-select @error('jenis_faskes_id') is-invalid @enderror" name="jenis_faskes_id"
+            <select class="form-select select2-form @error('jenis_faskes_id') is-invalid @enderror" name="jenis_faskes_id"
                 id="jenis-faskes-id" class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select jenis faske') }} --</option>
 
@@ -37,7 +37,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="provinsi-id">{{ __('Province') }}</label>
-            <select class="form-select @error('provinsi_id') is-invalid @enderror" name="provinsi_id" id="provinsi-id"
+            <select class="form-select select2-form @error('provinsi_id') is-invalid @enderror" name="provinsi_id" id="provinsi-id"
                 class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select province') }} --</option>
                 @foreach ($provinces as $province)
@@ -57,7 +57,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="kabkot-id">{{ __('Kabkot') }}</label>
-            <select class="form-select @error('kabkot_id') is-invalid @enderror" name="kabkot_id" id="kabkot-id"
+            <select class="form-select select2-form @error('kabkot_id') is-invalid @enderror" name="kabkot_id" id="kabkot-id"
                 class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select kabkot') }} --</option>
                 @if (isset($faske))
@@ -80,7 +80,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="kecamatan-id">{{ __('Kecamatan') }}</label>
-            <select class="form-select @error('kecamatan_id') is-invalid @enderror" name="kecamatan_id"
+            <select class="form-select select2-form @error('kecamatan_id') is-invalid @enderror" name="kecamatan_id"
                 id="kecamatan-id" class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select kecamatan') }} --</option>
                 @if (isset($faske))
@@ -102,7 +102,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="kelurahan-id">{{ __('Kelurahan') }}</label>
-            <select class="form-select @error('kelurahan_id') is-invalid @enderror" name="kelurahan_id"
+            <select class="form-select select2-form @error('kelurahan_id') is-invalid @enderror" name="kelurahan_id"
                 id="kelurahan-id" class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select kelurahan') }} --</option>
                 @if (isset($faske))

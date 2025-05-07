@@ -15,7 +15,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="user_created">{{ __('Pelaksana Teknisi') }}</label>
-            <select class="form-select @error('user_created') is-invalid @enderror" name="user_created"
+            <select class="form-select select2-form @error('user_created') is-invalid @enderror" name="user_created"
                 id="user_created" class="form-control" required>
                 <option value="" selected disabled>-- {{ __('Select Pelaksana Teknisi') }} --</option>
                 @foreach ($PelaksanaTeknisi as $row)

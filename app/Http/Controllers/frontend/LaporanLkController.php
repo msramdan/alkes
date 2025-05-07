@@ -166,9 +166,18 @@ class LaporanLkController extends Controller
                         dd('Fetal Simulator belum diisi');
                     }
                 } else if ($nomenklatur_type->type_id == config('type_inventaris.LUX_METER')) {
-                    // get detail Lux Meter
                     $luxMeter = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$luxMeter) {
+                        dd('Fetal Simulator belum diisi');
+                    }
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.Solar_Power_Meter')) {
+                    $solarPowerPanel = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$solarPowerPanel) {
+                        dd('Fetal Simulator belum diisi');
+                    }
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.Ventilator_Analyzer')) {
+                    $ventilatorAnalyzer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$ventilatorAnalyzer) {
                         dd('Fetal Simulator belum diisi');
                     }
                 }
@@ -373,7 +382,14 @@ class LaporanLkController extends Controller
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'peak_inspiratory_pressure',
                     'data_laporan' => peak_inspiratory_pressure($request),
-                    'data_sertifikat' => '',
+                    'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.VEIN_FINDER')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'spectral_irradiance',
+                    'data_laporan' => spectral_irradiance($request),
+                    'data_sertifikat' => $solarPowerPanel->data,
                 ]);
             } else if ($request->nomenklatur_id == config('nomenklatur.STIRER')) {
                 // KECEPATAN PUTAR
