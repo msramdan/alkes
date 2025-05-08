@@ -233,12 +233,10 @@ class InventariController extends Controller
         $data = Inventari::findOrFail($request->inventaris_id);
         $file = $request->file('file');
         $file->storeAs('public/sertifikat', $file->hashName());
-
-        // Konfigurasi jenis alat dan field
         $jenisAlatFields = [
-            3 => ['intercept', 'x_variable', 'u', 'drift_300'], // Digital Stop Watch
-            5 => ['intercept1', 'x_variable1', 'intercept2', 'x_variable2', 'intercept3', 'x_variable3'], // Electrical Safety Analyzer
-            22 => [
+            config('type_inventaris.DigitalStopWatch') => ['intercept', 'x_variable', 'u', 'drift_300'], // Digital Stop Watch
+            config('type_inventaris.Electrical_Safety_Analyzer') => ['intercept1', 'x_variable1', 'intercept2', 'x_variable2', 'intercept3', 'x_variable3'], // Electrical Safety Analyzer
+            config('type_inventaris.ContactTachometer') => [
                 'intercept',
                 'x_variable',
                 'u60',
@@ -251,12 +249,12 @@ class InventariController extends Controller
                 'drift_2000',
                 'drift_3000',
                 'drift_4000'
-            ], // Contact Tachometer
-            37 => array_merge(
-                array_map(fn($i) => ["slope_$i", "intercept_$i", "uc_$i"], range(1, 10)) // Thermohygrometer
+            ],
+            config('type_inventaris.TemperatureRecorder') => array_merge(
+                ...array_map(fn($i) => ["slope_$i", "intercept_$i", "uc_$i"], range(1, 10))
             ),
-            39 => ['uc_suhu', 'intercept_suhu', 'x_variable_suhu', 'uc_kelembapan', 'intercept_kelembapan', 'x_variable_kelembapan'], // Thermohygrometer
-            45 => [
+            config('type_inventaris.Thermohygrometer') => ['uc_suhu', 'intercept_suhu', 'x_variable_suhu', 'uc_kelembapan', 'intercept_kelembapan', 'x_variable_kelembapan'], // Thermohygrometer
+            config('type_inventaris.DigitalPressureMeter') => [
                 'intercept_naik',
                 'x_variable_naik',
                 'intercept_turun',
@@ -278,8 +276,8 @@ class InventariController extends Controller
                 'drift300_turun',
                 'drift350_naik',
                 'drift350_turun'
-            ], // Digital Pressure Meter
-            46 => [
+            ],
+            config('type_inventaris.InfusionDeviceAnalyzer') => [
                 'slope_1',
                 'intercept_1',
                 'uc_1',
@@ -294,9 +292,9 @@ class InventariController extends Controller
                 'drift50_2',
                 'drift100_2',
                 'drift500_2'
-            ], // IDA
-            config('type_inventaris.FETAL_SIMULATOR') => ['slope', 'intercept', 'uc'], // Fetal Simulator
-            config('type_inventaris.LUX_METER') => ['slope', 'intercept'], // Lux Meter
+            ],
+            config('type_inventaris.FETAL_SIMULATOR') => ['slope', 'intercept', 'uc'],
+            config('type_inventaris.LUX_METER') => ['slope', 'intercept'],
             config('type_inventaris.Electrical_Surgery_Analyzer') => [
                 'watt_intercept',
                 'watt_slope',
@@ -304,18 +302,19 @@ class InventariController extends Controller
                 'arus_slope',
                 'resistensi_intercept',
                 'resistensi_slope'
-            ], // Electrical Surgery Analyzer
+            ],
             config('type_inventaris.Ventilator_Analyzer') => [
                 'slope_flow_meter',
                 'intercept_flow_meter',
                 'slope_konsentrasi_oksigen',
                 'intercept_konsentrasi_oksigen'
-            ], // Ventilator Analyzer
-            config('type_inventaris.Thermometer_Reference') => ['slope', 'intercept'], // Thermometer Reference
-            config('type_inventaris.Anaesthesi_Gas_Analyzer') => ['intercept', 'x_variable_1'], // Anaesthesi Gas Analyzer
-            config('type_inventaris.Waterbath') => ['intercept', 'x_variable_1'], // Waterbath
-            config('type_inventaris.Solar_Power_Meter') => ['slope', 'intercept', 'u'], // Solar Power Meter
-            config('type_inventaris.SPO2_Simulator') => ['slope_bpm', 'intercept_bpm', 'u_bpm', 'slope_o2', 'intercept_o2', 'u_o2'], // SPO2_Simulator
+            ],
+            config('type_inventaris.Thermometer_Reference') => ['slope', 'intercept'],
+            config('type_inventaris.Anaesthesi_Gas_Analyzer') => ['intercept', 'x_variable_1'],
+            config('type_inventaris.Waterbath') => ['intercept', 'x_variable_1'],
+            config('type_inventaris.Solar_Power_Meter') => ['slope', 'intercept', 'u'],
+            config('type_inventaris.SPO2_Simulator') => ['slope_bpm', 'intercept_bpm', 'u_bpm', 'slope_o2', 'intercept_o2', 'u_o2'],
+            config('type_inventaris.Phototherapy_Radiometer') => ['slope', 'intercept', 'uc'],
         ];
 
         $fields = $jenisAlatFields[$data->jenis_alat_id] ?? [];
