@@ -167,22 +167,27 @@ class LaporanLkController extends Controller
                 } else if ($nomenklatur_type->type_id == config('type_inventaris.LUX_METER')) {
                     $luxMeter = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$luxMeter) {
-                        dd('Fetal Simulator belum diisi');
+                        dd('luxMeter belum diisi');
                     }
                 } else if ($nomenklatur_type->type_id == config('type_inventaris.Solar_Power_Meter')) {
                     $solarPowerPanel = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$solarPowerPanel) {
-                        dd('Fetal Simulator belum diisi');
+                        dd('solarPowerPanel belum diisi');
                     }
                 } else if ($nomenklatur_type->type_id == config('type_inventaris.Ventilator_Analyzer')) {
                     $ventilatorAnalyzer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$ventilatorAnalyzer) {
-                        dd('Fetal Simulator belum diisi');
+                        dd('ventilatorAnalyzer belum diisi');
                     }
                 } else if ($nomenklatur_type->type_id == config('type_inventaris.SPO2_Simulator')) {
                     $spo2_Simulator = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$spo2_Simulator) {
-                        dd('Fetal Simulator belum diisi');
+                        dd('spo2_Simulator belum diisi');
+                    }
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.Phototherapy_Radiometer')) {
+                    $phototherapyRadiometer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$phototherapyRadiometer) {
+                        dd('phototherapyRadiometer belum diisi');
                     }
                 }
                 DB::table('laporan_daftar_alat_ukur')->insert([
@@ -424,6 +429,13 @@ class LaporanLkController extends Controller
                     'type_laporan_kinerja' => 'saturasi_oksigen_pulse_oxymeter',
                     'data_laporan' => saturasi_oksigen_pulse_oxymeter($request),
                     'data_sertifikat' => $spo2_Simulator->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.PHOTOTHERAPY')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'spectral_irradiance_phototherapy',
+                    'data_laporan' => spectral_irradiance_phototherapy($request),
+                    'data_sertifikat' => $phototherapyRadiometer->data,
                 ]);
             }
 

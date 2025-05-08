@@ -19,6 +19,14 @@
 
     <h6 class="fw-bold">1. SPECTRAL IRRADIANCE</h6>
 
+    <!-- Tambahkan input untuk pembagi -->
+    <div class="mb-3 row">
+        <label for="pembagi" class="col-sm-2 col-form-label">Pembagi (didapat dari manual book Dale40)</label>
+        <div class="col-sm-2">
+            <input type="number" class="form-control" id="pembagi" name="pembagi" step="0.01" required>
+        </div>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-bordered text-center">
             <thead class="table-light">
