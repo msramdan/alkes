@@ -135,8 +135,10 @@
         @include('laporans._pdf_lk_laporan.score_vein_finder')
     @elseif ($nomenklaturs->id == config('nomenklatur.NEOPUFF'))
         @include('laporans._pdf_lk_laporan.score_neopuff')
-        @elseif ($nomenklaturs->id == config('nomenklatur.STIRER'))
+    @elseif ($nomenklaturs->id == config('nomenklatur.STIRER'))
         @include('laporans._pdf_lk_laporan.score_stirer')
+    @elseif ($nomenklaturs->id == config('nomenklatur.PULSE_OXYMETER'))
+        @include('laporans._pdf_lk_laporan.score_pulse_oxymeter')
     @endif
 
 

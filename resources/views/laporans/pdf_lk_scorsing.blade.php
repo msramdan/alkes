@@ -136,6 +136,8 @@
         @include('laporans._pdf_lk_scorsing.score_neopuff')
     @elseif ($nomenklaturs->id == config('nomenklatur.STIRER'))
         @include('laporans._pdf_lk_scorsing.score_stirer')
+    @elseif ($nomenklaturs->id == config('nomenklatur.PULSE_OXYMETER'))
+        @include('laporans._pdf_lk_scorsing.score_pulse_oxymeter')
     @endif
 
 </body>
