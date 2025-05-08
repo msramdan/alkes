@@ -163,8 +163,8 @@ $totalAll =  $score_fisik + $score_kinerja;
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
     <tr>
-        <th rowspan="2" style="text-align: center;vertical-align: middle;">Heart Rate (bpm)</th>
-        <th colspan="6" style="text-align: center;vertical-align: middle;">Measurements</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Setting Standar</th>
+        <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Alat (BPM)</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdev</th>
@@ -208,8 +208,8 @@ $totalAll =  $score_fisik + $score_kinerja;
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
     <tr>
-        <th rowspan="2" style="text-align: center;vertical-align: middle;">Setting (Target SpO2)</th>
-        <th colspan="6" style="text-align: center;vertical-align: middle;">Measurements</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Setting Standar</th>
+        <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Alat (%O2)</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdev</th>
