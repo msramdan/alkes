@@ -215,6 +215,7 @@ class InventariController extends Controller
             config('type_inventaris.Waterbath') => 'inventaris.sertifikat.Waterbath',
             config('type_inventaris.Incubator_Analyzer') => 'inventaris.sertifikat.Incubator_Analyzer',
             config('type_inventaris.Solar_Power_Meter') => 'inventaris.sertifikat.Solar_Power_Meter',
+            config('type_inventaris.SPO2_Simulator') => 'inventaris.sertifikat.SPO2_Simulator',
         ];
 
         $view = $viewMapping[$data->jenis_alat_id] ?? null;
@@ -313,6 +314,7 @@ class InventariController extends Controller
             config('type_inventaris.Anaesthesi_Gas_Analyzer') => ['intercept', 'x_variable_1'], // Anaesthesi Gas Analyzer
             config('type_inventaris.Waterbath') => ['intercept', 'x_variable_1'], // Waterbath
             config('type_inventaris.Solar_Power_Meter') => ['slope', 'intercept', 'u'], // Solar Power Meter
+            config('type_inventaris.SPO2_Simulator') => ['slope_bpm', 'intercept_bpm', 'u_bpm', 'slope_o2', 'intercept_o2', 'u_o2'], // SPO2_Simulator
         ];
 
         $fields = $jenisAlatFields[$data->jenis_alat_id] ?? [];
