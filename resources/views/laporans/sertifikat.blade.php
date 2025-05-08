@@ -78,6 +78,8 @@
     @include('laporans._sertifikat.neopuff')
 @elseif ($nomenklatur->id == config('nomenklatur.STIRER'))
     @include('laporans._sertifikat.stirer')
-    @elseif ($nomenklatur->id == config('nomenklatur.PULSE_OXYMETER'))
+@elseif ($nomenklatur->id == config('nomenklatur.PULSE_OXYMETER'))
     @include('laporans._sertifikat.pulse_oxymeter')
+@elseif ($nomenklatur->id == config('nomenklatur.PHOTOTHERAPY'))
+    @include('laporans._sertifikat.phototherapy')
 @endif
