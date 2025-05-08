@@ -118,42 +118,41 @@ class LaporanLkController extends Controller
                     ->where('id', $nomenklatur_type_id[1])
                     ->first();
                 $inventaris_id = $request->{$alat};
-                if ($nomenklatur_type->type_id == 39) {
+                if ($nomenklatur_type->type_id == config('type_inventaris.Thermohygrometer')) {
                     // get detail $sertifikat Thermohygrometer
                     $sertifikat = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikat) {
                         dd('Thermohygrometer belum diisi');
                     }
                 } else if ($nomenklatur_type->type_id ==  config('type_inventaris.Electrical_Safety_Analyzer')) {
-                    // get detail $sertifikat  ElectricalSafetyAnalyzer
                     $ElectricalSafetyAnalyzer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$ElectricalSafetyAnalyzer) {
                         dd('Sertifikat ElectricalSafetyAnalyzer belum diisi');
                     }
-                } else if ($nomenklatur_type->type_id == 46) {
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.InfusionDeviceAnalyzer')) {
                     // get detail $sertifikat  Infusion Device Analyzer
                     $sertifikatIda = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikatIda) {
                         dd('Sertifikat IDA belum diisi');
                     }
-                } else if ($nomenklatur_type->type_id == 3) {
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.DigitalStopWatch')) {
                     // get detail $sertifikat  Digital Stop Watch
                     $sertifikatDigitalStopWatch = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikatDigitalStopWatch) {
                         dd('Digital Stop Watch belum diisi');
                     }
-                } else if ($nomenklatur_type->type_id == 22) {
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.ContactTachometer')) {
                     $sertifikatTachometer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikatTachometer) {
                         dd('sertifikatTachometer belum diisi');
                     }
-                } else if ($nomenklatur_type->type_id == 45) {
+                } else if ($nomenklatur_type->type_id ==  config('type_inventaris.DigitalPressureMeter')) {
                     // get detail $sertifikat 	Digital Pressure Meter
                     $sertifikatDpm = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikatDpm) {
                         dd('Digital Pressure Meter belum diisi');
                     }
-                } else if ($nomenklatur_type->type_id == 37) {
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.TemperatureRecorder')) {
                     // get detail Temperature Recorder
                     $sertifikatTemperatureRecorder = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikatTemperatureRecorder) {

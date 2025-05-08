@@ -1,17 +1,23 @@
 <?php
 
-// config('nomenklatur.SPHYGMOMANOMETER');
 return [
+    'DigitalStopWatch' => 3,
     'Electrical_Safety_Analyzer' => 5,
     'Electrical_Surgery_Analyzer' => 6,
     'FETAL_SIMULATOR' => 7,
     'LUX_METER' => 9,
     'Force_gauge' => 10,
     'SPO2_Simulator' => 11,
-    'Thermometer_Reference' => 36,
-    'Ventilator_Analyzer' => 47,
-    'Anaesthesi_Gas_Analyzer' => 42,
-    'Waterbath' => 40,
-    'Incubator_Analyzer' => 34,
+    'ContactTachometer' => 22,
     'Solar_Power_Meter' => 23,
+    'Incubator_Analyzer' => 34,
+    'Thermometer_Reference' => 36,
+    'TemperatureRecorder' => 37,
+    'Thermohygrometer' => 39,
+    'Waterbath' => 40,
+    'Anaesthesi_Gas_Analyzer' => 42,
+    'DigitalPressureMeter' => 45,
+    'InfusionDeviceAnalyzer' => 46,
+    'Ventilator_Analyzer' => 47,
+    'Phototherapy_Radiometer' => 52,
 ];

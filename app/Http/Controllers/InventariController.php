@@ -199,14 +199,14 @@ class InventariController extends Controller
         $data = Inventari::findOrFail($inventaris_id);
 
         $viewMapping = [
-            39 => 'inventaris.sertifikat.Thermohygrometer',
-            3 => 'inventaris.sertifikat.DigitalStopWatch',
-            5 => 'inventaris.sertifikat.ElectricalSafetyAnalyzer',
+            config('type_inventaris.Thermohygrometer') => 'inventaris.sertifikat.Thermohygrometer',
+            config('type_inventaris.DigitalStopWatch')  => 'inventaris.sertifikat.DigitalStopWatch',
+            config('type_inventaris.Electrical_Safety_Analyzer')  => 'inventaris.sertifikat.ElectricalSafetyAnalyzer',
             config('type_inventaris.FETAL_SIMULATOR') => 'inventaris.sertifikat.FetalSimulator',
-            22 => 'inventaris.sertifikat.ContactTachometer',
-            37 => 'inventaris.sertifikat.TemperatureRecorder',
-            45 => 'inventaris.sertifikat.DigitalPressureMeter',
-            46 => 'inventaris.sertifikat.InfusionDeviceAnalyzer',
+            config('type_inventaris.ContactTachometer')  => 'inventaris.sertifikat.ContactTachometer',
+            config('type_inventaris.TemperatureRecorder')  => 'inventaris.sertifikat.TemperatureRecorder',
+            config('type_inventaris.DigitalPressureMeter')  => 'inventaris.sertifikat.DigitalPressureMeter',
+            config('type_inventaris.InfusionDeviceAnalyzer')  => 'inventaris.sertifikat.InfusionDeviceAnalyzer',
             config('type_inventaris.LUX_METER') => 'inventaris.sertifikat.LuxMeter',
             config('type_inventaris.Electrical_Surgery_Analyzer') => 'inventaris.sertifikat.ElectricalSurgeryAnalyzer',
             config('type_inventaris.Thermometer_Reference') => 'inventaris.sertifikat.Thermometer_Reference',
@@ -216,6 +216,7 @@ class InventariController extends Controller
             config('type_inventaris.Incubator_Analyzer') => 'inventaris.sertifikat.Incubator_Analyzer',
             config('type_inventaris.Solar_Power_Meter') => 'inventaris.sertifikat.Solar_Power_Meter',
             config('type_inventaris.SPO2_Simulator') => 'inventaris.sertifikat.SPO2_Simulator',
+            config('type_inventaris.Phototherapy_Radiometer') => 'inventaris.sertifikat.Phototherapy_Radiometer',
         ];
 
         $view = $viewMapping[$data->jenis_alat_id] ?? null;
