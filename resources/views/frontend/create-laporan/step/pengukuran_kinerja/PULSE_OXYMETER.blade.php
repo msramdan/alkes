@@ -20,7 +20,7 @@
                 @for ($j = 1; $j <= 6; $j++)
                     <td>
                         <input type="number" step="0.000000001" class="form-control"
-                               name="pengukuran_heart_rate{{ $index + 1 }}_{{ $j }}" required style="width: 100px">
+                               name="pengukuran_heart_rate_{{ $heartRate }}_{{ $j }}" required style="width: 100px">
                     </td>
                 @endfor
                 @if ($index == 0)

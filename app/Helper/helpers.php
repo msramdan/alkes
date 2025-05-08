@@ -780,3 +780,43 @@ function spectral_irradiance($request)
     ];
     return json_encode($data_laporan);
 }
+
+// PULSE_OXYMETER
+function heart_rate_pulse_oxymeter($request)
+{
+    $data_laporan = [];
+    $heartRates = [30, 60, 120, 180];
+
+    foreach ($heartRates as $heartRate) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "pengukuran_heart_rate_{$heartRate}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+
+    return json_encode($data_laporan);
+}
+
+function saturasi_oksigen_pulse_oxymeter($request)
+{
+    $data_laporan = [];
+    $settings = [
+        'Normal' => 98,
+        'Obese' => 93,
+        'Geriat' => 92,
+        'Tech' => 85,
+        'Neonate' => 90,
+        'Hypoxic' => 70,
+        'Brad' => 88,
+        'Weak' => 90
+    ];
+
+    foreach ($settings as $setting => $saturasi) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "pengukuran_saturasi_oksigen_{$setting}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+
+    return json_encode($data_laporan);
+}

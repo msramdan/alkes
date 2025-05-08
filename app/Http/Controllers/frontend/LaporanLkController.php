@@ -180,6 +180,11 @@ class LaporanLkController extends Controller
                     if (!$ventilatorAnalyzer) {
                         dd('Fetal Simulator belum diisi');
                     }
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.SPO2_Simulator')) {
+                    $spo2_Simulator = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$spo2_Simulator) {
+                        dd('Fetal Simulator belum diisi');
+                    }
                 }
                 DB::table('laporan_daftar_alat_ukur')->insert([
                     'no_laporan' => $laporan->no_laporan,
@@ -405,6 +410,21 @@ class LaporanLkController extends Controller
                     'type_laporan_kinerja' => 'waktu_putaran',
                     'data_laporan' => waktu_putaran($request),
                     'data_sertifikat' => $sertifikatDigitalStopWatch->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.PULSE_OXYMETER')) {
+                // HEART RATE
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'heart_rate_pulse_oxymeter',
+                    'data_laporan' => heart_rate_pulse_oxymeter($request),
+                    'data_sertifikat' => $spo2_Simulator->data,
+                ]);
+                // SATURASI OKSIGEN
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'saturasi_oksigen_pulse_oxymeter',
+                    'data_laporan' => saturasi_oksigen_pulse_oxymeter($request),
+                    'data_sertifikat' => $spo2_Simulator->data,
                 ]);
             }
 
