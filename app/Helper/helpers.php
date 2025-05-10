@@ -798,11 +798,11 @@ function spectral_irradiance_phototherapy($request)
 function heart_rate_pulse_oxymeter($request)
 {
     $data_laporan = [];
-    $heartRates = [30, 60, 120, 180];
+    $setting = [30, 60, 120, 180];
 
-    foreach ($heartRates as $heartRate) {
+    foreach ($setting as $row) {
         for ($j = 1; $j <= 6; $j++) {
-            $fieldName = "pengukuran_heart_rate_{$heartRate}_{$j}";
+            $fieldName = "pengukuran_heart_rate_{$row}_{$j}";
             $data_laporan[$fieldName] = $request->$fieldName;
         }
     }
@@ -838,9 +838,9 @@ function saturasi_oksigen_pulse_oxymeter($request)
 function akurasi_waktu($request)
 {
     $data_laporan = [];
-    $akurasi_waktu = [300, 600, 900];
+    $setting = [300, 600, 900];
 
-    foreach ($akurasi_waktu as $detik) {
+    foreach ($setting as $detik) {
         for ($j = 1; $j <= 3; $j++) {
             $fieldName = "timer_{$detik}_{$j}";
             $data_laporan[$fieldName] = $request->$fieldName;
@@ -854,11 +854,38 @@ function akurasi_waktu($request)
 function flowmeter($request)
 {
     $data_laporan = [];
-    $flowmeter = [3, 6, 9, 12, 15];
+    $setting = [3, 6, 9, 12, 15];
 
-    foreach ($flowmeter as $detik) {
-        for ($j = 1; $j <= 3; $j++) {
-            $fieldName = "flowmeter_{$detik}_{$j}";
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "flowmeter_{$row}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}
+
+// CPAP
+function flowmeter_cpap($request)
+{
+    $data_laporan = [];
+    $setting = [1, 5, 10, 12, 15];
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "flowmeter_{$row}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}
+
+function konsentrasi_oksigen($request)
+{
+    $data_laporan = [];
+    $setting = [21, 50, 100];
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "konsentrasi_oksigen_{$row}_{$j}";
             $data_laporan[$fieldName] = $request->$fieldName;
         }
     }

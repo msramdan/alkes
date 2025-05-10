@@ -451,6 +451,20 @@ class LaporanLkController extends Controller
                     'data_laporan' => flowmeter($request),
                     'data_sertifikat' => $ventilatorAnalyzer->data,
                 ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.CPAP')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'flowmeter',
+                    'data_laporan' => flowmeter_cpap($request),
+                    'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
+
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'konsentrasi_oksigen',
+                    'data_laporan' => konsentrasi_oksigen($request),
+                    'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
             }
 
             //Create Laporan Telaah Teknis

@@ -86,4 +86,6 @@
     @include('laporans._sertifikat.timer')
 @elseif ($nomenklatur->id == config('nomenklatur.FLOWMETER'))
     @include('laporans._sertifikat.flowmeter')
+@elseif ($nomenklaturs->id == config('nomenklatur.CPAP'))
+    @include('laporans._pdf_lk_scorsing.cpap')
 @endif

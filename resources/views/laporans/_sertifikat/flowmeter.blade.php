@@ -13,8 +13,8 @@ foreach ($flowMeters as $flow) {
     $prefix = "flowmeter_{$flow}";
     $measurements = [];
 
-    // Collect all 3 measurements
-    for ($i = 1; $i <= 3; $i++) {
+    // Collect all 6 measurements
+    for ($i = 1; $i <= 6; $i++) {
         $field = "{$prefix}_{$i}";
         $measurements[$i] = $data_laporan->$field;
     }

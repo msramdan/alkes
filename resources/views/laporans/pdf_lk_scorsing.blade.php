@@ -144,6 +144,8 @@
         @include('laporans._pdf_lk_scorsing.score_timer')
     @elseif ($nomenklaturs->id == config('nomenklatur.FLOWMETER'))
         @include('laporans._pdf_lk_scorsing.score_flowmeter')
+    @elseif ($nomenklaturs->id == config('nomenklatur.CPAP'))
+        @include('laporans._pdf_lk_scorsing.score_cpap')
     @endif
 
 </body>

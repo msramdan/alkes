@@ -17,144 +17,30 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>3</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_6" required>
-            </td>
-            <td rowspan="5">± 10%</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_6" required>
-            </td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_6" required>
-            </td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_6" required>
-            </td>
-        </tr>
-        <tr>
-            <td>15</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_6" required>
-            </td>
-        </tr>
+        <?php
+        $flowSettings = [1, 5, 10, 12, 15];
+        foreach ($flowSettings as $setting) {
+            echo '<tr>
+                <td>' .
+                $setting .
+                '</td>';
+            for ($j = 1; $j <= 6; $j++) {
+                echo '<td>
+                    <input style="width: 100px" type="number" step="0.000000001" class="form-control"
+                        name="flowmeter_' .
+                    $setting .
+                    '_' .
+                    $j .
+                    '" required>
+                </td>';
+            }
+            if ($setting === 1) {
+                echo '<td rowspan="5">± 10%</td>';
+            }
+            echo '</tr>';
+        }
+        ?>
     </tbody>
-
 </table>
 <br>
 <b>KONSENTRASI OKSIGEN</b>
@@ -176,87 +62,28 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>21</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_6" required>
-            </td>
-            <td rowspan="3">± 3 % O2</td>
-        </tr>
-        <tr>
-            <td>50</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen2_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen2_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen2_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen2_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen2_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen2_6" required>
-            </td>
-        </tr>
-        <tr>
-            <td>100</td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen3_1" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen3_2" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen3_3" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen3_4" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen3_5" required>
-            </td>
-            <td>
-                <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen3_6" required>
-            </td>
-        </tr>
+        <?php
+        $oxygenSettings = [21, 50, 100];
+        foreach ($oxygenSettings as $setting) {
+            echo '<tr>
+                        <td>' .
+                $setting .
+                '</td>';
+            for ($j = 1; $j <= 6; $j++) {
+                echo '<td>
+                            <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
+                                name="konsentrasi_oksigen_' .
+                    $setting .
+                    '_' .
+                    $j .
+                    '" required>
+                        </td>';
+            }
+            if ($setting === 21) {
+                echo '<td rowspan="3">± 3 % O2</td>';
+            }
+            echo '</tr>';
+        }
+        ?>
     </tbody>
 </table>

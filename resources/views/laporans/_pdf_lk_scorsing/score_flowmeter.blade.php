@@ -53,8 +53,8 @@ foreach ($flowMeters as $flow) {
     $prefix = "flowmeter_{$flow}";
     $measurements = [];
 
-    // Collect all 3 measurements
-    for ($i = 1; $i <= 3; $i++) {
+    // Collect all 6 measurements
+    for ($i = 1; $i <= 6; $i++) {
         $field = "{$prefix}_{$i}";
         $measurements[$i] = $data_laporan->$field;
     }
@@ -92,7 +92,7 @@ $totalAll = $score_fisik + $flowMeterFinalScore;
 ?>
 <p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
     PENGUKURAN KINERJA</b></p>
-<!-- Heart Rate Table -->
+<!-- Flow -->
 <p style="font-size: 11px;margin-left:18px"><b>Flow</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
