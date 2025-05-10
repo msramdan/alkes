@@ -171,8 +171,8 @@
 
 
 {{-- pengukuran_kinerja --}}
-<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
-        KINERJA</b></p>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+    PENGUKURAN KINERJA</b></p>
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
 

@@ -141,6 +141,8 @@
         @include('laporans._pdf_lk_laporan.score_pulse_oxymeter')
     @elseif ($nomenklaturs->id == config('nomenklatur.PHOTOTHERAPY'))
         @include('laporans._pdf_lk_laporan.score_phototherapy')
+    @elseif ($nomenklaturs->id == config('nomenklatur.TIMER'))
+        @include('laporans._pdf_lk_laporan.score_timer')
     @endif
 
 

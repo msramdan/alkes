@@ -348,6 +348,8 @@ if ($xx >= 50) {
 $persyaratan = $score >= 50 ? 'Lulus' : 'Tidak';
 
 ?>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+        PENGUKURAN KINERJA</b></p>
 <p style="font-size: 11px;margin-left:18px"><b>KINERJA PUTARAN</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
@@ -369,18 +371,18 @@ $persyaratan = $score >= 50 ? 'Lulus' : 'Tidak';
     </thead>
     <tbody>
         @foreach ($myArray as $key => $value)
-        <tr>
-            <td style="text-align: center;vertical-align: middle;">{{ $key }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
-            <td>{{ $value['tol'] }}</td>
-        </tr>
-    @endforeach
+            <tr>
+                <td style="text-align: center;vertical-align: middle;">{{ $key }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_1'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_2'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_3'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_4'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_5'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ $value['percobaan_6'] }}</td>
+                <td style="text-align: center;vertical-align: middle;">{{ round($value['mean'], 2) }}</td>
+                <td>{{ $value['tol'] }}</td>
+            </tr>
+        @endforeach
 
 
     </tbody>

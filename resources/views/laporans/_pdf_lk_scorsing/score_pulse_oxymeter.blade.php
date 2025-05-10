@@ -155,8 +155,8 @@ $score_kinerja = (($heartRateFinalScore + $oxygenFinalScore)/2) * 0.9;
 $totalAll =  $score_fisik + $score_kinerja;
 ?>
 
-<p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
-        PENGUKURAN KINERJA</b></p>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+    PENGUKURAN KINERJA</b></p>
 
 <!-- Heart Rate Table -->
 <p style="font-size: 11px;margin-left:18px"><b>Heart Rate Pulse Oxymeter</b></p>

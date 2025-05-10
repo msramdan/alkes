@@ -200,8 +200,8 @@
 @endif
 
 {{-- pengukuran_kinerja --}}
-<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
-        KINERJA</b></p>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+    PENGUKURAN KINERJA</b></p>
 <?php
 
 $laporan_kebocoran_tekanan = DB::table('laporan_kinerja')

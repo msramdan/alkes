@@ -36,27 +36,27 @@
                 <tr>
                     <td rowspan="2">22</td>
                     <td>
-                        <input name="suhu_1" type="number" step="0.1" required
+                        <input name="suhu_22_1" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="suhu_2" type="number" step="0.1" required
+                        <input name="suhu_22_2" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="suhu_3" type="number" step="0.1" required
+                        <input name="suhu_22_3" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="suhu_4" type="number" step="0.1" required
+                        <input name="suhu_22_4" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="suhu_5" type="number" step="0.1" required
+                        <input name="suhu_22_5" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="suhu_6" type="number" step="0.1" required
+                        <input name="suhu_22_6" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td rowspan="2">± 1°C</td>
@@ -87,27 +87,27 @@
                 <tr>
                     <td rowspan="2">50</td>
                     <td>
-                        <input name="kelembaban_1" type="number" step="0.1" required
+                        <input name="kelembaban_50_1" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="kelembaban_2" type="number" step="0.1" required
+                        <input name="kelembaban_50_2" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="kelembaban_3" type="number" step="0.1" required
+                        <input name="kelembaban_50_3" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="kelembaban_4" type="number" step="0.1" required
+                        <input name="kelembaban_50_4" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="kelembaban_5" type="number" step="0.1" required
+                        <input name="kelembaban_50_5" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td>
-                        <input name="kelembaban_6" type="number" step="0.1" required
+                        <input name="kelembaban_50_6" type="number" step="0.1" required
                             class="form-control form-control-sm " value="">
                     </td>
                     <td rowspan="2">± 10%</td>

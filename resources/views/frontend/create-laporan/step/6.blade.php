@@ -73,6 +73,7 @@
         config('nomenklatur.ULTRASONOGRAPHY') => 'ULTRASONOGRAPHY',
         config('nomenklatur.MIKROSKOP') => 'MIKROSKOP',
         config('nomenklatur.UJI_KESELAMATAN_LISTRIK') => 'UJI_KESELAMATAN_LISTRIK',
+        config('nomenklatur.TIMER') => 'TIMER',
     ];
 @endphp
 

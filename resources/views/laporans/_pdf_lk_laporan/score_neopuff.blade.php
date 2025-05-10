@@ -262,8 +262,8 @@ $persyaratanString = $scoreString >= 50 ? 'Lulus' : 'Tidak';
 $totalAll = $score_fisik + $point + $scoreString;
 ?>
 
-<p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
-        PENGUKURAN KINERJA</b></p>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+    PENGUKURAN KINERJA</b></p>
 <p style="font-size: 11px;margin-left:18px"><b>Spectral Irradiance</b></p>
 <table class="table table-bordered table-sm"
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">

@@ -208,7 +208,6 @@ function hitung_uncertainty($resolusi_uut, $stdev, $uncert, $drift, $n)
     $uc_4 = $uc4 * $uc4;  // 8.335
     $ucv_4 = ($uc_4 * $uc_4) / $v4;
     // ==============================================
-
     $jumlah_uc =  $uc_1  + $uc_2 + $uc_3 + $uc_4;
     $jumlah_ucv =  $ucv_1  + $ucv_2 + $ucv_3 + $ucv_4;
     $ketidakpastian_baku_gabungan = sqrt($jumlah_uc);
@@ -717,21 +716,21 @@ function waktu_putaran($request)
 // HUMIDIFIER
 function suhu_udara($request)
 {
-    $data_laporan = [
-        'waktu_putaran_1' => $request->waktu_putaran_1,
-        'waktu_putaran_2' => $request->waktu_putaran_2,
-        'waktu_putaran_3' => $request->waktu_putaran_3,
-    ];
+    $data_laporan = [];
+    for ($i = 1; $i <= 6; $i++) {
+        $key = "suhu_22_$i";
+        $data_laporan[$key] = $request->$key ?? null;
+    }
     return json_encode($data_laporan);
 }
 
 function kelembapan_udara($request)
 {
-    $data_laporan = [
-        'waktu_putaran_1' => $request->waktu_putaran_1,
-        'waktu_putaran_2' => $request->waktu_putaran_2,
-        'waktu_putaran_3' => $request->waktu_putaran_3,
-    ];
+    $data_laporan = [];
+    for ($i = 1; $i <= 6; $i++) {
+        $key = "kelembaban_50_$i";
+        $data_laporan[$key] = $request->$key ?? null;
+    }
     return json_encode($data_laporan);
 }
 
@@ -834,3 +833,20 @@ function saturasi_oksigen_pulse_oxymeter($request)
 
     return json_encode($data_laporan);
 }
+
+// TIMER
+function akurasi_waktu($request)
+{
+    $data_laporan = [];
+    $akurasi_waktu = [300, 600, 900];
+
+    foreach ($akurasi_waktu as $detik) {
+        for ($j = 1; $j <= 3; $j++) {
+            $fieldName = "timer_{$detik}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+
+    return json_encode($data_laporan);
+}
+

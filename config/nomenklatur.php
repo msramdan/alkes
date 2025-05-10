@@ -60,4 +60,5 @@ return [
     'OPERATING_LAMP' => 71,
     'UJI_KESELAMATAN_LISTRIK' => 72,
     'HUMIDIFIER' => 73,
+    'TIMER' => 76,
 ];

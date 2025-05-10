@@ -164,8 +164,8 @@
     </table>
 @endif
 
-<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}. PENGUKURAN
-        KINERJA</b></p>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+    PENGUKURAN KINERJA</b></p>
 @if ($nomenklaturs->id == 10 || $nomenklaturs->id == 11)
     <?php
     $laporan_occlusion = DB::table('laporan_kinerja')

@@ -377,14 +377,14 @@ class LaporanLkController extends Controller
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'suhu_udara',
                     'data_laporan' => suhu_udara($request),
-                    'data_sertifikat' => $luxMeter->data,
+                    'data_sertifikat' => '',
                 ]);
 
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'kelembapan_udara',
                     'data_laporan' => kelembapan_udara($request),
-                    'data_sertifikat' => $luxMeter->data,
+                    'data_sertifikat' => '',
                 ]);
             } else if ($request->nomenklatur_id == config('nomenklatur.NEOPUFF')) {
                 DB::table('laporan_kinerja')->insert([
@@ -436,6 +436,13 @@ class LaporanLkController extends Controller
                     'type_laporan_kinerja' => 'spectral_irradiance_phototherapy',
                     'data_laporan' => spectral_irradiance_phototherapy($request),
                     'data_sertifikat' => $phototherapyRadiometer->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.TIMER')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'akurasi_waktu',
+                    'data_laporan' => akurasi_waktu($request),
+                    'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
             }
 

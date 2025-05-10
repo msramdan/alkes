@@ -307,7 +307,7 @@ $scoreKinerja = $scoreString;
 ?>
 
 
-<p style="font-size: 11px;margin-left:18px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
         PENGUKURAN KINERJA</b></p>
 <p style="font-size: 11px;margin-left:18px"><b> Intensitas Cahaya</b></p>
 <table class="table table-bordered table-sm"

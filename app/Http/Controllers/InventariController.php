@@ -234,7 +234,7 @@ class InventariController extends Controller
         $file = $request->file('file');
         $file->storeAs('public/sertifikat', $file->hashName());
         $jenisAlatFields = [
-            config('type_inventaris.DigitalStopWatch') => ['intercept', 'x_variable', 'u', 'drift_300'], // Digital Stop Watch
+            config('type_inventaris.DigitalStopWatch') => ['intercept', 'x_variable', 'u', 'drift_300','drift_600','drift_900'],
             config('type_inventaris.Electrical_Safety_Analyzer') => ['intercept1', 'x_variable1', 'intercept2', 'x_variable2', 'intercept3', 'x_variable3'], // Electrical Safety Analyzer
             config('type_inventaris.ContactTachometer') => [
                 'intercept',

@@ -148,6 +148,8 @@ $oxygenRequirement = $oxygenFinalScore >= 50 ? 'Lulus' : 'Tidak';
 $score_kinerja = (($heartRateFinalScore + $oxygenFinalScore) / 2) * 0.9;
 $totalAll = $score_fisik + $score_kinerja;
 ?>
+<p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
+    PENGUKURAN KINERJA</b></p>
 <!-- Heart Rate Table -->
 <p style="font-size: 11px;margin-left:18px"><b>Heart Rate Pulse Oxymeter</b></p>
 <table class="table table-bordered table-sm"
@@ -155,7 +157,8 @@ $totalAll = $score_fisik + $score_kinerja;
     <tr>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Setting Standar</th>
         <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Alat (BPM)</th>
-        <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Koreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
     </tr>
     <tr>
@@ -169,7 +172,8 @@ $totalAll = $score_fisik + $score_kinerja;
             @for ($i = 1; $i <= 6; $i++)
                 <td style="text-align: center;vertical-align: middle;">{{ round($data['measurements'][$i], 2) }}</td>
             @endfor
-            <td style="text-align: center;vertical-align: middle;">{{ round($data['mean'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['mean_terkoreksi'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['correction'], 2) }}</td>
             <td style="text-align: center;vertical-align: middle;">{{ round($data['tolerance'], 2) }}</td>
         </tr>
     @endforeach
@@ -182,7 +186,8 @@ $totalAll = $score_fisik + $score_kinerja;
     <tr>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Setting Standar</th>
         <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Alat (%O2)</th>
-        <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
+        <th rowspan="2" style="text-align: center;vertical-align: middle;">Koreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Toleransi</th>
     </tr>
     <tr>
@@ -196,8 +201,9 @@ $totalAll = $score_fisik + $score_kinerja;
             @for ($i = 1; $i <= 6; $i++)
                 <td style="text-align: center;vertical-align: middle;">{{ round($data['measurements'][$i], 2) }}</td>
             @endfor
-            <td style="text-align: center;vertical-align: middle;">{{ round($data['mean'], 2) }}</td>
-            <td style="text-align: center;vertical-align: middle;">{{ $data['tolerance'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['mean_terkoreksi'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['correction'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['tolerance'], 2) }}</td>
         </tr>
     @endforeach
 </table>

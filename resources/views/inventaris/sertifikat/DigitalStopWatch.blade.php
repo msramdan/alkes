@@ -68,69 +68,6 @@
                                             class="form-control" value="" required />
                                     </div>
 
-                                    {{-- <div class="form-group">
-                                        <label for="uc_suhu">{{ __('Uncertainty (U)') }}</label>
-                                        <table class="table table-xs table-bordered"
-                                            style="text-align: center; vertical-align: middle;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Detik</th>
-                                                    <th>U Detik</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>10</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u10" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>20</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u20" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>30</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u30" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>40</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u40" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>50</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u50" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>60</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u60" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>300</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u300" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>600</th>
-                                                    <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="u600" required>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div> --}}
-
                                     <div class="form-group">
                                         <label for="uc_suhu">{{ __('Drift') }}</label>
                                         <table class="table table-xs table-bordered"
@@ -145,8 +82,19 @@
                                                 <tr>
                                                     <th>300</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="drift_300"
-                                                            required>
+                                                            class="form-control" placeholder="" name="drift_300" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>600</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift_600" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>900</th>
+                                                    <td><input type="number" step="0.00000000000000001"
+                                                            class="form-control" placeholder="" name="drift_900" required>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -184,6 +132,9 @@
                                             <th style="text-align: center">{{ __('Tahun') }}</th>
                                             <th style="text-align: center">{{ __('Intercept') }}</th>
                                             <th style="text-align: center">{{ __('X Variable 1') }}</th>
+                                            <th style="text-align: center">{{ __('Drift 300') }}</th>
+                                            <th style="text-align: center">{{ __('Drift 600') }}</th>
+                                            <th style="text-align: center">{{ __('Drift 900') }}</th>
                                             <th style="text-align: center">{{ __('File') }}</th>
                                             <th style="text-align: center">{{ __('Action') }}</th>
                                         </tr>
@@ -197,6 +148,9 @@
                                                 <td>{{ $row->tahun }}</td>
                                                 <td>{{ $data->intercept }}</td>
                                                 <td>{{ $data->x_variable }}</td>
+                                                <td>{{ $data->drift_300 }}</td>
+                                                <td>{{ $data->drift_600 }}</td>
+                                                <td>{{ $data->drift_900 }}</td>
                                                 <td><a
                                                         href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i
                                                             class="ace-icon fa fa-file"></i> Download</a>
