@@ -444,6 +444,13 @@ class LaporanLkController extends Controller
                     'data_laporan' => akurasi_waktu($request),
                     'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.FLOWMETER')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'flowmeter',
+                    'data_laporan' => flowmeter($request),
+                    'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
             }
 
             //Create Laporan Telaah Teknis

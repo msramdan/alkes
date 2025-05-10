@@ -1,20 +1,20 @@
-{{-- heart_rate_pulse_oxymeter --}}
+{{-- flowmeter --}}
 <?php
 $resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
-$heart_rate_pulse_oxymeter = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'heart_rate_pulse_oxymeter')->where('no_laporan', $laporan->no_laporan)->first();
-$data_sertifikat = json_decode($heart_rate_pulse_oxymeter->data_sertifikat);
-$data_laporan = json_decode($heart_rate_pulse_oxymeter->data_laporan);
+$flowmeter = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'flowmeter')->where('no_laporan', $laporan->no_laporan)->first();
+$data_sertifikat = json_decode($flowmeter->data_sertifikat);
+$data_laporan = json_decode($flowmeter->data_laporan);
 
-$heartRates = [30, 60, 120, 180];
-$heartRateData = [];
-$heartRateScore = 0;
+$flowMeters = [3, 6, 9, 12, 15];
+$flowMeterData = [];
+$flowMeterScore = 0;
 
-foreach ($heartRates as $rate) {
-    $prefix = "pengukuran_heart_rate_{$rate}";
+foreach ($flowMeters as $flow) {
+    $prefix = "flowmeter_{$flow}";
     $measurements = [];
 
-    // Collect all 6 measurements
-    for ($i = 1; $i <= 6; $i++) {
+    // Collect all 3 measurements
+    for ($i = 1; $i <= 3; $i++) {
         $field = "{$prefix}_{$i}";
         $measurements[$i] = $data_laporan->$field;
     }
@@ -22,18 +22,18 @@ foreach ($heartRates as $rate) {
     $mean = array_sum($measurements) / count($measurements);
     $mean_terkoreksi = $mean;
     $stdev = standard_deviation($measurements);
-    $u95 = hitung_uncertainty($resolusi->value, $stdev, $data_sertifikat->u_bpm, 0, 6);
-    $correction = $mean - $rate;
-    $cu95 = $correction + $u95;
-    $tolerance = 0.05 * $rate;
-    $result = abs($correction) <= $tolerance ? 'Lulus' : 'Tidak';
+    $u95 = hitung_uncertainty($resolusi->value, $stdev, 0, 0, 6);
+    $correction = $mean_terkoreksi - $flow;
+    $cu95 = abs($correction) + $u95;
+    $tolerance = 0.1 * $flow;
+    $result = abs($u95) <= $tolerance ? 'Lulus' : 'Tidak';
 
     if ($result == 'Lulus') {
-        $heartRateScore++;
+        $flowMeterScore++;
     }
 
-    $heartRateData[] = [
-        'rate' => $rate,
+    $flowMeterData[] = [
+        'detik' => $flow,
         'measurements' => $measurements,
         'mean' => $mean,
         'mean_terkoreksi' => $mean_terkoreksi,
@@ -46,72 +46,9 @@ foreach ($heartRates as $rate) {
     ];
 }
 
-$heartRateFinalScore = ($heartRateScore / count($heartRates)) * 100;
-$heartRateRequirement = $heartRateFinalScore >= 50 ? 'Lulus' : 'Tidak';
-?>
-
-{{-- saturasi_oksigen_pulse_oxymeter --}}
-<?php
-$saturasi_oksigen_pulse_oxymeter = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'saturasi_oksigen_pulse_oxymeter')->where('no_laporan', $laporan->no_laporan)->first();
-$data_sertifikat = json_decode($saturasi_oksigen_pulse_oxymeter->data_sertifikat);
-$data_laporan = json_decode($saturasi_oksigen_pulse_oxymeter->data_laporan);
-
-$oxygenSettings = [
-    'Normal' => 98,
-    'Obese' => 93,
-    'Geriat' => 92,
-    'Tech' => 85,
-    'Neonate' => 90,
-    'Hypoxic' => 70,
-    'Brad' => 88,
-    'Weak' => 90,
-];
-$oxygenData = [];
-$oxygenScore = 0;
-
-foreach ($oxygenSettings as $setting => $target) {
-    $prefix = "pengukuran_saturasi_oksigen_{$setting}";
-    $measurements = [];
-
-    // Collect all 6 measurements
-    for ($i = 1; $i <= 6; $i++) {
-        $field = "{$prefix}_{$i}";
-        $measurements[$i] = $data_laporan->$field;
-    }
-
-    // Calculate statistics
-    $mean = array_sum($measurements) / count($measurements);
-    $mean_terkoreksi = $mean;
-    $stdev = standard_deviation($measurements);
-    $u95 = hitung_uncertainty($resolusi->value, $stdev, $data_sertifikat->u_o2, 0, 6);
-    $correction = $mean - $target;
-    $cu95 = $correction + $u95;
-    $tolerance = 1;
-    $result = abs($correction) <= $tolerance ? 'Lulus' : 'Tidak';
-
-    if ($result == 'Lulus') {
-        $oxygenScore++;
-    }
-
-    $oxygenData[] = [
-        'setting' => $setting,
-        'target' => $target,
-        'measurements' => $measurements,
-        'mean' => $mean,
-        'mean_terkoreksi' => $mean_terkoreksi,
-        'stdev' => $stdev,
-        'correction' => $correction,
-        'u95' => $u95,
-        'cu95' => $cu95,
-        'tolerance' => $tolerance,
-        'result' => $result,
-    ];
-}
-
-$oxygenFinalScore = ($oxygenScore / count($oxygenSettings)) * 100;
-$oxygenRequirement = $oxygenFinalScore >= 50 ? 'Lulus' : 'Tidak';
-$score_kinerja = (($heartRateFinalScore + $oxygenFinalScore) / 2) * 0.9;
-$totalAll = $score_fisik + $score_kinerja;
+$flowMeterFinalScore = ($flowMeterScore / count($flowMeters)) * 100 * 0.9;
+$flowMeterRequirement = $flowMeterFinalScore >= 50 ? 'Lulus' : 'Tidak';
+$totalAll = $score_fisik + $flowMeterFinalScore;
 ?>
 
 <!DOCTYPE html>

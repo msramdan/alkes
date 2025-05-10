@@ -142,6 +142,8 @@
         @include('laporans._pdf_lk_scorsing.score_phototherapy')
     @elseif ($nomenklaturs->id == config('nomenklatur.TIMER'))
         @include('laporans._pdf_lk_scorsing.score_timer')
+    @elseif ($nomenklaturs->id == config('nomenklatur.FLOWMETER'))
+        @include('laporans._pdf_lk_scorsing.score_flowmeter')
     @endif
 
 </body>

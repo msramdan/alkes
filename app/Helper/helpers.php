@@ -850,3 +850,18 @@ function akurasi_waktu($request)
     return json_encode($data_laporan);
 }
 
+// flowmeter
+function flowmeter($request)
+{
+    $data_laporan = [];
+    $flowmeter = [3, 6, 9, 12, 15];
+
+    foreach ($flowmeter as $detik) {
+        for ($j = 1; $j <= 3; $j++) {
+            $fieldName = "flowmeter_{$detik}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}
+

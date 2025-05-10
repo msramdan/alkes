@@ -84,4 +84,6 @@
     @include('laporans._sertifikat.phototherapy')
 @elseif ($nomenklatur->id == config('nomenklatur.TIMER'))
     @include('laporans._sertifikat.timer')
+@elseif ($nomenklatur->id == config('nomenklatur.FLOWMETER'))
+    @include('laporans._sertifikat.flowmeter')
 @endif
