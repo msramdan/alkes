@@ -21,27 +21,27 @@
             <td>2</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_1" required>
+                    name="flowmeter_2_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_2" required>
+                    name="flowmeter_2_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_3" required>
+                    name="flowmeter_2_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_4" required>
+                    name="flowmeter_2_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_5" required>
+                    name="flowmeter_2_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan1_6" required>
+                    name="flowmeter_2_6" required>
             </td>
             <td rowspan="5">± 10%</td>
         </tr>
@@ -49,108 +49,108 @@
             <td>4</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_1" required>
+                    name="flowmeter_4_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_2" required>
+                    name="flowmeter_4_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_3" required>
+                    name="flowmeter_4_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_4" required>
+                    name="flowmeter_4_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_5" required>
+                    name="flowmeter_4_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan2_6" required>
+                    name="flowmeter_4_6" required>
             </td>
         </tr>
         <tr>
             <td>6</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_1" required>
+                    name="flowmeter_6_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_2" required>
+                    name="flowmeter_6_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_3" required>
+                    name="flowmeter_6_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_4" required>
+                    name="flowmeter_6_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_5" required>
+                    name="flowmeter_6_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan3_6" required>
+                    name="flowmeter_6_6" required>
             </td>
         </tr>
         <tr>
             <td>8</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_1" required>
+                    name="flowmeter_8_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_2" required>
+                    name="flowmeter_8_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_3" required>
+                    name="flowmeter_8_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_4" required>
+                    name="flowmeter_8_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_5" required>
+                    name="flowmeter_8_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan4_6" required>
+                    name="flowmeter_8_6" required>
             </td>
         </tr>
         <tr>
             <td>10</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_1" required>
+                    name="flowmeter_10_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_2" required>
+                    name="flowmeter_10_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_3" required>
+                    name="flowmeter_10_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_4" required>
+                    name="flowmeter_10_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_5" required>
+                    name="flowmeter_10_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control"
-                    name="percobaan5_6" required>
+                    name="flowmeter_10_6" required>
             </td>
         </tr>
     </tbody>
@@ -180,27 +180,27 @@
             <td>5</td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_1" required>
+                    name="konsentrasi_oksigen_5_1" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_2" required>
+                    name="konsentrasi_oksigen_5_2" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_3" required>
+                    name="konsentrasi_oksigen_5_3" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_4" required>
+                    name="konsentrasi_oksigen_5_4" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_5" required>
+                    name="konsentrasi_oksigen_5_5" required>
             </td>
             <td>
                 <input style="width: 100px" type="number" step="0.000000001" class="form-control" required
-                    name="percobaan_konsentrasi_oksigen1_6" required>
+                    name="konsentrasi_oksigen_5_6" required>
             </td>
             <td rowspan="3">± 3 % O2</td>
         </tr>

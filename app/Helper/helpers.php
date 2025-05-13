@@ -892,3 +892,29 @@ function konsentrasi_oksigen($request)
     return json_encode($data_laporan);
 }
 
+// OKSIGEN_CONCENTRATOR
+function flowmeter_oksigen_concentrator($request)
+{
+    $data_laporan = [];
+    $setting = [2, 4, 6, 8, 10];
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "flowmeter_{$row}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}
+
+function konsentrasi_oksigen_concentrator($request)
+{
+    $data_laporan = [];
+    $setting = [5];
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "konsentrasi_oksigen_{$row}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}

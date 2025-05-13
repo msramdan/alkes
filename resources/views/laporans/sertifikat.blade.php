@@ -88,4 +88,6 @@
     @include('laporans._sertifikat.flowmeter')
 @elseif ($nomenklatur->id == config('nomenklatur.CPAP'))
     @include('laporans._sertifikat.cpap')
+@elseif ($nomenklatur->id == config('nomenklatur.OKSIGEN_CONCENTRATOR'))
+    @include('laporans._sertifikat.oksigen_concentrator')
 @endif
