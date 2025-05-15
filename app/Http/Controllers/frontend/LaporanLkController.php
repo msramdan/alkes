@@ -480,6 +480,21 @@ class LaporanLkController extends Controller
                     'data_sertifikat' => $ventilatorAnalyzer->data,
                 ]);
             }
+            else if ($request->nomenklatur_id == config('nomenklatur.HFNC')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'flowmeter_hfnc',
+                    'data_laporan' => flowmeter_hfnc($request),
+                    'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
+
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'konsentrasi_oksigen_hfnc',
+                    'data_laporan' => konsentrasi_oksigen_hfnc($request),
+                    'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
+            }
 
             //Create Laporan Telaah Teknis
             $telaah_teknis = $this->preg_grep_keys('/^telaah_teknis-+(?:.+)/m', $request->input());

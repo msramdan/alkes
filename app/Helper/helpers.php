@@ -918,3 +918,31 @@ function konsentrasi_oksigen_concentrator($request)
     }
     return json_encode($data_laporan);
 }
+
+
+// HFNC
+function flowmeter_hfnc($request)
+{
+    $data_laporan = [];
+    $setting = [3, 6, 9, 12, 15];
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "flowmeter_{$row}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}
+
+function konsentrasi_oksigen_hfnc($request)
+{
+    $data_laporan = [];
+    $setting = [21, 50, 100];
+    foreach ($setting as $row) {
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldName = "konsentrasi_oksigen_{$row}_{$j}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+    return json_encode($data_laporan);
+}
