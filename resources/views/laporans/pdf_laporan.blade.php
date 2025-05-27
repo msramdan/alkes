@@ -149,6 +149,8 @@
         @include('laporans._pdf_lk_laporan.score_cpap')
     @elseif ($nomenklaturs->id == config('nomenklatur.OKSIGEN_CONCENTRATOR'))
         @include('laporans._pdf_lk_laporan.score_oksigen_concentrator')
+    @elseif ($nomenklaturs->id == config('nomenklatur.HFNC'))
+        @include('laporans._pdf_lk_laporan.score_hfnc')
     @endif
 
 

@@ -55,7 +55,7 @@
                 @for ($j = 1; $j <= 6; $j++)
                     <td>
                         <input type="number" step="0.000000001" class="form-control"
-                            name="percobaan_konsentrasi_oksigen_{{ $settingAlat + 1 }}_{{ $j }}" required
+                            name="konsentrasi_oksigen_{{ $settingAlat }}_{{ $j }}" required
                             style="width: 100px">
                     </td>
                 @endfor

@@ -90,4 +90,6 @@
     @include('laporans._sertifikat.cpap')
 @elseif ($nomenklatur->id == config('nomenklatur.OKSIGEN_CONCENTRATOR'))
     @include('laporans._sertifikat.oksigen_concentrator')
+@elseif ($nomenklatur->id == config('nomenklatur.HFNC'))
+    @include('laporans._sertifikat.hfnc')
 @endif
