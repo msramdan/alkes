@@ -151,6 +151,8 @@
         @include('laporans._pdf_lk_laporan.score_oksigen_concentrator')
     @elseif ($nomenklaturs->id == config('nomenklatur.HFNC'))
         @include('laporans._pdf_lk_laporan.score_hfnc')
+    @elseif ($nomenklaturs->id == config('nomenklatur.TRAKSI'))
+        @include('laporans._pdf_lk_laporan.score_traksi')
     @endif
 
 

@@ -92,4 +92,6 @@
     @include('laporans._sertifikat.oksigen_concentrator')
 @elseif ($nomenklatur->id == config('nomenklatur.HFNC'))
     @include('laporans._sertifikat.hfnc')
+@elseif ($nomenklatur->id == config('nomenklatur.TRAKSI'))
+    @include('laporans._sertifikat.traksi')
 @endif
