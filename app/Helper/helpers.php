@@ -946,3 +946,31 @@ function konsentrasi_oksigen_hfnc($request)
     }
     return json_encode($data_laporan);
 }
+
+// Traksi
+function tekanan_traksi($request)
+{
+    $data_laporan = [];
+    for ($i = 1; $i <= 3; $i++) {
+        $fieldUtama = "traction_{$i}";
+        $data_laporan[$fieldUtama] = $request->$fieldUtama;
+        for ($j = 1; $j <= 6; $j++) {
+            $fieldDetail = "traction_{$i}_{$j}";
+            $data_laporan[$fieldDetail] = $request->$fieldDetail;
+        }
+    }
+
+    return json_encode($data_laporan);
+}
+
+function timer_traksi($request)
+{
+    $data_laporan = [];
+
+    for ($i = 1; $i <= 3; $i++) {
+        $fieldName = "timer_{$i}";
+        $data_laporan[$fieldName] = $request->$fieldName;
+    }
+
+    return json_encode($data_laporan);
+}

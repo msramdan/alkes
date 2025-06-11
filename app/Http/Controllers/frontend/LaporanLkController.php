@@ -189,6 +189,11 @@ class LaporanLkController extends Controller
                     if (!$phototherapyRadiometer) {
                         dd('phototherapyRadiometer belum diisi');
                     }
+                }else if ($nomenklatur_type->type_id == config('type_inventaris.ForceGauge')) {
+                    $ForceGauge = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$ForceGauge) {
+                        dd('sertifikat ForceGauge belum diisi');
+                    }
                 }
                 DB::table('laporan_daftar_alat_ukur')->insert([
                     'no_laporan' => $laporan->no_laporan,
@@ -479,8 +484,7 @@ class LaporanLkController extends Controller
                     'data_laporan' => konsentrasi_oksigen_concentrator($request),
                     'data_sertifikat' => $ventilatorAnalyzer->data,
                 ]);
-            }
-            else if ($request->nomenklatur_id == config('nomenklatur.HFNC')) {
+            } else if ($request->nomenklatur_id == config('nomenklatur.HFNC')) {
                 DB::table('laporan_kinerja')->insert([
                     'no_laporan' => $laporan->no_laporan,
                     'type_laporan_kinerja' => 'flowmeter_hfnc',
@@ -493,6 +497,20 @@ class LaporanLkController extends Controller
                     'type_laporan_kinerja' => 'konsentrasi_oksigen_hfnc',
                     'data_laporan' => konsentrasi_oksigen_hfnc($request),
                     'data_sertifikat' => $ventilatorAnalyzer->data,
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.TRAKSI')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'tekanan_traksi',
+                    'data_laporan' => tekanan_traksi($request),
+                    'data_sertifikat' => $ForceGauge->data,
+                ]);
+
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'timer_traksi',
+                    'data_laporan' => timer_traksi($request),
+                    'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
             }
 
