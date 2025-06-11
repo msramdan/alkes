@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', __('Digital Stop Watch'))
+@section('title', __('Force Gauge'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Digital Stop Watch') }}</h3>
+                    <h3>{{ __('Force Gauge') }}</h3>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item">
@@ -57,7 +57,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="x_variable">{{ __('X Variable 1') }}</label>
+                                        <label for="x_variable">{{ __('X Variable') }}</label>
                                         <input type="number" step="0.00000000000000001" name="x_variable" id="x_variable"
                                             class="form-control" value="" required />
                                     </div>
@@ -80,21 +80,21 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th>300</th>
+                                                    <th>10</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="drift_300" required>
+                                                            class="form-control" placeholder="" name="drift_10" required>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>600</th>
+                                                    <th>50</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="drift_600" required>
+                                                            class="form-control" placeholder="" name="drift_50" required>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>900</th>
+                                                    <th>100</th>
                                                     <td><input type="number" step="0.00000000000000001"
-                                                            class="form-control" placeholder="" name="drift_900" required>
+                                                            class="form-control" placeholder="" name="drift_100" required>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -131,11 +131,11 @@
                                         <tr>
                                             <th style="text-align: center">{{ __('Tahun') }}</th>
                                             <th style="text-align: center">{{ __('Intercept') }}</th>
-                                            <th style="text-align: center">{{ __('X Variable 1') }}</th>
+                                            <th style="text-align: center">{{ __('X Variable') }}</th>
                                             <th style="text-align: center">{{ __('U') }}</th>
-                                            <th style="text-align: center">{{ __('Drift 300') }}</th>
-                                            <th style="text-align: center">{{ __('Drift 600') }}</th>
-                                            <th style="text-align: center">{{ __('Drift 900') }}</th>
+                                            <th style="text-align: center">{{ __('Drift 10') }}</th>
+                                            <th style="text-align: center">{{ __('Drift 50') }}</th>
+                                            <th style="text-align: center">{{ __('Drift 100') }}</th>
                                             <th style="text-align: center">{{ __('File') }}</th>
                                             <th style="text-align: center">{{ __('Action') }}</th>
                                         </tr>
@@ -150,9 +150,9 @@
                                                 <td>{{ $data->intercept }}</td>
                                                 <td>{{ $data->x_variable }}</td>
                                                 <td>{{ $data->u }}</td>
-                                                <td>{{ $data->drift_300 }}</td>
-                                                <td>{{ $data->drift_600 }}</td>
-                                                <td>{{ $data->drift_900 }}</td>
+                                                <td>{{ $data->drift_10 }}</td>
+                                                <td>{{ $data->drift_50 }}</td>
+                                                <td>{{ $data->drift_100 }}</td>
                                                 <td><a
                                                         href="{{ route('getDownload', ['inventaris_id' => $row->inventaris_id, 'id' => $row->id]) }}"><i
                                                             class="ace-icon fa fa-file"></i> Download</a>

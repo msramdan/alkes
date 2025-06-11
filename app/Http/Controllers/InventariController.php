@@ -217,6 +217,7 @@ class InventariController extends Controller
             config('type_inventaris.Solar_Power_Meter') => 'inventaris.sertifikat.Solar_Power_Meter',
             config('type_inventaris.SPO2_Simulator') => 'inventaris.sertifikat.SPO2_Simulator',
             config('type_inventaris.Phototherapy_Radiometer') => 'inventaris.sertifikat.Phototherapy_Radiometer',
+            config('type_inventaris.ForceGauge') => 'inventaris.sertifikat.ForceGauge',
         ];
 
         $view = $viewMapping[$data->jenis_alat_id] ?? null;
@@ -234,7 +235,8 @@ class InventariController extends Controller
         $file = $request->file('file');
         $file->storeAs('public/sertifikat', $file->hashName());
         $jenisAlatFields = [
-            config('type_inventaris.DigitalStopWatch') => ['intercept', 'x_variable', 'u', 'drift_300','drift_600','drift_900'],
+            config('type_inventaris.DigitalStopWatch') => ['intercept', 'x_variable', 'u', 'drift_300', 'drift_600', 'drift_900'],
+            config('type_inventaris.ForceGauge') => ['intercept', 'x_variable', 'u', 'drift_10', 'drift_50', 'drift_100'],
             config('type_inventaris.Electrical_Safety_Analyzer') => ['intercept1', 'x_variable1', 'intercept2', 'x_variable2', 'intercept3', 'x_variable3'], // Electrical Safety Analyzer
             config('type_inventaris.ContactTachometer') => [
                 'intercept',

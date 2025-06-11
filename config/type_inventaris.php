@@ -20,4 +20,5 @@ return [
     'InfusionDeviceAnalyzer' => 46,
     'Ventilator_Analyzer' => 47,
     'Phototherapy_Radiometer' => 52,
+    'ForceGauge' => 10,
 ];
