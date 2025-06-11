@@ -334,7 +334,7 @@ $totalAll = $score_fisik + $point + $score_kinerja;
     style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
     <tr>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Setting Standar</th>
-        <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Alat (BPM)</th>
+        <th colspan="6" style="text-align: center;vertical-align: middle;">Penunjukan Alat (Lbs)</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
         <th rowspan="2" style="text-align: center;vertical-align: middle;">Stdev</th>
