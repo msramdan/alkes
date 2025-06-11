@@ -219,7 +219,7 @@ $data_laporan = json_decode($tekanan_traksi->data_laporan);
 
 $tekananTraksi = [1, 2, 3];
 $tekananTraksiData = [];
-$tekananTraksicore = 0;
+$tekananTraksiScore = 0;
 
 foreach ($tekananTraksi as $tekanan) {
     $prefix = "traction_{$tekanan}";
@@ -251,7 +251,7 @@ foreach ($tekananTraksi as $tekanan) {
     $result = abs($correction) <= $tolerance ? 'Lulus' : 'Tidak';
 
     if ($result == 'Lulus') {
-        $tekananTraksicore++;
+        $tekananTraksiScore++;
     }
 
     $tekananTraksiData[] = [
@@ -268,9 +268,63 @@ foreach ($tekananTraksi as $tekanan) {
     ];
 }
 
-$tekananTraksiFinalScore = ($tekananTraksicore / count($tekananTraksi)) * 100;
+$tekananTraksiFinalScore = ($tekananTraksiScore / count($tekananTraksi)) * 100;
 $tekananTraksiRequirement = $tekananTraksiFinalScore >= 50 ? 'Lulus' : 'Tidak';
 ?>
+
+{{-- timer_traksi --}}
+<?php
+$resolusi = DB::table('laporan_pendataan_administrasi')->where('no_laporan', $laporan->no_laporan)->where('slug', 'resolusi')->first();
+$timer_traksi = DB::table('laporan_kinerja')->where('type_laporan_kinerja', 'timer_traksi')->where('no_laporan', $laporan->no_laporan)->first();
+$data_sertifikat = json_decode($timer_traksi->data_sertifikat);
+$data_laporan = json_decode($timer_traksi->data_laporan);
+
+$timerTraksi = [1, 2, 3];
+$timerTraksiData = [];
+$timerTraksiScore = 0;
+
+foreach ($timerTraksi as $timer) {
+    $prefix = "timer_{$timer}";
+    $mean = $data_laporan->$prefix;
+    $mean_terkoreksi = $data_sertifikat->intercept + $data_sertifikat->x_variable * $mean;
+    if ($timer == 1) {
+        $timer_real = 300;
+        $label_timer_real = 'Waktu Therapy 5 Menit (300 detik)									';
+    } elseif ($timer == 2) {
+        $timer_real = 20;
+        $label_timer_real = 'Waktu Hold 20 detik									';
+    } else {
+        $timer_real = 20;
+        $label_timer_real = 'Waktu Rest 20 detik';
+    }
+
+    $correction = $mean - $timer_real;
+    $tolerance = 0.1 * $timer_real;
+    $result = abs($correction) <= $tolerance ? 'Lulus' : 'Tidak';
+
+    if ($result == 'Lulus') {
+        $timerTraksiScore++;
+    }
+
+    $timerTraksiData[] = [
+        'label_timer_real' => $label_timer_real,
+        'timer_real' => $timer_real,
+        'data_laporan' => $mean,
+        'mean_terkoreksi' => $mean_terkoreksi,
+        'correction' => $correction,
+        'tolerance' => $tolerance,
+        'result' => $result,
+    ];
+}
+
+$timerTraksiFinalScore = ($timerTraksiScore / count($timerTraksi)) * 100;
+$timerTraksiRequirement = $timerTraksiFinalScore >= 50 ? 'Lulus' : 'Tidak';
+$score_kinerja = (($tekananTraksiFinalScore + $timerTraksiFinalScore) / 2) * 0.5;
+$totalAll = $score_fisik + $point + $score_kinerja;
+?>
+
+
+
 <p style="font-size: 14px;"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'F' : 'E' }}.
         PENGUKURAN KINERJA</b></p>
 
@@ -319,4 +373,154 @@ $tekananTraksiRequirement = $tekananTraksiFinalScore >= 50 ? 'Lulus' : 'Tidak';
             @endif
         </tr>
     @endforeach
+</table>
+
+{{-- TIMER --}}
+<p style="font-size: 11px;margin-left:18px"><b>TIMER</b></p>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:9px;width:100%;margin-top:-10px; padding-right:18px">
+    <tr>
+        <th style="text-align: center;vertical-align: middle;">Setting Standar</th>
+        <th style="text-align: center;vertical-align: middle;">Terukur pada Standar (Detik) </th>
+        <th style="text-align: center;vertical-align: middle;">Mean Terkoreksi</th>
+        <th style="text-align: center;vertical-align: middle;">Koreksi</th>
+        <th style="text-align: center;vertical-align: middle;">Toleransi</th>
+        <th style="text-align: center;vertical-align: middle;">Hasil</th>
+        <th style="text-align: center;vertical-align: middle;">Score</th>
+        <th style="text-align: center;vertical-align: middle;">Persyaratan</th>
+    </tr>
+    @foreach ($timerTraksiData as $data)
+        <tr>
+            <td style="text-align: center;vertical-align: middle;">{{ $data['label_timer_real'] }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['data_laporan'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['mean_terkoreksi'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['correction'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ round($data['tolerance'], 2) }}</td>
+            <td style="text-align: center;vertical-align: middle;">{{ $data['result'] }}</td>
+            @if ($data['timer_real'] == 300)
+                <td style="text-align: center;vertical-align: middle;" rowspan="3">{{ $timerTraksiFinalScore }}
+                </td>
+                <td style="text-align: center;vertical-align: middle;" rowspan="3">{{ $timerTraksiRequirement }}
+                </td>
+            @endif
+        </tr>
+    @endforeach
+</table>
+
+
+
+
+{{-- telaah_teknis --}}
+<p style="font-size: 14px"><b>{{ $count_laporan_pengukuran_keselamatan_listrik > 0 ? 'G' : 'F' }}. TELAAH
+        TEKNIS</b></p>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        @forelse ($laporan_telaah_teknis as $row)
+            <tr>
+                <td style="width: 4%;text-align: center;">{{ $loop->iteration }}</td>
+                <td style="text-align: justify;vertical-align: middle;">{{ $row->field_telaah_teknis }}</td>
+                <td>
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" {{ $row->value == 'baik' ? 'checked' : '' }}>
+                        <label>Baik</label>
+                    </div>
+                    <div class="form-group" style="margin: 0px">
+                        <input type="checkbox" {{ $row->value == 'tidak-baik' ? 'checked' : '' }}>
+                        <label>Tidak Baik</label>
+                    </div>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center;">-</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <thead>
+        <tr>
+            <th style="width: 4%;text-align: center;">No</th>
+            <th style="width: 24%;text-align: center;">Parameter</th>
+            <th style="width: 24%;text-align: center;">Skor</th>
+            <th style="width: 24%;text-align: center;">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: center;">1</td>
+            <td style="text-align: center;">PEMERIKSAAAN KONDISI FISIK DAN FUNGSI</td>
+            <td style="text-align: center;">{{ $score_fisik }}</td>
+            <td style="text-align: center;vertical-align: middle;" rowspan="3">
+                {{ $totalAll }}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">2</td>
+            <td style="text-align: center;">Pengukuran Keselamatan Listrik
+            </td>
+            <td style="text-align: center;">
+                {{ $point }}
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">3</td>
+            <td style="text-align: center;">Hasil Pengukuran Kinerja</td>
+            <td style="text-align: center;">
+                {{ $score_kinerja }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="height:60px"><b>Catatan :</b> {{ $laporan_kesimpulan_telaah_teknis->catatan }} </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered table-sm"
+    style="margin-left: 18px;font-size:11px;width:100%;margin-top:-10px; padding-right:18px">
+    <tbody>
+        <tr>
+            <td style="width: 40%;text-align: center;vertical-align: middle;">Berdasarkan hasil pengujian dan/ atau
+                hasil kalibrasi, alat ini dinyatakan </td>
+            <td style="width: 20%;text-align: center;vertical-align: middle;">
+                <div class="form-group" style="margin: 0px">
+                    <input type="checkbox" {{ $totalAll >= 70 ? 'checked' : '' }}>
+                    <label><b style="font-size: 12px">LAIK PAKAI</b></label>
+                </div>
+            </td>
+            <td style="width: 20%;text-align: center;vertical-align: middle;">
+                <div class="form-group" style="margin: 0px">
+                    <input type="checkbox" {{ $totalAll < 70 ? 'checked' : '' }}>
+                    <label><b style="font-size: 12px">TIDAK LAIK PAKAI</b></label>
+                </div>
+            </td>
+            <td style="width: 20%;text-align: center;vertical-align: middle;"><b style="font-size: 12px">PENYELIA</b>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;height:75px;vertical-align: middle;">Pelaksana Pengujian dan Kalibrasi
+            </td>
+            <td colspan="2" style="text-align: center">
+                <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                    src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->nama_teknisi)) !!} "> <br>
+                <span>{{ $laporan->nama_teknisi }}</span>
+            </td>
+            <td style="text-align: center">
+                @if (isset($laporan->name_user))
+                    <img style="width: 80px;margin-top:5px;margin-bottom:3px"
+                        src="data:image/png;base64, {!! base64_encode(QrCode::generate($laporan->name_user)) !!} "> <br>
+                    <span>{{ $laporan->name_user }}</span>
+                @endif
+            </td>
+        </tr>
+    </tbody>
 </table>
