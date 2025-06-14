@@ -1014,16 +1014,25 @@ function skala_pembesaran($request)
 {
     $data_laporan = [];
 
+    // Terukur (required)
+    for ($i = 1; $i <= 5; $i++) {
+        $key = "terukur_$i";
+        $data_laporan[$key] = $request->$key;
+    }
+
+    // Kualitas (required)
     for ($i = 1; $i <= 5; $i++) {
         $key = "kualitas_$i";
         $data_laporan[$key] = $request->$key;
     }
 
+    // Stage Mikrometer (required)
     for ($i = 1; $i <= 5; $i++) {
         $key = "stage_$i";
         $data_laporan[$key] = $request->$key;
     }
 
+    // Okuler Mikrometer (tidak required)
     for ($i = 1; $i <= 5; $i++) {
         $key = "okuler_$i";
         $data_laporan[$key] = $request->$key ?? null;

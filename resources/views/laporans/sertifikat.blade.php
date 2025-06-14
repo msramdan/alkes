@@ -96,4 +96,6 @@
     @include('laporans._sertifikat.traksi')
 @elseif ($nomenklatur->id == config('nomenklatur.UV_STERILIZER'))
     @include('laporans._sertifikat.uv_sterilizer')
+@elseif ($nomenklatur->id == config('nomenklatur.MIKROSKOP'))
+    @include('laporans._sertifikat.MIKROSKOP')
 @endif
