@@ -153,6 +153,8 @@
         @include('laporans._pdf_lk_laporan.score_hfnc')
     @elseif ($nomenklaturs->id == config('nomenklatur.TRAKSI'))
         @include('laporans._pdf_lk_laporan.score_traksi')
+    @elseif ($nomenklaturs->id == config('nomenklatur.UV_STERILIZER'))
+        @include('laporans._pdf_lk_laporan.score_uv_sterilizer')
     @endif
 
 

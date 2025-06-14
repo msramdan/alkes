@@ -94,4 +94,6 @@
     @include('laporans._sertifikat.hfnc')
 @elseif ($nomenklatur->id == config('nomenklatur.TRAKSI'))
     @include('laporans._sertifikat.traksi')
+@elseif ($nomenklatur->id == config('nomenklatur.UV_STERILIZER'))
+    @include('laporans._sertifikat.uv_sterilizer')
 @endif
