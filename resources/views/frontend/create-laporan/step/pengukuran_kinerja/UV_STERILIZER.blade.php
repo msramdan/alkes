@@ -35,36 +35,36 @@
             <tbody>
                 <tr>
                     <td rowspan="4">MAX</td>
-                    <td><input name="peak_a_1" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_a_1" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_a_2" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_a_2" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_a_3" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_a_3" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
                     <td rowspan="4">&gt; 40 µW/cm²</td>
                 </tr>
                 <tr>
-                    <td><input name="peak_b_1" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_b_1" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_b_2" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_b_2" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_b_3" required type="number" step="0.000000001"
-                            class="form-control form-control-sm"></td>
-                </tr>
-                <tr>
-                    <td><input name="peak_c_1" required type="number" step="0.000000001"
-                            class="form-control form-control-sm"></td>
-                    <td><input name="peak_c_2" required type="number" step="0.000000001"
-                            class="form-control form-control-sm"></td>
-                    <td><input name="peak_c_3" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_b_3" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
                 </tr>
                 <tr>
-                    <td><input name="peak_d_1" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_c_1" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_d_2" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_c_2" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
-                    <td><input name="peak_d_3" required type="number" step="0.000000001"
+                    <td><input name="spectral_irradiance_uv_c_3" required type="number" step="0.000000001"
+                            class="form-control form-control-sm"></td>
+                </tr>
+                <tr>
+                    <td><input name="spectral_irradiance_uv_d_1" required type="number" step="0.000000001"
+                            class="form-control form-control-sm"></td>
+                    <td><input name="spectral_irradiance_uv_d_2" required type="number" step="0.000000001"
+                            class="form-control form-control-sm"></td>
+                    <td><input name="spectral_irradiance_uv_d_3" required type="number" step="0.000000001"
                             class="form-control form-control-sm"></td>
                 </tr>
             </tbody>

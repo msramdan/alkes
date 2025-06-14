@@ -974,3 +974,38 @@ function timer_traksi($request)
 
     return json_encode($data_laporan);
 }
+
+
+// UV_STERILIZER
+function spectral_irradiance_uv($request)
+{
+    $data_laporan = [
+        'spectral_irradiance_uv_a_1' => $request->spectral_irradiance_uv_a_1,
+        'spectral_irradiance_uv_a_2' => $request->spectral_irradiance_uv_a_2,
+        'spectral_irradiance_uv_a_3' => $request->spectral_irradiance_uv_a_3,
+        'spectral_irradiance_uv_b_1' => $request->spectral_irradiance_uv_b_1,
+        'spectral_irradiance_uv_b_2' => $request->spectral_irradiance_uv_b_2,
+        'spectral_irradiance_uv_b_3' => $request->spectral_irradiance_uv_b_3,
+        'spectral_irradiance_uv_c_1' => $request->spectral_irradiance_uv_c_1,
+        'spectral_irradiance_uv_c_2' => $request->spectral_irradiance_uv_c_2,
+        'spectral_irradiance_uv_c_3' => $request->spectral_irradiance_uv_c_3,
+        'spectral_irradiance_uv_d_1' => $request->spectral_irradiance_uv_d_1,
+        'spectral_irradiance_uv_d_2' => $request->spectral_irradiance_uv_d_2,
+        'spectral_irradiance_uv_d_3' => $request->spectral_irradiance_uv_d_3,
+    ];
+
+    return json_encode($data_laporan);
+}
+
+
+function waktu_tunda_va($request)
+{
+    $data_laporan = [];
+
+    for ($i = 1; $i <= 3; $i++) {
+        $fieldName = "delay_{$i}";
+        $data_laporan[$fieldName] = $request->$fieldName;
+    }
+
+    return json_encode($data_laporan);
+}
