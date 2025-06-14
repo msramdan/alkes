@@ -531,9 +531,14 @@ class LaporanLkController extends Controller
                     'data_laporan' => waktu_tunda_va($request),
                     'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.MIKROSKOP')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'skala_pembesaran',
+                    'data_laporan' => skala_pembesaran($request),
+                    'data_sertifikat' => json_encode([])
+                ]);
             }
-
-
             //Create Laporan Telaah Teknis
             $telaah_teknis = $this->preg_grep_keys('/^telaah_teknis-+(?:.+)/m', $request->input());
             $telaah_teknis_key = array_keys($telaah_teknis);

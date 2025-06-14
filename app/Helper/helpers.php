@@ -997,7 +997,6 @@ function spectral_irradiance_uv($request)
     return json_encode($data_laporan);
 }
 
-
 function waktu_tunda_va($request)
 {
     $data_laporan = [];
@@ -1005,6 +1004,29 @@ function waktu_tunda_va($request)
     for ($i = 1; $i <= 3; $i++) {
         $fieldName = "delay_{$i}";
         $data_laporan[$fieldName] = $request->$fieldName;
+    }
+
+    return json_encode($data_laporan);
+}
+
+// MIKROSKOP
+function skala_pembesaran($request)
+{
+    $data_laporan = [];
+
+    for ($i = 1; $i <= 5; $i++) {
+        $key = "kualitas_$i";
+        $data_laporan[$key] = $request->$key;
+    }
+
+    for ($i = 1; $i <= 5; $i++) {
+        $key = "stage_$i";
+        $data_laporan[$key] = $request->$key;
+    }
+
+    for ($i = 1; $i <= 5; $i++) {
+        $key = "okuler_$i";
+        $data_laporan[$key] = $request->$key ?? null;
     }
 
     return json_encode($data_laporan);
