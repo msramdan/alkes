@@ -219,6 +219,7 @@ class InventariController extends Controller
             config('type_inventaris.Phototherapy_Radiometer') => 'inventaris.sertifikat.Phototherapy_Radiometer',
             config('type_inventaris.ForceGauge') => 'inventaris.sertifikat.ForceGauge',
             config('type_inventaris.UvRadiometer') => 'inventaris.sertifikat.UvRadiometer',
+            config('type_inventaris.GasFlowAnalyzer') => 'inventaris.sertifikat.GasFlowAnalyzer',
         ];
 
         $view = $viewMapping[$data->jenis_alat_id] ?? null;
@@ -319,6 +320,7 @@ class InventariController extends Controller
             config('type_inventaris.SPO2_Simulator') => ['slope_bpm', 'intercept_bpm', 'u_bpm', 'slope_o2', 'intercept_o2', 'u_o2'],
             config('type_inventaris.Phototherapy_Radiometer') => ['slope', 'intercept', 'uc'],
             config('type_inventaris.UvRadiometer') => ['slope', 'intercept', 'uc'],
+            config('type_inventaris.GasFlowAnalyzer') => ['intercept', 'x_variable_1'],
         ];
 
         $fields = $jenisAlatFields[$data->jenis_alat_id] ?? [];

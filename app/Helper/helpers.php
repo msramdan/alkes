@@ -1040,3 +1040,30 @@ function skala_pembesaran($request)
 
     return json_encode($data_laporan);
 }
+
+// NEBULIZER
+function kinerja_putaran_nebulizer($request)
+{
+    $data_laporan = [];
+
+    for ($percobaan = 1; $percobaan <= 3; $percobaan++) {
+        for ($kolom = 1; $kolom <= 6; $kolom++) {
+            $fieldName = "percobaan{$percobaan}_{$kolom}";
+            $data_laporan[$fieldName] = $request->$fieldName;
+        }
+    }
+
+    return json_encode($data_laporan);
+}
+
+function kinerja_waktu_nebulizer($request)
+{
+    $data_laporan = [];
+
+    for ($i = 1; $i <= 3; $i++) {
+        $fieldName = "percobaan4_{$i}";
+        $data_laporan[$fieldName] = $request->$fieldName;
+    }
+
+    return json_encode($data_laporan);
+}

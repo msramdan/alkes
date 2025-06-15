@@ -197,7 +197,12 @@ class LaporanLkController extends Controller
                 } else if ($nomenklatur_type->type_id == config('type_inventaris.UvRadiometer')) {
                     $sertifikatUvRadiometer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
                     if (!$sertifikatUvRadiometer) {
-                        dd('sertifikat ForceGauge belum diisi');
+                        dd('sertifikat UvRadiometer belum diisi');
+                    }
+                } else if ($nomenklatur_type->type_id == config('type_inventaris.GasFlowAnalyzer')) {
+                    $sertifikatGasFlowAnalyzer = DB::table('sertifikat_inventaris')->orderBy('tahun', 'desc')->where('inventaris_id', $inventaris_id)->first();
+                    if (!$sertifikatGasFlowAnalyzer) {
+                        dd('sertifikat GasFlowAnalyzer belum diisi');
                     }
                 }
                 DB::table('laporan_daftar_alat_ukur')->insert([
@@ -537,6 +542,20 @@ class LaporanLkController extends Controller
                     'type_laporan_kinerja' => 'skala_pembesaran',
                     'data_laporan' => skala_pembesaran($request),
                     'data_sertifikat' => json_encode([])
+                ]);
+            } else if ($request->nomenklatur_id == config('nomenklatur.NEBULIZER')) {
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'kinerja_putaran_nebulizer',
+                    'data_laporan' => kinerja_putaran_nebulizer($request),
+                    'data_sertifikat' => $sertifikatGasFlowAnalyzer->data,
+                ]);
+
+                DB::table('laporan_kinerja')->insert([
+                    'no_laporan' => $laporan->no_laporan,
+                    'type_laporan_kinerja' => 'kinerja_waktu_nebulizer',
+                    'data_laporan' => kinerja_waktu_nebulizer($request),
+                    'data_sertifikat' => $sertifikatDigitalStopWatch->data,
                 ]);
             }
             //Create Laporan Telaah Teknis

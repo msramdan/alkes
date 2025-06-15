@@ -22,4 +22,5 @@ return [
     'Phototherapy_Radiometer' => 52,
     'ForceGauge' => 10,
     'UvRadiometer' => 53,
+    'GasFlowAnalyzer' => 55,
 ];
