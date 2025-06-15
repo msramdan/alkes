@@ -157,6 +157,8 @@
         @include('laporans._pdf_lk_laporan.score_uv_sterilizer')
     @elseif ($nomenklaturs->id == config('nomenklatur.MIKROSKOP'))
         @include('laporans._pdf_lk_laporan.MIKROSKOP')
+    @elseif ($nomenklaturs->id == config('nomenklatur.NEBULIZER'))
+        @include('laporans._pdf_lk_laporan.NEBULIZER')
     @endif
 
 

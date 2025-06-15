@@ -98,4 +98,6 @@
     @include('laporans._sertifikat.uv_sterilizer')
 @elseif ($nomenklatur->id == config('nomenklatur.MIKROSKOP'))
     @include('laporans._sertifikat.MIKROSKOP')
+    @elseif ($nomenklatur->id == config('nomenklatur.NEBULIZER'))
+    @include('laporans._sertifikat.NEBULIZER')
 @endif
