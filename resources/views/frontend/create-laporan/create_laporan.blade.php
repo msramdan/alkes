@@ -160,7 +160,7 @@
                     $('#form-laporan').append(item.cloneNode(true));
                 });
 
-            }else{
+            } else {
                 var form5 = document.getElementById('form-5').elements;
                 [...form5].forEach((item) => {
                     $('#form-laporan').append(item.cloneNode(true));
@@ -269,6 +269,35 @@
                 return true;
             });
 
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            // cari input yang ada label mengandung DPS
+            let $dps = $("label:contains('(DPS)')").siblings("input[type='number']");
+            // cari input yang ada label mengandung NPS
+            let $nps = $("label:contains('(NPS)')").siblings("input[type='number']");
+
+            function toggleInputs() {
+                if ($dps.val() !== "") {
+                    $nps.prop("disabled", true).val("");
+                } else {
+                    $nps.prop("disabled", false);
+                }
+
+                if ($nps.val() !== "") {
+                    $dps.prop("disabled", true).val("");
+                } else {
+                    $dps.prop("disabled", false);
+                }
+            }
+
+            $dps.on("input", toggleInputs);
+            $nps.on("input", toggleInputs);
+
+            toggleInputs();
         });
     </script>
 @endpush

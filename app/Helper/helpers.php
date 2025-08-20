@@ -87,10 +87,14 @@ function get_data_litsrik($no_laporan, $field, $where)
         ->where('no_laporan', $no_laporan)
         ->where($field, $where)
         ->first();
-    if (isset($cek)) {
+
+    if (isset($cek) && isset($cek->value)) {
+        $cek->value = is_numeric($cek->value) ? $cek->value : 0;
         return $cek;
     } else {
-        return '-';
+        $emptyObj = new stdClass();
+        $emptyObj->value = 0;
+        return $emptyObj;
     }
 }
 
